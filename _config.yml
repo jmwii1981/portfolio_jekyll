@@ -35,13 +35,13 @@ plugins:
 
 # Other configuration options
 sass:
-  sass_dir: _sass
+  sass_dir: sass
   style: compressed
 
 
 # Optional: Include custom directories so that Jekyll processes them
 include:
-  - _sass
+  - sass
   - favicons
   - fonts
   - icons
