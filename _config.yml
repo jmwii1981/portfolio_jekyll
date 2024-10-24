@@ -22,7 +22,7 @@ title: Jan Michael Wallace, Pioneering Inclusive, Future-Forward Technology
 email: hello@janmichael.io
 description: >- # this means to ignore newlines until "baseurl:"
   Let's craft your minimum awesome product!
-baseurl: "portfolio_jekyll" # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://janmichael.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jmwii1981
 github_username:  jmwii1981
