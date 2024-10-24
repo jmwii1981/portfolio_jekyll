@@ -35,18 +35,18 @@ plugins:
 
 # Other configuration options
 sass:
-  sass_dir: assets/css
+  sass_dir: _sass
   style: compressed
 
 
 # Optional: Include custom directories so that Jekyll processes them
 include:
+  - _sass
   - favicons
   - fonts
   - icons
   - images
   - scripts
-  - assets
 
 # Optional: If needed, exclude certain directories (you probably don’t need this if not relevant)
 # exclude:
