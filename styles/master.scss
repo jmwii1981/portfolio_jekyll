@@ -2,16 +2,16 @@
 ---
 
 // fonts
-@forward "fonts/fonts";
+@use "fonts/_fonts";
 
 // resets
-@forward "resets/_normalize";
+@use "resets/_normalize";
 
 // global
-@forward "global/_global";
+@use "global/_global";
 
 // layouts
-@forward "layouts/_page";
+@use "layouts/_page";
 
 // includes
 @use "includes/_header";
