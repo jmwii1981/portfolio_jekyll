@@ -1,0 +1,24 @@
+---
+---
+
+// fonts
+@forward "fonts/_fonts";
+
+// resets
+@forward "resets/_normalize";
+
+// global
+@forward "global/_global";
+
+// layouts
+@forward "layouts/_page";
+
+// includes
+@use "includes/_header";
+@use "includes/_footer";
+@use "includes/_nav";
+@use "includes/_recommendations";
+@use "includes/_work";
+@use "includes/_about";
+@use "includes/_experience";
+@use "includes/_perspectives";

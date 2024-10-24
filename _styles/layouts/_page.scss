@@ -1,0 +1,40 @@
+//***********************************************************//
+//**                      MEDIA QUERIES                    **//
+//***********************************************************//
+
+// EXAMPLE OF HOW TO SEPARATE STYLES OUT INTO MEDIA QUERIES
+//		@import url("/inc/Styles/full.css") (min-width: 940px);
+
+// EXAMPLE OF ACCESSIBLE MEDIA QUERY
+// 		@media (prefers-reduced-motion: reduce) {
+//			.Toggle__display {
+//			transition-duration: 0ms;
+//			}
+//		}
+
+
+// MOBILE - PORTRAIT //
+@media only screen and (pointer: coarse) and (orientation: portrait) and (min-device-width: 0px) {
+	// Silence is golden.
+}
+
+// MOBILE - LANDSCAPE //
+@media only screen and (pointer: coarse) and (orientation: landscape) and (min-device-width: 0px) {
+	// Silence is golden.
+}
+
+
+// HOVER CAPABILITIES ONLY ** ** //
+@media only screen and (hover: hover) {
+	// Silence is golden.
+}
+
+// PREFERS REDUCED MOTION (EXAMPLES)
+//   (ENTER CODE HERE)
+// }
+
+// @media (prefers-reduced-motion) {
+//   .animation {
+//     animation-name: dissolve;
+//   }
+// }

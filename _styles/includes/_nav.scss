@@ -1,0 +1,70 @@
+// NAVIGATION TABS
+.nav-container {
+    display: flex;
+    margin: 4rem 0 0;
+    padding: 0 0 1rem;
+    position: relative;
+}
+
+.nav {
+    border-color: #D3D3D3;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0;
+    padding: 0rem;
+  }
+  
+  .tab-container {
+    list-style: none;
+    margin: 0;
+    padding: .5rem 2rem;
+    position: relative;
+  }
+
+  .tab {
+    font-weight: 500;
+  }
+
+
+
+
+ // TAB DECORATIONS
+ .padlock {
+    pointer-events: none;
+    position: absolute;
+        top: 0.67rem;
+        left: 1.1rem;
+ }
+ 
+ .sparkle {
+    pointer-events: none;
+    position: absolute;
+        top: 0.25rem;
+        right: 1.4rem;
+    path {
+        fill:#2B849D;
+    }
+ }
+
+
+ // CURRENTLY ACTIVE TAB
+
+ .tab.active {
+    color: #343339;
+    pointer-events: none;
+
+        // line
+        &:after {
+            background-color: #2B849D;
+            border-radius: 5px;
+            content: '';
+            height: 3px;
+            position: absolute;
+                bottom: -2px;
+                left: 0rem;
+            width: 100%;;
+        }
+ }

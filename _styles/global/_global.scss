@@ -1,0 +1,309 @@
+//***********************************************************//
+//**                  GLOBAL TYPOGRAPHY                    **//
+//***********************************************************//
+
+// selection color(s)
+img::selection,
+h1::selection,
+h2::selection,
+h3::selection,
+h4::selection,
+h5::selection,
+h6::selection,
+p::selection,
+a::selection,
+span::selection {
+			background-color: #2B849D;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    color: #343339;
+}
+
+a {
+    color: #2B849D;
+	position: relative;
+	text-decoration: none;
+	z-index: 1;
+	outline-offset: 0rem;
+	outline-style: solid;
+	outline-width: 0rem;
+	transition-duration: 0.3s, 0.3s;
+	transition-property: outline-color, outline-offset;
+	transition-timing-function: ease-out, ease-out;
+
+	&:focus {
+		border-radius: 0.2rem;
+		outline-offset: 0.2rem;
+		outline-width: 0.3rem;
+	}
+
+	&--light:focus,
+	&--border-light:focus {
+		@media (prefers-color-scheme: light) {
+				// @include outline-color($lightmode--light-outline-color);
+		}
+		@media (prefers-color-scheme: dark) {
+				// @include outline-color($darkmode--light-outline-color);
+		}
+	}
+
+	&--dark:focus,
+	&--border-dark:focus {
+		@media (prefers-color-scheme: light) {
+				// @include outline-color($lightmode--darkest-outline-color);
+		}
+		@media (prefers-color-scheme: dark) {
+				// @include outline-color($darkmode--darkest-outline-color);
+		}
+	}
+}
+
+//***********************************************************//
+//**                CONTEXTUAL TYPOGRAPHY                  **//
+//***********************************************************//
+
+.header {
+    .h1 {
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 1.15;
+        margin: 2rem auto 0;
+    }
+    .h2 {
+       font-size: 18px;
+       font-weight: 400;
+       line-height: 1.5;
+       margin: 0 auto;
+    }
+    .p {
+        color: #666666;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 1.5;
+        margin: 0 auto;
+    }
+    .a {
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .p, .a {
+        .decorative {
+            font-weight: 200;
+        }
+    }
+}
+
+//***********************************************************//
+//**                     GLOBAL LAYOUT                     **//
+//***********************************************************//
+
+// DOCUMENT CONTAINER
+.html {
+	align-items: flex-start;
+    display: flex;
+	font-family: "Heebo", "Helvetica neue", Helvetica, Verdana, Sans-serif;
+	font-size: 16px;
+	-webkit-font-smoothing: antialiased;
+	image-rendering: -webkit-optimize-contrast;
+	justify-content: center;
+	overflow-x: hidden;
+	position: relative;
+	width: 100%;
+	z-index: 0;
+
+	@media only screen and (min-width: 640px) {
+		// font-size: 62.5%;
+	}
+}
+
+// BODY CONTAINER
+.body {
+	align-items: flex-start;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	z-index: 1;
+}
+
+// MAIN CONTENT WRAPPER
+.main {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 auto;
+    max-width: 1024px;
+    padding: 0 56px;
+    position: relative;
+	width: 100%;
+	z-index: 1;
+}
+
+
+
+//***********************************************************//
+//**               GLOBAL DESIGN ELEMENTS                  **//
+//***********************************************************//
+
+  // GLOBAL LOGO
+.logo-container {
+    display: flex;
+    position: relative;
+}
+
+.half-oval {
+    content: "";
+    background-color: #F8FAFD;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    height: 12rem;
+    position: absolute;
+        top: 0rem; /* Position the square inside the parent */
+        left: -12.5%;
+        right: -12.5%;
+    width: 125%; /* Adjust the size as needed */
+    z-index: 0;
+  }
+
+.logo {
+    display: flex;
+    margin: 0;
+    position: relative;
+    pointer-events: all;
+
+    &.large {
+        height: 9.5rem;
+        width: 9.5rem;
+    }
+    &.small {
+        height: 2.25rem;
+        width: 2.25rem;
+    }
+    &:hover {
+        cursor: pointer;
+    }
+    &:focus {
+        outline-offset: 0.5rem;
+    }
+}
+
+// PROGRESS BAR
+.progress-bar-container {
+	background-color: rgba(32, 42, 171, 0.1);
+	height: 3px;
+	width: 100%;
+	position: absolute;
+		bottom: -3px;
+		left: 0;
+}
+#progress-bar {
+	--scrollAmount: 0%;
+	background-image: linear-gradient(120deg, #2B849D 0%, #2B849D 100%);
+	width: var(--scrollAmount);
+	height: 2px;
+	position: absolute;
+		bottom: 1px;
+		left: 0;
+}
+
+// SOCIAL LIST
+.social-links-container {
+	align-self: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	justify-content: space-between;
+	margin: -0.5rem auto;
+	padding: 0;
+}
+.social-icon,
+.social-icon img {
+    height: 2.75rem;
+    width: 2.75rem;
+
+
+}
+
+// ARROW LINKS
+.arrow-link {
+    font-weight: 500;
+    margin: 2rem 2.5rem 2rem 0rem;
+    position: relative;
+
+    &:before {
+        content:'';
+        background-color: #fff;
+        border-radius: 100%;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.15);
+        height: 4rem;
+        position: absolute;
+            top: -1.45rem;
+            left: calc(100% + 1rem);
+        width: 4rem;
+        z-index: 0;
+    }
+    &:after {
+        background-image: url('/_icons/svg/arrow.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        content: '';
+        height: 1.7rem;
+        position: absolute;
+            top: -0.4rem;
+            left: calc(100% + 2.1rem);
+        width: 1.7rem;
+        z-index: 100;
+    }
+}
+
+//***********************************************************//
+//**                      MEDIA QUERIES                    **//
+//***********************************************************//
+
+// EXAMPLE OF HOW TO SEPARATE STYLES OUT INTO MEDIA QUERIES
+//		@import url("/inc/Styles/full.css") (min-width: 940px);
+
+// EXAMPLE OF ACCESSIBLE MEDIA QUERY
+// 		@media (prefers-reduced-motion: reduce) {
+//			.Toggle__display {
+//			transition-duration: 0ms;
+//			}
+//		}
+
+
+// MOBILE - PORTRAIT //
+@media only screen and (pointer: coarse) and (orientation: portrait) and (min-device-width: 0px) {
+	// Silence is golden.
+}
+
+// MOBILE - LANDSCAPE //
+@media only screen and (pointer: coarse) and (orientation: landscape) and (min-device-width: 0px) {
+	// Silence is golden.
+}
+
+
+// HOVER CAPABILITIES ONLY ** ** //
+@media only screen and (hover: hover) {
+	// Silence is golden.
+}
+
+// PREFERS REDUCED MOTION (EXAMPLES)
+//   (ENTER CODE HERE)
+// }
+
+// @media (prefers-reduced-motion) {
+//   .animation {
+//     animation-name: dissolve;
+//   }
+// }
