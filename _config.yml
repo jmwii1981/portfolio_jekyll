@@ -35,7 +35,7 @@ plugins:
 
 # Other configuration options
 sass:
-  sass_dir: styles
+  sass_dir: assets/css
   style: compressed
 
 
@@ -46,7 +46,7 @@ include:
   - icons
   - images
   - scripts
-  - styles
+  - assets
 
 # Optional: If needed, exclude certain directories (you probably don’t need this if not relevant)
 # exclude:
