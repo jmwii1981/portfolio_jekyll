@@ -1,3 +1,10 @@
+// MOBILE - PORTRAIT - BEGINS ON IPHONE, ENDS ON IPAD MINI //
+@media only screen and (min-width: 763px) {
+	html {
+        background-color: pink;
+    }
+}
+
 // NAVIGATION TABS
 .nav-container {
     display: flex;
@@ -15,21 +22,18 @@
     list-style: none;
     margin: 0;
     padding: 0rem;
-  }
-  
-  .tab-container {
+}
+
+.tab-container {
     list-style: none;
     margin: 0;
     padding: .5rem 2rem;
     position: relative;
-  }
+}
 
-  .tab {
+.tab {
     font-weight: 500;
-  }
-
-
-
+}
 
  // TAB DECORATIONS
  .padlock {
@@ -49,9 +53,7 @@
     }
  }
 
-
  // CURRENTLY ACTIVE TAB
-
  .tab.active {
     color: #343339;
     pointer-events: none;
@@ -68,3 +70,4 @@
             width: 100%;;
         }
  }
+

@@ -143,12 +143,18 @@ a {
 	justify-content: center;
 	margin: 0 auto;
     max-width: 1024px;
-    padding: 0 56px;
+    padding: 0 8px;
     position: relative;
 	width: 100%;
 	z-index: 1;
 }
 
+// MOBILE - PORTRAIT - BEGINS ON IPHONE, ENDS ON IPAD MINI //
+@media only screen and (min-width: 765px) {
+	.main {
+        padding: 0 56px;        
+    }
+}
 
 
 //***********************************************************//
@@ -231,8 +237,6 @@ a {
 .social-icon img {
     height: 2.75rem;
     width: 2.75rem;
-
-
 }
 
 // ARROW LINKS

@@ -30,12 +30,20 @@
 	flex-direction: column;
 	justify-content: flex-start;
 	margin: 0 auto 24px;
-	padding: 2rem;
+	max-width: 1024px;
+	padding: 0;
+	width: 100%;
 
 	&:nth-child(1) {
 		padding-top: .05rem;
 	}
 }
+@media only screen and (min-width: 765px) {
+	.recommendation {
+		padding: 2rem;
+	}
+}
+
 .rec-meta {
 	align-items: center;
 	display: flex;
@@ -58,12 +66,17 @@
 	}
 }
 .description {
-	padding: 0 64px;
+	padding: 0;
     width: 100%;
 	.p {
 		color: #666666;
 		font-weight: 400;
 		line-height: 1.75;
 		width: 100%;
+	}
+}
+@media only screen and (min-width: 765px) {
+	.description { 
+		padding: 0 64px;
 	}
 }

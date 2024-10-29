@@ -8,6 +8,6 @@ title: Work
         <a class="portfolio-item" href="//figma.com" target="_blank">An image goes here.</a>
     </section>
     <a class="button">
-        <a class="arrow-link" href="https://www.linkedin.com/in/jmwii1981/details/recommendations/" target="_blank">View more</a>
+        <a class="arrow-link" href="https://www.figma.com/@jmwii1981/" target="_blank">View more</a>
     </a>
 </main>
