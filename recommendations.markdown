@@ -3,7 +3,7 @@ layout: page
 title: Recommendations
 permalink: /recommendations/
 ---
-<main class="main">
+<main class="main {% if page.url == '/recommendations/' %}recommendations{% endif %}">
     <section class="recommendation">
         <div class="rec-meta">
             <img src="{{ site.baseurl }}/images/vinesha.webp" alt="Vinesha Perera, Chief Product Officer" class="headshot">
@@ -16,7 +16,6 @@ permalink: /recommendations/
             <p class="p">I highly recommend Jan for product design leadership roles.</p>
         </div>
     </section>
-    <hr class="hr">
     <section class="recommendation">
         <div class="rec-meta">
             <img src="{{ site.baseurl }}/images/justin.webp" alt="Justin Jolley, Director of Product Design and Research" class="headshot">
@@ -28,7 +27,6 @@ permalink: /recommendations/
             <p class="p">Jan also is eager to represent others in diverse groups from diversity and inclusion at work to mentoring new designers on his own time. Jan is well rounded as well as being eager to lead and serve. Jan is a great asset to our team.</p>
         </div>
     </section>
-    <hr class="hr">
     <section class="recommendation">
         <div class="rec-meta">
             <img src="{{ site.baseurl }}/images/dani.webp" alt="Dani Shafer, Product Design Manager" class="headshot">
@@ -42,7 +40,6 @@ permalink: /recommendations/
             <p class="p">He would be an asset to any team!</p>
         </div> 
     </section>
-    <hr class="hr">
     <section class="recommendation">
         <div class="rec-meta">
             <img src="{{ site.baseurl }}/images/jess.webp" alt="Jessica Longley, Product Designer" class="headshot">
@@ -56,7 +53,7 @@ permalink: /recommendations/
             <p class="p">It is a relief when Jan is in charge. I highly recommend him as a leader and a general practitioner.</p>
         </div>
     </section>
-    <a class="button">
+    <section class="eop-cta">
         <a class="arrow-link" href="https://www.linkedin.com/in/jmwii1981/details/recommendations/" target="_blank">View more</a>
-    </a>
+    </section>
 </main>

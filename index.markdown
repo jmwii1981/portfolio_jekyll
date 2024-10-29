@@ -2,7 +2,7 @@
 layout: page
 title: Work
 ---
-<main class="main">
+<main class="main {% if page.url == '/work/' %}work{% endif %}">
     <section class="portfolio">
         <h2 class="h1">The 'Work' page is currently under construction.</h2>
         <a class="portfolio-item" href="//figma.com" target="_blank">An image goes here.</a>

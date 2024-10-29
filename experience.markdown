@@ -3,7 +3,7 @@ layout: page
 title: Experience
 permalink: /experience/
 ---
-<main class="main">
+<main class="main {% if page.url == '/experience/' %}experience{% endif %}">
     <section class="portfolio">
         <h2 class="h1">The 'Experience' page is currently under construction.</h2>
     </section>

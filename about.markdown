@@ -3,7 +3,7 @@ layout: page
 title: About
 permalink: /about/
 ---
-<main class="main">
+<main class="main {% if page.url == '/about/' %}about{% endif %}">
     <section class="bio">
         <h2 class="h1">The 'About' page is currently under construction.</h2>
     </section>

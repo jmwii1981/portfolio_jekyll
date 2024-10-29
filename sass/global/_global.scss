@@ -156,6 +156,20 @@ a {
     }
 }
 
+.eop-cta {
+    align-items: center;
+    border-color: #D3D3D3;
+    border-top-style: solid;
+    border-top-width: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2rem auto 0;
+    max-width: 706px;
+    padding: 2rem;
+    width: 100%;
+}
+
 
 //***********************************************************//
 //**               GLOBAL DESIGN ELEMENTS                  **//
@@ -169,7 +183,7 @@ a {
 
 .half-oval {
     content: "";
-    background-color: #F8FAFD;
+    background-color: #EDF0F6;
     border-bottom-left-radius: 50%;
     border-bottom-right-radius: 50%;
     height: 12rem;
@@ -242,7 +256,7 @@ a {
 // ARROW LINKS
 .arrow-link {
     font-weight: 500;
-    margin: 2rem 2.5rem 2rem 0rem;
+    margin: 2rem 4.5rem 2rem 0rem;
     position: relative;
 
     &:before {
