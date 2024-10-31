@@ -2,12 +2,26 @@
 layout: page
 title: Work
 ---
-<main class="main {% if page.url == '/work/' %}work{% endif %}">
-    <section class="portfolio">
-        <h2 class="h1">The 'Work' page is currently under construction.</h2>
-        <a class="portfolio-item" href="//figma.com" target="_blank">An image goes here.</a>
+<main class="main {% if page.url == '/' %}work{% endif %}">
+    <section class="work-item">
+        <a class="a item-wrapper" href="//www.figma.com/deck/UERQURaUcK0Lkq0kFNAgq3/Untitled?node-id=1-62&t=sTNvOLC5sVvb7jwf-1" aria-label="See more about Product X on Figma" target="_blank">
+            <img class="work-teaser" src="/images/color-exploration.webp" alt="Description of the image">
+        </a>
+        <h2 class="h2">Product X</h2>
     </section>
-    <a class="button">
-        <a class="arrow-link" href="https://www.figma.com/@jmwii1981/" target="_blank">View more</a>
-    </a>
+    <section class="work-item">
+        <a class="a item-wrapper" href="//www.figma.com/deck/UERQURaUcK0Lkq0kFNAgq3/Untitled?node-id=1-62&t=sTNvOLC5sVvb7jwf-1" aria-label="See more about Product X on Figma" target="_blank">
+            <img class="work-teaser" src="/images/vega-design-system.webp" alt="Description of the image">
+        </a>
+        <h2 class="h2">Design System</h2>
+    </section>
+        <section class="work-item">
+        <a class="a item-wrapper" href="//www.figma.com/deck/UERQURaUcK0Lkq0kFNAgq3/Untitled?node-id=1-62&t=sTNvOLC5sVvb7jwf-1" aria-label="See more about Product X on Figma" target="_blank">
+            <img class="work-teaser" src="/images/vision.webp" alt="Description of the image">
+        </a>
+        <h2 class="h2">Product Y</h2>
+    </section>
+    <section class="eop-cta">
+        <a class="a arrow-link" href="//www.figma.com/@jmwii1981" target="_blank">See more in Figma</a>
+    </section>
 </main>

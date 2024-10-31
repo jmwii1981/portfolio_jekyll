@@ -56,7 +56,9 @@
  // CURRENTLY ACTIVE TAB
  .tab.active {
     color: #343339;
+    display: inline-block; 
     pointer-events: none;
+    transform: scale(1.05);
 
         // line
         &:after {
