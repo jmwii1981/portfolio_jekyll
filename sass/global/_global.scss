@@ -3,30 +3,31 @@
 //***********************************************************//
 
 // selection color(s)
-img::selection,
-h1::selection,
-h2::selection,
-h3::selection,
-h4::selection,
-h5::selection,
-h6::selection,
-p::selection,
-a::selection,
-span::selection {
-			background-color: #2B849D;
+.img::selection,
+.h1::selection,
+.h2::selection,
+.h3::selection,
+.h4::selection,
+.h5::selection,
+.h6::selection,
+.p::selection,
+.a::selection,
+.span::selection {
+    background-color:rgba(43,132,157,0.1);
+    color: #125B70;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+.p {
     color: #343339;
 }
 
-a {
+.a {
     color: #2B849D;
 	position: relative;
 	text-decoration: none;
@@ -107,6 +108,7 @@ a {
 // DOCUMENT CONTAINER
 .html {
 	align-items: flex-start;
+    background-color: #fefefe;
     display: flex;
 	font-family: "Heebo", "Helvetica neue", Helvetica, Verdana, Sans-serif;
 	font-size: 16px;
@@ -261,7 +263,7 @@ a {
 
     &:before {
         content:'';
-        background-color: #fff;
+        background-color: #fefefe;
         border-radius: 100%;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.15);
         height: 4rem;

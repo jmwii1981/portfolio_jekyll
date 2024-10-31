@@ -17,8 +17,12 @@
 @use "includes/_header";
 @use "includes/_footer";
 @use "includes/_nav";
-@use "includes/_recommendations";
-@use "includes/_work";
-@use "includes/_about";
-@use "includes/_experience";
-@use "includes/_perspectives";
+
+// content blocks
+@use "content_blocks/_about";
+@use "content_blocks/_experience";
+@use "content_blocks/_perspectives";
+@use "content_blocks/_recommendations";
+@use "content_blocks/_work";
+
+

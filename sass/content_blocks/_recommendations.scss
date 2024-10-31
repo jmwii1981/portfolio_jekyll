@@ -2,10 +2,10 @@
 //**                 PAGE DESIGN ELEMENTS                  **//
 //***********************************************************//
 .headshot {
-	border-color: #D3D3D3;
+	border-color: #2B849D;
 	border-radius: 100%;
 	border-style: solid;
-	border-width: 1px;
+	border-width: 2px;
 	box-shadow: 0 0 0 12px #EDF0F6;
 	height: 8rem;
 	margin: 2rem auto;
@@ -65,10 +65,53 @@
 .description {
 	padding: 0;
     width: 100%;
+	
 	.p {
 		color: #666666;
 		font-weight: 400;
 		line-height: 1.75;
 		width: 100%;
+	}
+}
+
+
+//* IN PROGRESS *//
+
+.toggle-checkbox,
+.toggle-label .read-less,
+.toggle-label .read-more {
+	display: none;
+}
+
+@media only screen and (max-width: 899px) {
+	.truncate-read-more {
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 5;
+		min-height: 10rem;
+		max-height: 10rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.toggle-checkbox:checked ~ .truncate-read-more {
+		-webkit-line-clamp: unset;
+		max-height: none;
+		overflow: visible;
+	}
+	
+	.toggle-label {
+		cursor: pointer;
+		display: block;
+		font-weight: bold;
+		margin-top: 1rem;
+	}
+
+	.toggle-label .read-more,
+	.toggle-checkbox:checked ~ .toggle-label .read-less {
+		display: block;
+	}
+	.toggle-checkbox:checked ~ .toggle-label .read-more {
+		display: none;
 	}
 }
