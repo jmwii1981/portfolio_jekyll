@@ -128,6 +128,9 @@
 // BODY CONTAINER
 .body {
 	align-items: flex-start;
+    background:
+        linear-gradient(to top, rgba(242, 247, 251, 0.5) 400px, rgba(254, 254, 254, 0.25) 100%),
+        linear-gradient(to right, rgba(254, 254, 254, 0.25) 15%, rgba(143, 83, 239, 0.02) 100%, rgba(231, 245, 247, 0.25) 100%);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
