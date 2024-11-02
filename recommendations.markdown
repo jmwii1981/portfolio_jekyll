@@ -6,7 +6,7 @@ permalink: /recommendations/
 <main class="main {% if page.url == '/recommendations/' %}recommendations{% endif %}">
     <section class="recommendation">
         <div class="rec-meta">
-            <img src="{{ site.baseurl }}/images/vinesha.webp" alt="Vinesha Perera, Chief Product Officer" class="headshot">
+            <img src="{{ site.baseurl }}/images/headshots/vinesha.webp" alt="Vinesha Perera, Chief Product Officer" class="headshot">
             <h2 class="h2">Vinesha Perera</h2>
             <h3 class="h3">Chief Product Officer</h3>
         </div>
@@ -25,7 +25,7 @@ permalink: /recommendations/
     </section>
     <section class="recommendation">
         <div class="rec-meta">
-            <img src="{{ site.baseurl }}/images/justin.webp" alt="Justin Jolley, Director of Product Design and Research" class="headshot">
+            <img src="{{ site.baseurl }}/images/headshots/justin.webp" alt="Justin Jolley, Director of Product Design and Research" class="headshot">
             <h2 class="h2">Justin Jolley</h2>
             <h3 class="h3">Director of Product Design and Research</h3>
         </div>
@@ -43,7 +43,7 @@ permalink: /recommendations/
     </section>
     <section class="recommendation">
         <div class="rec-meta">
-            <img src="{{ site.baseurl }}/images/dani.webp" alt="Dani Shafer, Product Design Manager" class="headshot">
+            <img src="{{ site.baseurl }}/images/headshots/dani.webp" alt="Dani Shafer, Product Design Manager" class="headshot">
             <h2 class="h2">Dani Shafer</h2>
             <h3 class="h3">Product Design Manager</h3>
         </div>
@@ -63,7 +63,7 @@ permalink: /recommendations/
     </section>
     <section class="recommendation">
         <div class="rec-meta">
-            <img src="{{ site.baseurl }}/images/jess.webp" alt="Jessica Longley, Product Designer" class="headshot">
+            <img src="{{ site.baseurl }}/images/headshots/jess.webp" alt="Jessica Longley, Product Designer" class="headshot">
             <h2 class="h2">Jessica Longley</h2>
             <h3 class="h3">Product Designer</h3>
         </div>

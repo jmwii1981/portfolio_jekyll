@@ -22,9 +22,15 @@
 .h3,
 .h4,
 .h5,
-.h6,
-.p {
+.h6 {
     color: #343339;
+}
+
+.p {
+    color: #666666;
+    font-weight: 400;
+    line-height: 1.75;
+    width: 100%;
 }
 
 .a {
@@ -163,9 +169,6 @@
 
 .eop-cta {
     align-items: center;
-    border-color: #D3D3D3;
-    border-top-style: solid;
-    border-top-width: 1px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -174,7 +177,6 @@
     padding: 2rem;
     width: 100%;
 }
-
 
 //***********************************************************//
 //**               GLOBAL DESIGN ELEMENTS                  **//
