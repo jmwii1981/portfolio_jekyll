@@ -2,6 +2,13 @@
 //**                  GLOBAL TYPOGRAPHY                    **//
 //***********************************************************//
 
+.html {
+    color: #1d1d1f;
+    font-family: "Heebo", "Helvetica neue", Helvetica, Verdana, Sans-serif;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
 // selection color(s)
 .img::selection,
 .h1::selection,
@@ -15,7 +22,7 @@
 .span::selection {
     background-color:rgba(43,132,157,0.1);
     color: #125B70;
-}
+}  
 
 .h1,
 .h2,
@@ -24,10 +31,13 @@
 .h5,
 .h6 {
     color: #343339;
+    color: #1d1d1f;
+    font-weight: 600;
 }
 
 .p {
     color: #666666;
+    color: #1d1d1f;
     font-weight: 400;
     line-height: 1.75;
     width: 100%;
@@ -79,7 +89,6 @@
 .header {
     .h1 {
         font-size: 28px;
-        font-weight: 600;
         line-height: 1.15;
         margin: 2rem auto 0;
     }
@@ -91,6 +100,7 @@
     }
     .p {
         color: #666666;
+        color: #1d1d1f;
         font-size: 15px;
         font-weight: 400;
         line-height: 1.5;
@@ -116,9 +126,6 @@
 	align-items: flex-start;
     background-color: #fefefe;
     display: flex;
-	font-family: "Heebo", "Helvetica neue", Helvetica, Verdana, Sans-serif;
-	font-size: 16px;
-	-webkit-font-smoothing: antialiased;
 	image-rendering: -webkit-optimize-contrast;
 	justify-content: center;
 	overflow-x: hidden;
@@ -190,9 +197,13 @@
 
 .half-oval {
     content: "";
-    background-color: #EDF0F6;
+    background-color: #FBFBFD;
     border-bottom-left-radius: 50%;
     border-bottom-right-radius: 50%;
+    border-color: #D3D3D3;
+    border-style: solid;
+    border-width: 0;
+    border-bottom-width: 1px;
     height: 12rem;
     position: absolute;
         top: 0rem; /* Position the square inside the parent */

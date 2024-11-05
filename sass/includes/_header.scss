@@ -7,3 +7,14 @@
     position: relative;
     width: 100%;
 }
+.meta {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.contact-info .p {
+    color: #666666;
+}
