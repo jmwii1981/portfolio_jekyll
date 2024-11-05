@@ -8,9 +8,24 @@
 // NAVIGATION TABS
 .nav-container {
     display: flex;
-    margin: 4rem 0 0;
+    margin: 4rem auto 0;
+    overflow-x: auto;
     padding: 0 0 1rem;
     position: relative;
+    scrollbar-width: none;
+    width: 100%;
+
+	@media only screen and (min-width: 720px) {
+		overflow:hidden;
+        width: auto;
+	}
+
+      
+      &::-webkit-scrollbar {
+        display: none; /* Hides scrollbar in WebKit browsers (Chrome, Safari) */
+      }
+      
+
 }
 
 .nav {
