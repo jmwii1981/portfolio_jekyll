@@ -1,0 +1,132 @@
+.main.experience {
+    align-items: center;
+    width: auto;
+}
+.experience-content-wrapper {
+    align-items: flex-start;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    // width: 100%;
+
+    @media only screen and (min-width: 958px) {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+	}
+}
+.experience,
+.certification,
+.volunteering,
+.honors {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 0;
+    
+    
+    @media only screen and (min-width: 958px) {
+        width: calc(50% - 2.5rem);
+    }
+}
+.honors {
+    margin-top: 0;
+
+    @media only screen and (min-width: 958px) {
+        margin-top: -365px;
+	}
+}
+.experience-list,
+.certification-list,
+.volunteering-list,
+.honors-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-inline-start: 4rem;
+}
+.experience-item,
+.certification-item,
+.volunteering-item,
+.honors-item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    &:before {
+        background-color: #D3D3D3;
+        content:"";
+        display: block;
+        height: calc(100% + 2rem);
+        position: absolute;
+            top: -1rem;
+            right: calc(100% + 2.25rem);
+        width: 1px;
+    }
+    &:nth-last-child(1):before,
+    &:first-child:before {
+        height: calc(50% + 1rem);
+    }
+    &:first-child:before {
+        top: auto;
+        bottom: -1rem;
+    }
+}
+.experience-item-logo,
+.certification-item-logo,
+.volunteering-item-logo,
+.honors-item-logo {
+	border-color: #D3D3D3;
+	border-radius: 100%;
+	border-style: solid;
+	border-width: 1px;
+	box-shadow: 0 0 0 3px #EDF0F6;
+    display: block;
+    height: 50px;
+    position: absolute;
+        top: 0.55rem;
+        right: calc(100% + 0.75rem);
+    width: 50px;
+}
+.experience-list .experience-item:first-child .experience-item-logo,
+.experience-list .experience-item:nth-child(2) .experience-item-logo {
+    border-color: #D3D3D3;
+    border-width: 3px;
+    box-shadow: 0 0 0 4px #EDF0F6;
+}
+.section-title {
+    display: block;
+    margin-left: calc(50px + 0.75rem);
+    margin-bottom: 0.25rem;
+}
+.employer-name,
+.certification-name,
+.volunteering-name,
+.honors-name {
+    font-size: 1.25rem; // temp until h5 style
+    line-height: 130%;
+    margin: 0;
+
+    .light {
+        font-weight: 400;
+    }
+}
+.role-held,
+.certification-held,
+.volunteering-role,
+.honors-role {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 130%;
+    margin: 0;
+}
+.dates-of-service,
+.dates-of-certification,
+.dates-of-volunteering,
+.dates-of-honors {
+    color: #666666;
+    line-height: 130%;
+    margin: 0;
+}
