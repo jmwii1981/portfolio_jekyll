@@ -1,5 +1,19 @@
-_site
-.sass-cache
-.jekyll-cache
+# macOS specific files
+.DS_Store
+
+# Jekyll generated folders and metadata
+_site/
+.jekyll-cache/
 .jekyll-metadata
-vendor
+.sass-cache
+
+# Ruby / Bundler files
+Gemfile.lock
+vendor/
+
+# Node modules (if using npm or yarn for assets)
+node_modules/
+
+# Local environment variables (optional, if you’re storing sensitive info locally)
+local_env.yml
+
