@@ -15,7 +15,7 @@
     ],
     "theme_color": "#010101",
     "background_color": "#010101",
-    "start_url": "https://janmichael.io",
+    "start_url": "/",
     "display": "standalone",
     "orientation": "portrait"
 }
