@@ -1,0 +1,145 @@
+// Loader styles
+#loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  min-height: 150px; // Adjust for visibility
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid green;
+    border-top-color: orange;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px; // space between spinner and text
+  }
+
+  .countdown {
+    font-size: 1em;
+    color: pink;
+    margin-top: 5px;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+// Article container styles
+.article {
+
+    .figure {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 10px;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .figcaption {
+      font-size: 0.9em;
+      margin-top: 5px;
+      text-align: center;
+    }
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+
+    .p { width: auto; }
+
+    .author-figure {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .author-info,
+    .pub-date,
+    .reading-time {
+        display:inline-block;
+      font-size: 0.9em;
+    }
+  }
+
+  .meta-content-separator {
+    border: none;
+    height: 1px;
+    background-color: #ddd;
+    margin: 20px 0;
+  }
+
+  .post-content {
+    line-height: 1.7;
+
+    .p {
+      margin-bottom: 15px;
+    }
+
+    .h2,
+    .h3 {
+      margin: 15px 0 10px;
+    }
+
+    .h2 {
+      font-size: 1.5em;
+    }
+
+    .h3 {
+      font-size: 1.2em;
+    }
+  }
+
+  #delay-message {
+    margin-top: 15px;
+    font-size: 0.95em;
+    color: #e63946;
+  }
+}
+
+// Delay message styles
+#delay-message {
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+// Responsive adjustments
+@media (max-width: 600px) {
+  .article {
+    padding: 15px;
+  }
+
+  .meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
