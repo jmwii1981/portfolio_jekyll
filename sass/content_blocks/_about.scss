@@ -1,4 +1,5 @@
 .bio-pic-wrapper {
+    border-radius: 16px;
     display: flex;
     flex-direction: column;
     float:right;
@@ -14,5 +15,6 @@
     }
 }
 .bio-pic {
+    border-radius: 16px;
     display: inline-block;
 }

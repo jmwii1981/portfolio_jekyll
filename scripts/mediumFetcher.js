@@ -39,84 +39,49 @@ class DateFormatter {
     }
 }
 
-// Service class for fetching and parsing Medium RSS feed
+// Service class for fetching and parsing Medium feed
 class MediumService {
     constructor(username) {
-        const PROXY_URL = 'https://api.allorigins.win/get?url=';
-        this.apiUrl = `${PROXY_URL}${encodeURIComponent(`https://medium.com/feed/@${username}`)}`;
+        this.username = username;
+        this.backupApiUrl = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${username}`;
     }
 
-    async fetchLatestPost() {
+    async fetchPostFromApi() {
         try {
-            const response = await fetch(this.apiUrl);
-            if (!response.ok) throw new Error(`Failed to fetch: ${response.status}`);
+            const response = await fetch(this.backupApiUrl);
+            if (!response.ok) throw new Error(`Backup API fetch failed with status: ${response.status}`);
 
             const data = await response.json();
-            const parser = new DOMParser();
-            const xml = parser.parseFromString(data.contents, "application/xml");
+            const item = data.items ? data.items[0] : null;
+            if (!item) {
+                console.warn("No posts found in the backup API response.");
+                return null;
+            }
 
-            const item = xml.querySelector("item");
-            if (!item) return null;
-
-            const title = item.querySelector("title")?.textContent || 'No title available';
-            const link = item.querySelector("link")?.textContent || '#';
-            const pubDate = item.querySelector("pubDate")?.textContent || 'Date not available';
-            const { fullContent, firstImageHTML, firstFigCaption } = this.extractContentWithNamespace(item, xml);
+            const title = item.title || 'No title available';
+            const link = item.link || '#';
+            const pubDate = new Date(item.pubDate || 'Date not available');
+            const fullContent = this.extractContentWithoutImage(item.content);
+            const firstImageHTML = item.thumbnail ? `<figure class="figure featured-image"><img src="${item.thumbnail}" class="img post-image" alt="Article Image"><figcaption class="figcaption">An empty conference room with large glass windows...</figcaption></figure>` : '';
             const readingTime = DateFormatter.estimateReadingTime(fullContent);
 
-            return { title, link, pubDate, fullContent, firstImageHTML, firstFigCaption, readingTime };
+            return { title, link, pubDate, fullContent, firstImageHTML, readingTime };
         } catch (error) {
-            console.error('Error fetching Medium post:', error);
+            console.error("Error fetching Medium post from backup API source:", error);
             return null;
         }
     }
 
-    extractContentWithNamespace(item, xmlDoc) {
-        const contentEncoded = xmlDoc.evaluate(
-            "content:encoded",
-            item,
-            prefix => prefix === "content" ? "http://purl.org/rss/1.0/modules/content/" : null,
-            XPathResult.STRING_TYPE,
-            null
-        ).stringValue;
+    // Remove image tags from content to avoid duplicates
+    extractContentWithoutImage(content) {
+        const contentContainer = document.createElement("div");
+        contentContainer.innerHTML = content;
+        contentContainer.querySelectorAll("figure, img").forEach(node => node.remove());
+        return contentContainer.innerHTML;
+    }
 
-        if (contentEncoded) {
-            const contentContainer = document.createElement("div");
-            contentContainer.innerHTML = contentEncoded;
-
-            const images = contentContainer.querySelectorAll("img");
-            const captions = contentContainer.querySelectorAll("figcaption");
-
-            let firstImageHTML = '';
-            let firstFigCaption = '';
-
-            if (images[0]) {
-                if (!images[0].src.startsWith("http")) {
-                    images[0].src = `https://medium.com/${images[0].src}`;
-                }
-                images[0].classList.add("post-image");
-                firstImageHTML = `<figure class="figure">${images[0].outerHTML}</figure>`;
-            }
-
-            if (captions[0]) {
-                firstFigCaption = `<figcaption class="figcaption">${captions[0].textContent}</figcaption>`;
-            }
-
-            // Remove first image and figcaption from the main content to avoid duplication
-            if (images[0]) images[0].remove();
-            if (captions[0]) captions[0].remove();
-
-            contentContainer.querySelectorAll("p").forEach(p => p.classList.add("p"));
-            contentContainer.querySelectorAll("h3").forEach(h3 => h3.classList.add("h3"));
-            contentContainer.querySelectorAll("h2").forEach(h2 => h2.classList.add("h2"));
-            contentContainer.querySelectorAll("figure").forEach(fig => fig.classList.add("figure"));
-            contentContainer.querySelectorAll("figcaption").forEach(cap => cap.classList.add("figcaption"));
-
-            return { fullContent: contentContainer.innerHTML, firstImageHTML, firstFigCaption };
-        }
-
-        console.warn("Content not found in <content:encoded> or <description>");
-        return { fullContent: 'No content available', firstImageHTML: '', firstFigCaption: '' };
+    async fetchLatestPost() {
+        return await this.fetchPostFromApi();
     }
 }
 
@@ -128,17 +93,17 @@ class PostDisplay {
         this.countdownElement = document.getElementById('countdown');
         this.authorName = 'Jan Michael Wallace II';
         this.mediumProfile = 'https://medium.com/@jmwii1981';
-        this.loadingTime = 0; // Tracks loading time in seconds
-        this.countdownInterval = null; // Holds the interval ID
-        this.delayMessageTimeout = null; // Holds the timeout ID for delay message
+        this.loadingTime = 0;
+        this.countdownInterval = null;
+        this.delayMessageTimeout = null;
     }
 
     displayLoader() {
         if (this.loader) {
-            this.loader.style.display = 'block';  // Show loader
+            this.loader.style.display = 'block';
         }
         if (this.container) {
-            this.container.style.display = 'none'; // Hide content container while loading
+            this.container.style.display = 'none';
         }
         this.startCountdown();
         this.startDelayMessage();
@@ -146,17 +111,17 @@ class PostDisplay {
 
     hideLoader() {
         if (this.loader) {
-            this.loader.style.display = 'none';  // Hide loader
+            this.loader.style.display = 'none';
         }
         if (this.container) {
-            this.container.style.display = 'block'; // Show content container once loaded
+            this.container.style.display = 'block';
         }
         this.stopCountdown();
-        clearTimeout(this.delayMessageTimeout);  // Clear delay message timeout if content loads in time
+        clearTimeout(this.delayMessageTimeout);
     }
 
     startCountdown() {
-        this.loadingTime = 0;  // Reset timer
+        this.loadingTime = 0;
         this.updateCountdownDisplay();
         
         this.countdownInterval = setInterval(() => {
@@ -166,9 +131,9 @@ class PostDisplay {
     }
 
     stopCountdown() {
-        clearInterval(this.countdownInterval);  // Stop updating the countdown
-        this.countdownInterval = null;  // Reset interval ID
-        this.loadingTime = 0;  // Reset loading time
+        clearInterval(this.countdownInterval);
+        this.countdownInterval = null;
+        this.loadingTime = 0;
     }
 
     updateCountdownDisplay() {
@@ -180,8 +145,8 @@ class PostDisplay {
     startDelayMessage() {
         this.delayMessageTimeout = setTimeout(() => {
             this.displayDelayMessage();
-            this.checkMediumStatus();  // Check Medium's status if load time exceeds 6 seconds
-        }, 6000);
+            this.checkMediumStatus();
+        }, 2000);
     }
 
     async checkMediumStatus() {
@@ -191,8 +156,10 @@ class PostDisplay {
 
             if (statusData && statusData.status && statusData.status.description) {
                 const statusDescription = statusData.status.description;
-                document.getElementById('delay-message').innerHTML += `
-                    <p class="p">Current Medium Status: ${statusDescription}</p>
+                const statusUrl = "https://medium.statuspage.io/";
+
+                document.querySelector('.loading-issue-fallback').innerHTML = `
+                    <p class="p">Though Medium.com reports <a href="${statusUrl}" target="_blank" class="a">${statusDescription.toLowerCase()}</a>, it is taking longer than expected to load this article. For your convenience, here is a link to <a href="${this.mediumProfile}" target="_blank" rel="noopener noreferrer" class="a">Jan Michael's Medium.com feed</a>.</p>
                 `;
             }
         } catch (error) {
@@ -202,13 +169,11 @@ class PostDisplay {
 
     displayDelayMessage() {
         const delayMessageContainer = document.createElement('div');
-        delayMessageContainer.id = 'delay-message';
+        delayMessageContainer.className = 'loading-issue-fallback';
         delayMessageContainer.innerHTML = `
-            <p class="p">We apologize for the delay. This issue cannot be helped on our side. 
-            As a convenience, you may view the latest articles directly on 
-            <a href="${this.mediumProfile}" target="_blank" rel="noopener noreferrer" class="a">Medium.com</a>.</p>
+            <p class="p">Though Medium.com reports <a href="https://medium.statuspage.io/" target="_blank" class="a">all systems operational</a>, it is taking longer than expected to load this article. For your convenience, here is a link to <a href="${this.mediumProfile}" target="_blank" rel="noopener noreferrer" class="a">Jan Michael's Medium.com feed</a>.</p>
         `;
-        this.container.parentNode.insertBefore(delayMessageContainer, this.container);
+        this.loader.appendChild(delayMessageContainer);
     }
 
     displayPost(post) {
@@ -217,30 +182,44 @@ class PostDisplay {
             return;
         }
 
+        this.container.innerHTML = ''; // Clear existing content
+
+        // Remove delay message if it exists
+        const delayMessage = document.querySelector('.loading-issue-fallback');
+        if (delayMessage) {
+            delayMessage.remove();
+        }
+
         if (post) {
-            const { title, link, pubDate, fullContent, firstImageHTML, firstFigCaption, readingTime } = post;
+            const { title, link, pubDate, fullContent, firstImageHTML, readingTime } = post;
+            const publishTimeAgo = timeAgo(pubDate);
 
-            const publishTimeAgo = timeAgo(pubDate); // Calculate "time ago" format
-
+            // Display image, metadata, and main content without duplication
             this.container.innerHTML = `
-                <figure class="figure">
-                    ${firstImageHTML}
-                    ${firstFigCaption}
-                </figure>
-                <h2 class="h2"><a href="${link}" target="_blank" rel="noopener noreferrer" class="a">${title}</a></h2>
-                <div class="meta" role="contentinfo" aria-label="Article metadata">
-                    <figure class="author-figure" aria-label="Author's profile picture">
-                        <img src="/images/janmichael-bio-pic.jpg" alt="Jan Michael Wallace II, Medium author" class="author-image">
-                    </figure>
-                    <p class="p author-info">Published by <a href="${this.mediumProfile}" target="_blank" rel="noopener noreferrer" class="a">${this.authorName}</a></p>
-                    <p class="p pub-date">Published: ${publishTimeAgo}</p> <!-- Using relative time -->
-                    <p class="p reading-time">⏱️ ${readingTime} min read</p>
-                </div>
-                <hr class="hr meta-content-separator" aria-hidden="true">
                 <div class="post-content" role="article">
+                    ${firstImageHTML}
+                    
+                    <h2 class="h2">${title} <a href="${link}" target="_blank" rel="noopener noreferrer" class="a">Link</a></h2>
+                    
+                    <div class="meta" role="contentinfo" aria-label="Article metadata">
+                        <div class="meta-author">
+                            <figure class="author-figure" aria-label="Author's profile picture">
+                                <img src="/images/janmichael-bio-pic.jpg" alt="Jan Michael Wallace II, Article author" class="author-image">
+                            </figure>
+                            <p class="p author-info">Published by <a href="${this.mediumProfile}" target="_blank" rel="noopener noreferrer" class="a">Jan Michael Wallace II</a></p>
+                        </div>
+                        <div class="meta-post">
+                            <p class="p"><span class="span pub-date">Published ${publishTimeAgo}</span> <span class="decorative">•</span> <span class="span reading-time">${readingTime} minute read</span></p>
+                        </div>
+                    </div>
+                    <hr class="hr meta-content-separator" aria-hidden="true">
+                    
                     ${fullContent}
                 </div>
             `;
+
+            // Append the "Read more on Medium" section after displaying the post
+            this.appendReadMoreSection();
         } else {
             this.container.innerHTML = `
                 <p class="p">
@@ -252,7 +231,18 @@ class PostDisplay {
             `;
         }
 
-        this.hideLoader();  // Hide the loader after displaying content
+        this.hideLoader();
+    }
+
+    // Appends the "Read more on Medium" section after #latest-post
+    appendReadMoreSection() {
+        const readMoreSection = document.createElement('section');
+        readMoreSection.className = 'eop-cta';
+        readMoreSection.innerHTML = `
+            <a class="a arrow-link" href="//medium.com/@jmwii1981" target="_blank">Read more on Medium</a>
+        `;
+
+        this.container.insertAdjacentElement('afterend', readMoreSection);
     }
 }
 
@@ -262,9 +252,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const mediumService = new MediumService('jmwii1981');
     const postDisplay = new PostDisplay(postContainerId);
 
-    postDisplay.displayLoader(); // Show loader initially
+    postDisplay.displayLoader();
 
     mediumService.fetchLatestPost()
-        .then(post => postDisplay.displayPost(post))
+        .then(post => {
+            if (post) {
+                postDisplay.displayPost(post);
+            } else {
+                console.warn("No post available to display.");
+            }
+        })
         .catch(error => console.error("Unexpected error:", error));
 });

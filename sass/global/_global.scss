@@ -45,16 +45,17 @@
 
 .a {
     color: #2B849D; 
-	position: relative;
-	text-decoration: none;
-	z-index: 1;
+    font-weight: 600;
 	outline-offset: 0rem;
 	outline-style: solid;
 	outline-width: 0rem;
-	transition-duration: 0.3s, 0.3s;
+    position: relative;
+	text-decoration: none;
+    transition-duration: 0.3s, 0.3s;
 	transition-property: outline-color, outline-offset;
 	transition-timing-function: ease-out, ease-out;
-
+    z-index: 1;
+    
 	&:focus {
 		border-radius: 0.2rem;
 		outline-offset: 0.2rem;
@@ -105,10 +106,6 @@
         font-weight: 400;
         line-height: 1.5;
         margin: 0 auto;
-    }
-    .a {
-        font-weight: 600;
-        text-decoration: none;
     }
     .p, .a {
         .decorative {
