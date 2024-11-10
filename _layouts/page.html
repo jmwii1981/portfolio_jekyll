@@ -63,8 +63,6 @@
         '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-53BZRHG');
     </script>
-    <!-- custom -->
-    <script src="{{ site.baseurl }}/scripts/mediumFetcher.js" defer></script>
 </head>
 <body class="body">
 	<noscript>
@@ -76,5 +74,10 @@
 {{ content }}
 
 {% include footer.html %}
+
+{% if page.url == '/perspectives/' %}
+    <script type="module" src="{{ site.baseurl }}/scripts/mediumArticle.js" defer></script>
+    <!-- <script type="module" src="{{ site.baseurl }}/scripts/testPostLoadFailure.mjs" defer></script> -->
+{% endif %}
 </body>
 </html>
