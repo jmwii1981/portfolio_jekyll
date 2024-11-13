@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<!-- Portfolio section -->
+  <url>
+    <loc>http://janmichael.io/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+<!-- Portfolio project 1 -->
+<!-- <url>
+  <loc>http://janmichael.io/</loc>
+  <image:image>
+    <image:loc>http://janmichael.io/images/project-1.jpg</image:loc>
+    <image:caption>Project 1 Screenshot</image:caption>
+  </image:image>
+</url> -->
+
+<!-- Experience page -->
+  <url>
+    <loc>http://janmichael.io/experience</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.2</priority>
+  </url>
+
+<!-- Recommendations page -->
+  <url>
+    <loc>http://janmichael.io/recommendations</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+<!-- Blog (Perspectives) page -->
+  <url>
+    <loc>http://janmichael.io/perspectives</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+<!-- About page -->
+  <url>
+    <loc>http://janmichael.io/about</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+

@@ -1,4 +1,6 @@
-// HEADER CONTAINER
+//***********************************************************//
+//**                       LAYOUT                          **//
+//***********************************************************//
 .header {
     align-items: center;
     display: flex;
@@ -7,14 +9,35 @@
     position: relative;
     width: 100%;
 }
+.contact-info,
 .meta {
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center;
+    width: 100%;
 }
-
-.contact-info .p {
-    color: #666666;
+//***********************************************************//
+//**                     TYPOGRAPHY                        **//
+//***********************************************************//
+.header {
+    .h1,
+    .h2,
+    .p {
+        margin: 0 auto;
+        text-align:center;
+    }
+    .h1 {
+        font-size: 1.75rem;
+        line-height: 1.75rem;
+        margin: 1.25rem auto 0;
+    }
+    .h2 {
+       font-size: 1.125rem;
+       font-weight: 400;
+       line-height: 1.5;
+    }
+    .contact-info .p {
+        color: #666666;
+    }
 }

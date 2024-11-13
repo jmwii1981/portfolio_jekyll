@@ -16,14 +16,10 @@
 //**              PAGE LAYOUT AND TYPOGRAPHY               **//
 //***********************************************************//
 .main.recommendations {
-	align-items: flex-start;
-	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	gap: 3rem;
-	justify-content: flex-start;
-	max-width: 1024px;
-	width: 100%;
+
 }
 
 .recommendation {
@@ -35,9 +31,9 @@
 	max-width: 500px;
 	width: 100%;
 
-	@media only screen and (min-width: 900px) {
+	@media only screen and (min-width: 768px) {
 		max-width: none;
-		width: calc(50% - 3rem);
+		width: calc(50% - 1.5rem);
 	}
 }
 
