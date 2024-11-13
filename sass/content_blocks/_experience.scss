@@ -1,41 +1,47 @@
-.main.experience {
-    align-items: center;
-    width: auto;
-}
 .experience-content-wrapper {
-    align-items: flex-start;
+    align-items: center;
     display: inline-flex;
     flex-direction: column;
     gap: 2.5rem;
-    // width: 100%;
+    width: 100%;
 
-    @media only screen and (min-width: 958px) {
+    @media only screen and (min-width: 768px) {
+        align-items: flex-start;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-between;
 	}
 }
-.experience,
-.certification,
-.volunteering,
-.honors {
-    align-items: flex-start;
+.main .experience,
+.main .certification,
+.main .volunteering,
+.main .honors {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     margin-bottom: 0;
+    width: 24.625rem;
     
-    
-    @media only screen and (min-width: 958px) {
-        width: calc(50% - 2.5rem);
+    @media only screen and (min-width: 768px) {
+        max-width: none;
+        width: calc(50% - 1.5rem);
     }
+
+    .a {
+        margin-left: calc(50% - 8.25rem);
+        margin-right: auto;
+
+        @media only screen and (min-width: 768px) {
+            margin-left: calc(50% - 7rem);
+        }
+    }
+    
 }
 .honors {
     margin-top: 0;
 
-    @media only screen and (min-width: 958px) {
-        margin-top: -365px;
+    @media only screen and (min-width: 768px) {
+        margin-top: -22.813rem;
 	}
 }
 .experience-list,
@@ -63,7 +69,7 @@
         position: absolute;
             top: -1rem;
             right: calc(100% + 2.25rem);
-        width: 1px;
+        width: 0.063rem;
     }
     &:nth-last-child(1):before,
     &:first-child:before {
@@ -81,25 +87,30 @@
 	border-color: #D3D3D3;
 	border-radius: 100%;
 	border-style: solid;
-	border-width: 1px;
-	box-shadow: 0 0 0 3px #EDF0F6;
+	border-width: 0.063rem;
+	box-shadow: 0 0 0 0.175rem #EDF0F6;
     display: block;
-    height: 50px;
+    height: 3.125rem;
     position: absolute;
         top: 0.55rem;
         right: calc(100% + 0.75rem);
-    width: 50px;
+    width: 3.125rem;
 }
 .experience-list .experience-item:first-child .experience-item-logo,
 .experience-list .experience-item:nth-child(2) .experience-item-logo {
     border-color: #D3D3D3;
-    border-width: 3px;
-    box-shadow: 0 0 0 4px #EDF0F6;
+    border-width: 0.115rem;
+    box-shadow: 0 0 0 0.25rem #EDF0F6;
 }
 .section-title {
     display: block;
-    margin-left: calc(50px + 0.75rem);
+    margin-left: calc(50% - 8.25rem);
+    margin-right: auto;
     margin-bottom: 0.25rem;
+
+    @media only screen and (min-width: 768px) {
+        margin-left: 3.875rem;
+    }
 }
 .employer-name,
 .certification-name,

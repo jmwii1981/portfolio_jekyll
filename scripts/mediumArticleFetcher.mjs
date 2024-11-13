@@ -1,7 +1,7 @@
 import { MediumService } from './mediumService.mjs';
 import { PostDisplay } from './postDisplay.mjs';
 
-export function initializeApp() {
+export function fetchMediumArticle() {
     const postContainerId = 'latest-post';
     const mediumService = new MediumService('jmwii1981');
     const postDisplay = new PostDisplay(postContainerId);

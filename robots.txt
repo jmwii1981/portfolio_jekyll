@@ -1,0 +1,8 @@
+User-agent: *
+# Disallow: /not-applicable-yet/
+
+# Allow all other pages to be indexed
+Allow: /
+
+# Specify the location of your sitemap
+Sitemap: https://janmichael.io

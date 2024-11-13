@@ -9,7 +9,7 @@ permalink: /perspectives/
         <div class="skeleton-image"></div>
         <div class="skeleton-title"></div>
         <hr class="hr skeleton-meta-content-separator" aria-hidden="true">
-        <div class="skeleton-meta">
+        <div class="skeleton-meta-container">
             <span class="skeleton-meta-item"></span>
             <span class="skeleton-meta-item"></span>
         </div>
@@ -18,9 +18,21 @@ permalink: /perspectives/
         <div class="skeleton-text"></div>
         <div class="skeleton-text"></div>
         <div class="skeleton-text"></div>
+        <br><br>
         <div class="skeleton-text"></div>
         <div class="skeleton-text"></div>
         <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
+        <br><br>
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
+        <br><br>
         <div class="skeleton-text"></div>
         <div class="skeleton-text"></div>
     </section>
