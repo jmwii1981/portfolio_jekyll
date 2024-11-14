@@ -105,9 +105,17 @@
     margin-bottom: 10px;
 }
 .post-image { // feat. image
-  max-width: 100%;
   height: auto;
-  border-radius: 4px;
+  margin-left: -0.25rem;
+  margin-right: -0.25rem;
+  width: calc(100% + 8px);
+
+  @media only screen and (min-width: 720px) {
+    border-radius: 0.25rem;
+    margin: 0;
+    width: 100%;
+}
+
 }
 .article {
   display: flex;
