@@ -71,22 +71,25 @@
 .a {
     color: #2B849D; 
     font-weight: 600;
-    outline-color: rgba(43, 132, 157, 0.5);
-	outline-offset: 0rem;
-    outline-style: solid;
-	outline-width: 0rem;
+    box-shadow: 0 0 0 0rem rgba(1, 96, 123, 0.6);
     position: relative;
 	text-decoration: none;
-    transition-duration: 0.3s, 0.3s;
-	transition-property: outline-color, outline-offset;
-	transition-timing-function: ease-out, ease-out;
+    transition-duration: 0.01s;
+	transition-property: box-shadow;
+	transition-timing-function: ease-in;
     z-index: 1;
-    
-	&:focus {
+
+    &:focus {
+        outline: none; /* This removes the default browser outline */
+    }
+
+    &:focus-visible {
+        box-shadow: 0 0 0 0.2rem rgba(1, 96, 123, 0.6);
 		border-radius: 0.2rem;
-		outline-offset: 0.2rem;
-		outline-width: 0.2rem;
-	}
+        transition-duration: 0.25s;
+        transition-timing-function: ease-out;
+    }
+
 }
 .p, .a {
     .decorative-bullet {
@@ -129,8 +132,8 @@
 	flex-direction: column;
 	justify-content: center;
 	margin: 0 auto;
-    max-width: 768px;
-    padding: 0.5rem; // do not change padding to .main so it doesn't cause a "jerk" when going smaller    
+    max-width: 769px;
+    padding: 0.25rem; // do not change padding to .main so it doesn't cause a "jerk" when going smaller    
     position: relative;
 	width: 100%;
 	z-index: 1;

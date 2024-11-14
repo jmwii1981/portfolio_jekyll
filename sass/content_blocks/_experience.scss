@@ -5,7 +5,7 @@
     gap: 2.5rem;
     width: 100%;
 
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 769px) {
         align-items: flex-start;
         display: flex;
         flex-direction: row;
@@ -20,18 +20,23 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 0;
-    width: 24.625rem;
+    max-width: 24.625rem;
+    width: 100%;
     
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 769px) {
         max-width: none;
         width: calc(50% - 1.5rem);
     }
 
     .a {
-        margin-left: calc(50% - 8.25rem);
+        margin-left: 3.875rem;
         margin-right: auto;
 
-        @media only screen and (min-width: 768px) {
+        @media only screen and (min-width: 401px) {
+            margin-left: calc(50% - 8.25rem);
+        }
+
+        @media only screen and (min-width: 769px) {
             margin-left: calc(50% - 7rem);
         }
     }
@@ -40,7 +45,7 @@
 .honors {
     margin-top: 0;
 
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 769px) {
         margin-top: -22.813rem;
 	}
 }
@@ -104,11 +109,15 @@
 }
 .section-title {
     display: block;
-    margin-left: calc(50% - 8.25rem);
+    margin-left: 3.875rem;
     margin-right: auto;
     margin-bottom: 0.25rem;
 
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 401px) {
+        margin-left: calc(50% - 8.25rem);    
+    }
+
+    @media only screen and (min-width: 769px) {
         margin-left: 3.875rem;
     }
 }

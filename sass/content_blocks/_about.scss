@@ -1,9 +1,17 @@
+.bio {
+    margin: 2rem 0 0;
+    width: 100%;
+
+    .p {
+        display: flow;
+    }
+}
 .bio-pic-wrapper {
     border-radius: 16px;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     float:right;
-    margin: 2rem 0 1rem 2rem;
+    margin: 0 0 1rem 2rem;
     max-width: 400px;
 
     .figcaption {
