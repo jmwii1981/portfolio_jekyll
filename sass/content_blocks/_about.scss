@@ -7,22 +7,26 @@
     }
 }
 .bio-pic-wrapper {
-    border-radius: 16px;
     display: inline-flex;
     flex-direction: column;
     float:right;
     margin: 0 0 1rem 2rem;
     max-width: 400px;
+    position: relative;
 
     .figcaption {
-        color: #666666;
-        font-size: .75rem;
-        font-weight: 600;
-        padding: 1rem 0.5rem 0rem;
+        background-color: rgba(0,0,0,0.8);
+        color: #fff;
+        font-weight: 400;
+        padding: 0.5rem;
+        position: absolute;
+            left: 0;
+            bottom: 0;
         text-align: right;
+        width: 100%;
     }
 }
 .bio-pic {
-    border-radius: 16px;
-    display: inline-block;
+    border-radius: 0.25rem;
+    display: inline;
 }

@@ -56,7 +56,7 @@ export class PostDisplay {
                     <div class="article-meta" role="contentinfo" aria-label="Article metadata">
                         <div class="meta-author">
                             <figure class="author-figure" aria-label="Author's profile picture">
-                                <img src="/images/janmichael-bio-pic.jpg" alt="Jan Michael Wallace II, Article author" class="author-image">
+                                <img src="/images/janmichael-bio-pic-blog.jpg" alt="Jan Michael Wallace II, Article author" class="author-image">
                             </figure>
                             <p class="p author-info"><a href="${this.mediumProfile}" target="_blank" rel="noopener noreferrer" class="a">Jan Michael Wallace II</a></p>
                         </div>
