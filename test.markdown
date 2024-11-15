@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: empty-shell
 title: Test for Makenzie
 permalink: /test/
 ---
