@@ -81,6 +81,7 @@ permalink: /recommendations/
         </div>
     </section>
     <section class="eop-cta">
-        <a class="a arrow-link" href="//linkedin.com/in/jmwii1981/details/recommendations/" target="_blank">View more on LinkedIn</a>
+        <p class="p">I’m so delighted to have collected all of these thoughtful recommendations throughout my career by some of my closest peers, many of whom I've had the privilege of working with for many years. More <a class="a arrow-link" href="//linkedin.com/in/jmwii1981/details/recommendations/" target="_blank">heartfelt recommendations can be found on my LinkedIn profile</a>—each one a testament to the lasting connections and partnerships we've built while crafting countless products as a team.</p>
+        <a class="a button" href="//linkedin.com/in/jmwii1981/details/recommendations/" target="_blank">See More Recommendations</a>
     </section>
 </main>
