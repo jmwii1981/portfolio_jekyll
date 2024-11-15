@@ -1,32 +1,107 @@
 .bio {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     margin: 2rem 0 0;
+    max-width: 500px;
     width: 100%;
+
+    @media only screen and (min-width: 769px) {
+        align-items: unset;
+        display: block;
+        flex-direction: unset;
+        justify-content: unset;
+        max-width: 100%;
+    }
+
+    .title {
+        display: flow;
+        line-height: 2.45rem;
+        margin-top: 0;
+    }
 
     .p {
         display: flow;
     }
 }
 .bio-pic-wrapper {
-    display: inline-flex;
-    flex-direction: column;
-    float:right;
-    margin: 0 0 1rem 2rem;
-    max-width: 400px;
+    display: block;
+    margin-bottom: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 8rem;
     position: relative;
+    width: 100%;
+
+    @media only screen and (min-width: 769px) {
+        border-radius: 0.25rem;
+        display: inline-flex;
+        float: right;
+        flex-direction: column;
+        margin-bottom: 1rem;
+        margin-left: 3rem;
+        margin-right: 0rem;
+        max-width: 25rem;
+    }
 
     .figcaption {
-        background-color: rgba(0,0,0,0.8);
-        color: #fff;
+        height: 4rem;
         font-weight: 400;
-        padding: 0.5rem;
-        position: absolute;
-            left: 0;
-            bottom: 0;
-        text-align: right;
+        white-space: nowrap;
         width: 100%;
+
+        @media only screen and (min-width: 769px) {
+            background-color: rgba(0,0,0,0.8);
+            height: 2rem;
+            padding: 0.5rem;
+            position: absolute;
+                left: 0;
+                bottom: 0;
+            white-space: normal;
+            border-radius: 0 0 0.25rem 0.25rem;
+        }
+
+        .p {
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 2.25rem;
+            margin: 0;
+            position: absolute;
+                top: calc(100% - 2rem);
+                left: 50%;
+            text-align: center;
+            transform: translateX(-50%);
+
+            @media only screen and (min-width: 769px) {
+                color: #fff;
+                font-size: 1rem;
+                padding: 0 0.5rem;
+                text-align: right;
+                width: 100%;
+            }
+        }
     }
 }
+
 .bio-pic {
-    border-radius: 0.25rem;
-    display: inline;
+    border-color: #d3d3d3;
+    border-radius: 100%;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 0 0 12px #edf0f6;
+    display: block;
+    height: 8rem;
+    width: 8rem;
+
+    @media only screen and (min-width: 769px) {
+        border-color: transparent;
+        border-radius: 0.25rem;
+        border-style: none;
+        border-width: 1px;
+        box-shadow: 0 0 0 0 transparent;
+        display: inline;
+        height: 25rem;
+        width: 25rem;
+    }
 }
