@@ -28,7 +28,7 @@
 .h5,
 .h6,
 .p {
-    color: #121316;
+    color: #000C0F;
     display: inline-block;
 }
 .h1,
@@ -69,7 +69,7 @@
     line-height: 1.5rem;
 }
 .a {
-    color: #2B849D; 
+    color: #007798; 
     font-weight: 600;
     box-shadow: 0 0 0 0rem rgba(1, 96, 123, 0.6);
     position: relative;
@@ -149,17 +149,6 @@
     padding: 2rem;
     width: 100%;
 }
-// SOCIAL LIST
-.social-links-container {
-	align-self: center;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-	justify-content: space-between;
-	margin: -0.5rem auto;
-	padding: 0;
-}
 //***********************************************************//
 //**                       HALF OVAL                       **//
 //***********************************************************//
@@ -175,10 +164,18 @@
     height: 12rem;
     position: absolute;
         top: 0rem; /* Position the square inside the parent */
-        left: -12.5%;
-        right: -12.5%;
-    width: 125%; /* Adjust the size as needed */
+        left: 50%;
+    transform: translateX(-50%);
+    width: 92.25rem; /* Adjust the size as needed */
     z-index: 0;
+
+    @media only screen and (min-width: 1184px) {
+            left: -12.5%;
+            right: -12.5%;
+        transform: translateX(0);
+        width: 125%;
+    }
+
 }
 //***********************************************************//
 //**                         LOGO                          **//
@@ -223,7 +220,7 @@
 }
 #progress-bar {
 	--scrollAmount: 0%;
-	background-image: linear-gradient(120deg, #2B849D 0%, #2B849D 100%);
+	background-image: linear-gradient(120deg,#007798 0%,#007798 100%);
 	width: var(--scrollAmount);
 	height: 2px;
 	position: absolute;

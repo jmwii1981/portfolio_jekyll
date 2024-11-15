@@ -38,13 +38,20 @@ export class PostDisplay {
         }
 
         // Replace skeleton title with actual title and add icon instead of "Link"
-        const titleSkeleton = this.container.querySelector('.skeleton-title');
-        if (titleSkeleton) {
-                titleSkeleton.outerHTML = `<h2 class="h1 article-title">${title}
-                <a id="title-link" class="a article-title-link" href="${link}" target="_blank" rel="noopener noreferrer">${title}</a></h2>
-            `;
-            // Replace the 'Link' text with the SVG icon
+        // Select all skeleton titles
+        const titleSkeletons = this.container.querySelectorAll('.skeleton-title');
+
+        if (titleSkeletons.length > 0) {
+            // Replace the first skeleton title with the actual title and icon
+            titleSkeletons[0].outerHTML = `<h2 class="h1 article-title">${title} <a id="title-link" class="a article-title-link" href="${link}" target="_blank" rel="noopener noreferrer">${title}</a></h2>`;
+
+            // Load the SVG icon for the link
             loadSvgIcon('/icons/svg/link.svg', 'title-link');
+
+            // Remove the remaining skeleton titles, if any
+            for (let i = 1; i < titleSkeletons.length; i++) {
+                titleSkeletons[i].remove();
+            }
         }
 
         // Replace skeleton meta content
@@ -56,7 +63,7 @@ export class PostDisplay {
                     <div class="article-meta" role="contentinfo" aria-label="Article metadata">
                         <div class="meta-author">
                             <figure class="author-figure" aria-label="Author's profile picture">
-                                <img src="/images/janmichael-bio-pic-blog.jpg" alt="Jan Michael Wallace II, Article author" class="author-image">
+                                <img src="/images/headshots/janmichael-bio-pic.jpg" alt="Jan Michael Wallace II, Article author" class="author-image">
                             </figure>
                             <p class="p author-info"><a href="${this.mediumProfile}" target="_blank" rel="noopener noreferrer" class="a">Jan Michael Wallace II</a></p>
                         </div>

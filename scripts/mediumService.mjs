@@ -40,33 +40,27 @@ export class MediumService {
         }
     }
 
-    extractFirstImageFromContent(content) {
-        const contentContainer = document.createElement("div");
-        contentContainer.innerHTML = content;
+extractFirstImageFromContent(content) {
+    const contentContainer = document.createElement("div");
+    contentContainer.innerHTML = content;
     
-        // Select the first image
-        const firstImage = contentContainer.querySelector("img");
-    
-        // If no image is found, handle gracefully
-        if (!firstImage) {
-            console.warn("No image found in content.");
-            // Hide skeleton image if no image is found
-            const imageSkeleton = this.container.querySelector('.skeleton-image');
-            if (imageSkeleton) {
-                imageSkeleton.style.display = 'none'; // Hide skeleton image
-            }
-            return ''; // Return empty string if no image found
-        }
-    
-        // Try to find the associated figcaption if it exists
-        const firstFigcaption = firstImage.closest("figure") ? firstImage.closest("figure").querySelector("figcaption") : null;
-    
-        // Clean the figcaption text if it exists, and replace &nbsp; with a space
+    // Find the first image inside a <figure> element
+    const firstFigure = contentContainer.querySelector("figure > img");
+
+    // Check if the image exists and if its width/height are greater than 1px
+    if (firstFigure && firstFigure.width > 1 && firstFigure.height > 1) {
+        const firstFigcaption = firstFigure.closest("figure").querySelector("figcaption");
         const cleanedFigcaptionText = firstFigcaption ? firstFigcaption.textContent.replace(/\u00A0/g, ' ') : '';
-    
-        // Return image and figure HTML if the image is available
-        return `<figure class="figure"><img src="${firstImage.src}" class="post-image" alt="${cleanedFigcaptionText} – ${firstImage.alt || 'Featured Image'}"></figure>`;
+
+        return `<figure class="figure">
+                    <img src="${firstFigure.src}" class="post-image" alt="${cleanedFigcaptionText} – ${firstFigure.alt || 'Featured Image'}">
+                </figure>`;
     }
+
+    // Return empty string if no valid image is found
+    return '';
+}
+
     
     
 
