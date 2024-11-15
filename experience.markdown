@@ -3,6 +3,22 @@ layout: page
 title: Experience
 permalink: /experience/
 ---
+{% comment %} Assign start year and start month vars {% endcomment %}
+{% assign primary_start_year = 2020 %}
+{% assign primary_start_month = 6 %}
+{% assign secondary_start_year = 2022 %}
+{% assign secondary_start_month = 5 %}
+
+{% comment %} Extract the current year and month dynamically (Liquid, Jekyll) {% endcomment %}
+{% assign current_year = "now" | date: "%Y" | plus: 0 %}
+{% assign current_month = "now" | date: "%m" | plus: 1 %}
+
+{% comment %} Calculate the difference between start vars and now {% endcomment %}
+{% assign primary_year_difference = current_year | minus: primary_start_year %}
+{% assign primary_month_difference = current_month | minus: primary_start_month %}
+{% assign secondary_year_difference = current_year | minus: secondary_start_year %}
+{% assign secondary_month_difference = current_month | minus: secondary_start_month %}
+
 <main class="main {% if page.url == '/experience/' %}experience{% endif %}">
     <div class="experience-content-wrapper">
         <section class="experience">
@@ -12,13 +28,15 @@ permalink: /experience/
                     <img class="experience-item-logo" src="/images/logos/global-payments.jpg" alt="Global Payments">
                     <h3 class="h5 role-held">Manager of Product Design</h3>
                     <h4 class="h6 employer-name">Global Payments</h4>
-                    <p class="dates-of-service">Current Role • 4 years, 6 months</p>
+                    {% comment %} Output primary position years, months {% endcomment %}
+                    <p class="dates-of-service"><strong>Current Role</strong> • {{ primary_year_difference }} years, {{ primary_month_difference }} months</p>
                 </li>
                 <li class="experience-item">
                     <img class="experience-item-logo" src="/images/logos/code-louisville.jpg" alt="Code Louisville">
                     <h3 class="h5 role-held">UX / Product Design Mentor</h3>
                     <h4 class="h6 employer-name">Code Louisville</h4>
-                    <p class="dates-of-service">Current Role • 2 years, 7 months</p>
+                    {% comment %} Output secondary position years, months {% endcomment %}
+                    <p class="dates-of-service"><strong>Current Role</strong> • {{ secondary_year_difference }} years, {{ secondary_month_difference }} months</p>
                 </li>
                 <li class="experience-item">
                     <img class="experience-item-logo" src="/images/logos/mightily.jpg" alt="Mightily">
