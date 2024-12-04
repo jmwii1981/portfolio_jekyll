@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <!-- Portfolio section -->
   <url>
     <loc>http://janmichael.io/</loc>
@@ -7,42 +8,31 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- Portfolio project 1 (Commented Out) -->
-  <!--
-  <url>
-    <loc>http://janmichael.io/</loc>
-    <image:image xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-      <image:loc>http://janmichael.io/images/project-1.jpg</image:loc>
-      <image:caption>Project 1 Screenshot</image:caption>
-    </image:image>
-  </url>
-  -->
-
   <!-- Experience page -->
   <url>
     <loc>http://janmichael.io/experience</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.2</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <!-- Recommendations page -->
   <url>
     <loc>http://janmichael.io/recommendations</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.3</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <!-- Blog (Perspectives) page -->
   <url>
     <loc>http://janmichael.io/perspectives</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.4</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <!-- About page -->
   <url>
     <loc>http://janmichael.io/about</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>
