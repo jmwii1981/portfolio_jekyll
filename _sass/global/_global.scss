@@ -262,13 +262,6 @@
         transform: translate(-50%, -50%);
         width: 100%;
         z-index: 1;
-
-        .anim-col-1,
-        .anim-col-2,
-        .anim-col-3,
-        .anim-col-4 {
-            // silence.
-        }
     }
     &.small {
         height: 2.25rem;
