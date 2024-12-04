@@ -65,12 +65,8 @@
     <meta name="theme-color" content="#010101">
 
     <!-- STYLES -->
-    {% if jekyll.environment == "development" %}
-        <link rel="stylesheet" href="/sass/master.css">
-    {% endif %}
-    {% if jekyll.environment == "production" %}
-        <link rel="stylesheet" href="/master.css">
-    {% endif %}
+    <link rel="stylesheet" href="{{ '/master.css' | relative_url }}">
+
 
 
     <!-- SCRIPTS -->

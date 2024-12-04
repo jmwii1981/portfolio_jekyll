@@ -6,11 +6,9 @@ url: "http://janmichael.io"
 github_username: jmwii1981
 plugins:
   - jekyll-feed
-sass_dir: sass
 sass:
   style: compressed
 include:
-  - sass
   - favicons
   - fonts
   - icons

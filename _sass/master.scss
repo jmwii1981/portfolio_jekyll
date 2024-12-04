@@ -1,0 +1,26 @@
+---
+---
+
+// fonts
+@import "fonts/fonts";
+
+// resets
+@import "resets/normalize";
+
+// global
+@import "global/global";
+
+// layouts
+@import "layouts/page";
+
+// includes
+@import "includes/header";
+@import "includes/footer";
+@import "includes/nav";
+
+// content blocks
+@import "content_blocks/about";
+@import "content_blocks/experience";
+@import "content_blocks/perspectives";
+@import "content_blocks/recommendations";
+@import "content_blocks/work";
