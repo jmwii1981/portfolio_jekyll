@@ -1,7 +1,7 @@
 ---
 layout: empty-shell
-title: Test for Makenzie
-permalink: /test/
+title: Sandbox
+permalink: /sandbox/
 ---
 
 <main class="main {% if page.url == '/test/' %}test{% endif %}">

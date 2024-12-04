@@ -5,4 +5,4 @@ User-agent: *
 Allow: /
 
 # Specify the location of your sitemap
-Sitemap: https://janmichael.io
+Sitemap: https://janmichael.io/sitemap.xml

@@ -62,7 +62,7 @@
 
 .nav {
     align-items: center;
-    border-color: #D3D3D3;
+    border-color: var(--dark-gray);
     border-bottom-style: solid;
     border-bottom-width: 1px;
     display: flex;
@@ -147,7 +147,7 @@
 
         // line
         &:after {
-            background-color:#007798;
+            background-color:var(--light-teal);
             border-radius: 5px;
             content: '';
             height: 3px;
