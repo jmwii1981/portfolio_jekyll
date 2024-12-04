@@ -19,9 +19,9 @@
 
 .work-item {
 	align-items: center;
-    background-color: #FBFBFD;
+    background-color: var(--light-gray);
     border-radius: 16px;
-    box-shadow: 0 0 6px -1px #D3D3D3;
+    box-shadow: 0 0 6px -1px var(--dark-gray);
     display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -38,7 +38,7 @@
 
     @media only screen and (hover: hover) {
         &:hover {
-            box-shadow: 0 -1px 12px -6px #D3D3D3;
+            box-shadow: 0 -1px 12px -6px var(--dark-gray);
             transform: scale(1.05);
         }
     }
@@ -57,7 +57,7 @@
 }
 
 .item-wrapper {
-    box-shadow: 1px 0 0 1px #D3D3D3;
+    box-shadow: 1px 0 0 1px var(--dark-gray);
     display: flex;
     overflow: hidden;
     width: 100%;

@@ -74,7 +74,7 @@
             transform: translateX(-50%);
 
             @media only screen and (min-width: 769px) {
-                color: #fff;
+                color: var(--white);
                 font-size: 1rem;
                 padding: 0 0.5rem;
                 text-align: right;
@@ -85,11 +85,11 @@
 }
 
 .bio-pic {
-    border-color: #d3d3d3;
+    border-color: var(--dark-gray);
     border-radius: 100%;
     border-style: solid;
     border-width: 1px;
-    box-shadow: 0 0 0 12px #edf0f6;
+    box-shadow: 0 0 0 12px var(--medium-gray);
     display: block;
     height: 8rem;
     width: 8rem;

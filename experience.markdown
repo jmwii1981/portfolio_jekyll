@@ -22,7 +22,7 @@ permalink: /experience/
 <main class="main {% if page.url == '/experience/' %}experience{% endif %}">
     <div class="experience-content-wrapper">
         <section class="experience">
-            <h2 class="h1 section-title">Work History</h2>
+            <h2 class="h2 section-title">Work History</h2>
             <ul class="experience-list">
                 <li class="experience-item">
                     <img class="experience-item-logo" src="/images/logos/global-payments.jpg" alt="Global Payments">
@@ -59,7 +59,7 @@ permalink: /experience/
                 <li class="experience-item">
                     <img class="experience-item-logo" src="/images/logos/projekt202.jpg" alt="Projekt202">
                     <h3 class="h5 role-held">Web Developer</h3>
-                    <h4 class="h6 employer-name">Projekt202 <span class="light">(formerly Blackstone)</span></h4>
+                    <h4 class="h6 employer-name">Projekt202 <span class="light">(formerly&nbsp;Blackstone)</span></h4>
                     <p class="dates-of-service">Jun 2015 - Aug 2015 • 3 months</p>
                 </li>
                 <li class="experience-item">
@@ -74,7 +74,7 @@ permalink: /experience/
             </a>
         </section>
         <section class="certification">
-            <h2 class="h1 section-title">Certifications</h2>
+            <h2 class="h2 section-title">Certifications</h2>
             <ul class="certification-list">
                 <li class="certification-item">
                     <img class="certification-item-logo" src="/images/logos/nng.jpg" alt="Company Name">
@@ -103,7 +103,7 @@ permalink: /experience/
             </ul>
         </section>
         <section class="volunteering">
-            <h2 class="h1 section-title">Volunteering</h2>
+            <h2 class="h2 section-title">Volunteering</h2>
             <ul class="volunteering-list">
                 <li class="volunteering-item">
                     <img class="volunteering-item-logo" src="/images/logos/kmp.jpg" alt="Company Name">
@@ -129,7 +129,7 @@ permalink: /experience/
             </a>
         </section>
         <section class="honors">
-            <h2 class="h1 section-title">Honors & Awards</h2>
+            <h2 class="h2 section-title">Honors & Awards</h2>
             <ul class="honors-list">
                 <li class="honors-item">
                     <img class="honors-item-logo" src="/images/logos/ky-seal.jpg" alt="Company Name">
