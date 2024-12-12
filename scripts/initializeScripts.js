@@ -26,11 +26,11 @@
         
         }
 
-        // Check if the current page path is '/recommendations/'
-        if (window.location.pathname === '/recommendations/') {
+        // Check if the current page path is '/endorsements/'
+        if (window.location.pathname === '/endorsements/') {
 
             // Perspectives page scripts ...
-            console.log('You are on the recommendations page!');
+            console.log('You are on the endorsements page!');
         
         }
         

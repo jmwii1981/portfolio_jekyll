@@ -63,7 +63,7 @@ export async function renderPost(feedUrl) {
                 <div class="post-meta" role="contentinfo" aria-label="Article metadata">
                     <div class="post-meta-author">
                         <figure class="post-author-figure" aria-label="Author's profile picture">
-                            <img class="post-author-image" src="/images/headshots/janmichael-bio-pic.jpg" alt="Jan Michael Wallace II, Article author">
+                            <img class="post-author-image" src="/images/headshots/janmichael-bio-pic.webp" alt="Jan Michael Wallace II, Article author">
                         </figure>
                         <p class="p post-author-info">
                             <a href="https://medium.com/@jmwii1981" target="_blank" rel="noopener noreferrer" class="a">Jan Michael Wallace II</a>

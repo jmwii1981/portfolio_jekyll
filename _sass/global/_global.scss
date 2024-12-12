@@ -9,12 +9,12 @@
 :root {
     --light-teal: #007798;
     --dark-teal: #125B70;
-    --darkest-gray: #666666;
-    --dark-gray: #D3D3D3;
+    --darkest-gray: #425466; // stripe dark gray
+    --dark-gray: #cbd6e0; // stripe light gray
     --medium-gray: #EDF0F6;
     --light-gray: #FBFBFD;
     --white: #FEFEFE;
-    --black: #000C0F;
+    --black: #0a2540;
 }  
 // selection color(s)
 .svg::selection,
@@ -124,9 +124,10 @@
 // BODY CONTAINER
 .body {
 	align-items: flex-start;
-    background:
-        linear-gradient(to top, rgba(242, 247, 251, 0.5) 400px, rgba(254, 254, 254, 0.25) 100%),
-        linear-gradient(to right, rgba(254, 254, 254, 0.25) 15%, rgba(143, 83, 239, 0.02) 100%, rgba(231, 245, 247, 0.25) 100%);
+    // background:
+    //     linear-gradient(to top, rgba(242, 247, 251, 0.5) 400px, rgba(254, 254, 254, 0.25) 100%),
+    //     linear-gradient(to right, rgba(254, 254, 254, 0.25) 15%, rgba(143, 83, 239, 0.02) 100%, rgba(231, 245, 247, 0.25) 100%);
+    background-color: #F6F9FC; // stripe background color
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
