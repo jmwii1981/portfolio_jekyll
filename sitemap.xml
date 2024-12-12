@@ -10,28 +10,28 @@
 
   <!-- Experience page -->
   <url>
-    <loc>http://janmichael.io/experience</loc>
+    <loc>http://janmichael.io/experience/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- endorsements page -->
   <url>
-    <loc>http://janmichael.io/endorsements</loc>
+    <loc>http://janmichael.io/endorsements/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Blog (Perspectives) page -->
   <url>
-    <loc>http://janmichael.io/perspectives</loc>
+    <loc>http://janmichael.io/perspectives/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- About page -->
   <url>
-    <loc>http://janmichael.io/about</loc>
+    <loc>http://janmichael.io/about/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
