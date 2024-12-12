@@ -3,6 +3,7 @@
 <head>
     <!-- META -->
     <!-- app info -->
+    <meta charset="UTF-8">
     <meta name="app-version" content="1.0.0">
     <meta name="release-date" content="2024-12-11">
     <meta name="release-description" content="Initial release - no project content, initial design, minimal functionality.">
@@ -22,9 +23,9 @@
     </title>
     <meta name="description" content="The portfolio of Jan Michael Wallace II. An inclusive, future-forward product design leader and technologist.">
     <meta name="robots" content="index, follow">
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ site.url }}{{ site.baseurl }}/sitemap.xml" />
-    <link rel="author" href="{{ site.url }}{{ site.baseurl }}/about/" />
-    <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}{{ page.url }}" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ site.url }}{{ site.baseurl }}/sitemap.xml">
+    <link rel="author" href="{{ site.url }}{{ site.baseurl }}/about/">
+    <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}{{ page.url }}">
 
     <!-- general social meta -->
     <meta property="og:locale" content="en_US">
@@ -58,7 +59,6 @@
         {% if page.url == '/about/' %}<meta name="threads:title" content="Jan Michael Wallace II – About">{% endif %}
     <meta name="threads:site" content="@jmwii1981">
     <meta name="threads:title" content="Jan Michael Wallace II">
-    <meta name="threads:card" content="summary_large_image">
     <meta name="threads:image" content="{{ site.url }}{{ site.baseurl }}/images/threads-og-image.jpg">
     <meta name="threads:description" content="An inclusive, future-forward product design leader and technologist.">
     <!-- TODO <meta name="threads:label1" content="Est. reading time"> -->
@@ -75,39 +75,130 @@
     <!-- "sitemap / breadcrumb" enhanced meta -->
     <script type="application/ld+json">
         {
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "WebSite",
-              "@id": "http://janmichael.io/",
-              "url": "http://janmichael.io/",
-              "name": "Jan Michael Wallace II Portfolio",
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": "http://janmichael.io/?q={search_term_string}",
-                "query-input": "required name=search_term_string"
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "WebSite",
+                "@id": "http://janmichael.io/",
+                "url": "http://janmichael.io/",
+                "name": "Jan Michael Wallace II Portfolio",
+                "potentialAction": {
+                  "@type": "SearchAction",
+                  "target": "http://janmichael.io/?q={search_term_string}",
+                  "query-input": "required name=search_term_string"
+                }
+              },
+              {
+                "@type": "WebPage",
+                "@id": "http://janmichael.io/",
+                "url": "http://janmichael.io/",
+                "name": "Portfolio",
+                "lastReviewed": "2024-12-12",
+                "breadcrumb": {
+                  "@type": "BreadcrumbList",
+                  "itemListElement": [
+                    {
+                      "@type": "ListItem",
+                      "position": 1,
+                      "name": "Home",
+                      "item": "http://janmichael.io/"
+                    }
+                  ]
+                }
+              },
+              {
+                "@type": "WebPage",
+                "@id": "http://janmichael.io/experience",
+                "url": "http://janmichael.io/experience",
+                "name": "Experience",
+                "breadcrumb": {
+                  "@type": "BreadcrumbList",
+                  "itemListElement": [
+                    {
+                      "@type": "ListItem",
+                      "position": 1,
+                      "name": "Home",
+                      "item": "http://janmichael.io/"
+                    },
+                    {
+                      "@type": "ListItem",
+                      "position": 2,
+                      "name": "Experience",
+                      "item": "http://janmichael.io/experience"
+                    }
+                  ]
+                }
+              },
+              {
+                "@type": "WebPage",
+                "@id": "http://janmichael.io/endorsements",
+                "url": "http://janmichael.io/endorsements",
+                "name": "Endorsements",
+                "breadcrumb": {
+                  "@type": "BreadcrumbList",
+                  "itemListElement": [
+                    {
+                      "@type": "ListItem",
+                      "position": 1,
+                      "name": "Home",
+                      "item": "http://janmichael.io/"
+                    },
+                    {
+                      "@type": "ListItem",
+                      "position": 2,
+                      "name": "Endorsements",
+                      "item": "http://janmichael.io/endorsements"
+                    }
+                  ]
+                }
+              },
+              {
+                "@type": "WebPage",
+                "@id": "http://janmichael.io/perspectives",
+                "url": "http://janmichael.io/perspectives",
+                "name": "Perspectives",
+                "breadcrumb": {
+                  "@type": "BreadcrumbList",
+                  "itemListElement": [
+                    {
+                      "@type": "ListItem",
+                      "position": 1,
+                      "name": "Home",
+                      "item": "http://janmichael.io/"
+                    },
+                    {
+                      "@type": "ListItem",
+                      "position": 2,
+                      "name": "Perspectives",
+                      "item": "http://janmichael.io/perspectives"
+                    }
+                  ]
+                }
+              },
+              {
+                "@type": "WebPage",
+                "@id": "http://janmichael.io/about",
+                "url": "http://janmichael.io/about",
+                "name": "About",
+                "breadcrumb": {
+                  "@type": "BreadcrumbList",
+                  "itemListElement": [
+                    {
+                      "@type": "ListItem",
+                      "position": 1,
+                      "name": "Home",
+                      "item": "http://janmichael.io/"
+                    },
+                    {
+                      "@type": "ListItem",
+                      "position": 2,
+                      "name": "About",
+                      "item": "http://janmichael.io/about"
+                    }
+                  ]
+                }
               }
-            },
-            {
-              "@type": "WebPage",
-              "@id": "http://janmichael.io/",
-              "url": "http://janmichael.io/",
-              "name": "Portfolio",
-              "lastReviewed": "2024-12-12",
-              "breadcrumb": {
-                "@type": "BreadcrumbList",
-                "itemListElement": [
-                  {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Home",
-                    "item": "http://janmichael.io/"
-                  }
-                ]
-              }
-            },
-            <!-- Repeat for other pages -->
-          ]
+            ]
         }
     </script>
 
