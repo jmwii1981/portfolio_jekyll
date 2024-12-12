@@ -2,7 +2,7 @@ title: Jan Michael Wallace
 email: hello@janmichael.io
 description: "Portfolio"
 baseurl: ""
-url: "http://janmichael.io"
+url: "https://janmichael.io"
 github_username: jmwii1981
 plugins:
   - jekyll-feed
