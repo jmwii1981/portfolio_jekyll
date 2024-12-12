@@ -71,6 +71,47 @@
     <meta name="twitter:image" content="{{ site.url }}{{ site.baseurl }}/images/twitter-og-image.jpg">    
 
     <script async="" src="//www.googletagmanager.com/gtm.js?id=GTM-53BZRHG"></script>
+    
+    <!-- "sitemap / breadcrumb" enhanced meta -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebSite",
+              "@id": "http://janmichael.io/",
+              "url": "http://janmichael.io/",
+              "name": "Jan Michael Wallace II Portfolio",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "http://janmichael.io/?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "WebPage",
+              "@id": "http://janmichael.io/",
+              "url": "http://janmichael.io/",
+              "name": "Portfolio",
+              "lastReviewed": "2024-12-12",
+              "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                  {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "http://janmichael.io/"
+                  }
+                ]
+              }
+            },
+            <!-- Repeat for other pages -->
+          ]
+        }
+    </script>
+
+    <!-- "person" enhanced meta -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
