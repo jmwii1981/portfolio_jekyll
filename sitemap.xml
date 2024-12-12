@@ -15,9 +15,9 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Recommendations page -->
+  <!-- endorsements page -->
   <url>
-    <loc>http://janmichael.io/recommendations</loc>
+    <loc>http://janmichael.io/endorsements</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
