@@ -265,10 +265,13 @@
     <meta name="theme-color" content="#010101">
 
     <!-- STYLES -->
-    <link rel="stylesheet" href="{{ '/master.css' | relative_url }}">
-
+    <link rel="stylesheet" href="{{ '/master.css' | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}">
+    <!-- older version <link rel="stylesheet" href="{{ '/master.css' | relative_url }}"> -->
+    
     <!-- SCRIPTS -->
-    <script type="module" src="/scripts/initializeScripts.js"></script>
+    <script type="module" src="/scripts/initializeScripts.js?v={{ site.time | date: '%Y%m%d%H%M%S' }}"></script>
+    <!-- older version <script type="module" src="/scripts/initializeScripts.js"></script> -->
+
     <script>
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
