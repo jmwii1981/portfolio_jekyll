@@ -10,8 +10,8 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 3rem auto 0;
-    padding: 0 2rem;
+    margin: 0;
+    padding: 0;
     position: relative; // for underline & arrows
     width: 100%;
 
@@ -62,9 +62,6 @@
 
 .nav {
     align-items: center;
-    border-color: var(--dark-gray);
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
     display: flex;
     height: 4rem;
     list-style: none;
@@ -107,35 +104,24 @@
 .tab-container {
     list-style: none;
     margin: 0;
-    padding: .5rem 2rem;
+    padding: .5rem 1rem;
     position: relative;
-
     flex-shrink: 0;
     min-width: max-content;
     white-space: nowrap;
+
+    &:first-child {
+        padding-left: 0;
+    }
+    &:last-child {
+        padding-right: 0;
+    }
 }
 
 .tab {
     font-weight: 500;
 }
 
- // TAB DECORATIONS
- .padlock {
-    pointer-events: none;
-    position: absolute;
-        top: 0.67rem;
-        left: 1.1rem;
- }
- 
- .sparkle {
-    pointer-events: none;
-    position: absolute;
-        top: 0.25rem;
-        right: 1.4rem;
-    path {
-        fill:007798;
-    }
- }
 
  // CURRENTLY ACTIVE TAB
  .tab.active {

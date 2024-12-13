@@ -2,27 +2,22 @@
     <button class="nav-button left"></button>
     <ul class="nav {% if page.url == '/' %}active-work{% endif %}{% if page.url == '/experience/' %}active-experience{% endif %}{% if page.url == '/endorsements/' %}active-endorsements{% endif %}{% if page.url == '/perspectives/' %}active-perspectives{% endif %}{% if page.url == '/about/' %}active-about{% endif %}">
         <li id="work-tab" class="tab-container">
-            <svg aria-hidden="true" class="padlock" width="11" height="11" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M192.329 138.8V208.371H230.5V122.149C230.5 110.473 220.629 100.593 208.964 100.593H198.196V68.2596C198.196 30.9863 167.239 0 130 0C92.3125 0 61.8036 30.9863 61.8036 68.2596V100.593H51.0357C38.9219 100.593 29.5 110.473 29.5 122.149V208.371H67.6714V138.8H192.329ZM162.304 100.593H97.6964V68.2596C97.6964 66.2607 97.8834 64.2969 98.2415 62.3863C101.02 47.5559 114.102 35.9261 130 35.9261C145.501 35.9261 158.889 47.5559 161.743 62.3863C162.111 64.2969 162.304 66.2607 162.304 68.2596V100.593Z" fill="#425466"/>
-                <path d="M67.6714 208.371H29.5V238.444C29.5 250.569 38.9219 260 51.0357 260H208.964C220.629 260 230.5 250.569 230.5 238.444V208.371H192.329V221.793H67.6714V208.371Z" fill="#425466"/>
-                <path d="M156.738 178.78C156.738 192.847 145.345 204.251 131.291 204.251C117.236 204.251 105.843 192.847 105.843 178.78C105.843 164.713 117.236 153.309 131.291 153.309C145.345 153.309 156.738 164.713 156.738 178.78Z" fill="#425466"/>
-            </svg>
-            <a id="work" class="a tab {% if page.url == '/' %}active{% endif %}" href="{{ site.baseurl }}/">Work</a>
+            <a id="work" class="a tab {% if page.url == '/' %}active{% endif %}" href="{{ site.url }}{{ site.baseurl }}/">Work</a>
         </li>
         <li id="experience-tab" class="tab-container">
-            <a id="experience" class="a tab {% if page.url == '/experience/' %}active{% endif %}" href="{{ site.baseurl }}/experience/">Experience</a>
+            <a id="experience" class="a tab {% if page.url == '/experience/' %}active{% endif %}" href="{{ site.url }}{{ site.baseurl }}/experience/">Experience</a>
         </li>
         <li id="perspectives-tab" class="tab-container">
-            <svg aria-hidden="true" class="sparkle" width="11" height="11" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M164.717 52.7096C163.197 51.6959 162.183 50.6823 162.183 48.655C162.183 47.1345 163.197 46.1209 164.717 45.1072L195.127 32.4366L207.29 2.53411C208.304 1.01365 209.318 0 210.838 0C212.865 0 213.879 1.01365 214.893 2.53411L227.563 32.4366L257.466 45.1072C258.986 46.1209 260 47.1345 260 48.655C260 50.6823 258.986 51.6959 257.466 52.7096L227.563 64.8733L214.893 95.2827C213.879 96.8031 212.865 97.8168 211.345 97.8168C209.318 97.8168 208.304 96.8031 207.29 95.2827L195.127 64.8733L164.717 52.7096ZM257.466 207.29C258.986 208.304 260 209.318 260 210.838C260 212.865 258.986 213.879 257.466 214.893L227.563 227.057L214.893 257.466C213.879 258.986 212.865 260 211.345 260C209.318 260 208.304 258.986 207.29 257.466L195.127 227.057L164.717 214.893C163.197 213.879 162.183 212.865 162.183 211.345C162.183 209.318 163.197 208.304 164.717 207.29L195.127 194.62L207.29 164.717C208.304 163.197 209.318 162.183 210.838 162.183C212.865 162.183 213.879 163.197 214.893 164.717L227.563 194.62L257.466 207.29ZM195.127 129.747C195.127 132.788 193.099 135.828 190.565 136.842L133.294 165.731L104.912 223.002C103.392 225.536 100.858 227.057 97.8168 227.057C94.269 227.057 91.7349 225.536 90.2144 223.002L61.8324 165.731L4.5614 136.842C2.02729 135.828 0 132.788 0 129.747C0 126.706 2.02729 123.665 4.5614 122.651L61.8324 93.7622L90.2144 36.9981C93.2554 31.423 101.871 31.423 104.912 36.9981L133.294 93.7622L190.565 122.651C193.099 123.665 194.62 126.706 195.127 129.747Z">
-            </svg>
-            <a id="perspectives" class="a tab {% if page.url == '/perspectives/' %}active{% endif %}" href="{{ site.baseurl }}/perspectives/">Perspectives</a>
+            <a id="perspectives" class="a tab {% if page.url == '/perspectives/' %}active{% endif %}" href="{{ site.url }}{{ site.baseurl }}/perspectives/">Perspectives</a>
         </li>
         <li id="endorsements-tab" class="tab-container">
-            <a id="endorsements" class="a tab {% if page.url == '/endorsements/' %}active{% endif %}" href="{{ site.baseurl }}/endorsements/">Endorsements</a>
+            <a id="endorsements" class="a tab {% if page.url == '/endorsements/' %}active{% endif %}" href="{{ site.url }}{{ site.baseurl }}/endorsements/">Endorsements</a>
         </li>
         <li id="about-tab" class="tab-container">
-            <a id="about" class="a tab {% if page.url == '/about/' %}active{% endif %}" href="{{ site.baseurl }}/about/">About</a>
+            <a id="about" class="a tab {% if page.url == '/about/' %}active{% endif %}" href="{{ site.url }}{{ site.baseurl }}/about/">About</a>
+        </li>
+        <li id="contact-tab" class="tab-container">
+            <a id="contact" class="a tab {% if page.url == '/contact/' %}active{% endif %}" href="{{ site.url }}{{ site.baseurl }}/contact/">Contact me</a>
         </li>
     </ul>
     <button class="nav-button right"></button>

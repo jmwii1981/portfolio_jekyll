@@ -4,8 +4,9 @@
 .header {
     align-items: center;
     display: flex;
-    flex-direction: column;
-    padding: 4rem 4px 0;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2rem 2rem 2rem 1rem;
     position: relative;
     width: 100%;
 }
