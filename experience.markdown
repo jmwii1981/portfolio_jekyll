@@ -19,7 +19,7 @@ permalink: /experience/
 {% assign secondary_year_difference = current_year | minus: secondary_start_year %}
 {% assign secondary_month_difference = current_month | minus: secondary_start_month %}
 
-<main class="main {% if page.url == '/experience/' %}experience{% endif %}">
+<main class="main experience">
     <div class="experience-content-wrapper">
         <section class="experience">
             <h2 class="h2 section-title">Work History</h2>

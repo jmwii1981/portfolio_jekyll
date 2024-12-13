@@ -3,7 +3,7 @@ layout: page
 title: About
 permalink: /about/
 ---
-<main class="main {% if page.url == '/about/' %}about{% endif %}">
+<main class="main about">
     <section class="bio">
         <figure class="bio-pic-wrapper">
             <img class="bio-pic" src="{{ site.baseurl }}/images/headshots/janmichael-bio-pic.webp" alt="Headshot of Jan Michael Wallace II">

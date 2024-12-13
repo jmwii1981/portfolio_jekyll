@@ -1,12 +1,4 @@
 //***********************************************************//
-//**                 PAGE DESIGN ELEMENTS                  **//
-//***********************************************************//
-.work-teaser {
-    display: flex;
-    width: 100%;
-}
-
-//***********************************************************//
 //**              PAGE LAYOUT AND TYPOGRAPHY               **//
 //***********************************************************//
 
@@ -17,30 +9,40 @@
 	justify-content: flex-start;
 }
 
+// section - grandparent
 .work-item {
 	align-items: center;
-    background-color: var(--light-gray);
-    border-radius: 16px;
-    box-shadow: 0 0 6px -1px var(--dark-gray);
+    background-color: var(--stripe-bg);
+    border-radius: 0rem;
+    box-shadow: 
+        0px 0px 0px 0px rgba(246, 249, 252, 0),
+        0px 0px 0px 0px rgba(246, 249, 252, 0),
+
+        // larger darkened shadow
+        0px 0px 0px 0px rgba(0, 0, 0, 0),
+        0px 0px 0px 0px rgba(0, 0, 0, 0),
+
+        // spread highlight
+        0px 0px 0px 0px rgba(0, 0, 0, 0),
+        0px 0px 0px 0px rgba(0, 0, 0, 0);
     display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	margin: 0 auto;
     max-width: 408px;
     overflow: hidden;
+    position: relative;
+    transform: scale(1);
 	width: 100%;
-    transition: all 0.3s ease-in-out;
+    transition: 
+        border-radius 0.1s cubic-bezier(0.25, 1.5, 0.5, -0.5),
+        transform 0.1s cubic-bezier(0.25, 1.5, 0.5, -0.5),
+        box-shadow 0.25s cubic-bezier(0.25, 1.5, 0.5, -0.5);
+    z-index: 1;
 
     @media only screen and (min-width: 769px) {
         max-width: none;
         width: calc(50% - 1.5rem);
-    }
-
-    @media only screen and (hover: hover) {
-        &:hover {
-            box-shadow: 0 -1px 12px -6px var(--dark-gray);
-            transform: scale(1.05);
-        }
     }
 
     &:nth-of-type(1) {
@@ -56,9 +58,68 @@
     }
 }
 
+// link - parent
 .item-wrapper {
-    box-shadow: 1px 0 0 1px var(--dark-gray);
     display: flex;
     overflow: hidden;
     width: 100%;
+}
+
+// image - child
+.work-teaser {
+    display: flex;
+    opacity: 1;
+    transition: 
+        opacity 0.25s cubic-bezier(0.25, 0.75, 0.5, -0.5);
+    width: 100%;
+}
+
+// h2 - child
+.project-name {
+    align-items: center;
+    color: white;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+    pointer-events: none;
+    position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transition: 
+        opacity 0.25s cubic-bezier(0.25, 0.75, 0.5, -0.5);
+    width: 100%;
+    z-index: 3;
+}
+
+
+// HOVER STATE
+
+@media only screen and (hover: hover) {
+    .work-item:hover {
+        border-radius: 0.5rem;
+        transform: scale(1.01);
+        box-shadow: // h v b s c
+
+            // immediate highlight border
+            -1px -1px 3px 0px rgba(246, 249, 252, 1),
+            0px 0px 3px 0px rgba(246, 249, 252, 1),
+            
+            // dark spread
+            14px 14px 14px 3px rgba(0, 0, 0, 0.05),
+
+            // top-left immediate highlight border offset (background)
+            -14px -14px 14px 0px rgba(255, 255, 255, 1);
+
+            .work-teaser {
+                opacity: 0;
+            }
+            .project-name {
+                opacity: 1;
+            }
+        }
 }

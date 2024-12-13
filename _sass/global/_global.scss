@@ -15,6 +15,7 @@
     --light-gray: #FBFBFD;
     --white: #FEFEFE;
     --black: #0a2540;
+    --stripe-bg: #F6F9FC;
 }  
 // selection color(s)
 .svg::selection,
@@ -127,7 +128,7 @@
     // background:
     //     linear-gradient(to top, rgba(242, 247, 251, 0.5) 400px, rgba(254, 254, 254, 0.25) 100%),
     //     linear-gradient(to right, rgba(254, 254, 254, 0.25) 15%, rgba(143, 83, 239, 0.02) 100%, rgba(231, 245, 247, 0.25) 100%);
-    background-color: #F6F9FC; // stripe background color
+    background-color: var(--stripe-bg);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -161,52 +162,6 @@
     width: 100%;
 }
 //***********************************************************//
-//**                       HALF OVAL                       **//
-//***********************************************************//
-.half-oval {
-    content: "";
-    background-color: var(--white); 
-    border-bottom-left-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-color: #EAF2F5;
-    border-style: solid;
-    border-width: 0;
-    border-bottom-width: 1px;
-    height: 12rem;
-    overflow: hidden;
-    position: absolute;
-        top: 0rem;
-        left: 50%;
-    transform: translateX(-50%);
-    width: 92.25rem;
-    z-index: 0;
- 
-    @media only screen and (min-width: 1184px) {
-            left: -12.5%;
-            right: -12.5%;
-        transform: translateX(0);
-        width: 125%;
-    }
-
-    &::before {
-        background-image:
-            linear-gradient(to right, #EAF2F5 0.0625rem, transparent 0.0625rem),
-            linear-gradient(to bottom, #EAF2F5 0.0625rem, transparent 0.0625rem);
-        background-position: center 0.21875rem; /* Ensures centering */
-        background-size: 0.3125rem 0.3125rem; /* Adjust as necessary */
-        content: '';
-        position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: calc(50% - 0.03125rem);
-        pointer-events: none;
-        transform: translateX(-50%);
-        width: 100%;
-        z-index: 1;
-    }
-}
-//***********************************************************//
 //**                         LOGO                          **//
 //***********************************************************//
 // GLOBAL LOGO (LARGE)
@@ -217,10 +172,10 @@
 
     // Header logo container
     &.large {
-        height: 9.75rem;
+        height: 3.75rem;
         margin: 0;
         padding: 0;
-        width: 9.75rem;
+        width: 3.75rem;
 
         // Header logo animated borders
         .animated-border {

@@ -3,7 +3,7 @@ layout: page
 title: Perspectives
 permalink: /perspectives/
 ---
-<main class="main {% if page.url == '/perspectives/' %}perspectives{% endif %}">
+<main class="main perspectives">
     <!-- Content Container -->
     <section class="post-content-wrapper">
         <noscript>

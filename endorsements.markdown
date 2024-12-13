@@ -3,7 +3,7 @@ layout: page
 title: endorsements
 permalink: /endorsements/
 ---
-<main class="main {% if page.url == '/endorsements/' %}endorsements{% endif %}">
+<main class="main endorsements">
     <section class="recommendation">
         <div class="rec-meta">
             <img src="{{ site.baseurl }}/images/headshots/vinesha.webp" alt="Vinesha Perera, Chief Product Officer" class="headshot">
