@@ -11,20 +11,24 @@
 
 // section - grandparent
 .work-item {
-	align-items: center;
-    background-color: var(--stripe-bg);
-    border-radius: 0rem;
-    box-shadow: 
-        0px 0px 0px 0px rgba(246, 249, 252, 0),
-        0px 0px 0px 0px rgba(246, 249, 252, 0),
-
-        // larger darkened shadow
-        0px 0px 0px 0px rgba(0, 0, 0, 0),
-        0px 0px 0px 0px rgba(0, 0, 0, 0),
-
-        // spread highlight
-        0px 0px 0px 0px rgba(0, 0, 0, 0),
-        0px 0px 0px 0px rgba(0, 0, 0, 0);
+    align-items: center;
+    aspect-ratio: 7 / 4;
+    background: radial-gradient(circle at top left, rgba(55, 84, 170, 0.01) 0%, rgba(250, 252, 255, 0.5) 100%);
+    border-top-left-radius: 0.875rem;
+    border-top-right-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.875rem;
+    border-width: 0px;
+    box-shadow:
+            // outside bevel shadow
+            0px 0px 0px 0px rgba(55, 84, 170, 0),
+            0px 0px 0px 0px rgba(252, 254, 255, 0),
+            0px 0px 0px 0px rgba(255, 255, 255, 0),
+            0px 0px 0px 0px rgba(55, 84, 170, 0),
+            
+            // inset line blur
+            inset 0px 0px 0px 0px rgba(55, 84, 170, 0),
+            inset 0px 0px 0px 0px rgba(252, 254, 255, 0);
     display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -34,10 +38,6 @@
     position: relative;
     transform: scale(1);
 	width: 100%;
-    transition: 
-        border-radius 0.1s cubic-bezier(0.25, 1.5, 0.5, -0.5),
-        transform 0.1s cubic-bezier(0.25, 1.5, 0.5, -0.5),
-        box-shadow 0.25s cubic-bezier(0.25, 1.5, 0.5, -0.5);
     z-index: 1;
 
     @media only screen and (min-width: 769px) {
@@ -60,66 +60,84 @@
 
 // link - parent
 .item-wrapper {
+    align-items: center;
     display: flex;
-    overflow: hidden;
+    height: 100%;
+    justify-content: center;
+    position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
     width: 100%;
 }
 
 // image - child
 .work-teaser {
-    display: flex;
-    opacity: 1;
-    transition: 
-        opacity 0.25s cubic-bezier(0.25, 0.75, 0.5, -0.5);
-    width: 100%;
-}
-
-// h2 - child
-.project-name {
-    align-items: center;
-    color: white;
-    display: flex;
+    display: block;
     height: 100%;
-    justify-content: center;
-    margin: 0;
-    opacity: 0;
-    padding: 0;
+    opacity: 1;
     pointer-events: none;
     position: absolute;
         top: 0;
         right: 0;
         bottom: 0;
         left: 0;
-        transition: 
-        opacity 0.25s cubic-bezier(0.25, 0.75, 0.5, -0.5);
     width: 100%;
-    z-index: 3;
+}
+
+// h2 - child
+.project-name {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+    pointer-events: none;
+    position: relative;
+    transform: scale(1);
+    z-index: 2;
 }
 
 
 // HOVER STATE
-
 @media only screen and (hover: hover) {
     .work-item:hover {
-        border-radius: 0.5rem;
-        transform: scale(1.01);
-        box-shadow: // h v b s c
 
-            // immediate highlight border
-            -1px -1px 3px 0px rgba(246, 249, 252, 1),
-            0px 0px 3px 0px rgba(246, 249, 252, 1),
+        box-shadow:
+            // outside bevel shadow
+            0px -20px 20px 0px rgba(248, 250, 251, 0.7),
+            -20px 0px 20px 0px rgba(252, 254, 255, 0.7),
+            -15px -15px 15px 0px rgba(255, 255, 255, 0.7),
+            -6px -6px 18px 2px rgba(255, 255, 255, 1),
             
-            // dark spread
-            14px 14px 14px 3px rgba(0, 0, 0, 0.05),
 
-            // top-left immediate highlight border offset (background)
-            -14px -14px 14px 0px rgba(255, 255, 255, 1);
+            -6px 6px 15px 5px rgba(55, 84, 170, 0.2),
+            6px -6px 15px 5px rgba(55, 84, 170, 0.2),
+            6px 6px 15px 5px rgba(55, 84, 170, 0.2),
+            
+            // inset line blur
+            inset -1px -1px 2px 0px rgba(55, 84, 170, 0.1),
+            inset 1px 1px 2px 0px rgba(252, 254, 255, 0.5);
+        transform: scale(1.01);
+        transition: 
+            filter 0.125s linear,
+            transform 0.05s linear,
+            box-shadow 0.125s linear;
 
-            .work-teaser {
-                opacity: 0;
-            }
-            .project-name {
-                opacity: 1;
-            }
+        .work-teaser {
+            filter: blur(3px) brightness(1.05);
+            opacity: 0.035;
+            transition: 
+                opacity 0.125s ease-out;
         }
+        .project-name {
+            opacity: 1;
+            transform: scale(1.03);
+            transition:
+                transform 0.125s ease-out,
+                opacity 0.125s ease-out;
+        }
+    }        
 }

@@ -69,7 +69,7 @@ permalink: /experience/
                     <p class="dates-of-service">Oct 2014 - Jun 2015 • 9 months</p>
                 </li>
             </ul>
-            <a class="a arrow-link" href="//linkedin.com/in/jmwii1981/details/experience/" target="_blank">
+            <a class="a add-icon-left arrow-icon" href="//linkedin.com/in/jmwii1981/details/experience/" target="_blank">
                 View more experience
             </a>
         </section>
@@ -124,7 +124,7 @@ permalink: /experience/
                     <p class="dates-of-volunteering">Jun 2020 - Jan 2021</p>
                 </li>
             </ul>
-            <a class="a arrow-link" href="//linkedin.com/in/jmwii1981/details/volunteering-experiences/" target="_blank">
+            <a class="a add-icon-left arrow-icon" href="//linkedin.com/in/jmwii1981/details/volunteering-experiences/" target="_blank">
                 View more volunteering
             </a>
         </section>

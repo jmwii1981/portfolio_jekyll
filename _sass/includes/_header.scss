@@ -3,12 +3,13 @@
 //***********************************************************//
 .header {
     align-items: center;
+    background-color: var(--color-background-light);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 2rem 2rem 2rem 1rem;
-    position: relative;
     width: 100%;
+    z-index: 1000;
 }
 .contact-info,
 .meta {

@@ -6,6 +6,7 @@
 // }
 
 // NAVIGATION TABS
+// main nav container on head of site
 .nav-container {
     display: flex;
     justify-content: flex-start;
@@ -39,8 +40,9 @@
         background-color: rgba(251, 251, 253, 0.1);
         background-repeat: no-repeat;
         background-size: 1.5rem;
-        box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1),
-        0px 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 
+            0px 3px 8px rgba(0, 0, 0, 0.1),
+            0px 2px 4px rgba(0, 0, 0, 0.1);
         content: '';
         display: block;
         height: 5rem;
@@ -59,7 +61,6 @@
         }
     }
 }
-
 .nav {
     align-items: center;
     display: flex;
@@ -125,20 +126,20 @@
 
  // CURRENTLY ACTIVE TAB
  .tab.active {
-    color: #343339;
+    color: var(--color-link-active);
     display: inline-block; 
+    font-weight: 700;
     pointer-events: none;
     transform: scale(1.05);
     // transition: all 0.3s ease-in-out;
 
         // line
         &:after {
-            background-color:var(--light-teal);
-            border-radius: 5px;
+            background-color:var(--color-link-active);
             content: '';
-            height: 3px;
+            height: 0.125rem;
             position: absolute;
-                bottom: -2px;
+                bottom: -11px;
                 left: 0rem;
             width: 100%;;
         }
