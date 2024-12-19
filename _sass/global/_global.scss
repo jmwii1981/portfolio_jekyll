@@ -7,16 +7,35 @@
     -webkit-font-smoothing: antialiased;
 }
 :root {
-    --light-teal: #007798;
-    --dark-teal: #125B70;
-    --darkest-gray: #425466; // stripe dark gray
-    --dark-gray: #cbd6e0; // stripe light gray
-    --medium-gray: #EDF0F6;
-    --light-gray: #FBFBFD;
-    --white: #FEFEFE;
-    --black: #0a2540;
-    --stripe-bg: #F6F9FC;
-}  
+    @media (prefers-color-scheme: light) {
+        /* Link colors */
+        --color-link: #6E7C91;
+        --color-link-hover: #7F8FA7;
+        --color-link-active: #5E6A7C;
+
+        /* Background colors */
+        --color-background-light: #F0F4FA;
+            --color-background-dark: #121212; // TBD
+    
+        /* Context-based text colors */
+        --color-primary-text: #0A2540; /* For primary, main content */
+            --color-secondary-text: #6c757d; // TBD
+            --color-inverse-text: #FFFFFF; // TBD
+            --color-error-text: #dc3545; // TBD
+            --color-success-text: #28a745; // TBD
+            --color-info-text: #17a2b8; // TBD
+
+        /* Accent colors */
+        --dark-gray: #cbd6e0; // TBD
+        --medium-gray: #EDF0F6; // TBD
+    }
+
+    @media (prefers-color-scheme: dark) {
+        /* silence */
+    }
+}
+
+
 // selection color(s)
 .svg::selection,
 .img::selection,
@@ -30,7 +49,7 @@
 .a::selection,
 .span::selection {
     background-color:rgba(43,132,157,0.1);
-    color: var(--dark-teal);
+    color: var(--color-primary-text);
 }
 .h1,
 .h2,
@@ -39,7 +58,7 @@
 .h5,
 .h6,
 .p {
-    color: var(--black);
+    color: var(--color-primary-text);
     display: inline-block;
 }
 .h1,
@@ -80,7 +99,7 @@
     line-height: 1.5rem;
 }
 .a {
-    color: var(--light-teal); 
+    color: var(--color-link); 
     font-weight: 600;
     box-shadow: 0 0 0 0rem rgba(1, 96, 123, 0.6);
     position: relative;
@@ -89,6 +108,14 @@
 	transition-property: box-shadow;
 	transition-timing-function: ease-in;
     z-index: 1;
+
+    &:focus,
+    &:hover {
+        color: var(--color-link-hover);
+    }
+    &:active {
+        color: var(--color-link-active);
+    }
 
     &:focus {
         outline: none; /* This removes the default browser outline */
@@ -113,7 +140,7 @@
 // DOCUMENT CONTAINER
 .html {
 	align-items: flex-start;
-    background-color: var(--white);
+    background-color: var(--color-background-light);
     display: flex;
 	image-rendering: -webkit-optimize-contrast;
 	justify-content: center;
@@ -125,10 +152,7 @@
 // BODY CONTAINER
 .body {
 	align-items: flex-start;
-    // background:
-    //     linear-gradient(to top, rgba(242, 247, 251, 0.5) 400px, rgba(254, 254, 254, 0.25) 100%),
-    //     linear-gradient(to right, rgba(254, 254, 254, 0.25) 15%, rgba(143, 83, 239, 0.02) 100%, rgba(231, 245, 247, 0.25) 100%);
-    background-color: var(--stripe-bg);
+    background-color: var(--color-background-light);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -167,7 +191,10 @@
 // GLOBAL LOGO (LARGE)
 // Parent relative clickable element
 .logo-container {
+    align-items: center;
     display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     position: relative;
 
     // Header logo container
@@ -202,6 +229,25 @@
             z-index: 3;
         }
     }
+
+    &.small .logo.small {
+        fill: var(--color-link);
+    }
+    &.small:focus {
+        outline-offset: 0.5rem;
+    }
+    &.small:hover .logo.small,
+    &.small:hover .a.site-link,
+    &.small:focus .logo.small,
+    &.small:focus .a.site-link {
+        color: var(--color-link-hover);
+        fill: var(--color-link-hover);
+    }
+    &.small:active .logo.small,
+    &.small:active .a.site-link {
+        color: var(--color-link-active);
+        fill: var(--color-link-active);
+    }
 }
 .logo {
     display: flex;
@@ -223,9 +269,6 @@
         height: 2.25rem;
         width: 2.25rem;
     }
-    &:focus {
-        outline-offset: 0.5rem;
-    }
 }
 //***********************************************************//
 //**                     PROGRESS BAR                      **//
@@ -241,7 +284,8 @@
 }
 #progress-bar {
 	--scrollAmount: 0%;
-	background-image: linear-gradient(120deg,--light-teal 0%,--light-teal 100%);
+    // var colors below may not work, haven't been tested
+	background-image: linear-gradient(120deg, var(--color-link) 0%, var(--color-link) 100%);
 	width: var(--scrollAmount);
 	height: 2px;
 	position: absolute;
@@ -251,15 +295,75 @@
 //***********************************************************//
 //**                        ICONS                          **//
 //***********************************************************//
-.social-icon,
-.social-icon img {
+
+// TEXT ICONS
+// --- positioning
+.add-icon-left {
+    margin-left: calc(0.4rem + 1.5rem) !important; // spacing plus size of icon
+}
+.add-icon-right {
+    margin-right: calc(0.4rem + 1.5rem) !important; // spacing plus size of icon
+}
+.add-icon-left:after,
+.add-icon-right:after {
+    content: '';
+    display: flex;
+    height: 1.5rem;
+    position: absolute;
+        top: 50%;
+    transform: translateY(-50%);
+    width: 1.5rem;
+}
+.add-icon-left:after {
+        right: calc(100% + 0.4rem);
+}
+.add-icon-right:after {
+        left: calc(100% + 0.4rem);
+}
+
+// --- icon calls
+.new-tab-icon.add-icon-left:after,
+.new-tab-icon.add-icon-right:after {
+    background-image: url('/icons/svg/new-tab.svg');
+    background-size: contain;
+    background-position: center;
+}
+
+// SOCIAL ICONS IN FOOTER
+.social-icon rect, 
+.social-icon circle,
+.social-icon ellipse,
+.social-icon line,
+.social-icon polyline,
+.social-icon polygon,
+.social-icon path {
+    fill: var(--color-link);
     height: 2.75rem;
     width: 2.75rem;
 }
-.link-icon {    
-    height: 1.5rem;
-    width: 1.5rem;
+.social-icon:hover {
+    & rect, 
+    & circle,
+    & ellipse,
+    & line,
+    & polyline,
+    & polygon,
+    & path { 
+        fill: var(--color-link-hover);
+    }
 }
+.social-icon:active { 
+    & rect, 
+    & circle,
+    & ellipse,
+    & line,
+    & polyline,
+    & polygon,
+    & path { 
+        fill: var(--color-link-active);
+    }
+}
+
 //***********************************************************//
 //**       HOVER INTERACTIONS FOR CAPABLE DEVICES          **//
 //***********************************************************//

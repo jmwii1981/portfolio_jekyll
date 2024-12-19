@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Marker Trick</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      height: 200vh; /* Make the page scrollable */
+    }
+
+    /* Fixed navigation bar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: white;
+      transition: box-shadow 0.3s ease;
+      z-index: 1000;
+    }
+
+    /* Sticky marker element */
+    .scroll-marker {
+      position: sticky;
+      top: 0;
+      height: 1px; /* Invisible but takes up space */
+      visibility: hidden;
+    }
+
+    /* Add shadow to the nav when the marker scrolls out of view */
+    .scroll-marker + nav {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+    }
+
+    /* When marker leaves sticky state, nav gets the shadow */
+    .scroll-marker:not(:is(:root)) + nav {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+    {{ content }}
+</body>
+</html>

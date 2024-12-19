@@ -1,8 +1,6 @@
 // FOOTER CONTAINER
 .footer {
 	align-items: center;
-    background:
-        linear-gradient(to top, rgba(254, 254, 254, 100) 70%, rgba(254, 254, 254, 0) 100%);
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
@@ -10,16 +8,12 @@
     // position: relative;
 	width: 100%;
 
-    .a,.p {
-        color:var(--light-teal);
+    .p {
+        color:var(--color-link);
         margin-left: auto;
         margin-right: auto;
         padding: 0;
         text-align: center;
-    }
-
-    .logo.small {
-        margin-bottom: 0.5rem;
     }
 
     .site-link {
