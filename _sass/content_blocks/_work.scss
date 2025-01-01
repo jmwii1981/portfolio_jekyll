@@ -3,9 +3,10 @@
 //***********************************************************//
 
 .main.work {
+    align-items: flex-start;
 	flex-direction: row;
 	flex-wrap: wrap;
-	gap: 3rem;
+	gap: 3rem 2rem;
 	justify-content: flex-start;
 }
 
@@ -41,20 +42,9 @@
     z-index: 1;
 
     @media only screen and (min-width: 769px) {
+        margin: 0;
         max-width: none;
-        width: calc(50% - 1.5rem);
-    }
-
-    &:nth-of-type(1) {
-        margin-top: 2rem;
-    }
-
-    &:nth-of-type(2) {
-        margin-top: 0;
-
-        @media only screen and (min-width: 769px) {
-            margin-top: 2rem;
-        }
+        width: calc(33% - 1rem);
     }
 }
 

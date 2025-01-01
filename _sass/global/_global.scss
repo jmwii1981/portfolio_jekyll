@@ -167,12 +167,16 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	margin: 0 auto;
-    max-width: 769px;
+	margin: 2rem auto 0;
+    max-width: 108rem;
     padding: 0.25rem; // do not change padding to .main so it doesn't cause a "jerk" when going smaller    
     position: relative;
 	width: 100%;
 	z-index: 1;
+
+    @media only screen and (min-width: 769px) {
+        padding: 2rem;
+    }
 }
 // END OF PAGE CTAs
 .eop-cta {
