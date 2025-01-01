@@ -3,6 +3,7 @@ layout: page
 title: Work
 ---
 <main class="main work">
+<h2 class="h2">Work</h2>
     <section class="work-item">
         <a class="a item-wrapper" href="//www.figma.com/deck/UERQURaUcK0Lkq0kFNAgq3/Untitled?node-id=1-62&t=sTNvOLC5sVvb7jwf-1" aria-label="See more about Product X on Figma" target="_blank">
             <img class="work-teaser" src="/images/portfolio-items/color-exploration.webp?v={{ site.time | date: '%Y%m%d%H%M%S' }}" alt="Description of the image">
