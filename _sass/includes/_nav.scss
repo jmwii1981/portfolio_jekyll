@@ -88,7 +88,7 @@
 
         // hidden line
         &:after {
-            background-color:var(--color-link-active);
+            background-color:var(--color-primary-link-active);
             content: '';
             display: none;
             height: 0.125rem;
@@ -100,15 +100,13 @@
 }
 // CURRENTLY ACTIVE TAB
  .tab.active {
-    color: var(--color-link-active);
+    color: var(--color-primary-link-active);
     font-weight: 700;
     pointer-events: none;
-    transform: scale(1.05);
-    // transition: all 0.3s ease-in-out;
 
         // line
         &:after {
-            background-color:var(--color-link-active);
+            background-color:var(--color-primary-link-active);
             content: '';
             display: block;
             height: 0.125rem;
