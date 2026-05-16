@@ -1,16 +1,27 @@
 //***********************************************************//
 //**              PAGE LAYOUT AND TYPOGRAPHY               **//
 //***********************************************************//
-
+// parent container
 .main.work {
     align-items: flex-start;
 	flex-direction: row;
 	flex-wrap: wrap;
-	gap: 3rem 2rem;
 	justify-content: flex-start;
 }
 
-// section - grandparent
+// child wrapper
+.work-items-wrapper {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3rem 2.25rem;
+    justify-content: flex-start;
+    margin: 0 auto;
+    width: 100%;
+}
+
+// grand child wrapper
 .work-item {
     align-items: center;
     aspect-ratio: 7 / 4;
@@ -44,7 +55,7 @@
     @media only screen and (min-width: 769px) {
         margin: 0;
         max-width: none;
-        width: calc(33% - 1rem);
+        width: calc(33% - 1.5rem);
     }
 }
 
@@ -88,6 +99,13 @@
     position: relative;
     transform: scale(1);
     z-index: 2;
+
+    svg {
+        fill: var(--color-primary-link);
+        height: 1.5rem;
+        margin-left: 0.3125rem;
+        width: 1.5rem;
+    }
 }
 
 

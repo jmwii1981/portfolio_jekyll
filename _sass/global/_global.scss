@@ -9,16 +9,20 @@
 :root {
     @media (prefers-color-scheme: light) {
         /* Link colors */
-        --color-link: #6E7C91;
-        --color-link-hover: #7F8FA7;
-        --color-link-active: #5E6A7C;
+        --color-primary-link: #2563EB;
+        --color-primary-link-hover: #1F48B0;
+        --color-primary-link-active: #1C3F95;
+            --color-secondary-link: #0077b5; // TBD
+            --color-secondary-link-hover: #005f91; // TBD
+            --color-secondary-link-active: #5E6A7C; // TBD
+
 
         /* Background colors */
-        --color-background-light: #F0F4FA;
+        --color-background-light: #FFFFFF;
             --color-background-dark: #121212; // TBD
     
         /* Context-based text colors */
-        --color-primary-text: #0A2540; /* For primary, main content */
+        --color-primary-text: #242424; /* For primary, main content */
             --color-secondary-text: #6c757d; // TBD
             --color-inverse-text: #FFFFFF; // TBD
             --color-error-text: #dc3545; // TBD
@@ -76,6 +80,12 @@
 .h2 {
    font-size: 1.5rem;
    line-height: 2.25rem;
+
+   &.massive {
+    font-size: 4rem;
+    font-weight: 900;
+    text-transform: uppercase;
+   }
 }
 .h3 {
     font-size: 1.25rem;
@@ -99,7 +109,7 @@
     line-height: 1.5rem;
 }
 .a {
-    color: var(--color-link); 
+    color: var(--color-primary-link); 
     font-weight: 600;
     box-shadow: 0 0 0 0rem rgba(1, 96, 123, 0.6);
     position: relative;
@@ -111,10 +121,10 @@
 
     &:focus,
     &:hover {
-        color: var(--color-link-hover);
+        color: var(--color-primary-link-hover);
     }
     &:active {
-        color: var(--color-link-active);
+        color: var(--color-primary-link-active);
     }
 
     &:focus {
@@ -167,7 +177,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	margin: 2rem auto 0;
+	margin: 0 auto;
     max-width: 108rem;
     padding: 0.25rem; // do not change padding to .main so it doesn't cause a "jerk" when going smaller    
     position: relative;
@@ -175,19 +185,27 @@
 	z-index: 1;
 
     @media only screen and (min-width: 769px) {
-        padding: 2rem;
+        padding: 0 1.5rem;
     }
 }
 // END OF PAGE CTAs
 .eop-cta {
     align-items: center;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
-    margin: 2rem auto 0;
-    max-width: 706px;
-    padding: 2rem;
-    width: 100%;
+    margin: 3rem auto;
+
+    .a {
+        font-size: 1.25rem;
+    }
+    svg {
+        fill: var(--color-primary-link);
+        height: 1.5rem;
+        margin-left: 0.3125rem;
+        transform: translateY(0.3125rem);
+        width: 1.5rem;
+    }
 }
 //***********************************************************//
 //**                         LOGO                          **//
@@ -235,7 +253,7 @@
     }
 
     &.small .logo.small {
-        fill: var(--color-link);
+        fill: var(--color-primary-link);
     }
     &.small:focus {
         outline-offset: 0.5rem;
@@ -244,13 +262,13 @@
     &.small:hover .a.site-link,
     &.small:focus .logo.small,
     &.small:focus .a.site-link {
-        color: var(--color-link-hover);
-        fill: var(--color-link-hover);
+        color: var(--color-primary-link-hover);
+        fill: var(--color-primary-link-hover);
     }
     &.small:active .logo.small,
     &.small:active .a.site-link {
-        color: var(--color-link-active);
-        fill: var(--color-link-active);
+        color: var(--color-primary-link-active);
+        fill: var(--color-primary-link-active);
     }
 }
 .logo {
@@ -289,7 +307,7 @@
 #progress-bar {
 	--scrollAmount: 0%;
     // var colors below may not work, haven't been tested
-	background-image: linear-gradient(120deg, var(--color-link) 0%, var(--color-link) 100%);
+	background-image: linear-gradient(120deg, var(--color-primary-link) 0%, var(--color-primary-link) 100%);
 	width: var(--scrollAmount);
 	height: 2px;
 	position: absolute;
@@ -341,7 +359,7 @@
 .social-icon polyline,
 .social-icon polygon,
 .social-icon path {
-    fill: var(--color-link);
+    fill: var(--color-primary-link);
     height: 2.75rem;
     width: 2.75rem;
 }
@@ -353,7 +371,7 @@
     & polyline,
     & polygon,
     & path { 
-        fill: var(--color-link-hover);
+        fill: var(--color-primary-link-hover);
     }
 }
 .social-icon:active { 
@@ -364,7 +382,7 @@
     & polyline,
     & polygon,
     & path { 
-        fill: var(--color-link-active);
+        fill: var(--color-primary-link-active);
     }
 }
 
