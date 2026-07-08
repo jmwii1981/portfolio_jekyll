@@ -13,6 +13,15 @@
 // layouts
 @import "layouts/page";
 
+// components
+@import "components/button";
+@import "components/cta";
+@import "components/consent-banner";
+@import "components/logo";
+@import "components/section-label";
+@import "components/skeleton";
+@import "components/social-icons";
+
 // includes
 @import "includes/footer";
 @import "includes/header";
@@ -20,7 +29,4 @@
 
 @import "content_blocks/about";
 @import "content_blocks/perspectives";
-@import "content_blocks/endorsements";
 @import "content_blocks/work";
-
-

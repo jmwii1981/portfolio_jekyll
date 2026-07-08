@@ -1,0 +1,23 @@
+.eop-cta {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 3rem auto;
+    max-width: var(--site-stage-max);
+    padding-left: var(--site-content-padding);
+    padding-right: var(--site-content-padding);
+    width: 100%;
+
+    .a {
+        font-size: 1.25rem;
+    }
+
+    svg {
+        fill: var(--color-link);
+        height: 1.5rem;
+        margin-left: 0.3125rem;
+        transform: translateY(0.3125rem);
+        width: 1.5rem;
+    }
+}

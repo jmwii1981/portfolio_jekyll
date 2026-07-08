@@ -1,0 +1,132 @@
+.logo-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+
+    &.large {
+        height: 3.5rem;
+        margin: 0;
+        padding: 0;
+        width: 3.5rem;
+    }
+
+    &.small .logo.small {
+        fill: var(--color-link);
+    }
+
+    &.small:focus {
+        outline-offset: 0.5rem;
+    }
+
+    &.small:hover .logo.small,
+    &.small:hover .a.site-link,
+    &.small:focus .logo.small,
+    &.small:focus .a.site-link {
+        color: var(--color-link-hover);
+        fill: var(--color-link-hover);
+    }
+
+    &.small:active .logo.small,
+    &.small:active .a.site-link {
+        color: var(--color-link-active);
+        fill: var(--color-link-active);
+    }
+}
+
+.logo {
+    display: flex;
+    margin: 0;
+    pointer-events: none;
+
+    &.large {
+        border-radius: 1rem;
+        height: 100%;
+        position: absolute;
+            top: 50%;
+            left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        z-index: 1;
+    }
+
+    &.small {
+        height: 2.25rem;
+        width: 2.25rem;
+    }
+}
+
+.logo-container.large:hover {
+    transform: scale(1.05);
+    transition-delay: 0s;
+    transition-duration: 0.1s;
+    transition-property: transform;
+    transition-timing-function: ease-in;
+}
+
+.logo-container.large:hover .logo.large > rect {
+    animation: filling-in 0.75s ease-out 0s 1;
+    fill: var(--color-logo-fill);
+}
+
+.logo-container.large:hover .logo.large .anim-col-1,
+.logo-container.large:hover .logo.large .anim-col-2,
+.logo-container.large:hover .logo.large .anim-col-3,
+.logo-container.large:hover .logo.large .anim-col-4 {
+    animation-delay: 0s;
+    animation-duration: 0.75s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+}
+
+.logo-container.large:hover .logo.large .anim-col-1 { animation-name: dancing-col-1; }
+.logo-container.large:hover .logo.large .anim-col-2 { animation-name: dancing-col-2; }
+.logo-container.large:hover .logo.large .anim-col-3 { animation-name: dancing-col-3; }
+.logo-container.large:hover .logo.large .anim-col-4 { animation-name: dancing-col-4; }
+
+@keyframes filling-in {
+    0% { fill: var(--color-logo-fill-start); }
+    35% { fill: var(--color-logo-fill-mid); }
+    100% { fill: var(--color-logo-fill); }
+}
+
+@keyframes dancing-col-1 {
+    0% { d: path("M33 72L33 105"); }
+    12% { d: path("M33 78L33 100"); }
+    25% { d: path("M33 60L33 90"); }
+    45% { d: path("M33 80L33 110"); }
+    65% { d: path("M33 67L33 97"); }
+    80% { d: path("M33 90L33 105"); }
+    100% { d: path("M33 72L33 105"); }
+}
+
+@keyframes dancing-col-2 {
+    0% { d: path("M64 30L64 120"); }
+    10% { d: path("M64 35L64 110"); }
+    25% { d: path("M64 40L64 100"); }
+    40% { d: path("M64 45L64 130"); }
+    60% { d: path("M64 30L64 115"); }
+    75% { d: path("M64 50L64 105"); }
+    100% { d: path("M64 30L64 120"); }
+}
+
+@keyframes dancing-col-3 {
+    0% { d: path("M95 40L95 120"); }
+    12% { d: path("M95 50L95 110"); }
+    25% { d: path("M95 60L95 100"); }
+    40% { d: path("M95 45L95 130"); }
+    60% { d: path("M95 35L95 115"); }
+    80% { d: path("M95 50L95 105"); }
+    100% { d: path("M95 40L95 120"); }
+}
+
+@keyframes dancing-col-4 {
+    0% { d: path("M126 23L126 115"); }
+    8% { d: path("M126 35L126 75"); }
+    22% { d: path("M126 50L126 90"); }
+    40% { d: path("M126 60L126 130"); }
+    58% { d: path("M126 45L126 120"); }
+    75% { d: path("M126 55L126 85"); }
+    100% { d: path("M126 23L126 115"); }
+}

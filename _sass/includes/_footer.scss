@@ -1,31 +1,27 @@
-// FOOTER CONTAINER
 .footer {
-	align-items: center;
-	display: flex;
-	margin: 0 auto;
-	padding: 3rem;
+    align-items: center;
+    display: flex;
+    margin: 0 auto;
+    padding: 3rem var(--site-content-padding);
     justify-content: space-between;
-	width: 100%;
 
-    // ALL FOOTER SECTIONS
     > section {
         flex: 1 1 0;
         min-width: 0;
     }
 
     .p {
-        color:var(--color-primary-link);
-        color: #7B808B;
+        color: var(--color-icon-muted);
         display: block;
         margin: 0 auto;
         padding: 0;
         text-align: center;
 
         .a {
-            color: #7B808B;
+            color: var(--color-icon-muted);
         }
     }
-    // SITE IDENTIFICATION
+
     .site-signature {
         margin-bottom: 0;
 
@@ -34,7 +30,7 @@
             white-space: nowrap;
         }
     }
-    // SOCIAL LIST
+
     .social-links-container {
         align-self: center;
         display: flex;
@@ -44,5 +40,9 @@
         justify-content: flex-end;
         margin: 0 auto;
         padding: 0;
+
+        .social-icon {
+            transform: scale(0.8);
+        }
     }
 }

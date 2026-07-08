@@ -1,0 +1,99 @@
+.svg::selection,
+.img::selection,
+.h1::selection,
+.h2::selection,
+.h3::selection,
+.h4::selection,
+.p::selection,
+.a::selection,
+.span::selection {
+    background-color: var(--color-selection);
+    color: var(--color-text);
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.p {
+    color: var(--color-text);
+    display: inline-block;
+}
+
+.h1,
+.h2,
+.h3,
+.h4 {
+    font-weight: 600;
+}
+
+.h1 {
+    font-size: 2rem;
+    line-height: 3rem;
+}
+
+.h2 {
+    font-size: 1.5rem;
+    line-height: 2.25rem;
+
+    &.massive {
+        font-size: 4rem;
+        font-weight: 900;
+        text-transform: uppercase;
+    }
+}
+
+.h3 {
+    font-size: 1.25rem;
+    line-height: 1.875rem;
+}
+
+.h4 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.p {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+}
+
+.a {
+    box-shadow: 0 0 0 0 var(--color-focus-ring);
+    color: var(--color-link);
+    font-weight: 600;
+    position: relative;
+    text-decoration: none;
+    transition-duration: 0.01s;
+    transition-property: box-shadow;
+    transition-timing-function: ease-in;
+    z-index: 1;
+
+    &:focus,
+    &:hover {
+        color: var(--color-link-hover);
+    }
+
+    &:active {
+        color: var(--color-link-active);
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        border-radius: 0.2rem;
+        box-shadow: 0 0 0 0.2rem var(--color-focus-ring);
+        transition-duration: 0.25s;
+        transition-timing-function: ease-out;
+    }
+}
+
+.p,
+.a {
+    .decorative-bullet {
+        font-weight: 200;
+    }
+}

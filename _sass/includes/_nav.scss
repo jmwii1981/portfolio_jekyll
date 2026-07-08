@@ -1,26 +1,14 @@
-// MOBILE - PORTRAIT - BEGINS ON IPHONE, ENDS ON IPAD MINI //
-// @media only screen and (min-width: 763px) {
-// 	html {
-//         background-color: pink;
-//     }
-// }
-
-// NAVIGATION TABS
-// main nav container on head of site
 .nav-container {
     background: transparent;
     display: flex;
     height: 4rem;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
     margin: 0;
     padding: 0;
     position: relative; // for underline & arrows
-    width: 100%;
-
-    @media only screen and (min-width: 720px) {
-        width: auto;
-    }
+    min-width: 0;
+    width: auto;
 }
 .nav {
     align-items: center;
@@ -29,21 +17,17 @@
     margin: 0;
     padding: 0;
     position: relative;
-    width: 100%;
+    width: auto;
 
     overflow-x: auto;
+    justify-content: flex-end;
+    overflow: visible;
     scroll-behavior: smooth;
     scroll-padding-left: 0;
     scroll-snap-stop: always;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: none;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
-   
-    @media only screen and (min-width: 720px) {
-        overflow: visible;
-        scroll-snap-type: none;
-        width: auto;
-    }
 
     &::-webkit-scrollbar {
         display: none;
@@ -65,7 +49,7 @@
 .tab-container {
     list-style: none;
     margin: 0;
-    padding: .5rem 1rem;
+    padding: 0.5rem clamp(0.55rem, 1vw, 1rem);
     position: relative;
     flex-shrink: 0;
     min-width: max-content;
@@ -80,7 +64,7 @@
 }
 
 .tab {
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 0.85vw, 1.1rem);
     font-weight: 500;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
@@ -92,32 +76,32 @@
 
         // hidden line
         &:after {
-            background-color:var(--color-primary-link-active);
+            background-color: var(--color-link-active);
             content: '';
             display: none;
             height: 0.125rem;
             position: absolute;
                 bottom: -11px;
                 left: 0rem;
-            width: 100%;;
+            width: 100%;
         }
 }
 // CURRENTLY ACTIVE TAB
  .tab.active {
-    color: var(--color-primary-link-active);
+    color: var(--color-link-active);
     font-weight: 700;
     pointer-events: none;
 
         // line
         &:after {
-            background-color:var(--color-primary-link-active);
+            background-color: var(--color-link-active);
             content: '';
             display: block;
             height: 0.125rem;
             position: absolute;
                 bottom: -11px;
                 left: 0rem;
-            width: 100%;;
+            width: 100%;
         }
  }
 .nav:hover {

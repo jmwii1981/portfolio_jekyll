@@ -1,0 +1,60 @@
+.consent-banner {
+    align-items: center;
+    background-color: var(--color-consent-background);
+    border: 1px solid var(--color-surface-skeleton);
+    box-shadow: var(--shadow-consent);
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    left: auto;
+    max-width: 52rem;
+    padding: 1rem;
+    position: fixed;
+        right: 1rem;
+        bottom: 1rem;
+    z-index: 10;
+
+    &[hidden] {
+        display: none;
+    }
+}
+
+.consent-banner-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.consent-banner-copy {
+    margin: 0;
+}
+
+.consent-banner-link {
+    align-self: flex-start;
+}
+
+.consent-banner-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    width: auto;
+}
+
+.consent-button {
+    border: 1px solid var(--color-link);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+
+    &.primary {
+        background-color: var(--color-link);
+        color: var(--color-inverse-text);
+    }
+
+    &.secondary {
+        background-color: transparent;
+        color: var(--color-link);
+    }
+}

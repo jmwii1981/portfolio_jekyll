@@ -19,7 +19,7 @@ title: About
     </section>
     <section class="help">
         <div class="content-wrapper">
-            <h2 class="h2">How I help</h2>
+            <h2 class="h2 section-label">How I help</h2>
             <ul class="help-list">
                 <li class="help-item">
                     <h3>Lead</h3>
@@ -46,7 +46,7 @@ title: About
     </section>
     <section class="testimonials">
         <div class="content-wrapper">
-            <h2 class="h2">Trusted across the globe</h2>
+            <h2 class="h2 section-label">Trusted across the globe</h2>
             <ul class="testimony-list">
                 <li class="testimony-item">
                 </li>
@@ -61,13 +61,13 @@ title: About
             </ul>
         </div>
     </section>
-    <section class="about-me">
+    <section class="about-me bleed-muted">
         <div class="content-wrapper">
             <div class="image-wrapper">
                 <img class="image" src="/images/headshots/bio-pic.png?v={{ site.time | date: '%Y%m%d%H%M%S' }}" alt="Portrait of Jan Michael">
             </div>
             <div class="inner-wrapper">
-                <h2 class="h2">About me</h2>
+                <h2 class="h2 section-label">About me</h2>
                 <p class="p">
                     I’m a builder at heart. I’ve spent the past 20+ years helping startups turn ambitious ideas into products that people love. When I’m not working, you’ll find me exploring new destinations, participating in philanthropy, raising my four kids, and chasing that next good cup of coffee.
                 </p>

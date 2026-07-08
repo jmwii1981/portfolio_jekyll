@@ -49,4 +49,5 @@ permalink: /perspectives/
             <div class="skeleton-text"></div>
         </div>
     </section>
+    <aside class="perspectives-sidebar" aria-label="Additional perspectives content"></aside>
 </main>
