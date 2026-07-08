@@ -1,7 +1,7 @@
 .main.perspectives {
   align-items: stretch;
   display: grid;
-  gap: clamp(2rem, 4vw, 4rem);
+  gap: 4rem;
   grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
   padding-left: var(--site-content-padding);
   padding-right: var(--site-content-padding);

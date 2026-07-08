@@ -10,7 +10,7 @@
 .hero {
     align-items: stretch;
     display: flex;
-    min-height: clamp(44rem, 88vh, 72rem);
+    min-height: 72rem;
     isolation: isolate;
     position: relative;
     overflow: hidden;
@@ -39,7 +39,7 @@
         justify-content: space-between;
         margin: 0 auto;
         min-height: inherit;
-        padding: clamp(6rem, 10vh, 9rem) var(--site-content-padding) 0;
+        padding: 9rem var(--site-content-padding) 0;
         position: relative;
 
         .copy-wrapper {
@@ -48,25 +48,31 @@
             flex-direction: column;
             flex: 0 1 42rem;
             position: relative;
+            width: 32rem;
             z-index: 2;
 
             .h2 {
-                font-size: clamp(4.5rem, 6vw, 7rem);
+                font-size: 10rem;
                 font-weight: 400;
+                letter-spacing: -0.45rem;
                 line-height: 0.95;
                 margin-bottom: 0;
                 margin: 0;
+                white-space: nowrap;
             }
             .h3 {
-                font-size: clamp(1.4rem, 1.5vw, 1.8rem);
-                font-weight: 600;
-                margin-bottom: 0.5rem;
+                font-size: 2.5rem;
+                font-weight: 700;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+                white-space: nowrap;
             }
             .h4 {
-                font-size: clamp(1.1rem, 1.1vw, 1.3rem);
+                font-size: 1.3rem;
                 font-weight: 400;
                 line-height: 2rem;
-                margin-bottom: 2rem;
+                margin-top: 1rem;
+                margin-bottom: 3rem;
             }
             .button {
                 align-self: flex-start;
@@ -74,22 +80,20 @@
         }
         .image-wrapper {
             align-self: flex-end;
-            max-height: 100%;
-            flex: 0 1 clamp(36rem, 44vw, 58rem);
-            margin-left: clamp(-2rem, -2vw, 0rem);
-            min-width: 0;
+            height: 768px;
             position: relative;
+            width: 696px;
 
             .image {
-                aspect-ratio: 1.89/2;
                 align-self: flex-end;
                 display: block;
-                max-height: 64rem;
+                height: 768px;
                 object-fit: contain;
                 object-position: bottom center;
-                width: 100%;
                 justify-self: flex-end;
                 margin-left: auto;
+                margin-right: -5rem;
+                width: 696px;
             }
         }
     }
