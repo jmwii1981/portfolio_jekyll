@@ -57,33 +57,20 @@
     }
 }
 
-.logo-container.large:hover {
-    transform: scale(1.05);
-    transition-delay: 0s;
-    transition-duration: 0.1s;
-    transition-property: transform;
-    transition-timing-function: ease-in;
-}
-
-.logo-container.large:hover .logo.large > rect {
-    animation: filling-in 0.75s ease-out 0s 1;
-    fill: var(--color-logo-fill);
-}
-
-.logo-container.large:hover .logo.large .anim-col-1,
-.logo-container.large:hover .logo.large .anim-col-2,
-.logo-container.large:hover .logo.large .anim-col-3,
-.logo-container.large:hover .logo.large .anim-col-4 {
+.logo-container.large .logo.large .anim-col-1,
+.logo-container.large .logo.large .anim-col-2,
+.logo-container.large .logo.large .anim-col-3,
+.logo-container.large .logo.large .anim-col-4 {
     animation-delay: 0s;
     animation-duration: 0.75s;
-    animation-iteration-count: infinite;
+    animation-iteration-count: 1;
     animation-timing-function: ease-out;
 }
 
-.logo-container.large:hover .logo.large .anim-col-1 { animation-name: dancing-col-1; }
-.logo-container.large:hover .logo.large .anim-col-2 { animation-name: dancing-col-2; }
-.logo-container.large:hover .logo.large .anim-col-3 { animation-name: dancing-col-3; }
-.logo-container.large:hover .logo.large .anim-col-4 { animation-name: dancing-col-4; }
+.logo-container.large .logo.large .anim-col-1 { animation-name: dancing-col-1; }
+.logo-container.large .logo.large .anim-col-2 { animation-name: dancing-col-2; }
+.logo-container.large .logo.large .anim-col-3 { animation-name: dancing-col-3; }
+.logo-container.large .logo.large .anim-col-4 { animation-name: dancing-col-4; }
 
 @keyframes filling-in {
     0% { fill: var(--color-logo-fill-start); }
