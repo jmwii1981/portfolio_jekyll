@@ -174,21 +174,9 @@
     width: 100%;
   }
 }
-.article {
-  display: flex;
-  flex-direction: column;
-  margin-top: 2rem;
-  width: 100%;
-}
 .post-title {
   display: inline-block;
   width: 100%;
-}
-.post-title-link {
-  display: inline-block;
-  height: 1.5rem;
-  vertical-align: top;
-  width: 1.5rem;
 }
 .post-meta {
   align-items: center;

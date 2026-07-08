@@ -1,20 +1,49 @@
 <!-- main navigation container -->
-<nav class="nav-container">
-    <ul class="nav {% if page.url == '/' %}active-work{% endif %}{% if page.url == '/experience/' %}active-experience{% endif %}{% if page.url == '/endorsements/' %}active-endorsements{% endif %}{% if page.url == '/perspectives/' %}active-perspectives{% endif %}{% if page.url == '/about/' %}active-about{% endif %}">
-        <li id="work-tab" class="tab-container">
-            <a id="work" class="a tab {% if page.url == '/' %}active{% endif %}" href="{{ site.url }}{{ site.baseurl }}/">Work</a>
+<nav 
+    class="nav-container">
+    <ul 
+        class="nav
+            {% if page.url == '/' %}active-about{% endif %}
+            {% if page.url == '/work/' %}active-work{% endif %}
+            {% if page.url == '/endorsements/' %}active-endorsements{% endif %}
+            {% if page.url == '/perspectives/' %}active-perspectives{% endif %}
+    ">
+        <li 
+            id="about-tab"
+            class="tab-container">
+                <a 
+                id="about"
+                class="a tab 
+                        {% if page.url == '/' %}active{% endif %}" 
+                href="{{ site.url }}{{ site.baseurl }}/">About</a>
         </li>
-        <li id="experience-tab" class="tab-container">
-            <a id="experience" class="a tab {% if page.url == '/experience/' %}active{% endif %}" href="{{ site.url }}{{ site.baseurl }}/experience/">Experience</a>
+        <li 
+            id="work-tab"
+            class="tab-container">
+                <a 
+                id="work"
+                class="a tab 
+                        {% if page.url == '/work/' %}active{% endif %}"
+                href="{{ site.url }}{{ site.baseurl }}/work/">Work</a>
         </li>
-        <li id="perspectives-tab" class="tab-container">
-            <a id="perspectives" class="a tab {% if page.url == '/perspectives/' %}active{% endif %}" href="{{ site.url }}{{ site.baseurl }}/perspectives/">Perspectives</a>
+        <li 
+            id="perspectives-tab"
+            class="tab-container">
+                <a 
+                    id="perspectives"
+                    class="a tab 
+                            {% if page.url == '/perspectives/' %}active{% endif %}" 
+                    href="{{ site.url }}{{ site.baseurl }}/perspectives/">Perspectives</a>
         </li>
-        <li id="endorsements-tab" class="tab-container">
-            <a id="endorsements" class="a tab {% if page.url == '/endorsements/' %}active{% endif %}" href="{{ site.url }}{{ site.baseurl }}/endorsements/">Endorsements</a>
-        </li>
-        <li id="contact-tab" class="tab-container">
-            <a id="contact" class="a tab {% if page.url == '/contact/' %}active{% endif %}" href="{{ site.url }}{{ site.baseurl }}/contact/">Contact me</a>
+        <li 
+            id="contact-tab"
+            class="tab-container">
+                <a id="contact"
+                   class="a tab"
+                   href="mailto:hello@janmichael.io"
+                   data-randomized-mailto
+                   target="_blank"
+                   rel="noopener noreferrer">Contact Me</a>
         </li>
     </ul>
 </nav>

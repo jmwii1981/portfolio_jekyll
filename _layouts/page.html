@@ -13,40 +13,33 @@
     <!-- TODO <meta name="theme-color" content="#151524" media="(prefers-color-scheme: light)"> -->
     <!-- TODO <meta name="theme-color" content="#151524" media="(prefers-color-scheme: dark)"> -->
 
+    {% assign site_name = "Jan Michael Wallace II" %}
+    {% assign page_title = site_name | append: " - Fractional Product Design Leader" %}
+    {% if page.url != '/' %}
+        {% assign page_title = site_name | append: " - " | append: page.title %}
+    {% endif %}
+    {% assign meta_description = "I’m a Fractional Product Design Leader. I help growing companies turn product ambiguity into clear strategy, scalable systems, and shipped work that holds up as their businesses evolve." %}
+
     <!-- site identity taxonomy / meta -->
-    <title>Jan Michael Wallace II
-        {% if page.url == '/' %}{% endif %}
-        {% if page.url == '/experience/' %} – Experience{% endif %}
-        {% if page.url == '/endorsements/' %} – Endorsements{% endif %}
-        {% if page.url == '/perspectives/' %} – Perspectives{% endif %}
-        {% if page.url == '/about/' %} – About{% endif %}
-        {% if page.url == '/contact/' %} – Contact{% endif %}
-    </title>
-    <meta name="description" content="The portfolio of Jan Michael Wallace II. An inclusive, future-forward product design leader and technologist.">
+    <title>{{ page_title }}</title>
+    <meta name="description" content="{{ meta_description }}">
+    <meta name="author" content="{{ site_name }}">
+    <meta name="robots" content="index, follow">
     <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ site.url }}{{ site.baseurl }}/sitemap.xml">
-    <link rel="author" href="{{ site.url }}{{ site.baseurl }}/about/">
+    <link rel="author" href="{{ site.url }}{{ site.baseurl }}/">
     <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}{{ page.url }}">
 
     <!-- general social meta -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="website">
-        {% if page.url == '/' %}<meta property="og:title" content="Jan Michael Wallace II">{% endif %}
-        {% if page.url == '/experience/' %}<meta property="og:title" content="Jan Michael Wallace II – Experience">{% endif %}
-        {% if page.url == '/endorsements/' %}<meta property="og:title" content="Jan Michael Wallace II – Endorsements">{% endif %}
-        {% if page.url == '/perspectives/' %}<meta property="og:title" content="Jan Michael Wallace II – Perspectives">{% endif %}
-        {% if page.url == '/about/' %}<meta property="og:title" content="Jan Michael Wallace II – About">{% endif %}
-        {% if page.url == '/contact/' %}<meta property="og:title" content="Jan Michael Wallace II – Contact">{% endif %}
-    <meta property="og:description" content="The portfolio of Jan Michael Wallace II. An inclusive, future-forward product design leader and technologist.">
+    <meta property="og:title" content="{{ page_title }}">
+    <meta property="og:description" content="{{ meta_description }}">
     <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}">
-        {% if page.url == '/' %}<meta property="og:site_name" content="Jan Michael Wallace II">{% endif %}
-        {% if page.url == '/experience/' %}<meta property="og:site_name" content="Jan Michael Wallace II – Experience">{% endif %}
-        {% if page.url == '/endorsements/' %}<meta property="og:site_name" content="Jan Michael Wallace II – Endorsements">{% endif %}
-        {% if page.url == '/perspectives/' %}<meta property="og:site_name" content="Jan Michael Wallace II – Perspectives">{% endif %}
-        {% if page.url == '/about/' %}<meta property="og:site_name" content="Jan Michael Wallace II – About">{% endif %}
-        {% if page.url == '/contact/' %}<meta property="og:site_name" content="Jan Michael Wallace II – Contact">{% endif %}
+    <meta property="og:site_name" content="{{ site_name }}">
 
     <!-- facebook meta -->
     <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}/images/facebook-og-image.jpg">
+    <meta property="og:image:alt" content="Jan Michael Wallace II, Fractional Product Design Leader">
     <meta property="og:image:width" content="300">
     <meta property="og:image:height" content="132">
     <meta property="og:image:type" content="image/jpeg">
@@ -54,27 +47,19 @@
     <!-- threads meta -->
     <meta name="threads:card" content="summary_large_image">
     <meta name="threads:image" content="{{ site.url }}{{ site.baseurl }}/images/threads-og-image.jpg">
-        {% if page.url == '/' %}<meta name="threads:title" content="Jan Michael Wallace II">{% endif %}
-        {% if page.url == '/experience/' %}<meta name="threads:title" content="Jan Michael Wallace II – Experience">{% endif %}
-        {% if page.url == '/endorsements/' %}<meta name="threads:title" content="Jan Michael Wallace II – Endorsements">{% endif %}
-        {% if page.url == '/perspectives/' %}<meta name="threads:title" content="Jan Michael Wallace II – Perspectives">{% endif %}
-        {% if page.url == '/about/' %}<meta name="threads:title" content="Jan Michael Wallace II – About">{% endif %}
-        {% if page.url == '/contact/' %}<meta name="threads:title" content="Jan Michael Wallace II – Contact">{% endif %}
     <meta name="threads:site" content="@jmwii1981">
-    <meta name="threads:title" content="Jan Michael Wallace II">
-    <meta name="threads:image" content="{{ site.url }}{{ site.baseurl }}/images/threads-og-image.jpg">
-    <meta name="threads:description" content="An inclusive, future-forward product design leader and technologist.">
+    <meta name="threads:title" content="{{ page_title }}">
+    <meta name="threads:description" content="{{ meta_description }}">
     <!-- TODO <meta name="threads:label1" content="Est. reading time"> -->
     <!-- TODO <meta name="threads:data1" content="5 minutes"> -->
 
     <!-- twitter meta -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Jan Michael Wallace">
-    <meta name="twitter:description" content="The portfolio of Jan Michael Wallace II. An inclusive, future-forward product design leader and technologist.">
-    <meta name="twitter:image" content="{{ site.url }}{{ site.baseurl }}/images/twitter-og-image.jpg">    
+    <meta name="twitter:title" content="{{ page_title }}">
+    <meta name="twitter:description" content="{{ meta_description }}">
+    <meta name="twitter:image" content="{{ site.url }}{{ site.baseurl }}/images/twitter-og-image.jpg">
+    <meta name="twitter:image:alt" content="Jan Michael Wallace II, Fractional Product Design Leader">
 
-    <script async="" src="//www.googletagmanager.com/gtm.js?id=GTM-53BZRHG"></script>
-    
     <!-- "sitemap / breadcrumb" enhanced meta -->
     <script type="application/ld+json">
       {
@@ -82,21 +67,22 @@
         "@graph": [
           {
             "@type": "WebSite",
-            "@id": "http://janmichael.io/",
-            "url": "http://janmichael.io/",
-            "name": "Jan Michael Wallace II Portfolio",
+            "@id": "https://janmichael.io/",
+            "url": "https://janmichael.io/",
+            "name": "Jan Michael Wallace II",
+            "description": "{{ meta_description }}",
             "potentialAction": {
               "@type": "SearchAction",
-              "target": "http://janmichael.io/?q={search_term_string}",
+              "target": "https://janmichael.io/?q={search_term_string}",
               "query-input": "required name=search_term_string"
             }
           },
           {
             "@type": "WebPage",
-            "@id": "http://janmichael.io/",
-            "url": "http://janmichael.io/",
-            "name": "Portfolio",
-            "lastReviewed": "2024-12-12",
+            "@id": "https://janmichael.io/",
+            "url": "https://janmichael.io/",
+            "name": "Jan Michael Wallace II",
+            "description": "{{ meta_description }}",
             "breadcrumb": {
               "@type": "BreadcrumbList",
               "itemListElement": [
@@ -104,16 +90,17 @@
                   "@type": "ListItem",
                   "position": 1,
                   "name": "Home",
-                  "item": "http://janmichael.io/"
+                  "item": "https://janmichael.io/"
                 }
               ]
             }
           },
           {
             "@type": "WebPage",
-            "@id": "http://janmichael.io/experience/",
-            "url": "http://janmichael.io/experience/",
-            "name": "Experience",
+            "@id": "https://janmichael.io/work/",
+            "url": "https://janmichael.io/work/",
+            "name": "Work",
+            "description": "{{ meta_description }}",
             "breadcrumb": {
               "@type": "BreadcrumbList",
               "itemListElement": [
@@ -121,22 +108,23 @@
                   "@type": "ListItem",
                   "position": 1,
                   "name": "Home",
-                  "item": "http://janmichael.io/"
+                  "item": "https://janmichael.io/"
                 },
                 {
                   "@type": "ListItem",
                   "position": 2,
-                  "name": "Experience",
-                  "item": "http://janmichael.io/experience/"
+                  "name": "Work",
+                  "item": "https://janmichael.io/work/"
                 }
               ]
             }
           },
           {
             "@type": "WebPage",
-            "@id": "http://janmichael.io/endorsements/",
-            "url": "http://janmichael.io/endorsements/",
+            "@id": "https://janmichael.io/endorsements/",
+            "url": "https://janmichael.io/endorsements/",
             "name": "Endorsements",
+            "description": "{{ meta_description }}",
             "breadcrumb": {
               "@type": "BreadcrumbList",
               "itemListElement": [
@@ -144,22 +132,23 @@
                   "@type": "ListItem",
                   "position": 1,
                   "name": "Home",
-                  "item": "http://janmichael.io/"
+                  "item": "https://janmichael.io/"
                 },
                 {
                   "@type": "ListItem",
                   "position": 2,
                   "name": "Endorsements",
-                  "item": "http://janmichael.io/endorsements/"
+                  "item": "https://janmichael.io/endorsements/"
                 }
               ]
             }
           },
           {
             "@type": "WebPage",
-            "@id": "http://janmichael.io/perspectives/",
-            "url": "http://janmichael.io/perspectives/",
+            "@id": "https://janmichael.io/perspectives/",
+            "url": "https://janmichael.io/perspectives/",
             "name": "Perspectives",
+            "description": "{{ meta_description }}",
             "breadcrumb": {
               "@type": "BreadcrumbList",
               "itemListElement": [
@@ -167,22 +156,23 @@
                   "@type": "ListItem",
                   "position": 1,
                   "name": "Home",
-                  "item": "http://janmichael.io/"
+                  "item": "https://janmichael.io/"
                 },
                 {
                   "@type": "ListItem",
                   "position": 2,
                   "name": "Perspectives",
-                  "item": "http://janmichael.io/perspectives/"
+                  "item": "https://janmichael.io/perspectives/"
                 }
               ]
             }
           },
           {
             "@type": "WebPage",
-            "@id": "http://janmichael.io/about/",
-            "url": "http://janmichael.io/about/",
+            "@id": "https://janmichael.io/about/",
+            "url": "https://janmichael.io/about/",
             "name": "About",
+            "description": "{{ meta_description }}",
             "breadcrumb": {
               "@type": "BreadcrumbList",
               "itemListElement": [
@@ -190,22 +180,23 @@
                   "@type": "ListItem",
                   "position": 1,
                   "name": "Home",
-                  "item": "http://janmichael.io/"
+                  "item": "https://janmichael.io/"
                 },
                 {
                   "@type": "ListItem",
                   "position": 2,
                   "name": "About",
-                  "item": "http://janmichael.io/about/"
+                  "item": "https://janmichael.io/about/"
                 }
               ]
             }
           },
           {
             "@type": "WebPage",
-            "@id": "http://janmichael.io/contact/",
-            "url": "http://janmichael.io/contact/",
+            "@id": "https://janmichael.io/contact/",
+            "url": "https://janmichael.io/contact/",
             "name": "Contact",
+            "description": "{{ meta_description }}",
             "breadcrumb": {
               "@type": "BreadcrumbList",
               "itemListElement": [
@@ -213,13 +204,13 @@
                   "@type": "ListItem",
                   "position": 1,
                   "name": "Home",
-                  "item": "http://janmichael.io/"
+                  "item": "https://janmichael.io/"
                 },
                 {
                   "@type": "ListItem",
                   "position": 2,
                   "name": "Contact",
-                  "item": "http://janmichael.io/contact/"
+                  "item": "https://janmichael.io/contact/"
                 }
               ]
             }
@@ -234,7 +225,13 @@
             "@context": "https://schema.org",
             "@type": "Person",
             "name": "Jan Michael Wallace II",
-            "url": "http://janmichael.io/",
+            "alternateName": [
+                "Jan Michael",
+                "Jan Michael Wallace"
+            ],
+            "url": "https://janmichael.io/",
+            "email": "mailto:hello@janmichael.io",
+            "description": "{{ meta_description }}",
             "sameAs": [
                 "https://linkedin.com/in/jmwii1981/",
                 "https://medium.com/@jmwii1981/",
@@ -242,11 +239,7 @@
                 "https://github.com/jmwii1981/",
                 "https://figma.com/@jmwii1981/"
             ],
-            "jobTitle": "Manager of Product Design",
-            "worksFor": {
-                "@type": "Organization",
-                "name": "Global Payments"
-            }
+            "jobTitle": "Fractional Product Design Leader"
         }
     </script>
     
@@ -272,23 +265,13 @@
     <script type="module" src="/scripts/initializeScripts.js?v={{ site.time | date: '%Y%m%d%H%M%S' }}"></script>
     <!-- older version <script type="module" src="/scripts/initializeScripts.js"></script> -->
 
-    <script>
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-53BZRHG');
-    </script>
 </head>
 <body class="body">
-	<noscript>
-		<!-- Google Tag Manager (noscript) -->
-		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-53BZRHG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-	</noscript>
 {% include header.html %}
 
 {{ content }}
 
+{% include consent-banner.html %}
 {% include footer.html %}
 </body>
 </html>

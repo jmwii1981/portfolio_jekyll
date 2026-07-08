@@ -1,38 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <!-- Portfolio section -->
+
+<!-- About page -->
   <url>
     <loc>http://janmichael.io/</loc>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <!-- Experience page -->
-  <url>
-    <loc>http://janmichael.io/experience/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- endorsements page -->
-  <url>
-    <loc>http://janmichael.io/endorsements/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.1</priority>
   </url>
 
   <!-- Blog (Perspectives) page -->
   <url>
     <loc>http://janmichael.io/perspectives/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.2</priority>
   </url>
 
-  <!-- About page -->
+  <!-- Portfolio section -->
   <url>
-    <loc>http://janmichael.io/about/</loc>
+    <loc>http://janmichael.io/work/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- endorsements page -->
+  <url>
+    <loc>http://janmichael.io/endorsements/</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.5</priority>
   </url>
 </urlset>

@@ -8,6 +8,7 @@
 // NAVIGATION TABS
 // main nav container on head of site
 .nav-container {
+    background: transparent;
     display: flex;
     height: 4rem;
     justify-content: flex-start;
@@ -27,6 +28,7 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    position: relative;
     width: 100%;
 
     overflow-x: auto;
@@ -52,7 +54,6 @@
     }
 
     &.active-work .tab-container .tab,
-    &.active-experience .tab-container .tab,
     &.active-endorsements .tab-container .tab,
     &.active-perspectives .tab-container .tab,
     &.active-about .tab-container .tab {
@@ -79,7 +80,10 @@
 }
 
 .tab {
+    font-size: 1.1rem;
     font-weight: 500;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
 }
 
 // INACTIVE TAB

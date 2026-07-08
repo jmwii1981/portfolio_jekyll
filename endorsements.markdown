@@ -1,6 +1,6 @@
 ---
 layout: page
-title: endorsements
+title: Endorsements
 permalink: /endorsements/
 ---
 <main class="main endorsements">
