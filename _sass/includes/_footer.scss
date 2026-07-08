@@ -4,6 +4,7 @@
     margin: 0 auto;
     padding: 3rem var(--site-content-padding);
     justify-content: space-between;
+    width: min(100%, var(--site-width));
 
     > section {
         flex: 1 1 0;

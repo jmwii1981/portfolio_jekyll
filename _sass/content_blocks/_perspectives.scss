@@ -3,7 +3,6 @@
   display: grid;
   gap: clamp(2rem, 4vw, 4rem);
   grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
-  max-width: var(--site-stage-max);
   padding-left: var(--site-content-padding);
   padding-right: var(--site-content-padding);
   padding-bottom: var(--site-section-padding-y);
@@ -19,7 +18,6 @@
   display: flex;
   flex-direction: column;
   margin: 0;
-  max-width: var(--site-article-max);
   width: 100%;
 }
 .perspectives-sidebar {

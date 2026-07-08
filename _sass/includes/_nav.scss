@@ -36,14 +36,6 @@
     &:hover {
         scroll-snap-type: none;
     }
-
-    &.active-work .tab-container .tab,
-    &.active-endorsements .tab-container .tab,
-    &.active-perspectives .tab-container .tab,
-    &.active-about .tab-container .tab {
-        flex-shrink: 0;
-        scroll-snap-align: center;
-    }
 }
 
 .tab-container {
@@ -65,8 +57,13 @@
 
 .tab {
     font-size: clamp(0.95rem, 0.85vw, 1.1rem);
+    font-variation-settings: "GRAD" var(--font-grade-default);
     font-weight: 500;
     letter-spacing: 0.1rem;
+    text-shadow: none;
+    transition:
+        color 0.2s ease,
+        text-shadow 0.2s ease;
     text-transform: uppercase;
 }
 
@@ -89,8 +86,9 @@
 // CURRENTLY ACTIVE TAB
  .tab.active {
     color: var(--color-link-active);
-    font-weight: 700;
+    font-weight: 500;
     pointer-events: none;
+    text-shadow: 0.025em 0 0 currentColor;
 
         // line
         &:after {
@@ -105,6 +103,10 @@
         }
  }
 .nav:hover {
+    .tab-container:hover .tab {
+        text-shadow: 0.025em 0 0 currentColor;
+    }
+
     .tab-container .tab.active:after {
         display: none;
     }

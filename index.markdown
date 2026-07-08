@@ -10,7 +10,10 @@ title: About
                 <h2 class="h2">Jan Michael</h2>
                 <h3 class="h3">I’m a Fractional Product Design Leader.</h3>
                 <h4 class="h4">I help growing companies turn product ambiguity into clear strategy, scalable systems, and shipped work that holds up as their businesses evolve.</h4>
-                <a class="a button" href="#" aria-label="See my work" target="_parent">View selected work</a>
+                <a 
+                class="a button"
+                href="{{ site.url }}{{ site.baseurl }}/work/" 
+                target="_parent"><span class="button-label">View selected work</span><span class="button-fill"></span></a>
             </div>
             <div class="image-wrapper">
                 <img class="image" src="/images/hero/janmichael.png?v={{ site.time | date: '%Y%m%d%H%M%S' }}" alt="Image of Jan Michael">
@@ -61,7 +64,7 @@ title: About
             </ul>
         </div>
     </section>
-    <section class="about-me bleed-muted">
+    <section class="about-me">
         <div class="content-wrapper">
             <div class="image-wrapper">
                 <img class="image" src="/images/headshots/bio-pic.png?v={{ site.time | date: '%Y%m%d%H%M%S' }}" alt="Portrait of Jan Michael">
