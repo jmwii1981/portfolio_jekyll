@@ -152,6 +152,51 @@
             window.addEventListener('scroll', requestHeaderUpdate, { passive: true });
         };
 
+        const initializeNavUnderline = () => {
+            const nav = document.querySelector('.nav');
+
+            if (!nav) return;
+
+            const links = Array.from(nav.querySelectorAll('.tab'));
+            const activeLink = nav.querySelector('.tab.active');
+            let currentLink = activeLink;
+
+            if (!links.length) return;
+
+            const setUnderline = (link) => {
+                if (!link) {
+                    nav.style.setProperty('--nav-underline-width', '0');
+                    return;
+                }
+
+                const navRect = nav.getBoundingClientRect();
+                const linkRect = link.getBoundingClientRect();
+                const tabRect = link.closest('.tab-container')?.getBoundingClientRect() || linkRect;
+                const underlineOffsetY = tabRect.bottom - navRect.top - 6;
+
+                nav.style.setProperty('--nav-underline-width', `${linkRect.width}px`);
+                nav.style.setProperty('--nav-underline-offset-x', `${linkRect.left - navRect.left}px`);
+                nav.style.setProperty('--nav-underline-offset-y', `${underlineOffsetY}px`);
+                currentLink = link;
+            };
+
+            nav.classList.add('has-sliding-underline');
+            setUnderline(currentLink);
+
+            links.forEach((link) => {
+                link.addEventListener('mouseenter', () => setUnderline(link));
+                link.addEventListener('focus', () => setUnderline(link));
+            });
+
+            nav.addEventListener('mouseleave', () => {
+                setUnderline(activeLink);
+            });
+
+            window.addEventListener('resize', () => {
+                setUnderline(currentLink);
+            });
+        };
+
         const initializeRecommendationCarousel = () => {
             const carousel = document.querySelector('.recommendation-list');
 
@@ -202,6 +247,7 @@
         initializeInquiryMailtoLinks();
         initializeConsentBanner();
         initializeScrollHeader();
+        initializeNavUnderline();
         initializeRecommendationCarousel();
 
         // WHAT PAGE ARE WE ON?
