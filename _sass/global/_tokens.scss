@@ -1,12 +1,12 @@
 :root {
-    --site-stage-max: 118rem;
-    --site-content-max: 84rem;
-    --site-article-max: 76rem;
+    --site-width: 118rem;
     --site-content-padding: clamp(1.5rem, 4vw, 7rem);
     --site-section-padding-y: clamp(3rem, 6vw, 7rem);
     --site-page-padding-top: clamp(7rem, 12vh, 10rem);
 
-    --font-sans: "Heebo", "Helvetica neue", Helvetica, Verdana, sans-serif;
+    --font-sans: "Roboto Flex", "Helvetica neue", Helvetica, Verdana, sans-serif;
+    --font-grade-default: 0;
+    --font-grade-emphasis: 250;
 
     --color-text: #18181A;
     --color-link: #18181A;
@@ -14,7 +14,7 @@
     --color-link-active: #18181A;
     --color-background: #FFFFFF;
     --color-background-soft: #F5F6F6;
-    --color-background-muted: #EBEBEB;
+    --color-button-fill-active: #EBEBEB;
     --color-background-warm: #F2F2F2;
     --color-background-cool: #E8E8E8;
     --color-surface-skeleton: #EDF0F6;

@@ -12,15 +12,19 @@
         box-shadow 0.3s ease;
 
     align-items: center;
+    box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: clamp(1rem, 3vw, 4rem);
+    margin-left: auto;
+    margin-right: auto;
     padding: 1rem clamp(1rem, 4vw, 4rem);
     position: fixed;
         top: 0;
-        left: 50%;
-    transform: translateX(-50%);
+        right: 0;
+        left: 0;
+    width: min(100%, var(--site-width));
     z-index: 2;
 
     &::before {
@@ -29,15 +33,23 @@
         content: "";
         height: 100%;
         pointer-events: none;
-        position: fixed;
+        position: absolute;
             top: 0;
-            left: 50%;
-        transform: translateX(-50%);
-        width: 100vw;
+            right: 0;
+            left: 0;
+        transition:
+            background-color 0.3s ease,
+            backdrop-filter 0.3s ease,
+            border-color 0.3s ease,
+            box-shadow 0.3s ease;
+        width: 100%;
         z-index: -1;
     }
 
     &.is-scrolled {
+        background: var(--color-glass);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
         border-color: var(--color-glass-border);
         box-shadow: var(--shadow-glass);
 

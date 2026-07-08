@@ -3,7 +3,7 @@ layout: page
 title: Work
 permalink: /work/
 ---
-<main class="main work bleed-muted">
+<main class="main work">
 <h2 class="h2 massive">Work</h2>
     <div class="work-items-wrapper">
         <section class="work-item">
