@@ -1,0 +1,35 @@
+.social-icon rect,
+.social-icon circle,
+.social-icon ellipse,
+.social-icon line,
+.social-icon polyline,
+.social-icon polygon,
+.social-icon path {
+    fill: var(--color-icon-muted);
+    height: 2.75rem;
+    width: 2.75rem;
+}
+
+.social-icon:hover {
+    & rect,
+    & circle,
+    & ellipse,
+    & line,
+    & polyline,
+    & polygon,
+    & path {
+        fill: var(--color-link-hover);
+    }
+}
+
+.social-icon:active {
+    & rect,
+    & circle,
+    & ellipse,
+    & line,
+    & polyline,
+    & polygon,
+    & path {
+        fill: var(--color-link-active);
+    }
+}

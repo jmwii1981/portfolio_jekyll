@@ -1,12 +1,9 @@
-//***********************************************************//
-//**                       LAYOUT                          **//
-//***********************************************************//
 .header {
-    background: rgba(255, 255, 255, 0);
+    background: transparent;
     backdrop-filter: blur(0) saturate(100%);
     -webkit-backdrop-filter: blur(0) saturate(100%);
-    border: 1px solid rgba(255, 255, 255, 0);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0);
+    border: 1px solid var(--color-glass-clear);
+    box-shadow: var(--shadow-none);
 
     transition:
         background-color 0.3s ease,
@@ -15,35 +12,49 @@
         box-shadow 0.3s ease;
 
     align-items: center;
-    // background: transparent;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 1rem 2rem;
+    gap: clamp(1rem, 3vw, 4rem);
+    padding: 1rem clamp(1rem, 4vw, 4rem);
     position: fixed;
         top: 0;
-        left: 0;
-        right: 0;
-    width: 100%;
+        left: 50%;
+    transform: translateX(-50%);
     z-index: 2;
 
-    &.is-scrolled {
-        background: rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(24px) saturate(180%);
-        -webkit-backdrop-filter: blur(24px) saturate(180%);
-        border-color: rgba(255, 255, 255, 0.35);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.02);
+    &::before {
+        background: var(--color-glass-clear);
+        border: 1px solid var(--color-glass-clear);
+        content: "";
+        height: 100%;
+        pointer-events: none;
+        position: fixed;
+            top: 0;
+            left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;
+        z-index: -1;
     }
-}
-//***********************************************************//
-//**                     TYPOGRAPHY                        **//
-//***********************************************************//
-.header {
+
+    &.is-scrolled {
+        border-color: var(--color-glass-border);
+        box-shadow: var(--shadow-glass);
+
+        &::before {
+            background: var(--color-glass);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-color: var(--color-glass-border);
+            box-shadow: var(--shadow-glass);
+        }
+    }
+
     .h1,
     .h2,
     .p {
         margin: 0 auto;
-        text-align:center;
+        text-align: center;
     }
     .h1 {
         font-size: 1.75rem;
