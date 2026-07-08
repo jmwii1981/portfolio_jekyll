@@ -2,59 +2,47 @@
 .footer {
 	align-items: center;
 	display: flex;
-	flex-direction: column;
 	margin: 0 auto;
-	padding: 8rem 0.125rem 1rem;
-    // position: relative;
+	padding: 3rem;
+    justify-content: space-between;
 	width: 100%;
+
+    // ALL FOOTER SECTIONS
+    > section {
+        flex: 1 1 0;
+        min-width: 0;
+    }
 
     .p {
         color:var(--color-primary-link);
-        margin-left: auto;
-        margin-right: auto;
+        color: #7B808B;
+        display: block;
+        margin: 0 auto;
         padding: 0;
         text-align: center;
-    }
 
-    .site-link {
-        margin-bottom: 1rem;
+        .a {
+            color: #7B808B;
+        }
     }
-
-    .social-links-container {
-        margin-bottom: 2.5rem;
-    }
-
+    // SITE IDENTIFICATION
     .site-signature {
         margin-bottom: 0;
 
         .a {
+            justify-self: flex-start;
             white-space: nowrap;
         }
     }
-
-    .site-license {
-        margin-top: 0.75rem;
-        margin-bottom: 0.5rem;
-
-        @media only screen and (min-width: 340px) {
-            margin-top: 0;
-        }
-    }
-}
-
-// SOCIAL LIST
-.social-links-container {
-	align-self: center;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	gap: 0.15rem;
-	justify-content: center;
-	margin: 0 auto;
-	padding: 0;
-
-    @media only screen and (min-width: 340px) {
+    // SOCIAL LIST
+    .social-links-container {
+        align-self: center;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
         gap: 0.5rem;
-        justify-content: space-between;
+        justify-content: flex-end;
+        margin: 0 auto;
+        padding: 0;
     }
 }

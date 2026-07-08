@@ -1,0 +1,208 @@
+//***********************************************************//
+//**              PAGE LAYOUT AND TYPOGRAPHY               **//
+//***********************************************************//
+
+.main.about {
+    padding: 0rem;
+    max-width: none;    
+}
+
+.hero {
+    align-items: flex-start;
+    display: flex;
+    height: calc(100vh - 5rem); // auto on mobile
+    min-height: 52rem;
+    isolation: isolate;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    z-index: 1;
+
+    &::before {
+        background: linear-gradient(
+            90deg,
+            #f2f2f2 17%,
+            #e8e8e8 100%
+        );
+        content: "";
+        height: calc(100% + 6rem);
+        position: absolute;
+            top: calc(-1 * 6rem);
+            left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;
+        z-index: -1;
+    }
+
+    .content-wrapper {
+        align-self: flex-end;
+        display: flex;
+        justify-self: flex-end;
+        margin: 2rem auto 0;
+
+        .copy-wrapper {
+            align-self:center;
+            display: flex;
+            flex-direction: column;
+            width: 38rem;
+
+            .h2 {
+                font-size: 7rem;
+                font-weight: 400;
+                line-height: 0.95;
+                margin-bottom: 0;
+                margin: 0;
+            }
+            .h3 {
+                font-size: 1.8rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+            }
+            .h4 {
+                font-size: 1.3rem;
+                font-weight: 400;
+                line-height: 2rem;
+                margin-bottom: 2rem;
+                padding-right: 3rem;
+            }
+            .button {
+                align-self: flex-start;
+                background-color: black;
+                color: white;
+                font-size: 1.1rem;
+                letter-spacing: 0.1rem;
+                padding: 1.1rem 1.3rem;
+                text-transform: uppercase;
+            }        
+        }
+        .image-wrapper {
+            align-self: flex-end;
+            max-height: 100%;
+            justify-self: flex-end;
+            width: 52rem;
+
+            .image {
+                aspect-ratio: 1.89/2;
+                align-self: flex-end;
+                display: block;
+                width: 100%;
+                justify-self: flex-end;
+                margin-left: auto;
+            }
+        }
+    }
+}
+.help {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    width: 100%;
+
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        max-width: 800rem;
+        width: 100%;
+    }
+    .h2 {
+        color: #7B808B;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+    }
+    .help-list {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.7rem;;
+        justify-content: center;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .help-item {
+        aspect-ratio: 1;
+        background: #171719;
+        color: #f2f2f2;
+        display: flex;
+        flex-direction: column;        
+        justify-content: flex-start;
+        padding: 3rem 2rem;
+        width: 17rem;
+
+        h3 {
+            font-size: 1.7rem;
+            font-weight: 600;
+            line-height: 1;
+            margin: 0 0 1rem;
+        }
+        p {
+            color: #bdbdc2;
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.5;
+            margin: 0;
+        }
+    }
+}
+.testimonials {
+    background: pink;
+
+    .h2 {
+        color: #7B808B;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+    }
+
+}
+
+.about-me {
+    align-items: center;
+    background-color: #EBEBEB;
+    display: flex;
+    margin: 0 3rem;
+    padding: 0 3rem;
+    gap: 3rem;
+
+    .h2 {
+        color: #7B808B;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+    }
+
+    .content-wrapper:first-child {
+        align-items: center;
+        padding: 3rem 3rem 3rem 0;
+        display: flex;
+
+        .inner-wrapper {
+            padding: 3rem;
+        }
+    }
+    .content-wrapper:nth-child(2) {
+        background-color: #F5F6F6;
+        padding: 3rem;
+
+        .h2 {
+            color: black;
+        }
+        .p {
+            color: #7B808B;
+        }
+    }
+
+    .image-wrapper {
+        aspect-ratio: 1;
+        background: black;
+        display: block;
+        height: 21rem;
+        width: 21rem;
+        
+        .image {
+            display: block;
+            height: auto;
+            width: 100%;
+        }
+    }
+}

@@ -1,14 +1,27 @@
 ---
 layout: page
-title: 404 – File Not Found
-permalink: /404/
+title: Page not found
+permalink: /404.html
+sitemap: false
 ---
 <main class="main">
   <section class="portfolio">
       <h2 class="h1">Page Not Found</h2>
       <p>You've encountered what we call a 404 error which means that the page you've requested could not be found or does not exist. Please re-check the URL you've entered and try again.</p>
   </section>
-  <a class="button">
-      <a class="add-icon-left arrow-icon" href="janmichael.io" target="_blank">Go back</a>
-  </a>
+  <a id="back-link" class="a button add-icon-left arrow-icon" href="{{ '/' | relative_url }}">
+  Back
+</a>
+
+<script>
+  document.getElementById("back-link").addEventListener("click", function (event) {
+    event.preventDefault();
+
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = "{{ '/' | relative_url }}";
+    }
+  });
+</script>
 </main>
