@@ -11,6 +11,10 @@
     width: auto;
 }
 .nav {
+    --nav-underline-offset-x: 0;
+    --nav-underline-offset-y: 0;
+    --nav-underline-width: 0;
+
     align-items: center;
     display: flex;
     list-style: none;
@@ -35,6 +39,24 @@
 
     &:hover {
         scroll-snap-type: none;
+    }
+
+    &.has-sliding-underline::before {
+        background-color: var(--color-link-active);
+        content: "";
+        display: block;
+        height: 0.125rem;
+        position: absolute;
+            left: 0;
+            top: 0;
+        transform: translate(
+            var(--nav-underline-offset-x),
+            var(--nav-underline-offset-y)
+        );
+        transition:
+            transform 0.35s ease,
+            width 0.35s ease;
+        width: var(--nav-underline-width);
     }
 }
 
@@ -114,5 +136,15 @@
     }
     .tab-container:hover .tab:after {
         display: block;
+    }
+}
+
+.nav.has-sliding-underline {
+    .tab:after,
+    .tab.active:after,
+    &:hover .tab-container .tab.active:after,
+    &:hover .tab-container:hover .tab.active:after,
+    &:hover .tab-container:hover .tab:after {
+        display: none;
     }
 }
