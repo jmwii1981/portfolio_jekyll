@@ -152,9 +152,57 @@
             window.addEventListener('scroll', requestHeaderUpdate, { passive: true });
         };
 
+        const initializeRecommendationCarousel = () => {
+            const carousel = document.querySelector('.recommendation-list');
+
+            if (!carousel) return;
+
+            const items = Array.from(carousel.querySelectorAll('.recommendation-item'));
+            const intervalMs = 10000;
+            let currentIndex = 0;
+            let timerId;
+
+            if (items.length < 2) return;
+
+            const activateItem = (index) => {
+                items.forEach((item, itemIndex) => {
+                    item.classList.toggle('is-active', itemIndex === index);
+                });
+
+                currentIndex = index;
+            };
+
+            const queueNextItem = () => {
+                window.clearTimeout(timerId);
+                timerId = window.setTimeout(showNextItem, intervalMs);
+            };
+
+            const showNextItem = () => {
+                activateItem((currentIndex + 1) % items.length);
+                queueNextItem();
+            };
+
+            carousel.classList.add('is-controlled');
+            carousel.setAttribute('role', 'button');
+            carousel.setAttribute('tabindex', '0');
+            carousel.setAttribute('aria-label', 'Show next recommendation');
+
+            activateItem(currentIndex);
+            queueNextItem();
+
+            carousel.addEventListener('click', showNextItem);
+            carousel.addEventListener('keydown', (event) => {
+                if (event.key !== 'Enter' && event.key !== ' ') return;
+
+                event.preventDefault();
+                showNextItem();
+            });
+        };
+
         initializeInquiryMailtoLinks();
         initializeConsentBanner();
         initializeScrollHeader();
+        initializeRecommendationCarousel();
 
         // WHAT PAGE ARE WE ON?
         
