@@ -1,6 +1,8 @@
 :root {
     --site-width: 118rem;
+    --site-frame-padding: 4rem;
     --site-content-padding: 7rem;
+    --site-section-gap: 4rem;
     --site-section-padding-y: 7rem;
     --site-page-padding-top: 10rem;
 
@@ -17,7 +19,8 @@
     --color-background-cool: #E8E8E8;
     --color-surface-skeleton: #EDF0F6;
     --color-border-muted: #CBD6E0;
-    --color-icon-muted: #7B808B;
+    --color-text-soft: #2F3237;
+    --color-icon-muted: #7F8490;
     --color-card-dark: #171719;
     --color-card-text: #F2F2F2;
     --color-card-text-muted: #BDBDC2;
