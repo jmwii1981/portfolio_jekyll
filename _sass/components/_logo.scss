@@ -24,14 +24,14 @@
     &.small:hover .a.site-link,
     &.small:focus .logo.small,
     &.small:focus .a.site-link {
-        color: var(--color-link-hover);
-        fill: var(--color-link-hover);
+        color: var(--color-link);
+        fill: var(--color-link);
     }
 
     &.small:active .logo.small,
     &.small:active .a.site-link {
-        color: var(--color-link-active);
-        fill: var(--color-link-active);
+        color: var(--color-link);
+        fill: var(--color-link);
     }
 }
 
@@ -73,9 +73,9 @@
 .logo-container.large .logo.large .anim-col-4 { animation-name: dancing-col-4; }
 
 @keyframes filling-in {
-    0% { fill: var(--color-logo-fill-start); }
-    35% { fill: var(--color-logo-fill-mid); }
-    100% { fill: var(--color-logo-fill); }
+    0% { fill: var(--color-link); }
+    35% { fill: var(--color-link); }
+    100% { fill: var(--color-link); }
 }
 
 @keyframes dancing-col-1 {

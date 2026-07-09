@@ -72,11 +72,11 @@
 
     &:focus,
     &:hover {
-        color: var(--color-link-hover);
+        color: var(--color-link);
     }
 
     &:active {
-        color: var(--color-link-active);
+        color: var(--color-link);
     }
 
     &:focus {

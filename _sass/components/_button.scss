@@ -1,20 +1,42 @@
 .button {
     align-items: center;
-    background-color: var(--color-link);
+    background-color: var(--button-background, var(--color-link));
     background-image: none;
-    border: 1px solid var(--color-link);
-    color: var(--color-inverse-text);
+    border: 1px solid var(--button-border, var(--color-link));
+    color: var(--button-text, var(--color-paper));
+    cursor: pointer;
     display: inline-flex;
-    font-size: 1.1rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
     isolation: isolate;
     justify-content: center;
     letter-spacing: 0.1rem;
     overflow: hidden;
-    padding: 1.1rem 1.3rem;
+    padding: 0.95rem 1.15rem;
     position: relative;
     transition: color 0.25s ease-in-out;
     text-transform: uppercase;
     z-index: 0;
+
+    &.primary,
+    &:not(.secondary) {
+        --button-background: var(--color-link);
+        --button-border: var(--color-link);
+        --button-text: var(--color-paper);
+        --button-fill: var(--color-background);
+        --button-hover-text: var(--color-link);
+        --button-active-fill: var(--color-surface);
+    }
+
+    &.secondary {
+        --button-background: transparent;
+        --button-border: var(--color-link);
+        --button-text: var(--color-link);
+        --button-fill: var(--color-background);
+        --button-hover-text: var(--color-link);
+        --button-active-fill: var(--color-text-soft);
+    }
 
     .button-label {
         position: relative;
@@ -23,7 +45,7 @@
 
     .button-fill {
         aspect-ratio: 1;
-        background: var(--color-button-fill-active);
+        background: var(--button-fill);
         border-radius: 0;
         display: block;
         height: 100%;
@@ -42,11 +64,11 @@
     &:focus,
     &:hover,
     &:focus-visible {
-        background-color: var(--color-link);
+        background-color: var(--button-background);
         background-image: none;
         border-radius: 0;
         box-shadow: none;
-        color: var(--color-link);
+        color: var(--button-hover-text);
         outline: none;
         transition-duration: 0.25s;
     }
@@ -58,6 +80,6 @@
     }
 
     &:active .button-fill {
-        background-color: var(--color-background-soft);
+        background-color: var(--button-active-fill);
     }
 }

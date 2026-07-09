@@ -1,5 +1,6 @@
 :root {
     --site-width: 118rem;
+    --site-viewport-padding: 4.5rem;
     --site-frame-padding: 4rem;
     --site-content-padding: 7rem;
     --site-section-gap: 4rem;
@@ -8,22 +9,19 @@
 
     --font-sans: "Heebo", "Helvetica neue", Helvetica, Verdana, sans-serif;
 
-    --color-text: #18181A;
-    --color-link: #18181A;
-    --color-link-hover: #18181A;
-    --color-link-active: #18181A;
-    --color-background: #FFFFFF;
-    --color-background-soft: #F5F6F6;
-    --color-button-fill-active: #EBEBEB;
-    --color-background-warm: #F2F2F2;
-    --color-background-cool: #E8E8E8;
-    --color-surface-skeleton: #EDF0F6;
+    --color-ink: #18181A;
+    --color-paper: #FFFFFF;
+    --color-surface: #F5F6F6;
+    --color-surface-subtle: #F2F2F2;
+    --color-surface-muted: #E8E8E8;
+    --color-skeleton: #EDF0F6;
+    --color-border-subtle: #EBEBEB;
     --color-border-muted: #CBD6E0;
     --color-text-soft: #2F3237;
-    --color-icon-muted: #7F8490;
-    --color-card-dark: #171719;
-    --color-card-text: #F2F2F2;
-    --color-card-text-muted: #BDBDC2;
+    --color-text-muted: #7F8490;
+    --color-carousel-dot: var(--color-border-subtle);
+    --color-carousel-dot-hover: #868CB8;
+    --color-carousel-dot-active: #222E85;
     --color-focus-ring: rgba(1, 96, 123, 0.6);
     --color-selection: rgba(43, 132, 157, 0.1);
     --color-glass: rgba(255, 255, 255, 0.3);
@@ -31,11 +29,10 @@
     --color-glass-clear: rgba(255, 255, 255, 0);
     --color-consent-background: rgba(255, 255, 255, 0.96);
     --color-shadow-soft: rgba(0, 0, 0, 0.12);
-    --color-logo-fill: #292151;
-    --color-logo-fill-start: #121316;
-    --color-logo-fill-mid: #6C6786;
     --color-accent-pink: pink;
-    --color-inverse-text: #FFFFFF;
+    --color-text: var(--color-ink);
+    --color-link: var(--color-ink);
+    --color-background: var(--color-paper);
 
     --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.02);
     --shadow-none: 0 8px 32px rgba(0, 0, 0, 0);
