@@ -197,6 +197,65 @@
             });
         };
 
+        const initializeCompanyLogoCarousel = () => {
+            const carousel = document.querySelector('.logo-carousel');
+
+            if (!carousel) return;
+
+            const track = carousel.querySelector('.logo-carousel-track');
+            const items = Array.from(carousel.querySelectorAll('.testimony-item'));
+
+            if (!track || items.length < 2) return;
+
+            const createSequence = (isDuplicate = false) => {
+                const sequence = document.createElement('ul');
+
+                sequence.className = 'testimony-list logo-carousel-sequence';
+
+                if (isDuplicate) {
+                    sequence.setAttribute('aria-hidden', 'true');
+                }
+
+                items.forEach((item) => {
+                    sequence.appendChild(item.cloneNode(true));
+                });
+
+                return sequence;
+            };
+
+            track.replaceChildren(createSequence(), createSequence(true));
+            carousel.classList.add('is-continuous');
+
+            const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+            if (reducedMotionQuery.matches) return;
+
+            const fadeLogosAtEdges = () => {
+                const viewport = carousel.querySelector('.logo-carousel-viewport');
+
+                if (!viewport) return;
+
+                const viewportRect = viewport.getBoundingClientRect();
+                const fadeWidth = Math.min(360, viewportRect.width * 0.4);
+                const visibleItems = Array.from(track.querySelectorAll('.testimony-item'));
+
+                visibleItems.forEach((item) => {
+                    const itemRect = item.getBoundingClientRect();
+                    const logo = item.querySelector('.company-logo');
+                    const itemCenter = itemRect.left + itemRect.width / 2;
+                    const leftOpacity = (itemCenter - viewportRect.left) / fadeWidth;
+                    const rightOpacity = (viewportRect.right - itemCenter) / fadeWidth;
+                    const opacity = Math.max(0, Math.min(1, leftOpacity, rightOpacity));
+
+                    logo?.style.setProperty('--logo-opacity', opacity.toFixed(3));
+                });
+
+                window.requestAnimationFrame(fadeLogosAtEdges);
+            };
+
+            window.requestAnimationFrame(fadeLogosAtEdges);
+        };
+
         const initializeRecommendationCarousel = () => {
             const carousel = document.querySelector('.recommendation-list');
 
@@ -204,8 +263,11 @@
 
             const items = Array.from(carousel.querySelectorAll('.recommendation-item'));
             const intervalMs = 10000;
+            const transitionDelayMs = 900;
             let currentIndex = 0;
             let timerId;
+            let transitionTimerId;
+            let isTransitioning = false;
 
             if (items.length < 2) return;
 
@@ -217,13 +279,27 @@
                 currentIndex = index;
             };
 
+            const transitionToItem = (index) => {
+                if (isTransitioning) return;
+
+                isTransitioning = true;
+                window.clearTimeout(transitionTimerId);
+
+                items[currentIndex]?.classList.remove('is-active');
+
+                transitionTimerId = window.setTimeout(() => {
+                    activateItem(index);
+                    isTransitioning = false;
+                }, transitionDelayMs);
+            };
+
             const queueNextItem = () => {
                 window.clearTimeout(timerId);
                 timerId = window.setTimeout(showNextItem, intervalMs);
             };
 
             const showNextItem = () => {
-                activateItem((currentIndex + 1) % items.length);
+                transitionToItem((currentIndex + 1) % items.length);
                 queueNextItem();
             };
 
@@ -248,6 +324,7 @@
         initializeConsentBanner();
         initializeScrollHeader();
         initializeNavUnderline();
+        initializeCompanyLogoCarousel();
         initializeRecommendationCarousel();
 
         // WHAT PAGE ARE WE ON?

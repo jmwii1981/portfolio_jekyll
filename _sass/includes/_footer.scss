@@ -1,13 +1,12 @@
 .footer {
     align-items: center;
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.7fr) minmax(max-content, 2fr) minmax(8rem, 0.7fr);
     margin: 0 auto;
-    padding: 3rem var(--site-content-padding);
-    justify-content: space-between;
+    padding: 3rem var(--site-frame-padding);
     width: min(100%, var(--site-width));
 
     > section {
-        flex: 1 1 0;
         min-width: 0;
     }
 
@@ -17,6 +16,7 @@
         margin: 0 auto;
         padding: 0;
         text-align: center;
+        white-space: nowrap;
 
         .a {
             color: var(--color-icon-muted);
@@ -39,11 +39,14 @@
         flex-wrap: wrap;
         gap: 0.5rem;
         justify-content: flex-end;
-        margin: 0 auto;
+        margin: 0 0 0 auto;
         padding: 0;
 
         .social-icon {
-            transform: scale(0.8);
+            display: inline-flex;
+            height: 3.25rem;
+            transform: none;
+            width: 3.25rem;
         }
     }
 }

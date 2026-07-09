@@ -15,6 +15,24 @@
     z-index: 0;
 }
 
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .html {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 1600px) and (max-width: 1919px) {
+    .html {
+        font-size: 17px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .html {
+        font-size: 18px;
+    }
+}
+
 .body {
     align-items: flex-start;
     background-color: var(--color-background);
