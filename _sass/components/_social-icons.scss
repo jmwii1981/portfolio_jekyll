@@ -5,7 +5,7 @@
 .social-icon polyline,
 .social-icon polygon,
 .social-icon path {
-    fill: var(--color-icon-muted);
+    fill: var(--color-text-muted);
     height: 2.75rem;
     width: 2.75rem;
 }
@@ -18,7 +18,7 @@
     & polyline,
     & polygon,
     & path {
-        fill: var(--color-link-hover);
+        fill: var(--color-link);
     }
 }
 
@@ -30,6 +30,6 @@
     & polyline,
     & polygon,
     & path {
-        fill: var(--color-link-active);
+        fill: var(--color-link);
     }
 }

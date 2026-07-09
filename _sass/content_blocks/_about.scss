@@ -18,7 +18,7 @@
 .hero {
     align-items: stretch;
     display: flex;
-    min-height: 56rem;
+    min-height: 51rem;
     isolation: isolate;
     position: relative;
     overflow: hidden;
@@ -28,16 +28,15 @@
     &::before {
         background: linear-gradient(
             90deg,
-            var(--color-background-warm) 17%,
-            var(--color-background-cool) 100%
+            var(--color-surface-subtle) 17%,
+            var(--color-surface-muted) 100%
         );
         content: "";
         height: calc(100% + 6rem);
         position: absolute;
             top: calc(-1 * 6rem);
-            left: 50%;
-        transform: translateX(-50%);
-        width: 100vw;
+            left: 0;
+        width: 100%;
         z-index: -1;
     }
 
@@ -47,29 +46,29 @@
         justify-content: space-between;
         margin: 0 auto;
         min-height: inherit;
-        padding: 7rem var(--site-frame-padding) 0;
+        padding: 6rem var(--site-frame-padding) 0;
         position: relative;
 
         .copy-wrapper {
             align-self: center;
             display: flex;
             flex-direction: column;
-            flex: 0 1 35rem;
+            flex: 0 1 32rem;
             position: relative;
             width: 32rem;
             z-index: 2;
 
             .h2 {
-                font-size: 7.75rem;
+                font-size: 7rem;
                 font-weight: 400;
-                letter-spacing: -0.3rem;
+                letter-spacing: -0.22rem;
                 line-height: 0.95;
                 margin-bottom: 0;
                 margin: 0;
                 white-space: nowrap;
             }
             .h3 {
-                font-size: 1.75rem;
+                font-size: 1.55rem;
                 font-weight: 700;
                 margin-top: 1.5rem;
                 margin-bottom: 1.75rem;
@@ -77,11 +76,17 @@
             }
             .h4 {
                 color: var(--color-text-soft);
-                font-size: 1.05rem;
+                font-size: 1rem;
                 font-weight: 400;
                 line-height: 1.75rem;
                 margin-top: 1rem;
                 margin-bottom: 2.5rem;
+            }
+            .button-group {
+                align-items: center;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
             }
             .button {
                 align-self: flex-start;
@@ -89,20 +94,20 @@
         }
         .image-wrapper {
             align-self: flex-end;
-            height: 50rem; 
+            height: 46rem; 
             position: relative;
-            width: 46rem;
+            width: 42.5rem;
 
             .image {
                 align-self: flex-end;
                 display: block;
-                height: 50rem; 
+                height: 46rem; 
                 object-fit: contain;
                 object-position: bottom center;
                 justify-self: flex-end;
                 margin-left: auto;
                 margin-right: 0;
-                width: 46rem;
+                width: 42.5rem;
             }
         }
     }
@@ -131,7 +136,7 @@
     }
     .help-item {
         background: transparent;
-        border-left: 1px solid var(--color-button-fill-active);
+        border-left: 1px solid var(--color-border-subtle);
         color: var(--color-text-soft);
         display: flex;
         flex-direction: column;        
@@ -149,9 +154,9 @@
 
         h3 {
             color: var(--color-link);
-            font-size: 1.45rem;
+            font-size: 1.25rem;
             font-weight: 600;
-            line-height: 1;
+            line-height: 1.15;
             margin: 0 0 1rem;
         }
         p {
@@ -183,7 +188,7 @@
             padding-left: 0;
         }
         .help-item:nth-child(4) {
-            border-left: 1px solid var(--color-button-fill-active);
+            border-left: 1px solid var(--color-border-subtle);
             padding-left: 1.6rem;
         }
     }
@@ -195,7 +200,7 @@
         .help-item,
         .help-item:nth-child(4) {
             border-left: 0;
-            border-top: 1px solid var(--color-button-fill-active);
+            border-top: 1px solid var(--color-border-subtle);
             padding-left: 0;
         }
         .help-item:first-child {
@@ -213,10 +218,10 @@
     width: 100%;
 
     .content-wrapper {
-        border-top: 1px solid var(--color-button-fill-active);
+        border-top: 1px solid var(--color-border-subtle);
         display: flex;
         flex-direction: column;
-        gap: 3rem;
+        gap: 2.5rem;
         padding-top: 3rem;
     }
     .h2 {
@@ -285,12 +290,12 @@
         align-items: center;
         display: flex;
         justify-content: center;
-        min-height: 9rem;
-        padding: 1.5rem;
+        min-height: 8.5rem;
+        padding: 1.25rem;
     }
     .company-logo {
-        --logo-height: 2.75rem;
-        --logo-width: 9rem;
+        --logo-height: 2.9rem;
+        --logo-width: 9.5rem;
 
         display: block;
         height: auto;
@@ -300,52 +305,91 @@
         opacity: var(--logo-opacity, 1);
         width: 100%;
     }
-    .company-logo[src$="adapt-health.svg"],
-    .company-logo[src$="advancedmd.svg"],
-    .company-logo[src$="big-ass-fans.svg"],
-    .company-logo[src$="cleanse-clinic.svg"],
-    .company-logo[src$="globalpayments.svg"],
-    .company-logo[src$="old-forester.svg"],
-    .company-logo[src$="worldpay.svg"],
-    .company-logo[src$="xenial.svg"] {
-        --logo-height: 2.35rem;
-        --logo-width: 10.5rem;
-    }
-    .company-logo[src$="aph.svg"],
-    .company-logo[src$="evo-payments.svg"],
-    .company-logo[src$="integrated-sign.svg"],
-    .company-logo[src$="mcm-cpas.svg"],
-    .company-logo[src$="mightily.svg"],
-    .company-logo[src$="mighty-small-homes.svg"],
-    .company-logo[src$="tsys.svg"] {
-        --logo-height: 2.85rem;
-        --logo-width: 8rem;
-    }
-    .company-logo[src$="dbs-interactive.svg"],
-    .company-logo[src$="humana.svg"],
-    .company-logo[src$="zeon-chemicals.svg"] {
-        --logo-height: 2.2rem;
-        --logo-width: 8.5rem;
+    .company-logo[src$="globalpayments.svg"] {
+        --logo-height: 3.15rem;
+        --logo-width: 11.25rem;
+
+        transform: translateY(0.1875rem);
     }
     .company-logo[src$="worldpay.svg"] {
-        --logo-height: 1.85rem;
-        --logo-width: 8.25rem;
+        --logo-height: 1.35rem;
+        --logo-width: 6.4rem;
+
+        transform: translateY(0.125rem);
     }
     .company-logo[src$="tsys.svg"] {
-        --logo-height: 1.9rem;
-        --logo-width: 6.4rem;
+        --logo-height: 1.47rem;
+        --logo-width: 4.95rem;
     }
     .company-logo[src$="evo-payments.svg"] {
-        --logo-height: 1.9rem;
-        --logo-width: 5.4rem;
+        --logo-height: 1.4rem;
+        --logo-width: 4.8rem;
     }
     .company-logo[src$="xenial.svg"] {
-        --logo-height: 1.9rem;
-        --logo-width: 6.7rem;
+        --logo-height: 1.1875rem;
+        --logo-width: 5.13rem;
+
+        transform: translateY(-0.0625rem);
+    }
+    .company-logo[src$="advancedmd.svg"] {
+        --logo-height: 2.1rem;
+        --logo-width: 9.6rem;
+    }
+    .company-logo[src$="adapt-health.svg"] {
+        --logo-height: 2.35rem;
+        --logo-width: 10.25rem;
+    }
+    .company-logo[src$="aph.svg"] {
+        --logo-height: 2.2rem;
+        --logo-width: 4.2rem;
+    }
+    .company-logo[src$="big-ass-fans.svg"] {
+        --logo-height: 2.1rem;
+        --logo-width: 9.75rem;
+    }
+    .company-logo[src$="cleanse-clinic.svg"] {
+        --logo-height: 2.1rem;
+        --logo-width: 9.75rem;
+    }
+    .company-logo[src$="dbs-interactive.svg"] {
+        --logo-height: 2.45rem;
+        --logo-width: 10.4rem;
+    }
+    .company-logo[src$="humana.svg"] {
+        --logo-height: 1.05rem;
+        --logo-width: 9.25rem;
+
+        transform: translateY(-0.1875rem);
+    }
+    .company-logo[src$="integrated-sign.svg"] {
+        --logo-height: 1.85rem;
+        --logo-width: 5.7rem;
+    }
+    .company-logo[src$="mcm-cpas.svg"] {
+        --logo-height: 1.55rem;
+        --logo-width: 5.75rem;
+
+        transform: translateY(0.125rem);
+    }
+    .company-logo[src$="mightily.svg"] {
+        --logo-height: 1.875rem;
+        --logo-width: 6.33rem;
+
+        transform: translateY(-0.1875rem);
+    }
+    .company-logo[src$="mighty-small-homes.svg"] {
+        --logo-height: 2.1rem;
+        --logo-width: 6.75rem;
+
+        transform: translateY(-0.5rem);
+    }
+    .company-logo[src$="old-forester.svg"] {
+        --logo-height: 1.65rem;
+        --logo-width: 7.2rem;
     }
     .company-logo[src$="zeon-chemicals.svg"] {
-        --logo-height: 1.65rem;
-        --logo-width: 6.8rem;
+        --logo-height: 1rem;
+        --logo-width: 5.4rem;
     }
     .logo-carousel-dots {
         align-items: center;
@@ -354,7 +398,7 @@
         justify-content: center;
     }
     .logo-carousel-dots label {
-        background: #EBEBEB;
+        background: var(--color-carousel-dot);
         border-radius: 50%;
         cursor: pointer;
         display: block;
@@ -364,13 +408,13 @@
     }
     .logo-carousel-dots label:hover,
     .logo-carousel-dots label:focus-visible {
-        background: #868CB8;
+        background: var(--color-carousel-dot-hover);
     }
     #logos-page-1:checked ~ .logo-carousel-dots label[for="logos-page-1"],
     #logos-page-2:checked ~ .logo-carousel-dots label[for="logos-page-2"],
     #logos-page-3:checked ~ .logo-carousel-dots label[for="logos-page-3"],
     #logos-page-4:checked ~ .logo-carousel-dots label[for="logos-page-4"] {
-        background: #222E85;
+        background: var(--color-carousel-dot-active);
     }
     .logo-carousel.is-continuous {
         gap: 0;
@@ -387,40 +431,67 @@
         .logo-carousel-sequence {
             display: flex;
             flex: 0 0 auto;
-            gap: 0.5rem;
+            gap: 0.35rem;
             grid-template-columns: none;
-            padding-right: 0.5rem;
+            padding-right: 0.35rem;
             width: max-content;
         }
         .testimony-item {
-            flex: 0 0 12rem;
+            flex: 0 0 10.5rem;
+        }
+        .testimony-item:has(.company-logo[src$="globalpayments.svg"]) {
+            flex-basis: 11.5rem;
         }
         .testimony-item:has(.company-logo[src$="aph.svg"]) {
-            flex-basis: 5.75rem;
+            flex-basis: 4.8rem;
         }
-        .testimony-item:has(.company-logo[src$="evo-payments.svg"]) {
-            flex-basis: 7rem;
+        .testimony-item:has(.company-logo[src$="worldpay.svg"]) {
+            flex-basis: 8.2rem;
         }
-        .testimony-item:has(.company-logo[src$="integrated-sign.svg"]) {
-            flex-basis: 7.25rem;
+        .testimony-item:has(.company-logo[src$="big-ass-fans.svg"]) {
+            flex-basis: 10.8rem;
+        }
+        .testimony-item:has(.company-logo[src$="advancedmd.svg"]) {
+            flex-basis: 10.2rem;
+        }
+        .testimony-item:has(.company-logo[src$="mcm-cpas.svg"]) {
+            flex-basis: 5.8rem;
+        }
+        .testimony-item:has(.company-logo[src$="cleanse-clinic.svg"]) {
+            flex-basis: 10.8rem;
         }
         .testimony-item:has(.company-logo[src$="tsys.svg"]) {
-            flex-basis: 7.5rem;
+            flex-basis: 6.3rem;
         }
-        .testimony-item:has(.company-logo[src$="mcm-cpas.svg"]),
-        .testimony-item:has(.company-logo[src$="mighty-small-homes.svg"]),
-        .testimony-item:has(.company-logo[src$="zeon-chemicals.svg"]) {
-            flex-basis: 10rem;
+        .testimony-item:has(.company-logo[src$="mightily.svg"]) {
+            flex-basis: 6.8rem;
         }
-        .testimony-item:has(.company-logo[src$="adapt-health.svg"]),
-        .testimony-item:has(.company-logo[src$="advancedmd.svg"]),
-        .testimony-item:has(.company-logo[src$="cleanse-clinic.svg"]),
-        .testimony-item:has(.company-logo[src$="globalpayments.svg"]),
-        .testimony-item:has(.company-logo[src$="humana.svg"]),
-        .testimony-item:has(.company-logo[src$="old-forester.svg"]),
-        .testimony-item:has(.company-logo[src$="worldpay.svg"]),
-        .testimony-item:has(.company-logo[src$="xenial.svg"]) {
+        .testimony-item:has(.company-logo[src$="adapt-health.svg"]) {
             flex-basis: 11rem;
+        }
+        .testimony-item:has(.company-logo[src$="integrated-sign.svg"]) {
+            flex-basis: 5rem;
+        }
+        .testimony-item:has(.company-logo[src$="xenial.svg"]) {
+            flex-basis: 6.4rem;
+        }
+        .testimony-item:has(.company-logo[src$="old-forester.svg"]) {
+            flex-basis: 7.8rem;
+        }
+        .testimony-item:has(.company-logo[src$="dbs-interactive.svg"]) {
+            flex-basis: 12rem;
+        }
+        .testimony-item:has(.company-logo[src$="zeon-chemicals.svg"]) {
+            flex-basis: 6.1rem;
+        }
+        .testimony-item:has(.company-logo[src$="evo-payments.svg"]) {
+            flex-basis: 5rem;
+        }
+        .testimony-item:has(.company-logo[src$="mighty-small-homes.svg"]) {
+            flex-basis: 7.3rem;
+        }
+        .testimony-item:has(.company-logo[src$="humana.svg"]) {
+            flex-basis: 7.6rem;
         }
     }
     .recommendations {
@@ -472,7 +543,7 @@
     }
     .recommendation-quote {
         color: var(--color-text-soft);
-        font-size: 1.45rem;
+        font-size: 1.35rem;
         font-style: italic;
         font-weight: 400;
         letter-spacing: 0;
@@ -481,12 +552,16 @@
         max-width: 72rem;
     }
     .recommendation-attribution {
-        color: var(--color-icon-muted);
+        color: var(--color-text-muted);
         font-size: 0.95rem;
         font-style: italic;
-        font-weight: 500;
+        font-weight: 400;
         line-height: 1.2;
         margin: 0;
+    }
+    .recommendation-mark,
+    .recommendation-role {
+        font-weight: 300;
     }
     @keyframes logo-carousel-scroll {
         from {
@@ -521,10 +596,10 @@
 
 
     .content-container {
-        align-items: center;
-        background-color: var(--color-background-soft);
+        align-items: stretch;
+        background-color: var(--color-surface);
         display: flex;
-        gap: 4rem;
+        gap: 2.5rem;
         justify-content: space-between;
         padding: 4rem;
         width: 100%;
@@ -541,40 +616,62 @@
         .content-wrapper:first-child {
             align-items: center;
             display: flex;
-            flex: 1.3 1 0;
-            gap: 3rem;
+            flex: 1 1 34rem;
+            flex-wrap: wrap;
+            gap: 2rem;
             padding: 0;
             max-width: none;
 
             .inner-wrapper {
-                max-width: 28rem;
+                display: flex;
+                flex: 1 1 18rem;
+                flex-direction: column;
+                gap: 1rem;
+                max-width: none;
+                min-width: 0;
                 padding: 0;
+
+                .p {
+                    margin: 0;
+                }
             }
         }
         .content-wrapper:nth-child(2) {
             background: var(--color-background);
-            flex: 1 1 0;
-            padding: 2rem;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 24rem;
+            gap: 1rem;
+            min-height: 16rem;
+            justify-content: flex-start;
             max-width: none;
+            padding: 2rem 3rem;
 
             .h2 {
-                color: var(--color-link);
-                font-weight: 800;
-                letter-spacing: 0.075rem;
+                color: var(--color-text-muted);
+                font-size: 0.95rem;
+                font-weight: 700;
+                letter-spacing: 0.02rem;
+                line-height: 1.25;
                 margin: 0;
                 text-transform: uppercase;
             }
             .p {
                 color: var(--color-text-soft);
-                margin: 1rem 0;
+                font-size: 0.95rem;
+                line-height: 1.6;
+                margin: 0;
             }
         }
 
         .image-wrapper {
             aspect-ratio: 1;
             display: block;
-            height: 19.75rem;
-            width: 19.75rem;
+            flex: 0 1 15rem;
+            max-width: 15rem;
+            min-width: 11rem;
+            width: 26%;
             
             .image {
                 display: block;

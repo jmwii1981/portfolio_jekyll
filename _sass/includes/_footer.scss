@@ -1,39 +1,100 @@
 .footer {
     align-items: center;
+    color: var(--color-link);
     display: grid;
-    grid-template-columns: minmax(8rem, 0.7fr) minmax(max-content, 2fr) minmax(8rem, 0.7fr);
+    grid-template-columns: 1fr auto;
+    row-gap: 1.25rem;
     margin: 0 auto;
-    padding: 3rem var(--site-frame-padding);
-    width: min(100%, var(--site-width));
+    padding: 3rem var(--site-frame-padding) 4rem;
+    width: min(calc(100% - (var(--site-viewport-padding) * 2)), var(--site-width));
 
     > section {
         min-width: 0;
     }
 
+    .a,
+    .social-icon,
+    .social-icon rect,
+    .social-icon circle,
+    .social-icon ellipse,
+    .social-icon line,
+    .social-icon polyline,
+    .social-icon polygon,
+    .social-icon path {
+        transition: none;
+    }
+
+    .a:hover,
+    .a:focus,
+    .a:active {
+        color: var(--color-link);
+    }
+
     .p {
-        color: var(--color-icon-muted);
+        color: var(--color-link);
         display: block;
-        margin: 0 auto;
+        font-size: 0.85rem;
+        line-height: 1.4;
+        margin: 0;
         padding: 0;
-        text-align: center;
-        white-space: nowrap;
+        text-align: left;
 
         .a {
-            color: var(--color-icon-muted);
+            color: var(--color-link);
+
+            &:hover,
+            &:focus,
+            &:active {
+                color: var(--color-link);
+            }
         }
     }
 
     .site-signature {
+        display: contents;
         margin-bottom: 0;
 
         .a {
+            color: var(--color-link);
+            font-size: 0.9rem;
+            font-weight: 700;
             justify-self: flex-start;
+            letter-spacing: 0.01rem;
             white-space: nowrap;
         }
+
+        > .site-link {
+            align-self: start;
+            color: var(--color-link);
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        > .site-link:hover,
+        > .site-link:focus,
+        > .site-link:active {
+            color: var(--color-link);
+        }
+    }
+
+    .copyright {
+        grid-column: 2;
+        justify-self: end;
+
+        .p {
+            text-align: right;
+        }
+    }
+
+    .social {
+        align-self: start;
+        grid-column: 2;
+        grid-row: 1;
     }
 
     .social-links-container {
         align-self: center;
+        align-items: center;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -43,10 +104,59 @@
         padding: 0;
 
         .social-icon {
+            align-items: center;
+            color: var(--color-link);
             display: inline-flex;
-            height: 3.25rem;
+            height: 2.75rem;
+            justify-content: center;
             transform: none;
-            width: 3.25rem;
+            width: 2.75rem;
+
+            svg {
+                display: block;
+                height: 100%;
+                width: 100%;
+            }
+        }
+
+        .social-icon:hover,
+        .social-icon:focus,
+        .social-icon:active {
+            color: var(--color-link);
+        }
+
+        .social-icon rect,
+        .social-icon circle,
+        .social-icon ellipse,
+        .social-icon line,
+        .social-icon polyline,
+        .social-icon polygon,
+        .social-icon path {
+            fill: var(--color-link);
+        }
+
+        .social-icon:hover rect,
+        .social-icon:hover circle,
+        .social-icon:hover ellipse,
+        .social-icon:hover line,
+        .social-icon:hover polyline,
+        .social-icon:hover polygon,
+        .social-icon:hover path,
+        .social-icon:focus rect,
+        .social-icon:focus circle,
+        .social-icon:focus ellipse,
+        .social-icon:focus line,
+        .social-icon:focus polyline,
+        .social-icon:focus polygon,
+        .social-icon:focus path,
+        .social-icon:active rect,
+        .social-icon:active circle,
+        .social-icon:active ellipse,
+        .social-icon:active line,
+        .social-icon:active polyline,
+        .social-icon:active polygon,
+        .social-icon:active path {
+            fill: var(--color-link);
         }
     }
 }

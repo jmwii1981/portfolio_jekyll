@@ -1,6 +1,6 @@
 .skeleton-image {
     aspect-ratio: 7 / 4;
-    background-color: var(--color-surface-skeleton);
+    background-color: var(--color-skeleton);
     border-radius: 0.25rem;
     display: block;
     margin: 0 0 2rem;
@@ -11,7 +11,7 @@
 }
 
 .skeleton-title {
-    background-color: var(--color-surface-skeleton);
+    background-color: var(--color-skeleton);
     border-radius: 4px;
     height: 40px;
     margin: 2rem 0 1rem;
@@ -21,7 +21,7 @@
 }
 
 .skeleton-meta-content-separator {
-    background-color: var(--color-surface-skeleton);
+    background-color: var(--color-skeleton);
     border: none;
     height: 1px;
     margin: 1.5rem 0 0.75rem;
@@ -61,7 +61,7 @@
 }
 
 .skeleton-meta-avatar {
-    background-color: var(--color-surface-skeleton);
+    background-color: var(--color-skeleton);
     border-radius: 100%;
     height: 3rem;
     overflow: hidden;
@@ -71,7 +71,7 @@
 
 .skeleton-meta-item1,
 .skeleton-meta-item2 {
-    background-color: var(--color-surface-skeleton);
+    background-color: var(--color-skeleton);
     border-radius: 4px;
     height: 1.5rem;
     overflow: hidden;
@@ -87,7 +87,7 @@
 }
 
 .skeleton-text {
-    background-color: var(--color-surface-skeleton);
+    background-color: var(--color-skeleton);
     border-radius: 4px;
     height: 1.5rem;
     margin-bottom: 0.5rem;

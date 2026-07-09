@@ -10,10 +10,18 @@ title: About
                 <h2 class="h2">Jan Michael</h2>
                 <h3 class="h3">I’m a Fractional Product Design Leader.</h3>
                 <h4 class="h4">I help growing companies turn product ambiguity into clear strategy, scalable systems, and shipped work that holds up as their businesses evolve.</h4>
-                <a 
-                class="a button"
-                href="{{ site.url }}{{ site.baseurl }}/work/" 
-                target="_parent"><span class="button-label">View selected work</span><span class="button-fill"></span></a>
+                <div class="button-group">
+                    <a 
+                    class="a button secondary"
+                    href="{{ site.url }}{{ site.baseurl }}/work/" 
+                    target="_parent"><span class="button-label">View selected work</span><span class="button-fill"></span></a>
+                    <a 
+                    class="a button primary"
+                    href="mailto:hello@janmichael.io"
+                    data-randomized-mailto
+                    target="_blank"
+                    rel="noopener noreferrer"><span class="button-label">Contact me</span><span class="button-fill"></span></a>
+                </div>
             </div>
             <div class="image-wrapper">
                 <img class="image" src="/images/hero/janmichael.png?v={{ site.time | date: '%Y%m%d%H%M%S' }}" alt="Image of Jan Michael">
@@ -58,55 +66,55 @@ title: About
                                 <img class="company-logo" src="/images/company-logos/globalpayments.svg" alt="Global Payments">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/worldpay.svg" alt="Worldpay">
-                            </li>
-                            <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/tsys.svg" alt="TSYS">
-                            </li>
-                            <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/evo-payments.svg" alt="EVO Payments">
-                            </li>
-                            <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/xenial.svg" alt="Xenial">
-                            </li>
-                            <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/advancedmd.svg" alt="AdvancedMD">
-                            </li>
-                            <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/adapt-health.svg" alt="AdaptHealth">
-                            </li>
-                            <li class="testimony-item">
                                 <img class="company-logo" src="/images/company-logos/aph.svg" alt="APH">
+                            </li>
+                            <li class="testimony-item">
+                                <img class="company-logo" src="/images/company-logos/worldpay.svg" alt="Worldpay">
                             </li>
                             <li class="testimony-item">
                                 <img class="company-logo" src="/images/company-logos/big-ass-fans.svg" alt="Big Ass Fans">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/cleanse-clinic.svg" alt="Cleanse Clinic">
-                            </li>
-                            <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/dbs-interactive.svg" alt="DBS Interactive">
-                            </li>
-                            <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/humana.svg" alt="Humana">
-                            </li>
-                            <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/integrated-sign.svg" alt="Integrated Sign">
+                                <img class="company-logo" src="/images/company-logos/advancedmd.svg" alt="AdvancedMD">
                             </li>
                             <li class="testimony-item">
                                 <img class="company-logo" src="/images/company-logos/mcm-cpas.svg" alt="MCM CPAs & Advisors">
                             </li>
                             <li class="testimony-item">
+                                <img class="company-logo" src="/images/company-logos/cleanse-clinic.svg" alt="Cleanse Clinic">
+                            </li>
+                            <li class="testimony-item">
+                                <img class="company-logo" src="/images/company-logos/tsys.svg" alt="TSYS">
+                            </li>
+                            <li class="testimony-item">
                                 <img class="company-logo" src="/images/company-logos/mightily.svg" alt="Mightily">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/mighty-small-homes.svg" alt="Mighty Small Homes">
+                                <img class="company-logo" src="/images/company-logos/adapt-health.svg" alt="AdaptHealth">
+                            </li>
+                            <li class="testimony-item">
+                                <img class="company-logo" src="/images/company-logos/integrated-sign.svg" alt="Integrated Sign">
+                            </li>
+                            <li class="testimony-item">
+                                <img class="company-logo" src="/images/company-logos/xenial.svg" alt="Xenial">
                             </li>
                             <li class="testimony-item">
                                 <img class="company-logo" src="/images/company-logos/old-forester.svg" alt="Old Forester">
                             </li>
                             <li class="testimony-item">
+                                <img class="company-logo" src="/images/company-logos/dbs-interactive.svg" alt="DBS Interactive">
+                            </li>
+                            <li class="testimony-item">
                                 <img class="company-logo" src="/images/company-logos/zeon-chemicals.svg" alt="Zeon Chemicals">
+                            </li>
+                            <li class="testimony-item">
+                                <img class="company-logo" src="/images/company-logos/evo-payments.svg" alt="EVO Payments">
+                            </li>
+                            <li class="testimony-item">
+                                <img class="company-logo" src="/images/company-logos/mighty-small-homes.svg" alt="Mighty Small Homes">
+                            </li>
+                            <li class="testimony-item">
+                                <img class="company-logo" src="/images/company-logos/humana.svg" alt="Humana">
                             </li>
                         </ul>
                     </div>
@@ -116,99 +124,99 @@ title: About
                 <ul class="recommendation-list">
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan taught our team the product design process with patience and professionalism, helping us craft products that met stakeholder and user needs.”</blockquote>
-                        <p class="recommendation-attribution">– Blake Spears</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Blake Spears, <span class="recommendation-role">Product Manager</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan turned complex requirements into intuitive, practical designs and a design system that improved consistency and accessibility across applications.”</blockquote>
-                        <p class="recommendation-attribution">– Dean Long</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Dean Long, <span class="recommendation-role">Principal Developer</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan’s optimism, meticulous craft, and creative vision raised the quality of our products and the standard for design excellence on the team.”</blockquote>
-                        <p class="recommendation-attribution">– D. Danielle Shafer</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> D. Danielle Shafer, <span class="recommendation-role">Head of Design</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan translates complex business problems into innovative design solutions and inspires teams to deliver exceptional user experiences.”</blockquote>
-                        <p class="recommendation-attribution">– Vinesha Perera</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Vinesha Perera, <span class="recommendation-role">CPO</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan develops people with high expectations, frequent feedback, patience, and the kind of support that leaves others inspired.”</blockquote>
-                        <p class="recommendation-attribution">– Isabella Bice</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Isabella Bice, <span class="recommendation-role">Product Designer</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan’s leadership was transformative in creating a welcoming, inclusive environment and motivating people across the organization to get involved.”</blockquote>
-                        <p class="recommendation-attribution">– Sebastien Meiller</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Sebastien Meiller, <span class="recommendation-role">Account Director</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan drives inclusive experiences with a strong design background and a willingness to give and receive critique in pursuit of better work.”</blockquote>
-                        <p class="recommendation-attribution">– Michael Poulter</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Michael Poulter, <span class="recommendation-role">Sr. Product Designer</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan is a thoughtful, knowledgeable UX designer who leads, serves, mentors others, and helps teams move their work forward.”</blockquote>
-                        <p class="recommendation-attribution">– Justin Jolley</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Justin Jolley, <span class="recommendation-role">Director of UX</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan Michael is bright, tactful, talented, and deeply dedicated to continuous improvement.”</blockquote>
-                        <p class="recommendation-attribution">– Alisha Wheatley</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Alisha Wheatley, <span class="recommendation-role">VP</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan has tremendous vision, the skills to realize it, and the drive to carry important projects from inception to execution.”</blockquote>
-                        <p class="recommendation-attribution">– Philip Laffey</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Philip Laffey, <span class="recommendation-role">Sr. Counsel</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan brings the knowledge, resources, empathy, and skill to be an inspiring and effective mentor.”</blockquote>
-                        <p class="recommendation-attribution">– Israel Gutierrez</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Israel Gutierrez, <span class="recommendation-role">Product Designer</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan helps people make sense of complex problems, stay organized, and adapt with confidence when plans change.”</blockquote>
-                        <p class="recommendation-attribution">– Jessica Longley</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Jessica Longley, <span class="recommendation-role">UX/UI Designer</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan leads with thoughtfulness, creativity, passion, and true servant leadership.”</blockquote>
-                        <p class="recommendation-attribution">– Jonathan Olinger</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Jonathan Olinger, <span class="recommendation-role">Deputy Counsel</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan Michael has a keen eye for modern design and is innovative, professional, and a pleasure to collaborate with.”</blockquote>
-                        <p class="recommendation-attribution">– Amy Finder</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Amy Finder, <span class="recommendation-role">Designer</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan is a rare developer with design skills, strong problem-solving instincts, and the desire to do great work.”</blockquote>
-                        <p class="recommendation-attribution">– Christopher Nolen</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Christopher Nolen, <span class="recommendation-role">Creative Director</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan steps up when needed, serves clients well, and would be an asset to any team.”</blockquote>
-                        <p class="recommendation-attribution">– Liz Vasquez Fehler</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Liz Vasquez Fehler, <span class="recommendation-role">Sr. Marketer</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan is easy to collaborate with, top tier in programming and design, and enriches any team he joins.”</blockquote>
-                        <p class="recommendation-attribution">– Kerick Howlett</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Kerick Howlett, <span class="recommendation-role">Sr. Engineer</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan works hard, moves efficiently, and takes time to coach and teach others.”</blockquote>
-                        <p class="recommendation-attribution">– Ani Patrick</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Ani Patrick, <span class="recommendation-role">Marketing Manager</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan Michael has the rare ability to move seamlessly between creative, analytical, and technical thinking.”</blockquote>
-                        <p class="recommendation-attribution">– Elizabeth Scott Robertson</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Elizabeth Scott Robertson, <span class="recommendation-role">Marketing Lead</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan brings positive energy to collaboration and consistently delivers work that exceeds client expectations.”</blockquote>
-                        <p class="recommendation-attribution">– Christopher Lush</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Christopher Lush, <span class="recommendation-role">Sr. Product Manager</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan combines strong development skills, a keen eye for design, excellent communication, and outstanding organization.”</blockquote>
-                        <p class="recommendation-attribution">– Jef DeWitt</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Jef DeWitt, <span class="recommendation-role">Engineer</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan makes complex design work approachable, collaborative, and easy for clients to understand.”</blockquote>
-                        <p class="recommendation-attribution">– Lindsey Burke</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Lindsey Burke, <span class="recommendation-role">Founder</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan blends design, development, brand strategy, and detail-oriented execution to help clients grow their presence.”</blockquote>
-                        <p class="recommendation-attribution">– Michael Cruz</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Michael Cruz, <span class="recommendation-role">IT Manager</span></p>
                     </li>
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan-Michael combines visual creativity and code-writing skill with the drive to take a vision and run with it.”</blockquote>
-                        <p class="recommendation-attribution">– Brittany Robinson</p>
+                        <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Brittany Robinson, <span class="recommendation-role">Sr. Designer</span></p>
                     </li>
                 </ul>
             </div>

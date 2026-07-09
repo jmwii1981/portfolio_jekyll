@@ -24,7 +24,7 @@
         top: 0;
         right: 0;
         left: 0;
-    width: min(100%, var(--site-width));
+    width: min(calc(100% - (var(--site-viewport-padding) * 2)), var(--site-width));
     z-index: 2;
 
     &::before {

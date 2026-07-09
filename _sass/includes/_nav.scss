@@ -42,7 +42,7 @@
     }
 
     &.has-sliding-underline::before {
-        background-color: var(--color-link-active);
+        background-color: var(--color-link);
         content: "";
         display: block;
         height: 0.125rem;
@@ -78,9 +78,9 @@
 }
 
 .tab {
-    font-size: 1.1rem;
+    font-size: 0.82rem;
     font-weight: 500;
-    letter-spacing: 0.1rem;
+    letter-spacing: 0.055rem;
     text-shadow: none;
     transition:
         color 0.2s ease,
@@ -94,7 +94,7 @@
 
         // hidden line
         &:after {
-            background-color: var(--color-link-active);
+            background-color: var(--color-link);
             content: '';
             display: none;
             height: 0.125rem;
@@ -106,14 +106,14 @@
 }
 // CURRENTLY ACTIVE TAB
  .tab.active {
-    color: var(--color-link-active);
+    color: var(--color-link);
     font-weight: 500;
     pointer-events: none;
     text-shadow: 0.025em 0 0 currentColor;
 
         // line
         &:after {
-            background-color: var(--color-link-active);
+            background-color: var(--color-link);
             content: '';
             display: block;
             height: 0.125rem;

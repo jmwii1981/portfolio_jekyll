@@ -4,10 +4,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0 auto;
+    margin: var(--site-viewport-padding) auto 0;
     padding: 0;
     position: relative;
-    width: min(100%, var(--site-width));
+    width: min(calc(100% - (var(--site-viewport-padding) * 2)), var(--site-width));
     z-index: 1;
 }
 
