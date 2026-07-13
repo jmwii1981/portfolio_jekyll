@@ -183,11 +183,11 @@
         bottom: 0;
         display: block;
         height: 46rem;
-        opacity: 0.5;
+        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 38%, #000000 72%);
         position: absolute;
         right: 0;
-        transition: opacity 0.25s ease;
         width: 42.5rem;
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 38%, #000000 72%);
         z-index: 1;
     }
 
@@ -202,31 +202,22 @@
 
 @media (min-width: 75rem) {
     .hero .image-wrapper {
-        opacity: 0.6;
+        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.55) 32%, #000000 64%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.55) 32%, #000000 64%);
     }
 }
 
 @media (min-width: 81rem) {
     .hero .image-wrapper {
-        opacity: 0.7;
+        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.75) 24%, #000000 48%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.75) 24%, #000000 48%);
     }
 }
 
 @media (min-width: 87rem) {
     .hero .image-wrapper {
-        opacity: 0.8;
-    }
-}
-
-@media (min-width: 93rem) {
-    .hero .image-wrapper {
-        opacity: 0.9;
-    }
-}
-
-@media (min-width: 98.5rem) {
-    .hero .image-wrapper {
-        opacity: 1;
+        mask-image: none;
+        -webkit-mask-image: none;
     }
 }
 
@@ -792,7 +783,6 @@
 
         .content-wrapper:first-child {
             align-items: stretch;
-            background: black;
             display: flex;
             flex-direction: column;
             width: 100%;
