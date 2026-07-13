@@ -1,20 +1,53 @@
 .nav-container {
+    align-items: center;
     background: transparent;
     display: flex;
     height: 4rem;
     justify-content: flex-end;
-    align-items: center;
     margin: 0;
+    min-width: 0;
     padding: 0;
     position: relative; // for underline & arrows
-    min-width: 0;
     width: auto;
 }
-.nav {
-    --nav-underline-offset-x: 0;
-    --nav-underline-offset-y: 0;
-    --nav-underline-width: 0;
 
+.nav-toggle {
+    display: none;
+}
+
+.nav-indicator {
+    --nav-indicator-rotation: 0deg;
+    --nav-indicator-width: 0rem;
+    --nav-indicator-x: 0rem;
+    --nav-indicator-y: 0rem;
+
+    background: var(--color-ink);
+    display: block;
+    height: 0.125rem;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    transform: translate3d(
+        var(--nav-indicator-x),
+        var(--nav-indicator-y),
+        0
+    ) rotate(var(--nav-indicator-rotation));
+    transform-origin: center;
+    transition:
+        opacity 0.15s ease,
+        transform 0.35s ease,
+        width 0.35s ease;
+    width: var(--nav-indicator-width);
+    z-index: 5;
+
+    &.is-ready {
+        opacity: 1;
+    }
+}
+
+.nav {
     align-items: center;
     display: flex;
     list-style: none;
@@ -23,9 +56,9 @@
     position: relative;
     width: auto;
 
-    overflow-x: auto;
     justify-content: flex-end;
     overflow: visible;
+    overflow-x: auto;
     scroll-behavior: smooth;
     scroll-padding-left: 0;
     scroll-snap-stop: always;
@@ -41,32 +74,15 @@
         scroll-snap-type: none;
     }
 
-    &.has-sliding-underline::before {
-        background-color: var(--color-link);
-        content: "";
-        display: block;
-        height: 0.125rem;
-        position: absolute;
-            left: 0;
-            top: 0;
-        transform: translate(
-            var(--nav-underline-offset-x),
-            var(--nav-underline-offset-y)
-        );
-        transition:
-            transform 0.35s ease,
-            width 0.35s ease;
-        width: var(--nav-underline-width);
-    }
 }
 
 .tab-container {
+    flex-shrink: 0;
     list-style: none;
     margin: 0;
+    min-width: max-content;
     padding: 0.5rem 1rem 1rem;
     position: relative;
-    flex-shrink: 0;
-    min-width: max-content;
     white-space: nowrap;
 
     &:first-child {
@@ -82,69 +98,223 @@
     font-weight: 500;
     letter-spacing: 0.055rem;
     text-shadow: none;
+    text-transform: uppercase;
     transition:
         color 0.2s ease,
         text-shadow 0.2s ease;
-    text-transform: uppercase;
 }
 
-// INACTIVE TAB
 .tab {
-    display: block; 
-
-        // hidden line
-        &:after {
-            background-color: var(--color-link);
-            content: '';
-            display: none;
-            height: 0.125rem;
-            position: absolute;
-                bottom: -6px;
-                left: 0rem;
-            width: 100%;
-        }
+    display: block;
 }
-// CURRENTLY ACTIVE TAB
- .tab.active {
+
+.tab.active {
     color: var(--color-link);
     font-weight: 500;
-    pointer-events: none;
     text-shadow: 0.025em 0 0 currentColor;
+}
 
-        // line
-        &:after {
-            background-color: var(--color-link);
-            content: '';
-            display: block;
-            height: 0.125rem;
-            position: absolute;
-                bottom: -6px;
-                left: 0rem;
-            width: 100%;
-        }
- }
 .nav:hover {
     .tab-container:hover .tab {
         text-shadow: 0.025em 0 0 currentColor;
     }
+}
 
-    .tab-container .tab.active:after {
+.nav-container {
+    position: static;
+}
+
+.nav-toggle {
+        align-items: center;
+        appearance: none;
+        background: transparent;
+        border: 0;
+        box-sizing: border-box;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        height: 3rem;
+        justify-content: center;
+        padding: 0.625rem;
+        position: relative;
+        width: 3rem;
+        z-index: 4;
+
+        &:focus-visible {
+            border-radius: 0.25rem;
+            outline: 0.125rem solid var(--color-focus-ring);
+            outline-offset: 0.125rem;
+        }
+}
+
+.nav-toggle-line {
+        background: var(--color-ink);
+        display: block;
+        height: 0.125rem;
+        transform: translateY(-0.3125rem);
+        transform-origin: center;
+        transition: transform 0.25s ease;
+        width: 1.625rem;
+}
+
+.nav-container.is-open {
+        .nav-toggle-line {
+            transform: translateY(0) rotate(45deg);
+        }
+
+        .nav-indicator {
+            --nav-indicator-rotation: -45deg;
+        }
+}
+
+.nav {
+        align-items: center;
+        background: var(--color-paper);
+        flex-direction: column;
+        gap: 1.25rem;
+        height: 100dvh;
+        inset: 0;
+        justify-content: center;
+        opacity: 0;
+        overflow: hidden;
+        padding: clamp(5rem, 12vh, 8rem) 2rem;
+        pointer-events: none;
+        position: fixed;
+        transform: translateY(-0.75rem);
+        transition:
+            opacity 0.2s ease,
+            transform 0.25s ease,
+            visibility 0s linear 0.25s;
+        visibility: hidden;
+        width: 100%;
+        z-index: 3;
+
+        &::before,
+        &.has-sliding-underline::before {
+            display: none;
+        }
+}
+
+.nav-container.is-open .nav {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+        transition:
+            opacity 0.2s ease,
+            transform 0.25s ease,
+            visibility 0s;
+        visibility: visible;
+}
+
+.tab-container,
+.tab-container:first-child,
+.tab-container:last-child {
+        min-width: 0;
+        padding: 0;
+        text-align: center;
+        white-space: normal;
+}
+
+.tab,
+.tab.active {
+        display: block;
+        font-size: clamp(1.65rem, 7vw, 2.25rem);
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        line-height: 1.2;
+        padding: 0.35rem 1rem;
+        text-shadow: none;
+        text-transform: none;
+        transition: opacity 0.2s ease;
+
+        &::after {
+            display: none;
+        }
+
+        &:hover,
+        &:focus-visible {
+            opacity: 0.62;
+            text-shadow: none;
+        }
+}
+
+.nav:hover,
+.nav.has-sliding-underline {
+        .tab::after,
+        .tab.active::after,
+        .tab-container:hover .tab::after,
+        .tab-container:hover .tab.active::after {
+            display: none;
+        }
+}
+
+.body.is-nav-open {
+    overflow: hidden;
+}
+
+@media screen and (min-width: 48.0625rem) {
+    .nav-container {
+        position: relative;
+    }
+
+    .nav-toggle {
         display: none;
     }
-    .tab-container:hover .tab.active:after {
-        display: block;
+
+    .nav {
+        align-items: center;
+        background: transparent;
+        flex-direction: row;
+        gap: 0;
+        height: auto;
+        inset: auto;
+        justify-content: flex-end;
+        opacity: 1;
+        overflow: visible;
+        padding: 0;
+        pointer-events: auto;
+        position: relative;
+        transform: none;
+        transition: none;
+        visibility: visible;
+        width: auto;
+        z-index: auto;
     }
-    .tab-container:hover .tab:after {
-        display: block;
+
+    .tab-container,
+    .tab-container:first-child,
+    .tab-container:last-child {
+        min-width: max-content;
+        padding: 0.5rem 1rem 1rem;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .tab-container:first-child {
+        padding-left: 0;
+    }
+
+    .tab-container:last-child {
+        padding-right: 0;
+    }
+
+    .tab,
+    .tab.active {
+        font-size: 0.82rem;
+        font-weight: 500;
+        letter-spacing: 0.055rem;
+        line-height: normal;
+        padding: 0;
+        text-transform: uppercase;
     }
 }
 
-.nav.has-sliding-underline {
-    .tab:after,
-    .tab.active:after,
-    &:hover .tab-container .tab.active:after,
-    &:hover .tab-container:hover .tab.active:after,
-    &:hover .tab-container:hover .tab:after {
-        display: none;
+@media (prefers-reduced-motion: reduce) {
+    .nav,
+    .nav-indicator,
+    .nav-toggle-line,
+    .tab {
+        transition: none;
     }
 }

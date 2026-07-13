@@ -12,6 +12,6 @@ body::before {
   display: block;
   padding: 1em;
   margin-bottom: 1em;
-  border-bottom: 2px solid black;
+  border-bottom: 0.125rem solid black;
   content: 'Error: expected "{".\a   \2577 \a 5 \2502  @import "fonts/fonts";\a   \2502                       ^\a   \2575 \a   _sass/master.scss 5:22  root stylesheet';
 }

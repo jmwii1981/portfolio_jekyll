@@ -7,20 +7,21 @@ title: About
     <section class="hero">
         <div class="content-wrapper">
             <div class="copy-wrapper">
+                <p class="p section-label hero-intro">Hi! I'm</p>
                 <h2 class="h2">Jan Michael</h2>
                 <h3 class="h3">I’m a Fractional Product Design Leader.</h3>
                 <h4 class="h4">I help growing companies turn product ambiguity into clear strategy, scalable systems, and shipped work that holds up as their businesses evolve.</h4>
                 <div class="button-group">
-                    <a 
-                    class="a button secondary"
-                    href="{{ site.url }}{{ site.baseurl }}/work/" 
-                    target="_parent"><span class="button-label">View selected work</span><span class="button-fill"></span></a>
                     <a 
                     class="a button primary"
                     href="mailto:hello@janmichael.io"
                     data-randomized-mailto
                     target="_blank"
                     rel="noopener noreferrer"><span class="button-label">Contact me</span><span class="button-fill"></span></a>
+                    <a 
+                    class="a button secondary"
+                    href="{{ site.url }}{{ site.baseurl }}/work/" 
+                    target="_parent"><span class="button-label">View selected work</span><span class="button-fill"></span></a>
                 </div>
             </div>
             <div class="image-wrapper">
@@ -231,20 +232,14 @@ title: About
                 <div class="inner-wrapper">
                     <h2 class="h2 section-label">About me</h2>
                     <p class="p">
-                        I’m a builder at heart. I’ve spent the past 20+ years helping startups turn ambitious ideas into products that people love. When I’m not working, you’ll find me exploring new destinations, participating in philanthropy, raising my four kids, and chasing that next good cup of coffee.
+                        I’m a builder at heart. For over 20 years, I’ve helped startups turn ambitious ideas into products people love. Outside work, I’m exploring new places, giving back, raising four kids, or searching for a great cup of coffee.
                     </p>
                 </div>
             </div>
             <div class="content-wrapper">
-                <h2 class="h2">Let's build something great</h2>
+                <h2 class="h2">Let's chat</h2>
                 <p class="p">
-                    I’m always open to discovering new opportunities and exciting new teams to work with.
-                </p>
-                <p class="p">
-                    For project inquiries, collaborations, or professional conversations, email me directly at <a class="a" href="mailto:hello@janmichael.io" data-randomized-mailto target="_blank" rel="noopener noreferrer">hello@janmichael.io</a>.
-                </p>
-                <p class="p">
-                    You can also connect with me on <a class="a" href="//www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
+                    I’m open to leadership opportunities with teams facing new territory and driving product innovation. To discuss a role, project, or collaboration, email me at <a class="a" href="mailto:hello@janmichael.io" data-randomized-mailto target="_blank" rel="noopener noreferrer">hello@janmichael.io</a> or connect with me on <a class="a" href="//www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
                 </p>
             </div>
         </div>

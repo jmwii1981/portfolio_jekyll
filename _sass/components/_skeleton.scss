@@ -4,7 +4,7 @@
     border-radius: 0.25rem;
     display: block;
     margin: 0 0 2rem;
-    min-height: 250px;
+    min-height: 15.625rem;
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -12,8 +12,8 @@
 
 .skeleton-title {
     background-color: var(--color-skeleton);
-    border-radius: 4px;
-    height: 40px;
+    border-radius: 0.25rem;
+    height: 2.5rem;
     margin: 2rem 0 1rem;
     overflow: hidden;
     position: relative;
@@ -23,7 +23,7 @@
 .skeleton-meta-content-separator {
     background-color: var(--color-skeleton);
     border: none;
-    height: 1px;
+    height: 0.0625rem;
     margin: 1.5rem 0 0.75rem;
     overflow: hidden;
     position: relative;
@@ -39,9 +39,9 @@
     background: var(--gradient-shimmer-line);
     content: "";
     height: 100%;
+    left: 0;
     position: absolute;
-        top: 0;
-        left: 0;
+    top: 0;
     transform: translateX(-100%);
     width: 100%;
 }
@@ -72,7 +72,7 @@
 .skeleton-meta-item1,
 .skeleton-meta-item2 {
     background-color: var(--color-skeleton);
-    border-radius: 4px;
+    border-radius: 0.25rem;
     height: 1.5rem;
     overflow: hidden;
     position: relative;
@@ -88,7 +88,7 @@
 
 .skeleton-text {
     background-color: var(--color-skeleton);
-    border-radius: 4px;
+    border-radius: 0.25rem;
     height: 1.5rem;
     margin-bottom: 0.5rem;
     overflow: hidden;
@@ -105,9 +105,9 @@
     background: var(--gradient-shimmer-block);
     content: "";
     height: 100%;
+    left: 0;
     position: absolute;
-        top: 0;
-        left: 0;
+    top: 0;
     transform: translateX(-100%);
     width: 100%;
 }
@@ -117,9 +117,9 @@
     background: var(--gradient-shimmer-avatar);
     content: "";
     height: 100%;
+    left: 0;
     position: absolute;
-        top: 0;
-        left: 0;
+    top: 0;
     transform: translateX(-100%);
     width: 100%;
 }

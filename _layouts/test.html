@@ -16,7 +16,7 @@
       position: fixed;
       top: 0;
       width: 100%;
-      background-color: white;
+      background-color: #FFFFFF;
       transition: box-shadow 0.3s ease;
       z-index: 1000;
     }
@@ -25,18 +25,18 @@
     .scroll-marker {
       position: sticky;
       top: 0;
-      height: 1px; /* Invisible but takes up space */
+      height: 0.0625rem; /* Invisible but takes up space */
       visibility: hidden;
     }
 
     /* Add shadow to the nav when the marker scrolls out of view */
     .scroll-marker + nav {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+      box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0);
     }
 
     /* When marker leaves sticky state, nav gets the shadow */
     .scroll-marker:not(:is(:root)) + nav {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
