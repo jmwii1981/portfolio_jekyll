@@ -1,8 +1,7 @@
 .header {
     background: transparent;
     backdrop-filter: blur(0) saturate(100%);
-    -webkit-backdrop-filter: blur(0) saturate(100%);
-    border: 1px solid var(--color-glass-clear);
+    border: 0.0625rem solid var(--color-glass-clear);
     box-shadow: var(--shadow-none);
 
     transition:
@@ -15,28 +14,29 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     gap: 4rem;
+    justify-content: space-between;
+    left: 0;
     margin-left: auto;
     margin-right: auto;
-    padding: 0.15rem var(--site-frame-padding);
+    padding: 0.15rem 1rem;
     position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-    width: min(calc(100% - (var(--site-viewport-padding) * 2)), var(--site-width));
+    right: 0;
+    top: 0;
+    -webkit-backdrop-filter: blur(0) saturate(100%);
+    width: min(calc(100% - (var(--site-outer-gutter) * 2)), var(--site-max-width));
     z-index: 2;
 
     &::before {
         background: var(--color-glass-clear);
-        border: 1px solid var(--color-glass-clear);
+        border: 0.0625rem solid var(--color-glass-clear);
         content: "";
         height: 100%;
+        left: 0;
         pointer-events: none;
         position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
+        right: 0;
+        top: 0;
         transition:
             background-color 0.3s ease,
             backdrop-filter 0.3s ease,
@@ -46,19 +46,35 @@
         z-index: -1;
     }
 
+    &::after {
+        box-shadow: var(--shadow-glass);
+        clip-path: inset(0 0 -3rem 0);
+        content: "";
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        transition: opacity 0.3s ease;
+        z-index: -2;
+    }
+
     &.is-scrolled {
         background: var(--color-glass);
-        backdrop-filter: blur(24px) saturate(180%);
-        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        backdrop-filter: blur(1.5rem) saturate(180%);
         border-color: var(--color-glass-border);
-        box-shadow: var(--shadow-glass);
+        box-shadow: none;
+        -webkit-backdrop-filter: blur(1.5rem) saturate(180%);
+
+        &::after {
+            opacity: 1;
+        }
 
         &::before {
             background: var(--color-glass);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            backdrop-filter: blur(1.5rem) saturate(180%);
             border-color: var(--color-glass-border);
-            box-shadow: var(--shadow-glass);
+            box-shadow: none;
+            -webkit-backdrop-filter: blur(1.5rem) saturate(180%);
         }
     }
 
@@ -77,5 +93,12 @@
        font-size: 1.125rem;
        font-weight: 400;
        line-height: 1.5;
+    }
+}
+
+@media screen and (min-width: 26.3125rem) {
+    .header {
+        padding-left: 0;
+        padding-right: 0;
     }
 }

@@ -3,9 +3,9 @@
   display: grid;
   gap: 4rem;
   grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
-  padding-left: var(--site-content-padding);
-  padding-right: var(--site-content-padding);
   padding-bottom: var(--site-section-padding-y);
+  padding-left: var(--site-content-gutter);
+  padding-right: var(--site-content-gutter);
   padding-top: var(--site-page-padding-top);
   > section,
   > aside {
@@ -21,7 +21,7 @@
   width: 100%;
 }
 .perspectives-sidebar {
-  background-color: var(--color-accent-pink);
+  background-color: var(--color-surface-subtle);
   min-height: 24rem;
   width: 100%;
 }
@@ -33,15 +33,15 @@
     justify-content: center;
     margin-left: -0.25rem;
     margin-right: -0.25rem;
-    min-height: 250px;
+    min-height: 15.625rem;
     overflow: hidden;
-    width: calc(100% + 8px);
+    width: calc(100% + 0.5rem);
 }
 .post-featured-img {
-  min-height: 250px;
-  height: 100%;
   border-radius: 0.25rem;
+  height: 100%;
   margin: 0;
+  min-height: 15.625rem;
   width: 100%;
 }
 .post-title {
@@ -59,9 +59,9 @@
   }
 }
 .post-meta-content-separator {
-  border: none;
-  height: 1px;
   background-color: var(--color-border-muted);
+  border: none;
+  height: 0.0625rem;
   margin: 0.5rem 0;
   &:nth-of-type(1) {
     margin-top: 0;

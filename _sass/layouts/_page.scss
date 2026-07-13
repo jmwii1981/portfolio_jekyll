@@ -4,16 +4,16 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: var(--site-viewport-padding) auto 0;
+    margin: var(--site-top-gutter) auto 0;
     padding: 0;
     position: relative;
-    width: min(calc(100% - (var(--site-viewport-padding) * 2)), var(--site-width));
+    width: min(calc(100% - (var(--site-outer-gutter) * 2)), var(--site-max-width));
     z-index: 1;
 }
 
 .main > :where(section:not(.eop-cta), aside, .work-items-wrapper, .h1, .h2, .h3, .h4, .p) {
-    padding-left: var(--site-content-padding);
-    padding-right: var(--site-content-padding);
+    padding-left: var(--site-content-gutter);
+    padding-right: var(--site-content-gutter);
 }
 
 .content-wrapper {
@@ -30,8 +30,8 @@
     margin-left: auto;
     margin-right: auto;
     padding-bottom: var(--site-section-padding-y);
-    padding-left: var(--site-content-padding);
-    padding-right: var(--site-content-padding);
+    padding-left: var(--site-content-gutter);
+    padding-right: var(--site-content-gutter);
     padding-top: var(--site-page-padding-top);
 }
 

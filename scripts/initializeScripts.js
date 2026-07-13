@@ -152,49 +152,145 @@
             window.addEventListener('scroll', requestHeaderUpdate, { passive: true });
         };
 
-        const initializeNavUnderline = () => {
-            const nav = document.querySelector('.nav');
+        const initializeMobileNavigation = () => {
+            const navContainer = document.querySelector('.nav-container');
+            const toggle = navContainer?.querySelector('.nav-toggle');
+            const nav = navContainer?.querySelector('.nav');
 
-            if (!nav) return;
+            if (!navContainer || !toggle || !nav) return;
+
+            const mobileQuery = window.matchMedia('(max-width: 48rem)');
+
+            const setMenuState = (isOpen, { restoreFocus = false } = {}) => {
+                navContainer.classList.toggle('is-open', isOpen);
+                document.body.classList.toggle('is-nav-open', isOpen);
+                toggle.setAttribute('aria-expanded', String(isOpen));
+                toggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+                navContainer.dispatchEvent(new CustomEvent('navstatechange'));
+
+                if (isOpen) {
+                    window.requestAnimationFrame(() => nav.querySelector('.tab')?.focus());
+                } else if (restoreFocus) {
+                    toggle.focus();
+                }
+            };
+
+            toggle.addEventListener('click', () => {
+                setMenuState(!navContainer.classList.contains('is-open'));
+            });
+
+            nav.querySelectorAll('.tab').forEach((link) => {
+                link.addEventListener('click', () => setMenuState(false));
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && navContainer.classList.contains('is-open')) {
+                    setMenuState(false, { restoreFocus: true });
+                }
+            });
+
+            mobileQuery.addEventListener('change', (event) => {
+                if (!event.matches) setMenuState(false);
+            });
+        };
+
+        const initializeNavIndicator = () => {
+            const navContainer = document.querySelector('.nav-container');
+            const nav = document.querySelector('.nav');
+            const toggle = navContainer?.querySelector('.nav-toggle');
+            const indicator = navContainer?.querySelector('.nav-indicator');
+
+            if (!navContainer || !nav || !toggle || !indicator) return;
 
             const links = Array.from(nav.querySelectorAll('.tab'));
             const activeLink = nav.querySelector('.tab.active');
+            const mobileQuery = window.matchMedia('(max-width: 48rem)');
             let currentLink = activeLink;
+            let isTicking = false;
 
             if (!links.length) return;
 
-            const setUnderline = (link) => {
-                if (!link) {
-                    nav.style.setProperty('--nav-underline-width', '0');
-                    return;
-                }
+            const rootSize = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+            const toRem = (value) => `${value / rootSize()}rem`;
 
-                const navRect = nav.getBoundingClientRect();
+            const setIndicatorGeometry = ({ x, y, width }) => {
+                const containingBlock = indicator.closest('.header')?.getBoundingClientRect();
+                const localX = x - (containingBlock?.left || 0);
+                const localY = y - (containingBlock?.top || 0);
+
+                indicator.style.setProperty('--nav-indicator-x', toRem(localX));
+                indicator.style.setProperty('--nav-indicator-y', toRem(localY));
+                indicator.style.setProperty('--nav-indicator-width', toRem(width));
+                indicator.classList.add('is-ready');
+            };
+
+            const setDesktopTarget = (link) => {
+                if (!link) return;
+
                 const linkRect = link.getBoundingClientRect();
                 const tabRect = link.closest('.tab-container')?.getBoundingClientRect() || linkRect;
-                const underlineOffsetY = tabRect.bottom - navRect.top - 6;
 
-                nav.style.setProperty('--nav-underline-width', `${linkRect.width}px`);
-                nav.style.setProperty('--nav-underline-offset-x', `${linkRect.left - navRect.left}px`);
-                nav.style.setProperty('--nav-underline-offset-y', `${underlineOffsetY}px`);
+                setIndicatorGeometry({
+                    x: linkRect.left,
+                    y: tabRect.bottom - (rootSize() * 0.375),
+                    width: linkRect.width
+                });
                 currentLink = link;
             };
 
+            const setMobileTarget = () => {
+                const toggleRect = toggle.getBoundingClientRect();
+                const lineWidth = rootSize() * 1.625;
+                const isOpen = navContainer.classList.contains('is-open');
+
+                setIndicatorGeometry({
+                    x: toggleRect.left + ((toggleRect.width - lineWidth) / 2),
+                    y: toggleRect.top + (toggleRect.height / 2) + (isOpen ? -1 : rootSize() * 0.25),
+                    width: lineWidth
+                });
+            };
+
+            const updateIndicator = () => {
+                if (mobileQuery.matches) {
+                    setMobileTarget();
+                } else {
+                    setDesktopTarget(currentLink || activeLink || links[0]);
+                }
+                isTicking = false;
+            };
+
+            const requestIndicatorUpdate = () => {
+                if (isTicking) return;
+
+                window.requestAnimationFrame(updateIndicator);
+                isTicking = true;
+            };
+
             nav.classList.add('has-sliding-underline');
-            setUnderline(currentLink);
+            requestIndicatorUpdate();
+
+            if (document.fonts?.ready) {
+                document.fonts.ready.then(requestIndicatorUpdate).catch(requestIndicatorUpdate);
+            } else {
+                window.addEventListener('load', requestIndicatorUpdate, { once: true });
+            }
 
             links.forEach((link) => {
-                link.addEventListener('mouseenter', () => setUnderline(link));
-                link.addEventListener('focus', () => setUnderline(link));
+                link.addEventListener('mouseenter', () => {
+                    if (!mobileQuery.matches) setDesktopTarget(link);
+                });
+                link.addEventListener('focus', () => {
+                    if (!mobileQuery.matches) setDesktopTarget(link);
+                });
             });
 
             nav.addEventListener('mouseleave', () => {
-                setUnderline(activeLink);
+                if (!mobileQuery.matches) setDesktopTarget(activeLink || links[0]);
             });
 
-            window.addEventListener('resize', () => {
-                setUnderline(currentLink);
-            });
+            navContainer.addEventListener('navstatechange', requestIndicatorUpdate);
+            mobileQuery.addEventListener('change', requestIndicatorUpdate);
+            window.addEventListener('resize', requestIndicatorUpdate);
         };
 
         const initializeCompanyLogoCarousel = () => {
@@ -323,7 +419,8 @@
         initializeInquiryMailtoLinks();
         initializeConsentBanner();
         initializeScrollHeader();
-        initializeNavUnderline();
+        initializeMobileNavigation();
+        initializeNavIndicator();
         initializeCompanyLogoCarousel();
         initializeRecommendationCarousel();
 

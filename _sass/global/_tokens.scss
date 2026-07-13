@@ -1,44 +1,75 @@
 :root {
-    --site-width: 118rem;
-    --site-viewport-padding: 4.5rem;
-    --site-frame-padding: 4rem;
-    --site-content-padding: 7rem;
-    --site-section-gap: 4rem;
-    --site-section-padding-y: 7rem;
+    // Layout
+    --site-content-gutter: 2rem;
+    --site-frame-gutter: 1.5rem;
+    --site-max-width: 101.5rem;
+    --site-outer-gutter: 0rem;
     --site-page-padding-top: 10rem;
+    --site-section-gap: 3rem;
+    --site-section-padding-y: 7rem;
+    --site-top-gutter: 4.5rem;
 
+    // Typography
     --font-sans: "Heebo", "Helvetica neue", Helvetica, Verdana, sans-serif;
 
-    --color-ink: #18181A;
+    // Core palette
+    --color-background: var(--color-paper);
+    --color-ink: #040405;
+    --color-link: var(--color-ink);
     --color-paper: #FFFFFF;
-    --color-surface: #F5F6F6;
-    --color-surface-subtle: #F2F2F2;
-    --color-surface-muted: #E8E8E8;
-    --color-skeleton: #EDF0F6;
-    --color-border-subtle: #EBEBEB;
+    --color-text: var(--color-ink);
+
+    // Surfaces and borders
     --color-border-muted: #CBD6E0;
-    --color-text-soft: #2F3237;
+    --color-border-subtle: #D4D4D4;
+    --color-skeleton: #EDF0F6;
+    --color-surface: #F5F6F6;
+    --color-surface-muted: #E8E8E8;
+    --color-surface-subtle: #F2F2F2;
+
+    // Text hierarchy
     --color-text-muted: #7F8490;
+    --color-text-muted-on-dark: #AEB1B8;
+    --color-text-soft: #2F3237;
+
+    // Interactive states
     --color-carousel-dot: var(--color-border-subtle);
-    --color-carousel-dot-hover: #868CB8;
     --color-carousel-dot-active: #222E85;
+    --color-carousel-dot-hover: #868CB8;
     --color-focus-ring: rgba(1, 96, 123, 0.6);
     --color-selection: rgba(43, 132, 157, 0.1);
+
+    // Glass and overlays
+    --color-consent-background: rgba(255, 255, 255, 0.82);
     --color-glass: rgba(255, 255, 255, 0.3);
     --color-glass-border: rgba(255, 255, 255, 0.35);
     --color-glass-clear: rgba(255, 255, 255, 0);
-    --color-consent-background: rgba(255, 255, 255, 0.96);
-    --color-shadow-soft: rgba(0, 0, 0, 0.12);
-    --color-accent-pink: pink;
-    --color-text: var(--color-ink);
-    --color-link: var(--color-ink);
-    --color-background: var(--color-paper);
 
-    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.02);
-    --shadow-none: 0 8px 32px rgba(0, 0, 0, 0);
-    --shadow-consent: 0 1rem 3rem var(--color-shadow-soft);
+    // Component behavior
+    --button-peer-dim-opacity: 0.5;
 
-    --gradient-shimmer-line: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.45) 50%, rgba(255, 255, 255, 0) 100%);
-    --gradient-shimmer-block: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.65) 50%, rgba(255, 255, 255, 0) 100%);
+    // Shadows
+    --shadow-consent: 0 1rem 3rem rgba(0, 0, 0, 0.08);
+    --shadow-glass: 0 0.5rem 2rem rgba(0, 0, 0, 0.02);
+    --shadow-none: 0 0.5rem 2rem rgba(0, 0, 0, 0);
+
+    // Loading gradients
     --gradient-shimmer-avatar: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.65) 100%);
+    --gradient-shimmer-block: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.65) 50%, rgba(255, 255, 255, 0) 100%);
+    --gradient-shimmer-line: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.45) 50%, rgba(255, 255, 255, 0) 100%);
+}
+
+@media (min-width: 26.3125rem) {
+    :root {
+        --site-outer-gutter: 1.5rem;
+    }
+}
+
+@media (min-width: 42.0625rem) {
+    :root {
+        --site-content-gutter: 7rem;
+        --site-frame-gutter: 4rem;
+        --site-outer-gutter: 4.5rem;
+        --site-section-gap: 4rem;
+    }
 }

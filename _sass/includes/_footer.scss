@@ -3,10 +3,10 @@
     color: var(--color-link);
     display: grid;
     grid-template-columns: 1fr auto;
-    row-gap: 1.25rem;
     margin: 0 auto;
-    padding: 3rem var(--site-frame-padding) 4rem;
-    width: min(calc(100% - (var(--site-viewport-padding) * 2)), var(--site-width));
+    padding: 3rem var(--site-frame-gutter) 4rem;
+    row-gap: 1.25rem;
+    width: min(calc(100% - (var(--site-outer-gutter) * 2)), var(--site-max-width));
 
     > section {
         min-width: 0;
@@ -51,7 +51,10 @@
     }
 
     .site-signature {
-        display: contents;
+        align-self: start;
+        display: block;
+        grid-column: 1;
+        grid-row: 2;
         margin-bottom: 0;
 
         .a {
@@ -64,10 +67,8 @@
         }
 
         > .site-link {
-            align-self: start;
             color: var(--color-link);
-            grid-column: 1;
-            grid-row: 2;
+            display: inline-block;
         }
 
         > .site-link:hover,
@@ -93,8 +94,8 @@
     }
 
     .social-links-container {
-        align-self: center;
         align-items: center;
+        align-self: center;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

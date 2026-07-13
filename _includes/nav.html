@@ -1,7 +1,16 @@
 <!-- main navigation container -->
 <nav 
     class="nav-container">
-    <ul class="nav">
+    <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+        aria-label="Open menu">
+        <span class="nav-toggle-line" aria-hidden="true"></span>
+    </button>
+    <span class="nav-indicator" aria-hidden="true"></span>
+    <ul class="nav" id="primary-navigation">
         <li 
             id="about-tab"
             class="tab-container">
