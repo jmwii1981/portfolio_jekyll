@@ -81,26 +81,24 @@
     }
 }
 
-@media (min-width: 44rem) {
-    .consent-banner {
-        left: 50%;
-        max-width: 34rem;
-        right: auto;
-        transform: translateX(-50%);
-        width: min(calc(100vw - 2rem), 34rem);
-    }
-}
-
 @media (min-width: 48.0625rem) {
     .consent-banner {
         align-items: center;
         grid-template-columns: minmax(0, 1fr) auto;
-        max-width: 58rem;
         padding: 1rem 1.125rem 1rem 1.25rem;
-        width: min(calc(100vw - 3rem), 58rem);
     }
 
     .consent-banner-actions {
         justify-content: flex-end;
+    }
+}
+
+@media (min-width: 67.9375rem) {
+    .consent-banner {
+        left: 50%;
+        max-width: 58rem;
+        right: auto;
+        transform: translateX(-50%);
+        width: min(calc(100vw - 3rem), 58rem);
     }
 }
