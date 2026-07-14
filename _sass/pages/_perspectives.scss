@@ -2,7 +2,7 @@
   align-items: stretch;
   display: grid;
   gap: 4rem;
-  grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   padding-bottom: var(--site-section-padding-y);
   padding-left: var(--site-content-gutter);
   padding-right: var(--site-content-gutter);
@@ -20,9 +20,49 @@
   margin: 0;
   width: 100%;
 }
+.perspectives-intro {
+  margin-bottom: clamp(3rem, 7vw, 6rem);
+  max-width: 54rem;
+}
+.perspectives-intro .section-label,
+.perspectives-sidebar .section-label {
+  margin-bottom: 1.5rem;
+}
+.perspectives-title {
+  display: block;
+  font-size: clamp(2.75rem, 6vw, 5.75rem);
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+  margin: 0;
+}
+.perspectives-summary {
+  color: var(--color-text-soft);
+  display: block;
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  line-height: 1.6;
+  margin: 2rem 0 0;
+  max-width: 38rem;
+}
 .perspectives-sidebar {
-  background-color: var(--color-surface-subtle);
-  min-height: 24rem;
+  background-color: transparent;
+  min-height: 0;
+  padding: 0;
+  width: 100%;
+}
+.perspectives-sidebar-title {
+  display: block;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  margin: 0;
+}
+.perspectives-actions {
+  align-items: stretch;
+  flex-direction: column;
+  margin-top: 2.5rem;
+  width: 100%;
+}
+.perspectives-actions .button {
   width: 100%;
 }
 .post-featured-image-figure {
@@ -89,4 +129,10 @@
   height: 2rem;
   object-fit: cover;
   width: 2rem;
+}
+
+@media (min-width: 56.0625rem) {
+  .main.perspectives {
+    grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
+  }
 }
