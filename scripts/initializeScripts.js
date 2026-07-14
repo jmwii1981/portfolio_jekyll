@@ -223,6 +223,113 @@
             elements.forEach((element) => observer.observe(element));
         };
 
+        const initializeProjectGalleries = () => {
+            const galleries = document.querySelectorAll('[data-project-gallery]');
+
+            galleries.forEach((gallery) => {
+                const story = gallery.closest('.project-story');
+                const overview = story?.querySelector('.project-story-overview');
+                const cover = overview?.querySelector('.project-cover');
+                const details = overview?.querySelector('.project-story-details');
+                const viewport = gallery.querySelector('[data-gallery-viewport]');
+                const track = gallery.querySelector('.project-gallery-track');
+                const previousButton = gallery.querySelector('[data-gallery-previous]');
+                const nextButton = gallery.querySelector('[data-gallery-next]');
+
+                if (!viewport || !track || !previousButton || !nextButton) return;
+
+                if (cover && details && overview) {
+                    const coverSlide = document.createElement('figure');
+                    const coverImageWrapper = document.createElement('div');
+                    const coverImage = cover.querySelector('img')?.cloneNode(true);
+                    const coverCaption = document.createElement('figcaption');
+                    const coverCaptionTitle = document.createElement('h4');
+                    const coverCaptionText = document.createElement('p');
+
+                    if (coverImage) {
+                        coverSlide.className = 'project-screen project-screen--cover';
+                        coverSlide.dataset.gallerySlide = '';
+                        coverImageWrapper.className = 'project-screen-image';
+                        coverCaption.className = 'project-screen-caption';
+                        coverCaptionTitle.className = 'h4';
+                        coverCaptionTitle.textContent = 'Project overview';
+                        coverCaptionText.className = 'p';
+                        coverCaptionText.textContent = 'Continue through the screens to see how the product strategy takes shape in the experience.';
+                        coverImageWrapper.append(coverImage);
+                        coverCaption.append(coverCaptionTitle, coverCaptionText);
+                        coverSlide.append(coverImageWrapper, coverCaption);
+                        track.prepend(coverSlide);
+                    }
+
+                    gallery.dataset.reveal = cover.dataset.reveal || 'up';
+                    gallery.classList.add('project-walkthrough--integrated');
+                    overview.insertBefore(gallery, details);
+                    cover.remove();
+                }
+
+                const slides = Array.from(gallery.querySelectorAll('[data-gallery-slide]'));
+                const countLabel = gallery.querySelector('.project-gallery-count');
+                const currentLabel = gallery.querySelector('[data-gallery-current]');
+
+                if (slides.length < 2) return;
+
+                if (countLabel?.lastChild) {
+                    countLabel.lastChild.textContent = ` / ${slides.length}`;
+                }
+
+                let currentIndex = 0;
+                let isTicking = false;
+
+                const updateState = (index) => {
+                    currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+                    previousButton.disabled = currentIndex === 0;
+                    nextButton.disabled = currentIndex === slides.length - 1;
+
+                    if (currentLabel) currentLabel.textContent = String(currentIndex + 1);
+                };
+
+                const getNearestSlideIndex = () => slides.reduce((nearestIndex, slide, index) => {
+                    const nearestDistance = Math.abs(slides[nearestIndex].offsetLeft - viewport.scrollLeft);
+                    const slideDistance = Math.abs(slide.offsetLeft - viewport.scrollLeft);
+
+                    return slideDistance < nearestDistance ? index : nearestIndex;
+                }, 0);
+
+                const goToSlide = (index) => {
+                    const targetIndex = Math.max(0, Math.min(index, slides.length - 1));
+
+                    viewport.scrollTo({
+                        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+                        left: slides[targetIndex].offsetLeft
+                    });
+                    updateState(targetIndex);
+                };
+
+                previousButton.addEventListener('click', () => goToSlide(currentIndex - 1));
+                nextButton.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+                viewport.addEventListener('keydown', (event) => {
+                    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+
+                    event.preventDefault();
+                    goToSlide(currentIndex + (event.key === 'ArrowRight' ? 1 : -1));
+                });
+
+                viewport.addEventListener('scroll', () => {
+                    if (isTicking) return;
+
+                    window.requestAnimationFrame(() => {
+                        updateState(getNearestSlideIndex());
+                        isTicking = false;
+                    });
+                    isTicking = true;
+                }, { passive: true });
+
+                window.addEventListener('resize', () => goToSlide(currentIndex));
+                updateState(currentIndex);
+            });
+        };
+
         const initializeLogoAnimation = () => {
             const logo = document.querySelector('.logo-container.large .logo.large');
             const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -614,6 +721,7 @@
         initializeConsentBanner();
         initializeScrollHeader();
         initializeMobileNavigation();
+        initializeProjectGalleries();
         initializeScrollReveals();
         initializeNavIndicator();
         initializeCompanyLogoCarousel();
