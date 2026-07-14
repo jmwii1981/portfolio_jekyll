@@ -31,8 +31,11 @@ title: About
     </section>
     <section class="help">
         <div class="content-wrapper">
-            <h2 class="h2 section-label">How I help</h2>
-            <ul class="help-list">
+            <header class="home-section-header" data-reveal="right">
+                <h2 class="h2 section-label">How I help</h2>
+                <p class="p home-section-title">Leadership that turns ambiguity into forward motion.</p>
+            </header>
+            <ul class="help-list" data-reveal="up">
                 <li class="help-item">
                     <h3>Lead</h3>
                     <p class="p">Build focused teams with clear direction, shared ownership, and strong design standards.</p>
@@ -58,8 +61,11 @@ title: About
     </section>
     <section class="testimonials">
         <div class="content-wrapper">
-            <h2 class="h2 section-label">Trusted across the globe</h2>
-            <div class="logo-carousel">
+            <header class="home-section-header" data-reveal="left">
+                <h2 class="h2 section-label">Trusted across the globe</h2>
+                <p class="p home-section-title">The strongest work is built with people.</p>
+            </header>
+            <div class="logo-carousel" data-reveal="up">
                 <div class="logo-carousel-viewport">
                     <div class="logo-carousel-track">
                         <ul class="testimony-list">
@@ -121,7 +127,7 @@ title: About
                     </div>
                 </div>
             </div>
-            <div class="recommendations">
+            <div class="recommendations" data-reveal="up">
                 <ul class="recommendation-list">
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan taught our team the product design process with patience and professionalism, helping us craft products that met stakeholder and user needs.”</blockquote>
@@ -224,7 +230,7 @@ title: About
         </div>
     </section>
     <section class="about-me">
-        <div class="content-container">
+        <div class="content-container" data-reveal="right">
             <div class="content-wrapper">
                 <div class="image-wrapper">
                     <img class="image" src="/images/headshots/bio-pic.png?v={{ site.time | date: '%Y%m%d%H%M%S' }}" alt="Portrait of Jan Michael">
