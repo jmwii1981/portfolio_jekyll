@@ -187,6 +187,13 @@
     100% { d: path("M126 33L126 125"); opacity: 1; }
 }
 
+.uses-scripted-logo-animation .logo-container.large .logo.large .anim-col-1,
+.uses-scripted-logo-animation .logo-container.large .logo.large .anim-col-2,
+.uses-scripted-logo-animation .logo-container.large .logo.large .anim-col-3,
+.uses-scripted-logo-animation .logo-container.large .logo.large .anim-col-4 {
+    animation: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .logo-container.large .logo.large .anim-col-1,
     .logo-container.large .logo.large .anim-col-2,

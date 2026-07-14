@@ -223,6 +223,170 @@
             elements.forEach((element) => observer.observe(element));
         };
 
+        const initializeLogoAnimation = () => {
+            const logo = document.querySelector('.logo-container.large .logo.large');
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (!logo || reducedMotion) return;
+
+            const paths = [1, 2, 3, 4]
+                .map((column) => logo.querySelector(`.anim-col-${column}`));
+
+            if (paths.some((path) => !path)) return;
+
+            const subpageFrames = [
+                [
+                    [0, 33, 92, 125, 1],
+                    [0.22, 33, 72, 108, 1],
+                    [0.48, 33, 58, 96, 1],
+                    [0.72, 33, 76, 112, 1],
+                    [0.88, 33, 88, 122, 1],
+                    [1, 33, 92, 125, 1]
+                ],
+                [
+                    [0, 64, 33, 125, 1],
+                    [0.22, 64, 47, 112, 1],
+                    [0.48, 64, 26, 130, 1],
+                    [0.72, 64, 42, 118, 1],
+                    [0.88, 64, 35, 124, 1],
+                    [1, 64, 33, 125, 1]
+                ],
+                [
+                    [0, 95, 33, 125, 1],
+                    [0.22, 95, 52, 108, 1],
+                    [0.48, 95, 40, 116, 1],
+                    [0.72, 95, 22, 130, 1],
+                    [0.88, 95, 31, 126, 1],
+                    [1, 95, 33, 125, 1]
+                ],
+                [
+                    [0, 126, 33, 125, 1],
+                    [0.22, 126, 60, 98, 1],
+                    [0.48, 126, 48, 112, 1],
+                    [0.72, 126, 27, 130, 1],
+                    [0.88, 126, 35, 123, 1],
+                    [1, 126, 33, 125, 1]
+                ]
+            ];
+
+            const homeFrames = [
+                [
+                    [0, 33, 114.9, 115, 1],
+                    [0.23, 33, 114.9, 115, 1],
+                    [0.31, 64, 95, 125, 1],
+                    [0.39, 64, 95, 125, 1],
+                    [0.47, 48.5, 43, 125, 1],
+                    [0.55, 48.5, 43, 125, 1],
+                    [0.63, 48.5, 43, 125, 1],
+                    [0.71, 48.5, 43, 125, 1],
+                    [0.79, 33, 114.9, 115, 0],
+                    [0.87, 33, 114.9, 115, 0],
+                    [1, 33, 92, 125, 1]
+                ],
+                [
+                    [0, 64, 114.9, 115, 0],
+                    [0.055, 64, 114.9, 115, 0],
+                    [0.056, 64, 114.9, 115, 1],
+                    [0.23, 64, 114.9, 115, 1],
+                    [0.31, 95, 43, 125, 1],
+                    [0.39, 95, 43, 125, 1],
+                    [0.47, 79.5, 54, 92, 1],
+                    [0.55, 79.5, 54, 92, 1],
+                    [0.63, 79.5, 83, 111, 1],
+                    [0.71, 79.5, 83, 111, 1],
+                    [0.79, 64, 114.9, 115, 0],
+                    [0.87, 64, 114.9, 115, 0],
+                    [1, 64, 33, 125, 1]
+                ],
+                [
+                    [0, 95, 114.9, 115, 0],
+                    [0.11, 95, 114.9, 115, 0],
+                    [0.111, 95, 114.9, 115, 1],
+                    [0.23, 95, 114.9, 115, 1],
+                    [0.31, 95, 114.9, 115, 0],
+                    [0.39, 95, 114.9, 115, 0],
+                    [0.47, 110.5, 43, 125, 1],
+                    [0.55, 110.5, 43, 125, 1],
+                    [0.63, 110.5, 43, 125, 1],
+                    [0.71, 110.5, 43, 125, 1],
+                    [0.79, 64, 43, 125, 1],
+                    [0.87, 64, 43, 125, 1],
+                    [1, 95, 33, 125, 1]
+                ],
+                [
+                    [0, 126, 114.9, 115, 0],
+                    [0.165, 126, 114.9, 115, 0],
+                    [0.166, 126, 114.9, 115, 1],
+                    [0.23, 126, 114.9, 115, 1],
+                    [0.31, 126, 114.9, 115, 0],
+                    [0.71, 126, 114.9, 115, 0],
+                    [0.79, 95, 43, 125, 1],
+                    [0.87, 95, 43, 125, 1],
+                    [1, 126, 33, 125, 1]
+                ]
+            ];
+
+            const isHome = logo.closest('.logo-container--home');
+            const duration = isHome ? 3600 : 900;
+            const delays = isHome ? [0, 0, 0, 0] : [0, 40, 80, 120];
+            const framesByPath = isHome ? homeFrames : subpageFrames;
+            const originals = paths.map((path) => path.getAttribute('d'));
+            const ease = (value) => value < 0.5
+                ? 4 * value * value * value
+                : 1 - Math.pow(-2 * value + 2, 3) / 2;
+            const interpolate = (start, end, progress) => start + ((end - start) * progress);
+
+            const sampleFrames = (frames, progress) => {
+                const nextIndex = frames.findIndex((frame) => frame[0] >= progress);
+
+                if (nextIndex <= 0) return frames[0];
+                if (nextIndex === -1) return frames[frames.length - 1];
+
+                const previous = frames[nextIndex - 1];
+                const next = frames[nextIndex];
+                const span = next[0] - previous[0];
+                const localProgress = span ? ease((progress - previous[0]) / span) : 1;
+
+                return [
+                    progress,
+                    interpolate(previous[1], next[1], localProgress),
+                    interpolate(previous[2], next[2], localProgress),
+                    interpolate(previous[3], next[3], localProgress),
+                    interpolate(previous[4], next[4], localProgress)
+                ];
+            };
+
+            document.documentElement.classList.add('uses-scripted-logo-animation');
+
+            const startedAt = window.performance.now();
+            const animate = (timestamp) => {
+                let isComplete = true;
+
+                paths.forEach((path, index) => {
+                    const elapsed = timestamp - startedAt - delays[index];
+                    const progress = Math.max(0, Math.min(elapsed / duration, 1));
+                    const [, x, y1, y2, opacity] = sampleFrames(framesByPath[index], progress);
+
+                    path.setAttribute('d', `M${x} ${y1}L${x} ${y2}`);
+                    path.style.opacity = opacity;
+
+                    if (progress < 1) isComplete = false;
+                });
+
+                if (!isComplete) {
+                    window.requestAnimationFrame(animate);
+                    return;
+                }
+
+                paths.forEach((path, index) => {
+                    path.setAttribute('d', originals[index]);
+                    path.style.removeProperty('opacity');
+                });
+            };
+
+            window.requestAnimationFrame(animate);
+        };
+
         const initializeNavIndicator = () => {
             const navContainer = document.querySelector('.nav-container');
             const nav = document.querySelector('.nav');
@@ -445,6 +609,7 @@
             });
         };
 
+        initializeLogoAnimation();
         initializeInquiryMailtoLinks();
         initializeConsentBanner();
         initializeScrollHeader();
