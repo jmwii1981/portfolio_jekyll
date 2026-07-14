@@ -35,24 +35,29 @@ title: About
                 <h2 class="h2 section-label">How I help</h2>
                 <p class="p home-section-title">Leadership that turns ambiguity into forward motion.</p>
             </header>
-            <ul class="help-list" data-reveal="up">
-                <li class="help-item">
+            <ul class="help-list">
+                <li class="help-item" data-reveal="right">
+                    <p class="p help-number" aria-hidden="true">01</p>
                     <h3>Lead</h3>
                     <p class="p">Build focused teams with clear direction, shared ownership, and strong design standards.</p>
                 </li>
-                <li class="help-item">
+                <li class="help-item" data-reveal="up">
+                    <p class="p help-number" aria-hidden="true">02</p>
                     <h3>Shape</h3>
                     <p class="p">Turn ambiguity into product strategy, design systems, and practical execution plans.</p>
                 </li>
-                <li class="help-item">
+                <li class="help-item" data-reveal="left">
+                    <p class="p help-number" aria-hidden="true">03</p>
                     <h3>Align</h3>
                     <p class="p">Bring stakeholders, designers, and engineers around the decisions that move work forward.</p>
                 </li>
-                <li class="help-item">
+                <li class="help-item" data-reveal="right">
+                    <p class="p help-number" aria-hidden="true">04</p>
                     <h3>Scale</h3>
                     <p class="p">Create repeatable systems that help teams move faster without losing quality.</p>
                 </li>
-                <li class="help-item">
+                <li class="help-item" data-reveal="left">
+                    <p class="p help-number" aria-hidden="true">05</p>
                     <h3>Guide</h3>
                     <p class="p">Coach people through critique, growth, and the habits that make excellent work sustainable.</p>
                 </li>

@@ -340,29 +340,37 @@
         flex: 1 1 0;
         flex-direction: column;
         justify-content: flex-start;
-        min-height: 15rem;
+        min-height: 18rem;
         min-width: 0;
-        padding: 2.25rem 1.6rem 2.25rem 0;
+        padding: 1.5rem 1.6rem 3rem 0;
         width: auto;
-
-        &:first-child {
-            border-top: 0;
-        }
 
         h3 {
             color: var(--color-link);
-            font-size: 1.25rem;
+            font-size: clamp(1.5rem, 2.5vw, 2.25rem);
             font-weight: 600;
             line-height: 1.15;
-            margin: 0 0 1rem;
-        }
-        p {
-            color: var(--color-text-soft);
-            font-size: 0.95rem;
-            font-weight: 400;
-            line-height: 1.5;
+            letter-spacing: -0.025em;
             margin: 0;
+            max-width: 15ch;
         }
+        > .p:last-child {
+            color: var(--color-text-soft);
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.6;
+            margin: 1.25rem 0 0;
+            max-width: 28rem;
+        }
+    }
+
+    .help-number {
+        color: var(--color-text-muted);
+        display: block;
+        font-size: 0.75rem;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.08em;
+        margin: 0 0 clamp(2.5rem, 6vw, 5rem);
     }
 
     @container (min-width: 34.0625rem) {
@@ -372,7 +380,6 @@
 
         .help-item {
             border-left: 0.0625rem solid var(--color-border-subtle);
-            border-top: 0;
             padding-left: 1.6rem;
         }
 
@@ -388,13 +395,13 @@
             row-gap: 2.5rem;
         }
 
-        .help-item {
+        .help-list .help-item {
             border-left: 0.0625rem solid var(--color-border-subtle);
             padding-left: 1.6rem;
         }
 
-        .help-item:first-child,
-        .help-item:nth-child(4) {
+        .help-list .help-item:first-child,
+        .help-list .help-item:nth-child(4) {
             border-left: 0;
             padding-left: 0;
         }
@@ -406,12 +413,12 @@
             row-gap: 0;
         }
 
-        .help-item:nth-child(4) {
+        .help-list .help-item {
             border-left: 0.0625rem solid var(--color-border-subtle);
             padding-left: 1.6rem;
         }
 
-        .help-item:first-child {
+        .help-list .help-item:first-child {
             border-left: 0;
             padding-left: 0;
         }
