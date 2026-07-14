@@ -179,7 +179,7 @@
 
 .project-story-title {
     display: block;
-    font-size: clamp(2.75rem, 7vw, 6.75rem);
+    font-size: clamp(2.25rem, 5vw, 4.75rem);
     letter-spacing: -0.05em;
     line-height: 0.98;
     margin: 0;
@@ -418,6 +418,146 @@
     text-transform: uppercase;
 }
 
+.work-summary {
+    box-sizing: border-box;
+    padding: 0 var(--site-frame-gutter) clamp(8rem, 14vw, 14rem);
+    width: 100%;
+}
+
+.work-summary-intro {
+    border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
+    max-width: 72rem;
+    padding-top: clamp(3rem, 6vw, 5rem);
+}
+
+.work-summary-eyebrow {
+    color: var(--color-text-muted-on-dark);
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    line-height: 1.4;
+    margin: 0 0 1.5rem;
+    text-transform: uppercase;
+}
+
+.work-summary-title {
+    display: block;
+    font-size: clamp(2.75rem, 6vw, 5.5rem);
+    letter-spacing: -0.05em;
+    line-height: 0.98;
+    margin: 0;
+    max-width: 12ch;
+}
+
+.work-summary-statement {
+    color: var(--color-text-muted-on-dark);
+    display: block;
+    font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+    letter-spacing: -0.01em;
+    line-height: 1.55;
+    margin: clamp(1.75rem, 4vw, 3rem) 0 0;
+    max-width: 44rem;
+}
+
+.work-summary-principles {
+    display: grid;
+    gap: 0;
+    list-style: none;
+    margin: clamp(5rem, 10vw, 9rem) 0 0;
+    padding: 0;
+}
+
+.work-summary-principles li {
+    border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
+    padding: 1.5rem 0 3rem;
+}
+
+.work-summary-number {
+    color: var(--color-text-muted-on-dark);
+    display: block;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.08em;
+    margin: 0 0 clamp(2.5rem, 6vw, 5rem);
+}
+
+.work-summary-principles .h3 {
+    display: block;
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    margin: 0;
+    max-width: 15ch;
+}
+
+.work-summary-principles li > .p:last-child {
+    color: var(--color-text-muted-on-dark);
+    display: block;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 1.25rem 0 0;
+    max-width: 28rem;
+}
+
+.work-summary-next {
+    border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
+    display: grid;
+    gap: 3rem;
+    margin-top: clamp(4rem, 9vw, 8rem);
+    padding-top: clamp(3rem, 6vw, 5rem);
+}
+
+.work-summary-next .h3 {
+    display: block;
+    font-size: clamp(2rem, 4vw, 3.75rem);
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    margin: 0;
+    max-width: 16ch;
+}
+
+.work-summary-actions {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.work-summary-action {
+    align-items: center;
+    border: 0.0625rem solid rgba(255, 255, 255, 0.45);
+    color: var(--color-paper);
+    display: inline-flex;
+    font-size: 0.82rem;
+    font-weight: 700;
+    justify-content: center;
+    letter-spacing: 0.07em;
+    min-height: 3.25rem;
+    padding: 0.75rem 1.25rem;
+    text-align: center;
+    text-transform: uppercase;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.work-summary-action:hover,
+.work-summary-action:focus-visible {
+    background-color: var(--color-paper);
+    border-color: var(--color-paper);
+    color: var(--color-ink);
+}
+
+.work-summary-action--primary,
+.work-summary-action--primary:hover,
+.work-summary-action--primary:focus-visible {
+    background-color: var(--color-paper);
+    border-color: var(--color-paper);
+    color: var(--color-ink);
+}
+
 .has-scroll-reveal [data-reveal] {
     opacity: 0;
     transition:
@@ -520,6 +660,35 @@
 
     .project-screen-caption > .p {
         grid-column: 2;
+    }
+
+    .work-summary-principles {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .work-summary-principles li {
+        border-left: 0.0625rem solid rgba(255, 255, 255, 0.14);
+        padding: 2rem clamp(2rem, 4vw, 4rem) 3rem;
+    }
+
+    .work-summary-principles li:first-child {
+        border-left: 0;
+        padding-left: 0;
+    }
+
+    .work-summary-principles li:last-child {
+        padding-right: 0;
+    }
+
+    .work-summary-next {
+        align-items: end;
+        grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
+    }
+
+    .work-summary-actions {
+        align-items: stretch;
+        justify-self: end;
+        width: min(100%, 24rem);
     }
 }
 

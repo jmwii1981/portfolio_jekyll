@@ -31,7 +31,7 @@ permalink: /work/
                 </header>
                 <div class="project-story-overview">
                     <figure class="project-cover" data-reveal="right">
-                        <img src="{{ '/images/projects/lmms/750x500 Toptal Submission Frame.jpg' | relative_url }}" alt="LionFinancial merchant management dashboard displayed on a laptop" loading="lazy" decoding="async">
+                        <img src="{{ '/images/projects/lmms/750x500 Toptal Submission Frame.webp' | relative_url }}" alt="LionFinancial merchant management dashboard displayed on a laptop" loading="lazy" decoding="async">
                     </figure>
                     <div class="project-story-details" data-reveal="up">
                         <section>
@@ -56,27 +56,27 @@ permalink: /work/
                     <div class="project-gallery-viewport" data-gallery-viewport tabindex="0" aria-label="LionFinancial product walkthrough">
                         <div class="project-gallery-track">
                             <figure class="project-screen" data-gallery-slide>
-                                <div class="project-screen-image"><img src="{{ '/images/projects/lmms/LMMS – Accounts.jpg' | relative_url }}" alt="LionFinancial merchant network dashboard" loading="lazy" decoding="async"></div>
+                                <div class="project-screen-image"><img src="{{ '/images/projects/lmms/LMMS – Accounts.webp' | relative_url }}" alt="LionFinancial merchant network dashboard" loading="lazy" decoding="async"></div>
                                 <figcaption class="project-screen-caption"><h4 class="h4">The merchant network as an operating view</h4><p class="p">A merchant list should do more than act as a directory. This view brings status, services, volume, recent activity, risk, approvals, onboarding, and network health together so platform teams can identify which businesses are growing and which need intervention without opening every record.</p><p class="p project-screen-outcome"><strong>Representative outcome</strong> 30% greater efficiency in merchant review by making risk, activity, adoption, and volume visible at the list level.</p></figcaption>
                             </figure>
                             <figure class="project-screen" data-gallery-slide>
-                                <div class="project-screen-image"><img src="{{ '/images/projects/lmms/LMMS – Accounts-1.jpg' | relative_url }}" alt="LionFinancial payment methods and services interface" loading="lazy" decoding="async"></div>
+                                <div class="project-screen-image"><img src="{{ '/images/projects/lmms/LMMS – Accounts-1.webp' | relative_url }}" alt="LionFinancial payment methods and services interface" loading="lazy" decoding="async"></div>
                                 <figcaption class="project-screen-caption"><h4 class="h4">Service configuration meets adoption</h4><p class="p">Payment methods affect cash flow, friction, and revenue opportunity. I paired configuration with adoption so teams can see what is enabled, how many merchants use it, the volume and fees it drives, and where setup requests are waiting—shifting the question from “Is it on?” to “Is it creating value?”</p><p class="p project-screen-outcome"><strong>Representative outcome</strong> A 15–20% improvement in the ease of driving service adoption, visibility, and conversion.</p></figcaption>
                             </figure>
                             <figure class="project-screen" data-gallery-slide>
-                                <div class="project-screen-image"><img src="{{ '/images/projects/lmms/LMMS – Customers.jpg' | relative_url }}" alt="LionFinancial customer management view" loading="lazy" decoding="async"></div>
+                                <div class="project-screen-image"><img src="{{ '/images/projects/lmms/LMMS – Customers.webp' | relative_url }}" alt="LionFinancial customer management view" loading="lazy" decoding="async"></div>
                                 <figcaption class="project-screen-caption"><h4 class="h4">Customer behavior as a merchant-health signal</h4><p class="p">Volume alone does not explain business health. Active customers, repeat purchase rate, payment preferences, lifetime value, support issues, and health scores reveal whether a merchant is retaining customers or beginning to lose momentum—and give platform teams a stronger basis for advising them.</p><p class="p project-screen-outcome"><strong>Representative outcome</strong> A projected 35–60% improvement in merchant advisory conversations through clearer customer and payment-behavior signals.</p></figcaption>
                             </figure>
                             <figure class="project-screen" data-gallery-slide>
-                                <div class="project-screen-image"><img src="{{ '/images/projects/lmms/LMMS – Payout Scheduling.jpg' | relative_url }}" alt="LionFinancial payout scheduling workflow" loading="lazy" decoding="async"></div>
+                                <div class="project-screen-image"><img src="{{ '/images/projects/lmms/LMMS – Payout Scheduling.webp' | relative_url }}" alt="LionFinancial payout scheduling workflow" loading="lazy" decoding="async"></div>
                                 <figcaption class="project-screen-caption"><h4 class="h4">Predictable future money movement</h4><p class="p">I reframed scheduled payments as a financial-operations tool supporting vendor payouts, platform fees, settlements, lease payments, payroll advances, insurance premiums, and merchant disbursements. Upcoming, successful, and failed activity remains visible alongside reusable templates because uncertainty is the enemy when users are responsible for money movement.</p></figcaption>
                             </figure>
                             <figure class="project-screen" data-gallery-slide>
-                                <div class="project-screen-image"><img src="{{ '/images/projects/lmms/LMMS – Reports.jpg' | relative_url }}" alt="LionFinancial reports interface" loading="lazy" decoding="async"></div>
+                                <div class="project-screen-image"><img src="{{ '/images/projects/lmms/LMMS – Reports.webp' | relative_url }}" alt="LionFinancial reports interface" loading="lazy" decoding="async"></div>
                                 <figcaption class="project-screen-caption"><h4 class="h4">Reporting without rebuilding the work</h4><p class="p">A report library, scheduled reports, saved views, quick exports, ownership, dates, and categories turn historical reporting into reusable operational knowledge. Teams can generate leadership summaries, monitor merchants and payouts, export what they need, and move on without repeatedly reconstructing the same analysis.</p><p class="p project-screen-outcome"><strong>Representative outcome</strong> Approximately 80% less report-preparation time.</p></figcaption>
                             </figure>
                             <figure class="project-screen" data-gallery-slide>
-                                <div class="project-screen-image"><img src="{{ '/images/projects/lmms/LMMS – Transactions.jpg' | relative_url }}" alt="LionFinancial transaction management interface" loading="lazy" decoding="async"></div>
+                                <div class="project-screen-image"><img src="{{ '/images/projects/lmms/LMMS – Transactions.webp' | relative_url }}" alt="LionFinancial transaction management interface" loading="lazy" decoding="async"></div>
                                 <figcaption class="project-screen-caption"><h4 class="h4">From audit trail to pattern recognition</h4><p class="p">The transaction table covers payments, refunds, disputes, payouts, settlement timing, fees, methods, and status across merchants. Supporting views expose mix, volume by time of day, and settlement aging so users can move from “What happened?” to “What does this mean?” without exporting the data first.</p><p class="p project-screen-outcome"><strong>Representative outcome</strong> A projected 50–75% reduction in manual transaction research and export dependency, depending on the business and user.</p></figcaption>
                             </figure>
                         </div>
@@ -93,7 +93,7 @@ permalink: /work/
                 </header>
                 <div class="project-story-overview project-story-overview--reverse">
                     <figure class="project-cover" data-reveal="left">
-                        <img src="{{ '/images/projects/vega/750x500 Toptal Submission Frame.jpg' | relative_url }}" alt="Vega enterprise design system shown across product interfaces" loading="lazy" decoding="async">
+                        <img src="{{ '/images/projects/vega/750x500 Toptal Submission Frame.webp' | relative_url }}" alt="Vega enterprise design system shown across product interfaces" loading="lazy" decoding="async">
                     </figure>
                     <div class="project-story-details" data-reveal="up">
                         <section>
@@ -118,27 +118,27 @@ permalink: /work/
                     <div class="project-gallery-viewport" data-gallery-viewport tabindex="0" aria-label="Vega design system walkthrough">
                         <div class="project-gallery-track">
                             <figure class="project-screen" data-gallery-slide>
-                                <div class="project-screen-image"><img src="{{ '/images/projects/vega/Vega - 02.jpg' | relative_url }}" alt="Vega design system foundations and interface components" loading="lazy" decoding="async"></div>
+                                <div class="project-screen-image"><img src="{{ '/images/projects/vega/Vega - 02.webp' | relative_url }}" alt="Vega design system foundations and interface components" loading="lazy" decoding="async"></div>
                                 <figcaption class="project-screen-caption"><h4 class="h4">A foundation teams can share</h4><p class="p">Vega establishes common visual and interaction foundations so separate products can feel like parts of one ecosystem without erasing their individual requirements.</p></figcaption>
                             </figure>
                             <figure class="project-screen" data-gallery-slide>
-                                <div class="project-screen-image"><img src="{{ '/images/projects/vega/Vega - 03.jpg' | relative_url }}" alt="Vega component library and design guidance" loading="lazy" decoding="async"></div>
+                                <div class="project-screen-image"><img src="{{ '/images/projects/vega/Vega - 03.webp' | relative_url }}" alt="Vega component library and design guidance" loading="lazy" decoding="async"></div>
                                 <figcaption class="project-screen-caption"><h4 class="h4">Components with intent</h4><p class="p">Reusable components pair visual consistency with behavioral guidance, helping designers and engineers understand not only what to use, but why and when to use it.</p></figcaption>
                             </figure>
                             <figure class="project-screen" data-gallery-slide>
-                                <div class="project-screen-image"><img src="{{ '/images/projects/vega/Vega - 04.jpg' | relative_url }}" alt="Vega reusable product patterns" loading="lazy" decoding="async"></div>
+                                <div class="project-screen-image"><img src="{{ '/images/projects/vega/Vega - 04.webp' | relative_url }}" alt="Vega reusable product patterns" loading="lazy" decoding="async"></div>
                                 <figcaption class="project-screen-caption"><h4 class="h4">Patterns for real product work</h4><p class="p">The system moves beyond isolated UI pieces into repeatable product patterns, giving teams a faster path through common workflows and complex states.</p></figcaption>
                             </figure>
                             <figure class="project-screen" data-gallery-slide>
-                                <div class="project-screen-image"><img src="{{ '/images/projects/vega/Vega - 05.jpg' | relative_url }}" alt="Vega accessibility and interaction standards" loading="lazy" decoding="async"></div>
+                                <div class="project-screen-image"><img src="{{ '/images/projects/vega/Vega - 05.webp' | relative_url }}" alt="Vega accessibility and interaction standards" loading="lazy" decoding="async"></div>
                                 <figcaption class="project-screen-caption"><h4 class="h4">Accessibility built into the decision</h4><p class="p">Standards and usage guidance bring accessibility into component selection and interaction design from the beginning instead of treating it as a final audit.</p></figcaption>
                             </figure>
                             <figure class="project-screen" data-gallery-slide>
-                                <div class="project-screen-image"><img src="{{ '/images/projects/vega/Vega - 06.jpg' | relative_url }}" alt="Vega design tokens and implementation details" loading="lazy" decoding="async"></div>
+                                <div class="project-screen-image"><img src="{{ '/images/projects/vega/Vega - 06.webp' | relative_url }}" alt="Vega design tokens and implementation details" loading="lazy" decoding="async"></div>
                                 <figcaption class="project-screen-caption"><h4 class="h4">A durable bridge to code</h4><p class="p">Shared tokens and aligned naming reduce translation between Figma and engineering, protecting decisions as components move from design into production.</p></figcaption>
                             </figure>
                             <figure class="project-screen" data-gallery-slide>
-                                <div class="project-screen-image"><img src="{{ '/images/projects/vega/Vega - 07.jpg' | relative_url }}" alt="Vega documentation and component guidance" loading="lazy" decoding="async"></div>
+                                <div class="project-screen-image"><img src="{{ '/images/projects/vega/Vega - 07.webp' | relative_url }}" alt="Vega documentation and component guidance" loading="lazy" decoding="async"></div>
                                 <figcaption class="project-screen-caption"><h4 class="h4">Documentation that supports adoption</h4><p class="p">Clear examples, governance, and contribution guidance make the system usable across distributed teams and give it a structure that can evolve with the organization.</p></figcaption>
                             </figure>
                         </div>
@@ -154,7 +154,7 @@ permalink: /work/
                 </header>
                 <div class="project-story-overview">
                     <figure class="project-cover" data-reveal="right">
-                        <img src="{{ '/images/projects/avena/750x500 Toptal Submission Frame.jpg' | relative_url }}" alt="AvenaPay disputes management experience across desktop and mobile" loading="lazy" decoding="async">
+                        <img src="{{ '/images/projects/avena/750x500 Toptal Submission Frame.webp' | relative_url }}" alt="AvenaPay disputes management experience across desktop and mobile" loading="lazy" decoding="async">
                     </figure>
                     <div class="project-story-details" data-reveal="up">
                         <section>
@@ -215,7 +215,7 @@ permalink: /work/
                 </header>
                 <div class="project-story-overview project-story-overview--reverse">
                     <figure class="project-cover" data-reveal="left">
-                        <img src="{{ '/images/projects/paladin/750x500 Toptal Submission Frame.jpg' | relative_url }}" alt="Paladin wireframing kit showing reusable product patterns" loading="lazy" decoding="async">
+                        <img src="{{ '/images/projects/paladin/750x500 Toptal Submission Frame.webp' | relative_url }}" alt="Paladin wireframing kit showing reusable product patterns" loading="lazy" decoding="async">
                     </figure>
                     <div class="project-story-details" data-reveal="up">
                         <section>
@@ -239,12 +239,12 @@ permalink: /work/
                     </header>
                     <div class="project-gallery-viewport" data-gallery-viewport tabindex="0" aria-label="Paladin UX framing kit walkthrough">
                         <div class="project-gallery-track">
-                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/paladin/Wireframing Kit – General Dashboard and Data Visualization.jpg' | relative_url }}" alt="Paladin dashboard and data visualization wireframing components" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Structure before styling</h4><p class="p">Dashboard and visualization frames help teams establish hierarchy, comparison, and decision priority before color or brand details influence the conversation.</p></figcaption></figure>
-                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/paladin/Wireframing Kit –  Tables and Data.jpg' | relative_url }}" alt="Paladin table and data wireframing components" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Dense data with a clear job</h4><p class="p">Table patterns account for scanning, filtering, bulk actions, pagination, status, and empty states so teams can solve the workflow around the data—not merely draw rows.</p></figcaption></figure>
-                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/paladin/Wireframing Kit – Workflows and Payment Forms.jpg' | relative_url }}" alt="Paladin workflow and payment form wireframing components" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Make consequential flows discussable</h4><p class="p">Payment and workflow frames expose steps, validation, decision points, and recovery states early, when changing the experience is still inexpensive.</p></figcaption></figure>
-                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/paladin/Wireframing Kit – Reporting.jpg' | relative_url }}" alt="Paladin reporting wireframing patterns" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Reporting as a reusable pattern</h4><p class="p">Flexible reporting structures help teams test what should be summarized, compared, saved, scheduled, and exported before committing to a final interface.</p></figcaption></figure>
-                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/paladin/Wireframing Kit – Buttons and Toggles.jpg' | relative_url }}" alt="Paladin buttons and toggles wireframing components" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Small controls, explicit behavior</h4><p class="p">Foundational controls include interaction and state considerations so accessibility and behavioral consistency enter the discussion alongside layout.</p></figcaption></figure>
-                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/paladin/Wireframing Kit – eCommerce.jpg' | relative_url }}" alt="Paladin ecommerce wireframing patterns" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Breadth without prescription</h4><p class="p">Commerce patterns demonstrate how the kit adapts to distinct product domains while remaining neutral enough for teams to explore their own content and business rules.</p></figcaption></figure>
+                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/paladin/Wireframing Kit – General Dashboard and Data Visualization.webp' | relative_url }}" alt="Paladin dashboard and data visualization wireframing components" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Structure before styling</h4><p class="p">Dashboard and visualization frames help teams establish hierarchy, comparison, and decision priority before color or brand details influence the conversation.</p></figcaption></figure>
+                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/paladin/Wireframing Kit –  Tables and Data.webp' | relative_url }}" alt="Paladin table and data wireframing components" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Dense data with a clear job</h4><p class="p">Table patterns account for scanning, filtering, bulk actions, pagination, status, and empty states so teams can solve the workflow around the data—not merely draw rows.</p></figcaption></figure>
+                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/paladin/Wireframing Kit – Workflows and Payment Forms.webp' | relative_url }}" alt="Paladin workflow and payment form wireframing components" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Make consequential flows discussable</h4><p class="p">Payment and workflow frames expose steps, validation, decision points, and recovery states early, when changing the experience is still inexpensive.</p></figcaption></figure>
+                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/paladin/Wireframing Kit – Reporting.webp' | relative_url }}" alt="Paladin reporting wireframing patterns" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Reporting as a reusable pattern</h4><p class="p">Flexible reporting structures help teams test what should be summarized, compared, saved, scheduled, and exported before committing to a final interface.</p></figcaption></figure>
+                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/paladin/Wireframing Kit – Buttons and Toggles.webp' | relative_url }}" alt="Paladin buttons and toggles wireframing components" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Small controls, explicit behavior</h4><p class="p">Foundational controls include interaction and state considerations so accessibility and behavioral consistency enter the discussion alongside layout.</p></figcaption></figure>
+                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/paladin/Wireframing Kit – eCommerce.webp' | relative_url }}" alt="Paladin ecommerce wireframing patterns" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Breadth without prescription</h4><p class="p">Commerce patterns demonstrate how the kit adapts to distinct product domains while remaining neutral enough for teams to explore their own content and business rules.</p></figcaption></figure>
                         </div>
                     </div>
                 </div>
@@ -258,7 +258,7 @@ permalink: /work/
                 </header>
                 <div class="project-story-overview">
                     <figure class="project-cover" data-reveal="right">
-                        <img src="{{ '/images/projects/ledger/750x500 Toptal Submission Frame.jpg' | relative_url }}" alt="LedgerFlow invoicing, payment, and collections product overview" loading="lazy" decoding="async">
+                        <img src="{{ '/images/projects/ledger/750x500 Toptal Submission Frame.webp' | relative_url }}" alt="LedgerFlow invoicing, payment, and collections product overview" loading="lazy" decoding="async">
                     </figure>
                     <div class="project-story-details" data-reveal="up">
                         <section>
@@ -282,12 +282,12 @@ permalink: /work/
                     </header>
                     <div class="project-gallery-viewport" data-gallery-viewport tabindex="0" aria-label="LedgerFlow product walkthrough">
                         <div class="project-gallery-track">
-                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/ledger/LedgerFlow - 01.jpg' | relative_url }}" alt="LedgerFlow dashboard and financial workflow overview" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">An actionable financial overview</h4><p class="p">The dashboard prioritizes status, movement, and exceptions so users can understand what needs attention before entering a detailed workflow.</p></figcaption></figure>
-                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/ledger/LedgerFlow - 2.jpg' | relative_url }}" alt="LedgerFlow reporting experience" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Reporting connected to the work</h4><p class="p">Financial summaries remain close to the underlying activity, helping businesses understand performance without moving between disconnected reporting tools.</p></figcaption></figure>
-                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/ledger/LedgerFlow - 3.jpg' | relative_url }}" alt="LedgerFlow invoice management interface" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Invoices organized by state</h4><p class="p">Clear status, value, customer, and due-date signals let users distinguish what is moving normally from what needs a reminder or intervention.</p></figcaption></figure>
-                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/ledger/LedgerFlow - 4.jpg' | relative_url }}" alt="LedgerFlow invoice creation workflow" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Create with confidence</h4><p class="p">The invoice flow uses progressive structure and immediate context to make a detailed financial task feel guided without removing the control businesses need.</p></figcaption></figure>
-                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/ledger/LedgerFlow - 5.jpg' | relative_url }}" alt="LedgerFlow payment and collections interface" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Collections without the chaos</h4><p class="p">Payment links, reminders, and collection activity share a common language, making the next action legible while preserving a complete record of what has happened.</p></figcaption></figure>
-                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/ledger/LedgerFlow - 6.jpg' | relative_url }}" alt="LedgerFlow mobile payment experience" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">The same clarity on mobile</h4><p class="p">The mobile experience focuses the product around quick checks and high-value actions, extending the system without forcing a desktop interface into a smaller frame.</p></figcaption></figure>
+                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/ledger/LedgerFlow - 01.webp' | relative_url }}" alt="LedgerFlow dashboard and financial workflow overview" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">An actionable financial overview</h4><p class="p">The dashboard prioritizes status, movement, and exceptions so users can understand what needs attention before entering a detailed workflow.</p></figcaption></figure>
+                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/ledger/LedgerFlow - 2.webp' | relative_url }}" alt="LedgerFlow reporting experience" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Reporting connected to the work</h4><p class="p">Financial summaries remain close to the underlying activity, helping businesses understand performance without moving between disconnected reporting tools.</p></figcaption></figure>
+                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/ledger/LedgerFlow - 3.webp' | relative_url }}" alt="LedgerFlow invoice management interface" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Invoices organized by state</h4><p class="p">Clear status, value, customer, and due-date signals let users distinguish what is moving normally from what needs a reminder or intervention.</p></figcaption></figure>
+                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/ledger/LedgerFlow - 4.webp' | relative_url }}" alt="LedgerFlow invoice creation workflow" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Create with confidence</h4><p class="p">The invoice flow uses progressive structure and immediate context to make a detailed financial task feel guided without removing the control businesses need.</p></figcaption></figure>
+                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/ledger/LedgerFlow - 5.webp' | relative_url }}" alt="LedgerFlow payment and collections interface" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">Collections without the chaos</h4><p class="p">Payment links, reminders, and collection activity share a common language, making the next action legible while preserving a complete record of what has happened.</p></figcaption></figure>
+                            <figure class="project-screen" data-gallery-slide><div class="project-screen-image"><img src="{{ '/images/projects/ledger/LedgerFlow - 6.webp' | relative_url }}" alt="LedgerFlow mobile payment experience" loading="lazy" decoding="async"></div><figcaption class="project-screen-caption"><h4 class="h4">The same clarity on mobile</h4><p class="p">The mobile experience focuses the product around quick checks and high-value actions, extending the system without forcing a desktop interface into a smaller frame.</p></figcaption></figure>
                         </div>
                     </div>
                 </div>
@@ -301,7 +301,7 @@ permalink: /work/
                 </header>
                 <div class="project-story-overview project-story-overview--reverse">
                     <figure class="project-cover" data-reveal="left">
-                        <img src="{{ '/images/projects/northstar/750x500 Toptal Submission Frame.jpg' | relative_url }}" alt="Northstar Commerce landing page displayed on a transparent desktop screen" loading="lazy" decoding="async">
+                        <img src="{{ '/images/projects/northstar/750x500 Toptal Submission Frame.webp' | relative_url }}" alt="Northstar Commerce landing page displayed on a transparent desktop screen" loading="lazy" decoding="async">
                     </figure>
                     <div class="project-story-details" data-reveal="up">
                         <section>
@@ -338,7 +338,40 @@ permalink: /work/
         </div>
     </section>
 
-    <section class="eop-cta">
-        <a class="a" href="//www.figma.com/@jmwii1981" target="_blank" rel="noopener noreferrer">See more in Figma</a>
+    <section class="work-summary" aria-labelledby="work-summary-title">
+        <div class="work-summary-intro" data-reveal="up">
+            <p class="p work-summary-eyebrow">The throughline</p>
+            <h2 class="h2 work-summary-title" id="work-summary-title">Every challenge is different. Progress starts with clarity.</h2>
+            <p class="p work-summary-statement">Across platforms, systems, and teams, my role is consistent: make complexity understandable, create the structure people need to move together, and turn ambitious product decisions into work that can scale.</p>
+        </div>
+
+        <ul class="work-summary-principles" aria-label="Principles reflected across the selected work">
+            <li data-reveal="right">
+                <p class="p work-summary-number" aria-hidden="true">01</p>
+                <h3 class="h3">Clarity before complexity</h3>
+                <p class="p">Start with the decisions people need to make, then shape the product around helping them make those decisions well.</p>
+            </li>
+            <li data-reveal="up">
+                <p class="p work-summary-number" aria-hidden="true">02</p>
+                <h3 class="h3">Systems that create momentum</h3>
+                <p class="p">Build reusable foundations that improve quality and speed without flattening the needs of the product or the people using it.</p>
+            </li>
+            <li data-reveal="left">
+                <p class="p work-summary-number" aria-hidden="true">03</p>
+                <h3 class="h3">Leadership through execution</h3>
+                <p class="p">Align teams around a direction, stay close enough to the work to protect its intent, and help strong ideas make it into the product.</p>
+            </li>
+        </ul>
+
+        <div class="work-summary-next" data-reveal="up">
+            <div>
+                <p class="p work-summary-eyebrow">What comes next</p>
+                <h3 class="h3">If your team is entering unfamiliar product territory, let’s create a clear path forward together.</h3>
+            </div>
+            <div class="work-summary-actions">
+                <a class="a work-summary-action work-summary-action--primary" href="mailto:hello@janmichael.io" data-randomized-mailto target="_blank" rel="noopener noreferrer">Start a conversation</a>
+                <a class="a work-summary-action" href="//www.figma.com/@jmwii1981" target="_blank" rel="noopener noreferrer">See more in Figma <span aria-hidden="true">↗</span></a>
+            </div>
+        </div>
     </section>
 </main>
