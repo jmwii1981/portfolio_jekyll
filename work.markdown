@@ -368,9 +368,9 @@ permalink: /work/
                 <p class="p work-summary-eyebrow">What comes next</p>
                 <h3 class="h3">If your team is entering unfamiliar product territory, let’s create a clear path forward together.</h3>
             </div>
-            <div class="work-summary-actions">
-                <a class="a work-summary-action work-summary-action--primary" href="mailto:hello@janmichael.io" data-randomized-mailto target="_blank" rel="noopener noreferrer">Start a conversation</a>
-                <a class="a work-summary-action" href="//www.figma.com/@jmwii1981" target="_blank" rel="noopener noreferrer">See more in Figma <span aria-hidden="true">↗</span></a>
+            <div class="button-group work-summary-actions">
+                <a class="a button primary" href="mailto:hello@janmichael.io" data-randomized-mailto target="_blank" rel="noopener noreferrer"><span class="button-label">Start a conversation</span><span class="button-fill"></span></a>
+                <a class="a button secondary" href="//www.figma.com/@jmwii1981" target="_blank" rel="noopener noreferrer"><span class="button-label">See more in Figma <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span><span class="button-fill"></span></a>
             </div>
         </div>
     </section>

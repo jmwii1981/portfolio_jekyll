@@ -39,8 +39,22 @@
     }
 
     .button-label {
+        align-items: center;
+        display: inline-flex;
+        gap: 0.45rem;
         position: relative;
         z-index: 2;
+    }
+
+    .button-external-icon {
+        display: block;
+        flex: 0 0 auto;
+        height: 1rem;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.75;
+        width: 1rem;
     }
 
     .button-fill {
