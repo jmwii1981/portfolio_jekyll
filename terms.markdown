@@ -9,7 +9,7 @@ description: "Terms of use and privacy information for janmichael.io, including 
 
     <section>
         <h3 class="h3">Effective Date</h3>
-        <p class="p">These Terms Of Use and Privacy Policy are effective as of July 8, 2026.</p>
+        <p class="p">These Terms Of Use and Privacy Policy are effective as of July 14, 2026.</p>
     </section>
 
     <section>
@@ -19,8 +19,9 @@ description: "Terms of use and privacy information for janmichael.io, including 
 
     <section>
         <h3 class="h3">Information Used by This Site</h3>
-        <p class="p">This site uses a small amount of browser-based functionality to make the experience work as intended. When you click an email link marked for project inquiries, JavaScript creates an inquiry reference number using the current date and a local count stored in your browser. This helps make email subjects easier to identify and organize.</p>
-        <p class="p">The inquiry count is stored locally in your browser as <span class="span">janmichaelInquiryCount</span>. It is not submitted to this website by that script. If you choose to send an email, the generated subject line and any information you include in your email are sent through your own email client.</p>
+        <p class="p">This site uses a small amount of browser-based functionality to make the experience work as intended. When you use an inquiry email link, JavaScript creates a reference number using the current date and a local count stored in your browser. This helps make inquiries easier to identify and organize.</p>
+        <p class="p">The inquiry count is stored locally in your browser as <span class="span">janmichaelInquiryCount</span>. It is not submitted to this website by that script.</p>
+        <p class="p">When you submit the contact form, your first name, last name, email address, subject, message, and related request information are transmitted to Web3Forms. Web3Forms processes the submission and forwards it to my email inbox. The email address you provide is used as the reply-to address for that message.</p>
         <p class="p">If you respond to the consent banner, your analytics choice is stored locally in your browser as <span class="span">janmichaelConsentPreference</span>. This prevents the site from asking for the same choice on every visit.</p>
         <p class="p">This site also uses JavaScript to adjust the header while scrolling and to load recent article content for the Perspectives page. Those features are used to display the site and its content properly.</p>
     </section>
@@ -28,20 +29,21 @@ description: "Terms of use and privacy information for janmichael.io, including 
     <section>
         <h3 class="h3">Analytics and Third-Party Services</h3>
         <p class="p">This site can load Google Tag Manager and related Google services to understand general site activity and improve the website. Google Tag Manager is only loaded after you accept analytics in the consent banner.</p>
+        <p class="p">Web3Forms provides the contact-form processing service. It may retain form submissions and related technical data and use infrastructure or spam-prevention providers as described in the <a class="a" href="https://web3forms.com/privacy">Web3Forms Privacy Policy</a>.</p>
         <p class="p">Third-party services may process technical information such as browser details, device information, IP address, referring pages, pages visited, or interaction events according to their own policies. This site does not control those third-party services.</p>
         <p class="p">The Perspectives page may request article feed data through third-party feed or proxy services so recent writing can be displayed.</p>
     </section>
 
     <section>
         <h3 class="h3">How Information Is Used</h3>
-        <p class="p">Information generated or received through this site is used only for its intended purpose: operating the website, displaying content, improving the site experience, and responding to messages you choose to send.</p>
+        <p class="p">I use information received through this site only for its intended purpose: operating the website, displaying content, improving the site experience, and responding to messages you choose to send.</p>
         <p class="p">I will not sell your personal information. I will not use inquiry information for unrelated marketing, profiling, or any purpose unrelated to responding to your inquiry or maintaining this website.</p>
     </section>
 
     <section>
         <h3 class="h3">Your Choices</h3>
-        <p class="p">You can choose not to click email links or send a message. You can also clear this site's local browser storage through your browser settings if you want to remove the locally stored inquiry count.</p>
-        <p class="p">You may use browser settings, privacy tools, or extensions to limit cookies, local storage, JavaScript, analytics, or third-party requests. Some site features may not work as intended if those tools block required functionality.</p>
+        <p class="p">You can choose not to submit the contact form and can email me directly instead. You can also clear this site's local browser storage through your browser settings if you want to remove the locally stored inquiry count.</p>
+        <p class="p">You may use browser settings, privacy tools, or extensions to limit cookies, local storage, JavaScript, analytics, or third-party requests. Blocking Web3Forms or other required services may prevent the contact form from submitting.</p>
     </section>
 
     <section>
