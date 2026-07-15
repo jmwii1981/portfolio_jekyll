@@ -2,8 +2,9 @@
 layout: page
 title: Terms Of Use and Privacy Policy
 permalink: /terms/
+description: "Terms of use and privacy information for janmichael.io, including analytics, local browser storage, external services, and contact details."
 ---
-<main class="main terms">
+<main class="main terms" id="main-content" tabindex="-1">
     <h2 class="h2 massive">Terms Of Use and Privacy Policy</h2>
 
     <section>
@@ -65,6 +66,6 @@ permalink: /terms/
 
     <section>
         <h3 class="h3">Contact</h3>
-        <p class="p">Questions about these terms, this privacy policy, or this site's use of information can be sent to <a class="a" href="mailto:hello@janmichael.io" data-randomized-mailto target="_blank" rel="noopener noreferrer">hello@janmichael.io</a>.</p>
+        <p class="p">Questions about these terms, this privacy policy, or this site's use of information can be sent to <a class="a" href="mailto:hello@janmichael.io" data-randomized-mailto>hello@janmichael.io</a>.</p>
     </section>
 </main>

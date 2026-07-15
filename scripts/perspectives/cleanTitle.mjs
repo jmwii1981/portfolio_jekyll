@@ -5,17 +5,16 @@
  * @param {string} feedUrl - The feed URL for fetching the post data.
  * @returns {string|null} - The sanitized and formatted title or null on failure.
  */
-import fetchPost from './fetchPost.mjs';
-
-export async function cleanTitle(feedUrl) {
+export function cleanTitle(fetchedData) {
     try {
-        const fetchedData = await fetchPost(feedUrl);
         if (!fetchedData) throw new Error('Failed to fetch post data.');
 
         const rawTitle = fetchedData.title || 'Untitled';
-        const sanitizedTitle = rawTitle.replace(/<[^>]+>/g, '');
+        const title = document.createElement('h2');
+        title.className = 'h2 post-title';
+        title.textContent = rawTitle.replace(/<[^>]+>/g, '');
 
-        return `<h2 class="h2 post-title">${sanitizedTitle}</h2>`;
+        return title.outerHTML;
     } catch (error) {
         console.error('Error in cleanTitle:', error);
         return null;

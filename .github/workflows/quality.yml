@@ -1,0 +1,26 @@
+name: Site quality
+
+on:
+  push:
+    branches: [gh-pages]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Build site
+        run: bundle exec jekyll build
+      - name: Check JavaScript syntax
+        run: |
+          node --check scripts/initializeScripts.js
+          for file in scripts/perspectives/*.mjs; do node --check "$file"; done
+      - name: Audit generated HTML
+        run: ruby scripts/audit-site.rb

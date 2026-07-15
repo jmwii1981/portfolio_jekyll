@@ -45,6 +45,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-height: calc(100vh - var(--site-top-gutter));
     min-height: calc(100svh - var(--site-top-gutter));
     overflow: hidden;
     padding: clamp(5rem, 12vh, 9rem) var(--site-frame-gutter) 3rem;
@@ -60,10 +61,10 @@
     animation: work-copy-reveal 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
     color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: 0.85rem;
+    font-size: var(--type-label-font-size);
     font-weight: 700;
-    letter-spacing: 0.12em;
-    line-height: 1.4;
+    letter-spacing: var(--type-label-letter-spacing);
+    line-height: var(--type-label-line-height);
     margin: 0 0 1.5rem;
     text-transform: uppercase;
 }
@@ -73,8 +74,8 @@
     display: block;
     font-size: clamp(3.5rem, 11vw, 9.5rem);
     font-weight: 600;
-    letter-spacing: -0.055em;
-    line-height: 0.9;
+    letter-spacing: var(--type-display-letter-spacing);
+    line-height: var(--type-display-line-height);
     margin: 0;
     max-width: 10ch;
 }
@@ -130,10 +131,10 @@
 .work-collection-eyebrow {
     color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: 0.85rem;
+    font-size: var(--type-label-font-size);
     font-weight: 700;
-    letter-spacing: 0.12em;
-    line-height: 1.4;
+    letter-spacing: var(--type-label-letter-spacing);
+    line-height: var(--type-label-line-height);
     margin: 0 0 1.5rem;
     text-transform: uppercase;
 }
@@ -141,8 +142,8 @@
 .work-collection-title {
     display: block;
     font-size: clamp(2.5rem, 6vw, 5.5rem);
-    letter-spacing: -0.045em;
-    line-height: 1;
+    letter-spacing: var(--type-section-letter-spacing);
+    line-height: var(--type-section-line-height);
     margin: 0;
 }
 
@@ -180,8 +181,8 @@
 .project-story-title {
     display: block;
     font-size: clamp(2.25rem, 5vw, 4.75rem);
-    letter-spacing: -0.05em;
-    line-height: 0.98;
+    letter-spacing: var(--type-feature-letter-spacing);
+    line-height: var(--type-feature-line-height);
     margin: 0;
 }
 
@@ -189,8 +190,8 @@
     color: var(--color-text-muted-on-dark);
     display: block;
     font-size: clamp(1.05rem, 1.8vw, 1.45rem);
-    letter-spacing: -0.01em;
-    line-height: 1.55;
+    letter-spacing: var(--type-lead-letter-spacing);
+    line-height: var(--type-lead-line-height);
     margin: clamp(1.75rem, 4vw, 3rem) 0 0;
     max-width: 40rem;
 }
@@ -261,8 +262,35 @@
     display: block;
     font-size: clamp(1rem, 1.35vw, 1.15rem);
     letter-spacing: -0.005em;
-    line-height: 1.65;
+    line-height: var(--type-reading-line-height);
     margin: 0;
+}
+
+.project-story-copy-panel {
+    min-width: 0;
+    position: relative;
+}
+
+.project-story-copy-panel .project-screen-caption {
+    display: block;
+    padding-top: 0;
+}
+
+.project-story-copy-panel .project-gallery-copy-item[hidden] {
+    display: none;
+}
+
+.project-story-copy-panel .project-screen-caption .h4 {
+    border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    letter-spacing: var(--type-card-letter-spacing);
+    line-height: var(--type-card-line-height);
+    padding-top: 1.25rem;
+}
+
+.project-story-copy-panel .project-screen-caption .p {
+    margin-top: 1.25rem;
+    max-width: 40rem;
 }
 
 .project-walkthrough {
@@ -275,28 +303,22 @@
 }
 
 .project-walkthrough-header {
-    align-items: end;
+    align-items: center;
     border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
     display: flex;
-    gap: 2rem;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin-bottom: 1.5rem;
     padding-top: 1.25rem;
-}
-
-.project-walkthrough-label {
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.11em;
-    line-height: 1.4;
-    margin: 0;
-    text-transform: uppercase;
 }
 
 .project-gallery-controls {
     align-items: center;
     display: flex;
     gap: 0.75rem;
+}
+
+.no-js .project-walkthrough-header {
+    display: none;
 }
 
 .project-gallery-button {
@@ -327,6 +349,17 @@
 .project-gallery-button:disabled {
     cursor: default;
     opacity: 0.3;
+}
+
+.project-gallery-icon {
+    display: block;
+    height: 1.1rem;
+    pointer-events: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.75;
+    width: 1.1rem;
 }
 
 .project-gallery-count {
@@ -374,6 +407,7 @@
 .project-screen img {
     display: block;
     height: auto;
+    max-height: 75vh;
     max-height: 75svh;
     object-fit: contain;
     width: 100%;
@@ -397,7 +431,7 @@
     color: var(--color-text-muted-on-dark);
     display: block;
     font-size: clamp(1rem, 1.35vw, 1.15rem);
-    line-height: 1.6;
+    line-height: var(--type-body-line-height);
     margin: 0;
     max-width: 48rem;
 }
@@ -444,8 +478,8 @@
 .work-summary-title {
     display: block;
     font-size: clamp(2.75rem, 6vw, 5.5rem);
-    letter-spacing: -0.05em;
-    line-height: 0.98;
+    letter-spacing: var(--type-feature-letter-spacing);
+    line-height: var(--type-feature-line-height);
     margin: 0;
     max-width: 12ch;
 }
@@ -454,8 +488,8 @@
     color: var(--color-text-muted-on-dark);
     display: block;
     font-size: clamp(1.05rem, 1.8vw, 1.45rem);
-    letter-spacing: -0.01em;
-    line-height: 1.55;
+    letter-spacing: var(--type-lead-letter-spacing);
+    line-height: var(--type-lead-line-height);
     margin: clamp(1.75rem, 4vw, 3rem) 0 0;
     max-width: 44rem;
 }
@@ -485,8 +519,8 @@
 .work-summary-principles .h3 {
     display: block;
     font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-    letter-spacing: -0.025em;
-    line-height: 1.15;
+    letter-spacing: var(--type-card-letter-spacing);
+    line-height: var(--type-card-line-height);
     margin: 0;
     max-width: 15ch;
 }
@@ -495,7 +529,7 @@
     color: var(--color-text-muted-on-dark);
     display: block;
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: var(--type-body-line-height);
     margin: 1.25rem 0 0;
     max-width: 28rem;
 }
@@ -519,6 +553,12 @@
 
 .work-summary-actions {
     align-items: flex-start;
+    flex-direction: column;
+    width: min(100%, 24rem);
+
+    .button {
+        width: 100%;
+    }
 }
 
 .main.work .button.primary {
@@ -609,15 +649,12 @@
     }
 
     .project-walkthrough--integrated {
-        grid-column: 1 / span 7;
+        grid-column: 6 / -1;
+        grid-row: 1;
     }
 
     .project-story-details {
-        grid-column: 8 / -1;
-    }
-
-    .project-story-overview--reverse .project-cover {
-        grid-column: 6 / -1;
+        grid-column: 1 / span 5;
         grid-row: 1;
     }
 
@@ -669,7 +706,6 @@
     .work-summary-actions {
         align-items: stretch;
         justify-self: end;
-        width: min(100%, 24rem);
     }
 }
 

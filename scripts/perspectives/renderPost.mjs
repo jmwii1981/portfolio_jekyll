@@ -12,9 +12,10 @@ export async function renderPost(feedUrl) {
         const postData = await sequenceContent(feedUrl);
 
         const mostRecentPostDiv = document.getElementById('most-recent-post');
+        const fallback = document.querySelector('[data-feed-fallback]');
 
-        if (!mostRecentPostDiv) {
-            console.error('Error: #most-recent-post div not found.');
+        if (!mostRecentPostDiv || !postData) {
+            console.error('The Perspectives article could not be rendered.');
             return;
         }
 
@@ -22,6 +23,8 @@ export async function renderPost(feedUrl) {
         if (mostRecentPostDiv.hasAttribute('style')) {
             mostRecentPostDiv.removeAttribute('style');
         }
+
+        if (fallback) fallback.hidden = true;
 
         // Remove all <br> elements from the content
         const allBrElements = mostRecentPostDiv.querySelectorAll('br');
@@ -73,7 +76,7 @@ export async function renderPost(feedUrl) {
                         <p class="p">
                             <span class="span pub-date">${postData.date || 'Unknown Date'}</span>
                             <span class="decorative-bullet">•</span>
-                            <span class="span reading-time">Placeholder</span>
+                            <span class="span reading-time">${postData.readingTime || 1} min read</span>
                         </p>
                     </div>
                 </div>
@@ -81,17 +84,16 @@ export async function renderPost(feedUrl) {
             metaContainer.outerHTML = metaHTML;
         }
 
-        // Replace skeleton-text elements with paragraphs
+        // Replace the fixed skeleton lines with the complete sanitized article body.
         const skeletonTexts = mostRecentPostDiv.querySelectorAll('.skeleton-text');
-        const contentParagraphs = postData.content
-            ? postData.content.split('</p>').map(p => p.trim() + '</p>').filter(p => p !== '</p>')
-            : ['<p class="p">No Content</p>'];
-        
-        skeletonTexts.forEach((skeleton, idx) => {
-            skeleton.outerHTML = contentParagraphs[idx] || '';
-        });
+        const articleBody = document.createElement('div');
+        articleBody.className = 'post-body';
+        articleBody.innerHTML = postData.content || '<p class="p">Article content is unavailable. Visit Medium to continue reading.</p>';
 
-        console.log('Content rendered successfully into #most-recent-post, with <br> elements removed and div made visible.');
+        skeletonTexts.forEach((skeleton, idx) => {
+            if (idx === 0) skeleton.replaceWith(articleBody);
+            else skeleton.remove();
+        });
     } catch (error) {
         console.error('Error in renderPost:', error);
     }

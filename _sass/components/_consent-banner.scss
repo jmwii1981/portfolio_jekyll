@@ -102,3 +102,9 @@
         width: min(calc(100vw - 3rem), 58rem);
     }
 }
+
+@supports not ((backdrop-filter: blur(1rem)) or (-webkit-backdrop-filter: blur(1rem))) {
+    .consent-banner {
+        background-color: var(--color-paper);
+    }
+}

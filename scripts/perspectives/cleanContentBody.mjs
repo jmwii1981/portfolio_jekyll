@@ -8,20 +8,37 @@
  * @param {string} feedUrl - The feed URL for fetching the post data.
  * @returns {string|null} - The cleaned and formatted content body or null on failure.
  */
-import fetchPost from './fetchPost.mjs';
-
-export async function cleanContentBody(feedUrl) {
+export function cleanContentBody(fetchedData) {
     try {
-        const fetchedData = await fetchPost(feedUrl);
         if (!fetchedData) throw new Error('Failed to fetch post data.');
 
         let contentBody = fetchedData.content || '';
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = contentBody;
 
-        // Remove images with width=1 and height=1
-        tempDiv.querySelectorAll('img').forEach(img => {
-            if (img.width === 1 && img.height === 1) img.remove();
+        tempDiv.querySelectorAll('script, style, iframe, object, embed, form, input, button, video, audio').forEach((element) => element.remove());
+        tempDiv.querySelectorAll('img[width="1"][height="1"]').forEach((image) => image.remove());
+
+        tempDiv.querySelectorAll('*').forEach((element) => {
+            const originalHref = element.getAttribute('href');
+            const originalSrc = element.getAttribute('src');
+            const originalAlt = element.getAttribute('alt');
+            Array.from(element.attributes).forEach((attribute) => element.removeAttribute(attribute.name));
+
+            if (element.tagName === 'A') {
+                if (originalHref && /^https?:/i.test(originalHref)) {
+                    element.href = originalHref;
+                    element.target = '_blank';
+                    element.rel = 'noopener noreferrer';
+                }
+            }
+
+            if (element.tagName === 'IMG' && originalSrc && /^https?:/i.test(originalSrc)) {
+                element.src = originalSrc;
+                element.alt = originalAlt || '';
+                element.loading = 'lazy';
+                element.decoding = 'async';
+            }
         });
 
         // Remove the first <figure> entirely

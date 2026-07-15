@@ -1,11 +1,10 @@
 title: Jan Michael Wallace
 email: hello@janmichael.io
-description: "Portfolio"
+description: "Jan Michael Wallace II is a fractional product design leader helping growing companies turn product ambiguity into clear strategy, scalable systems, and durable shipped work."
 baseurl: ""
 url: "https://janmichael.io"
+asset_version: "2026.07.14.7"
 github_username: jmwii1981
-plugins:
-  - jekyll-feed
 sass:
   sass_dir: _sass
   style: compressed
@@ -15,3 +14,11 @@ include:
   - icons
   - images
   - scripts
+exclude:
+  - README.md
+  - LICENSE
+  - scripts/README.md
+  - scripts/audit-site.rb
+  - scripts/allorigins.xml
+  - scripts/rsstojson.json
+  - scripts/working as of 11-19-2024 at 1119 PM.zip

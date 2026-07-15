@@ -5,11 +5,8 @@
  * @param {string} feedUrl - The feed URL for fetching the post data.
  * @returns {string|null} - HTML string for the featured image or null on failure.
  */
-import fetchPost from './fetchPost.mjs';
-
-export async function cleanImage(feedUrl) {
+export function cleanImage(fetchedData) {
     try {
-        const fetchedData = await fetchPost(feedUrl);
         if (!fetchedData) throw new Error('Failed to fetch post data.');
 
         const tempDiv = document.createElement('div');
@@ -22,7 +19,16 @@ export async function cleanImage(feedUrl) {
         const figCaption = firstImageFigure.querySelector('figcaption');
         const altText = figCaption ? figCaption.textContent : 'Image';
 
-        return `<img class="img post-featured-img" src="${imgTag.src}" alt="${altText}">`;
+        if (!imgTag?.src || !/^https?:$/i.test(new URL(imgTag.src).protocol)) return null;
+
+        const cleanImage = document.createElement('img');
+        cleanImage.className = 'img post-featured-img';
+        cleanImage.src = imgTag.src;
+        cleanImage.alt = altText.trim();
+        cleanImage.loading = 'lazy';
+        cleanImage.decoding = 'async';
+
+        return cleanImage.outerHTML;
     } catch (error) {
         console.error('Error in cleanImage:', error);
         return null;
