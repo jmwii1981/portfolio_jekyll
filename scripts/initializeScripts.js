@@ -48,6 +48,93 @@
             });
         };
 
+        const initializeContactForm = () => {
+            const form = document.querySelector('[data-contact-form]');
+
+            if (!form) return;
+
+            const submitButton = form.querySelector('[type="submit"]');
+            const buttonLabel = submitButton?.querySelector('.button-label');
+            const status = form.querySelector('[data-contact-status]');
+            const requiredFields = Array.from(form.querySelectorAll('[required]'));
+
+            if (!submitButton || !buttonLabel || !status || typeof window.fetch !== 'function') return;
+
+            const defaultButtonLabel = buttonLabel.textContent;
+            let isSubmitting = false;
+
+            const setStatus = (message, state = '') => {
+                status.textContent = message;
+
+                if (state) {
+                    status.dataset.state = state;
+                } else {
+                    status.removeAttribute('data-state');
+                }
+            };
+
+            requiredFields.forEach((field) => {
+                field?.addEventListener('input', () => field.setCustomValidity(''));
+            });
+
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                if (isSubmitting) return;
+
+                const emptyField = requiredFields.find((field) => !field.value.trim());
+
+                if (emptyField) {
+                    emptyField.setCustomValidity('Please complete this field.');
+                    emptyField.reportValidity();
+                    return;
+                }
+
+                isSubmitting = true;
+                form.setAttribute('aria-busy', 'true');
+                submitButton.disabled = true;
+                buttonLabel.textContent = 'Sending…';
+                setStatus('Sending your message…', 'pending');
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            Accept: 'application/json'
+                        },
+                        body: new FormData(form)
+                    });
+                    const data = await response.json();
+
+                    if (!response.ok || data?.success !== true) {
+                        const message = response.status === 429
+                            ? 'Too many attempts were made. Please wait and try again.'
+                            : data?.message || data?.body?.message || data?.error || 'I couldn’t send your message. Please try again.';
+                        const submissionError = new Error(message);
+
+                        submissionError.name = 'ContactSubmissionError';
+                        throw submissionError;
+                    }
+
+                    form.reset();
+                    setStatus('Thanks—your message has been sent.', 'success');
+                } catch (error) {
+                    console.error('Contact form submission failed:', error);
+
+                    const message = error?.name === 'ContactSubmissionError'
+                        ? error.message
+                        : 'Something went wrong. Please try again or email me directly.';
+
+                    setStatus(message, 'error');
+                } finally {
+                    isSubmitting = false;
+                    form.removeAttribute('aria-busy');
+                    submitButton.disabled = false;
+                    buttonLabel.textContent = defaultButtonLabel;
+                }
+            });
+        };
+
         const initializeConsentBanner = () => {
             const banner = document.querySelector('[data-consent-banner]');
             const acceptButton = document.querySelector('[data-consent-accept]');
@@ -821,6 +908,7 @@
 
         initializeLogoAnimation();
         initializeInquiryMailtoLinks();
+        initializeContactForm();
         initializeConsentBanner();
         initializeScrollHeader();
         initializeMobileNavigation();

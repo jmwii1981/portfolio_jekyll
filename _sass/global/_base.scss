@@ -27,7 +27,7 @@
     z-index: 1;
 }
 
-.skip-link {
+.a.skip-link {
     background: var(--color-ink);
     color: var(--color-paper);
     left: var(--site-frame-gutter);
@@ -39,7 +39,7 @@
     z-index: 100;
 }
 
-.skip-link:focus-visible {
+.a.skip-link:focus-visible {
     color: var(--color-paper);
     transform: translateY(0);
 }
