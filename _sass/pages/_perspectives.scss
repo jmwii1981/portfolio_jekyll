@@ -20,26 +20,15 @@
   margin: 0;
   width: 100%;
 }
-.perspectives-intro {
-  margin-bottom: clamp(4rem, 8vw, 7rem);
-  max-width: 54rem;
-}
-.perspectives-intro .section-label,
 .perspectives-sidebar .section-label {
   margin-bottom: 1.5rem;
-}
-.perspectives-title {
-  display: block;
-  font-size: clamp(2.75rem, 6vw, 5.75rem);
-  letter-spacing: -0.055em;
-  line-height: 0.98;
-  margin: 0;
 }
 .perspectives-summary {
   color: var(--color-text-soft);
   display: block;
   font-size: clamp(1.05rem, 1.6vw, 1.3rem);
-  line-height: 1.6;
+  letter-spacing: var(--type-lead-letter-spacing);
+  line-height: var(--type-lead-line-height);
   margin: clamp(1.5rem, 4vw, 2.5rem) 0 0;
   max-width: 38rem;
 }
@@ -52,8 +41,8 @@
 .perspectives-sidebar-title {
   display: block;
   font-size: clamp(1.75rem, 3vw, 2.5rem);
-  letter-spacing: -0.035em;
-  line-height: 1.1;
+  letter-spacing: var(--type-card-letter-spacing);
+  line-height: var(--type-card-line-height);
   margin: 0;
 }
 .perspectives-actions {
@@ -84,8 +73,40 @@
 }
 .post-title {
   display: block;
-  margin: 0 0 clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(2.75rem, 6vw, 5.5rem);
+  letter-spacing: var(--type-feature-letter-spacing);
+  line-height: var(--type-feature-line-height);
+  margin: 0 0 clamp(2rem, 5vw, 3.5rem);
   width: 100%;
+}
+.perspectives-feed-fallback {
+  padding-top: 0;
+}
+.perspectives-feed-fallback .h2 {
+  display: block;
+  margin: 0 0 1rem;
+}
+.perspectives-feed-fallback .p {
+  display: block;
+  margin: 0 0 1rem;
+  max-width: 38rem;
+}
+.post-body {
+  display: flow-root;
+  line-height: var(--type-reading-line-height);
+}
+.post-body :where(p, ul, ol, blockquote, figure) {
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+}
+.post-body :where(h2, h3, h4) {
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  margin-top: 2.5rem;
+}
+.post-body :where(img) {
+  height: auto;
+  max-width: 100%;
 }
 .post-meta {
   align-items: center;

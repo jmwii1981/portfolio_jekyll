@@ -9,20 +9,27 @@ import { cleanImage } from './cleanImage.mjs';
 import { cleanTitle } from './cleanTitle.mjs';
 import { cleanPubDateAndTime } from './cleanPubDateAndTime.mjs';
 import { cleanContentBody } from './cleanContentBody.mjs';
+import fetchPost from './fetchPost.mjs';
 
 export async function sequenceContent(feedUrl) {
     try {
-        const image = await cleanImage(feedUrl);
-        const title = await cleanTitle(feedUrl);
-        const { date, time } = await cleanPubDateAndTime(feedUrl);
-        const content = await cleanContentBody(feedUrl);
+        const fetchedData = await fetchPost(feedUrl);
+        const image = cleanImage(fetchedData);
+        const title = cleanTitle(fetchedData);
+        const { date, time } = cleanPubDateAndTime(fetchedData);
+        const content = cleanContentBody(fetchedData);
+        const textContent = document.createElement('div');
+        textContent.innerHTML = content || '';
+        const wordCount = textContent.textContent.trim().split(/\s+/).filter(Boolean).length;
+        const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
         return {
             image,
             title,
             date,
             time,
-            content
+            content,
+            readingTime
         };
     } catch (error) {
         console.error('Error in sequenceContent:', error);

@@ -26,3 +26,24 @@
     width: 100%;
     z-index: 1;
 }
+
+.skip-link {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    left: var(--site-frame-gutter);
+    padding: 0.75rem 1rem;
+    position: fixed;
+    top: 0.75rem;
+    transform: translateY(-200%);
+    transition: transform 0.2s ease;
+    z-index: 100;
+}
+
+.skip-link:focus-visible {
+    color: var(--color-paper);
+    transform: translateY(0);
+}
+
+#main-content:focus {
+    outline: none;
+}

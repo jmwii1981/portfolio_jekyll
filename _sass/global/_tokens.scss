@@ -11,6 +11,21 @@
 
     // Typography
     --font-sans: "Heebo", "Helvetica neue", Helvetica, Verdana, sans-serif;
+    --type-display-letter-spacing: -0.055em;
+    --type-display-line-height: 0.9;
+    --type-section-letter-spacing: -0.045em;
+    --type-section-line-height: 1;
+    --type-feature-letter-spacing: -0.05em;
+    --type-feature-line-height: 0.98;
+    --type-card-letter-spacing: -0.025em;
+    --type-card-line-height: 1.15;
+    --type-lead-letter-spacing: -0.01em;
+    --type-lead-line-height: 1.55;
+    --type-body-line-height: 1.6;
+    --type-reading-line-height: 1.65;
+    --type-label-font-size: 0.85rem;
+    --type-label-letter-spacing: 0.12em;
+    --type-label-line-height: 1.4;
 
     // Core palette
     --color-background: var(--color-paper);
@@ -44,9 +59,6 @@
     --color-glass: rgba(255, 255, 255, 0.3);
     --color-glass-border: rgba(255, 255, 255, 0.35);
     --color-glass-clear: rgba(255, 255, 255, 0);
-
-    // Component behavior
-    --button-peer-dim-opacity: 0.5;
 
     // Shadows
     --shadow-consent: 0 1rem 3rem rgba(0, 0, 0, 0.08);

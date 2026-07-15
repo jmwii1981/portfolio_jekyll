@@ -63,11 +63,11 @@ Styles live in `_sass/` and are organized by responsibility:
 - `layouts/`: page-level structure
 - `components/`: reusable UI pieces
 - `includes/`: header, nav, footer, and other include-specific styles
-- `content_blocks/`: page and section-specific styles
+- `pages/`: page and section-specific styles
 - `fonts/`: font declarations
 - `resets/`: browser normalization
 
-Before adding a new style, use the narrowest durable home. Shared primitives belong in `global/`; one-off page sections belong in `content_blocks/`.
+Before adding a new style, use the narrowest durable home. Shared primitives belong in `global/`; one-off page sections belong in `pages/`.
 
 ## Assets
 
@@ -109,13 +109,23 @@ git commit -m "Describe the change"
 git push origin gh-pages
 ```
 
+Pushing to `gh-pages` also runs the site-quality workflow. It builds the site, checks JavaScript syntax, and verifies heading identity, image alternatives, external-link safety, JSON-LD validity, and sitemap hygiene.
+
+Run the same checks locally before committing:
+
+```bash
+bundle exec jekyll build
+node --check scripts/initializeScripts.js
+ruby scripts/audit-site.rb
+```
+
 Avoid committing generated or local system files such as `.DS_Store`, temporary PDFs, or `_site/` output unless intentionally required.
 
 ## Maintenance Notes
 
 - Keep spacing and width decisions tied to existing site tokens where possible.
-- Use `--site-frame-padding` for the visible page edge shared by the header, hero, content sections, and footer.
-- Use `--site-width` for the overall site container.
+- Use `--site-frame-gutter` for the visible page edge shared by the header, hero, content sections, and footer.
+- Use `--site-max-width` for the overall site container.
 - Keep nav/header styles consolidated in `_sass/includes/`.
 - Keep authored page content in Markdown files unless a reusable include is warranted.
 

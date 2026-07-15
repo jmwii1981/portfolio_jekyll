@@ -113,18 +113,6 @@
         width: 100%;
     }
 
-    .button.primary {
-        order: 1;
-    }
-
-    .button.secondary {
-        order: 0;
-    }
-
-    .button.primary:is(:hover, :focus-visible) ~ .button.secondary {
-        opacity: var(--button-peer-dim-opacity);
-    }
-
 }
 
 @media (min-width: 28.125rem) {

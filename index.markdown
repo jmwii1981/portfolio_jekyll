@@ -1,9 +1,10 @@
 ---
 layout: page
 title: About
+description: "Fractional product design leadership for growing companies navigating product ambiguity, design systems, team alignment, and scalable delivery."
 ---
 
-<main class="main about">
+<main class="main about" id="main-content" tabindex="-1">
     <section class="hero">
         <div class="content-wrapper">
             <div class="copy-wrapper">
@@ -12,20 +13,16 @@ title: About
                 <h3 class="h3">I’m a Fractional Product Design Leader.</h3>
                 <h4 class="h4">I help growing companies turn product ambiguity into clear strategy, scalable systems, and shipped work that holds up as their businesses evolve.</h4>
                 <div class="button-group">
-                    <a 
-                    class="a button primary"
-                    href="mailto:hello@janmichael.io"
-                    data-randomized-mailto
-                    target="_blank"
-                    rel="noopener noreferrer"><span class="button-label">Contact me</span><span class="button-fill"></span></a>
-                    <a 
+                    <a
                     class="a button secondary"
-                    href="{{ site.url }}{{ site.baseurl }}/work/" 
-                    target="_parent"><span class="button-label">View selected work</span><span class="button-fill"></span></a>
+                    href="{{ '/work/' | relative_url }}"><span class="button-label">View selected work</span><span class="button-fill"></span></a>
+                    <a
+                    class="a button primary"
+                    href="{{ '/contact/' | relative_url }}"><span class="button-label">Contact me</span><span class="button-fill"></span></a>
                 </div>
             </div>
             <div class="image-wrapper">
-                <img class="image" src="/images/hero/janmichael.png?v={{ site.time | date: '%Y%m%d%H%M%S' }}" alt="Image of Jan Michael">
+                <img width="834" height="882" class="image" src="{{ '/images/hero/janmichael.png' | relative_url }}?v={{ site.asset_version }}" alt="Jan Michael Wallace II" decoding="async" fetchpriority="high">
             </div>
         </div>
     </section>
@@ -75,58 +72,58 @@ title: About
                     <div class="logo-carousel-track">
                         <ul class="testimony-list">
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/globalpayments.svg" alt="Global Payments">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/globalpayments.svg" alt="Global Payments">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/aph.svg" alt="APH">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/aph.svg" alt="APH">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/worldpay.svg" alt="Worldpay">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/worldpay.svg" alt="Worldpay">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/big-ass-fans.svg" alt="Big Ass Fans">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/big-ass-fans.svg" alt="Big Ass Fans">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/advancedmd.svg" alt="AdvancedMD">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/advancedmd.svg" alt="AdvancedMD">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/mcm-cpas.svg" alt="MCM CPAs & Advisors">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mcm-cpas.svg" alt="MCM CPAs & Advisors">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/cleanse-clinic.svg" alt="Cleanse Clinic">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/cleanse-clinic.svg" alt="Cleanse Clinic">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/tsys.svg" alt="TSYS">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/tsys.svg" alt="TSYS">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/mightily.svg" alt="Mightily">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mightily.svg" alt="Mightily">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/adapt-health.svg" alt="AdaptHealth">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/adapt-health.svg" alt="AdaptHealth">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/integrated-sign.svg" alt="Integrated Sign">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/integrated-sign.svg" alt="Integrated Sign">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/xenial.svg" alt="Xenial">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/xenial.svg" alt="Xenial">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/old-forester.svg" alt="Old Forester">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/old-forester.svg" alt="Old Forester">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/dbs-interactive.svg" alt="DBS Interactive">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/dbs-interactive.svg" alt="DBS Interactive">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/zeon-chemicals.svg" alt="Zeon Chemicals">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/zeon-chemicals.svg" alt="Zeon Chemicals">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/evo-payments.svg" alt="EVO Payments">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/evo-payments.svg" alt="EVO Payments">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/mighty-small-homes.svg" alt="Mighty Small Homes">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mighty-small-homes.svg" alt="Mighty Small Homes">
                             </li>
                             <li class="testimony-item">
-                                <img class="company-logo" src="/images/company-logos/humana.svg" alt="Humana">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/humana.svg" alt="Humana">
                             </li>
                         </ul>
                     </div>
@@ -235,23 +232,20 @@ title: About
         </div>
     </section>
     <section class="about-me">
-        <div class="content-container" data-reveal="right">
-            <div class="content-wrapper">
-                <div class="image-wrapper">
-                    <img class="image" src="/images/headshots/bio-pic.png?v={{ site.time | date: '%Y%m%d%H%M%S' }}" alt="Portrait of Jan Michael">
-                </div>
-                <div class="inner-wrapper">
-                    <h2 class="h2 section-label">About me</h2>
-                    <p class="p">
-                        I’m a builder at heart. For over 20 years, I’ve helped startups turn ambitious ideas into products people love. Outside work, I’m exploring new places, giving back, raising four kids, or searching for a great cup of coffee.
-                    </p>
-                </div>
+        <div class="about-me-inner" data-reveal="up">
+            <div class="about-me-copy">
+                <p class="p about-me-eyebrow">Beyond the work</p>
+                <h2 class="h2 about-me-title">I’m usually making something—or going somewhere.</h2>
+                <p class="p about-me-statement">Curiosity has kept me building for more than 20 years. Away from product work, that same instinct has me exploring new places, giving back, raising four kids, and searching for a great cup of coffee.</p>
             </div>
-            <div class="content-wrapper">
-                <h2 class="h2">Let's chat</h2>
-                <p class="p">
-                    I’m open to leadership opportunities with teams facing new territory and driving product innovation. To discuss a role, project, or collaboration, email me at <a class="a" href="mailto:hello@janmichael.io" data-randomized-mailto target="_blank" rel="noopener noreferrer">hello@janmichael.io</a> or connect with me on <a class="a" href="//www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
-                </p>
+            <div class="about-me-next">
+                <p class="p about-me-eyebrow">Get in touch</p>
+                <h2 class="h2">Have a problem worth untangling?</h2>
+                <p class="p about-me-invitation">I’m always glad to compare notes on a product, a team, or what might come next.</p>
+                <div class="button-group about-me-actions">
+                    <a class="a button secondary" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer"><span class="button-label">Connect on LinkedIn <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span><span class="button-fill"></span></a>
+                    <a class="a button primary" href="{{ '/contact/' | relative_url }}"><span class="button-label">Start a conversation</span><span class="button-fill"></span></a>
+                </div>
             </div>
         </div>
     </section>

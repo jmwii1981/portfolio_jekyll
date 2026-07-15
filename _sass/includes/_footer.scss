@@ -8,7 +8,7 @@
     row-gap: 1.25rem;
     width: min(calc(100% - (var(--site-outer-gutter) * 2)), var(--site-max-width));
 
-    > section {
+    > * {
         min-width: 0;
     }
 

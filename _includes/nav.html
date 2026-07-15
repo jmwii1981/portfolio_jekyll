@@ -16,37 +16,35 @@
             class="tab-container">
                 <a 
                 id="about"
-                class="a tab 
-                        {% if page.url == '/' %}active{% endif %}" 
-                href="{{ site.url }}{{ site.baseurl }}/">About</a>
+                class="a tab {% if page.url == '/' %}active{% endif %}"
+                {% if page.url == '/' %}aria-current="page"{% endif %}
+                href="{{ '/' | relative_url }}">About</a>
         </li>
         <li 
             id="work-tab"
             class="tab-container">
                 <a 
                 id="work"
-                class="a tab 
-                        {% if page.url == '/work/' %}active{% endif %}"
-                href="{{ site.url }}{{ site.baseurl }}/work/">Work</a>
+                class="a tab {% if page.url == '/work/' %}active{% endif %}"
+                {% if page.url == '/work/' %}aria-current="page"{% endif %}
+                href="{{ '/work/' | relative_url }}">Work</a>
         </li>
         <li 
             id="perspectives-tab"
             class="tab-container">
                 <a 
                     id="perspectives"
-                    class="a tab 
-                            {% if page.url == '/perspectives/' %}active{% endif %}" 
-                    href="{{ site.url }}{{ site.baseurl }}/perspectives/">Perspectives</a>
+                    class="a tab {% if page.url == '/perspectives/' %}active{% endif %}"
+                    {% if page.url == '/perspectives/' %}aria-current="page"{% endif %}
+                    href="{{ '/perspectives/' | relative_url }}">Perspectives</a>
         </li>
         <li 
             id="contact-tab"
             class="tab-container">
                 <a id="contact"
-                   class="a tab"
-                   href="mailto:hello@janmichael.io"
-                   data-randomized-mailto
-                   target="_blank"
-                   rel="noopener noreferrer">Contact Me</a>
+                   class="a tab {% if page.url == '/contact/' %}active{% endif %}"
+                   {% if page.url == '/contact/' %}aria-current="page"{% endif %}
+                   href="{{ '/contact/' | relative_url }}">Contact Me</a>
         </li>
     </ul>
 </nav>

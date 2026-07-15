@@ -1,32 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-
-<!-- About page -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://janmichael.io/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.1</priority>
+    <loc>https://janmichael.io/</loc>
   </url>
-
-  <!-- Blog (Perspectives) page -->
   <url>
-    <loc>http://janmichael.io/perspectives/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.2</priority>
+    <loc>https://janmichael.io/work/</loc>
   </url>
-
-  <!-- Portfolio section -->
   <url>
-    <loc>http://janmichael.io/work/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://janmichael.io/perspectives/</loc>
   </url>
-
-  <!-- endorsements page -->
   <url>
-    <loc>http://janmichael.io/endorsements/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <loc>https://janmichael.io/contact/</loc>
+  </url>
+  <url>
+    <loc>https://janmichael.io/terms/</loc>
   </url>
 </urlset>

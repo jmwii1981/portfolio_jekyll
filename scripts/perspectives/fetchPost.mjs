@@ -6,7 +6,7 @@
 class PostFetcher {
     constructor(feedUrl) {
         this.feedUrl = feedUrl;
-        this.rsstojsonUrl = `https://api.rss2json.com/v1/api.json?rss_url=${this.feedUrl}`;
+        this.rsstojsonUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(this.feedUrl)}`;
         this.allOriginsBaseUrl = 'https://api.allorigins.win/get?url=';
         this.defaultData = {
             title: "No Title Available",
@@ -54,7 +54,6 @@ class PostFetcher {
                         sourceFlag: "RSStoJSON"
                     };
                     this.log("info", "Successfully fetched data from RSStoJSON");
-                    console.log(result);
                     return result;
                 }
             }
@@ -92,7 +91,6 @@ class PostFetcher {
                             sourceFlag: "AllOrigins"
                         };
                         this.log("info", "Successfully fetched data from AllOrigins");
-                        console.log(result);
                         return result;
                     }
                 }
@@ -127,10 +125,8 @@ class PostFetcher {
             return allOriginsData;
         }
 
-        // Final fallback: Default data
-        this.log("error", "Both RSStoJSON and AllOrigins failed. Returning default data.");
-        console.log(this.defaultData);
-        return this.defaultData;
+        this.log("error", "Both RSStoJSON and AllOrigins failed.");
+        return null;
     }
 }
 
@@ -138,8 +134,7 @@ class PostFetcher {
  * Exported function to fetch post data.
  * @returns {Promise<Object>} The post data.
  */
-export default async function fetchPost() {
-    const feedUrl = 'https://medium.com/feed/@jmwii1981';
+export default async function fetchPost(feedUrl = 'https://medium.com/feed/@jmwii1981') {
     const fetcher = new PostFetcher(feedUrl);
     return await fetcher.fetchPostData();
 }

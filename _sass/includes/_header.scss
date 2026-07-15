@@ -96,9 +96,27 @@
     }
 }
 
+.site-identity {
+    display: block;
+    font: inherit;
+    margin: 0;
+}
+
 @media screen and (min-width: 26.3125rem) {
     .header {
         padding-left: 0;
         padding-right: 0;
+    }
+}
+
+@supports not ((backdrop-filter: blur(1rem)) or (-webkit-backdrop-filter: blur(1rem))) {
+    .header.is-scrolled,
+    .header.is-scrolled::before {
+        background: var(--color-paper);
+    }
+
+    .body--work .header.is-scrolled,
+    .body--work .header.is-scrolled::before {
+        background: var(--color-ink);
     }
 }

@@ -45,6 +45,10 @@
     &.is-ready {
         opacity: 1;
     }
+
+    &.is-positioning {
+        transition: none;
+    }
 }
 
 .nav {
@@ -94,6 +98,7 @@
 }
 
 .tab {
+    display: block;
     font-size: 0.82rem;
     font-weight: 500;
     letter-spacing: 0.055rem;
@@ -102,10 +107,6 @@
     transition:
         color 0.2s ease,
         text-shadow 0.2s ease;
-}
-
-.tab {
-    display: block;
 }
 
 .tab.active {
@@ -152,7 +153,7 @@
         background: var(--color-ink);
         display: block;
         height: 0.125rem;
-        transform: translateY(-0.3125rem);
+        transform: translateY(-0.25rem);
         transform-origin: center;
         transition: transform 0.25s ease;
         width: 1.625rem;
@@ -173,6 +174,7 @@
         background: var(--color-paper);
         flex-direction: column;
         gap: 1.25rem;
+        height: 100vh;
         height: 100dvh;
         inset: 0;
         justify-content: center;
@@ -253,6 +255,39 @@
     overflow: hidden;
 }
 
+.no-js .header {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-bottom: 1rem;
+    position: relative;
+}
+
+.no-js .nav-container {
+    height: auto;
+    width: 100%;
+}
+
+.no-js .nav-toggle,
+.no-js .nav-indicator {
+    display: none;
+}
+
+.no-js .nav {
+    gap: 0.5rem;
+    height: auto;
+    opacity: 1;
+    padding: 0;
+    pointer-events: auto;
+    position: static;
+    transform: none;
+    visibility: visible;
+}
+
+.no-js .tab,
+.no-js .tab.active {
+    font-size: 1.1rem;
+}
+
 @media screen and (min-width: 48.0625rem) {
     .nav-container {
         position: relative;
@@ -307,6 +342,23 @@
         line-height: normal;
         padding: 0;
         text-transform: uppercase;
+    }
+}
+
+@media screen and (min-width: 48.0625rem) {
+    .no-js .header {
+        flex-direction: row;
+        padding-bottom: 0.15rem;
+        position: fixed;
+    }
+
+    .no-js .nav-container {
+        width: auto;
+    }
+
+    .no-js .tab,
+    .no-js .tab.active {
+        font-size: 0.82rem;
     }
 }
 

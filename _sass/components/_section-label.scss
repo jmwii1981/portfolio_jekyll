@@ -1,8 +1,8 @@
 .section-label {
     color: var(--color-text-muted);
-    font-size: 0.95rem;
+    font-size: var(--type-label-font-size);
     font-weight: 700;
-    letter-spacing: 0.02rem;
-    line-height: 1.25;
+    letter-spacing: var(--type-label-letter-spacing);
+    line-height: var(--type-label-line-height);
     text-transform: uppercase;
 }

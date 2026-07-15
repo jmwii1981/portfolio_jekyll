@@ -29,34 +29,39 @@
 
 .h1 {
     font-size: 2rem;
-    line-height: 3rem;
+    letter-spacing: var(--type-section-letter-spacing);
+    line-height: var(--type-section-line-height);
 }
 
 .h2 {
     font-size: 1.5rem;
-    line-height: 2.25rem;
+    letter-spacing: var(--type-card-letter-spacing);
+    line-height: var(--type-card-line-height);
 
     &.massive {
-        font-size: 4rem;
-        font-weight: 900;
-        text-transform: uppercase;
+        font-size: clamp(2.5rem, 6vw, 5.5rem);
+        font-weight: 600;
+        letter-spacing: var(--type-section-letter-spacing);
+        line-height: var(--type-section-line-height);
     }
 }
 
 .h3 {
     font-size: 1.25rem;
-    line-height: 1.875rem;
+    letter-spacing: var(--type-card-letter-spacing);
+    line-height: var(--type-card-line-height);
 }
 
 .h4 {
     font-size: 1rem;
-    line-height: 1.5rem;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
 }
 
 .p {
     font-size: 1rem;
     font-weight: 400;
-    line-height: 1.5rem;
+    line-height: var(--type-body-line-height);
 }
 
 .a {
