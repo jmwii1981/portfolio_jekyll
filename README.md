@@ -93,7 +93,7 @@ The main entry point is:
 scripts/initializeScripts.js
 ```
 
-Current behaviors include progressive enhancements such as nav underline behavior, carousel behavior, recommendation rotation, consent handling, and related page interactions. The site should remain readable and navigable without JavaScript.
+Current behaviors include progressive contact-form validation and submission, nav underline behavior, user-controlled carousels and recommendations, consent handling, and related page interactions. The site should remain readable and navigable without JavaScript.
 
 ## Deployment
 
@@ -109,13 +109,14 @@ git commit -m "Describe the change"
 git push origin gh-pages
 ```
 
-Pushing to `gh-pages` also runs the site-quality workflow. It builds the site, checks JavaScript syntax, and verifies heading identity, image alternatives, external-link safety, JSON-LD validity, and sitemap hygiene.
+Pushing to `gh-pages` also runs the site-quality workflow. It builds the site, checks JavaScript syntax, and verifies page structure, ARIA references, responsive image delivery, contact fallbacks, metadata, external-link safety, JSON-LD/XML validity, and sitemap hygiene.
 
 Run the same checks locally before committing:
 
 ```bash
 bundle exec jekyll build
 node --check scripts/initializeScripts.js
+for file in scripts/perspectives/*.mjs; do node --check "$file"; done
 ruby scripts/audit-site.rb
 ```
 

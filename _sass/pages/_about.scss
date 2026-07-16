@@ -99,8 +99,9 @@
 .hero .h2 {
     animation: home-title-reveal 1s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
     font-size: clamp(2.75rem, 13.5vw, 3.6rem);
+    font-kerning: normal;
     font-weight: 600;
-    letter-spacing: var(--type-display-letter-spacing);
+    letter-spacing: -0.06em;
     line-height: var(--type-display-line-height);
     margin: 0;
     white-space: normal;
@@ -216,6 +217,12 @@
         object-fit: contain;
         object-position: bottom center;
         width: 42.5rem;
+    }
+
+    .hero .image-picture {
+        display: block;
+        height: 100%;
+        width: 100%;
     }
 }
 
@@ -448,7 +455,6 @@
         display: flex;
         flex-direction: column;
         gap: 2rem;
-        overflow: hidden;
         position: relative;
         width: 100%;
     }
@@ -481,6 +487,45 @@
         display: flex;
         transition: transform 0.45s ease;
         width: 100%;
+    }
+    .logo-carousel-toggle,
+    .recommendation-next {
+        align-items: center;
+        background: transparent;
+        border: 0;
+        border-radius: 0.2rem;
+        box-shadow: 0 0 0 0 var(--color-focus-ring);
+        color: var(--color-link);
+        cursor: pointer;
+        display: inline-flex;
+        font-family: inherit;
+        font-size: 0.78rem;
+        font-weight: 700;
+        gap: 0.5rem;
+        justify-content: center;
+        letter-spacing: 0.08em;
+        min-height: 2.75rem;
+        padding: 0.5rem;
+        text-decoration: underline;
+        text-decoration-thickness: 0.0625rem;
+        text-transform: uppercase;
+        text-underline-offset: 0.25rem;
+    }
+    .logo-carousel-toggle:hover,
+    .recommendation-next:hover {
+        text-decoration-thickness: 0.125rem;
+    }
+    .logo-carousel-toggle:focus-visible,
+    .recommendation-next:focus-visible {
+        box-shadow: 0 0 0 0.2rem var(--color-focus-ring);
+        outline: none;
+    }
+    .logo-carousel-toggle[hidden],
+    .recommendation-next[hidden] {
+        display: none;
+    }
+    .logo-carousel-toggle {
+        align-self: center;
     }
     #logos-page-1:checked ~ .logo-carousel-viewport .logo-carousel-track {
         transform: translateX(0);
@@ -646,7 +691,7 @@
         background: var(--color-carousel-dot-active);
     }
     .logo-carousel.is-continuous {
-        gap: 0;
+        gap: 0.75rem;
 
         .logo-carousel-control,
         .logo-carousel-dots {
@@ -722,6 +767,9 @@
         .testimony-item:has(.company-logo[src$="humana.svg"]) {
             flex-basis: 7.6rem;
         }
+        &.is-paused .logo-carousel-track {
+            animation-play-state: paused;
+        }
     }
     .recommendations {
         align-items: center;
@@ -741,43 +789,31 @@
         position: relative;
         width: 100%;
     }
-    .no-js & .recommendation-item {
-        animation: none;
-        display: none;
-        opacity: 1;
-        position: static;
-    }
-    .no-js & .recommendation-item:first-child {
-        display: flex;
-    }
     .recommendation-item {
         align-items: center;
-        animation: recommendation-fade 200s infinite;
-        display: flex;
+        display: none;
         flex-direction: column;
         gap: 1rem;
-        inset: 0;
-        opacity: 0;
-        position: absolute;
     }
-    .recommendation-list.is-controlled {
-        cursor: pointer;
-
-        .recommendation-item {
-            animation: none;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1.8s ease;
-        }
-        .recommendation-item.is-active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+    .recommendation-list:not(.is-controlled) .recommendation-item:first-child,
+    .recommendation-list.is-controlled .recommendation-item.is-active {
+        display: flex;
     }
-    @for $index from 1 through 24 {
-        .recommendation-item:nth-child(#{$index}) {
-            animation-delay: #{($index - 1) * 10s};
-        }
+    .recommendation-list .recommendation-item[hidden] {
+        display: none;
+    }
+    .recommendation-next {
+        margin-top: 1rem;
+    }
+    .recommendation-next-icon {
+        display: inline-block;
+        font-size: 1rem;
+        line-height: 1;
+        transition: transform 0.2s ease;
+    }
+    .recommendation-next:hover .recommendation-next-icon,
+    .recommendation-next:focus-visible .recommendation-next-icon {
+        transform: translateX(0.2rem);
     }
     .recommendation-quote {
         color: var(--color-text-soft);
@@ -807,19 +843,6 @@
         }
         to {
             transform: translateX(-50%);
-        }
-    }
-    @keyframes recommendation-fade {
-        0% {
-            opacity: 0;
-        }
-        1.2%,
-        3.8% {
-            opacity: 1;
-        }
-        5%,
-        100% {
-            opacity: 0;
         }
     }
 
@@ -910,7 +933,7 @@
     width: 100%;
 }
 
-@media screen and (min-width: 48.0625rem) {
+@media screen and (min-width: 64rem) {
     .about-me-inner {
         gap: clamp(3rem, 7vw, 8rem);
         grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
@@ -923,6 +946,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .logo-carousel.is-continuous .logo-carousel-track {
+        animation-play-state: paused;
+    }
+
+    .recommendation-next-icon {
+        transition: none;
+    }
+
     .hero .button-group,
     .hero .h2,
     .hero .h3,

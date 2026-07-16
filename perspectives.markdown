@@ -12,7 +12,7 @@ description: "Perspectives from Jan Michael Wallace II on product design leaders
             <p class="p">My current articles are also published on Medium, where they remain available if the live feed cannot load here.</p>
             <a class="a" href="https://medium.com/@jmwii1981" target="_blank" rel="noopener noreferrer">Read the latest perspectives on Medium</a>
         </div>
-        <div id="most-recent-post" class="most-recent-post" style="display: none;">
+        <div id="most-recent-post" class="most-recent-post" aria-busy="true" aria-hidden="true">
             <div class="skeleton-title"></div>
             <div class="skeleton-title"></div>
             <div class="skeleton-image"></div>

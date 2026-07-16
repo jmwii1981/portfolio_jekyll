@@ -73,6 +73,7 @@
     animation: work-copy-reveal 0.9s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
     display: block;
     font-size: clamp(3.5rem, 11vw, 9.5rem);
+    font-kerning: normal;
     font-weight: 600;
     letter-spacing: var(--type-display-letter-spacing);
     line-height: var(--type-display-line-height);
@@ -204,15 +205,25 @@
     gap: 0.5rem;
     letter-spacing: 0.04em;
     margin-top: 1.75rem;
+    min-height: 2.75rem;
     text-decoration: none;
 }
 
-.project-story-link span {
+.project-story-link .button-external-icon {
+    display: block;
+    flex: 0 0 auto;
+    height: 1rem;
+    pointer-events: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.75;
     transition: transform 0.25s ease;
+    width: 1rem;
 }
 
-.project-story-link:hover span,
-.project-story-link:focus-visible span {
+.project-story-link:hover .button-external-icon,
+.project-story-link:focus-visible .button-external-icon {
     transform: translate(0.2rem, -0.2rem);
 }
 
@@ -637,7 +648,9 @@
     .project-story-header--right {
         margin-left: auto;
     }
+}
 
+@media screen and (min-width: 64.0625rem) {
     .project-story-overview {
         align-items: start;
         gap: clamp(3rem, 6vw, 7rem);
@@ -710,6 +723,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .project-story-link .button-external-icon {
+        transition: none;
+    }
+
+    .project-story-link:hover .button-external-icon,
+    .project-story-link:focus-visible .button-external-icon {
+        transform: none;
+    }
+
     .work-intro-eyebrow,
     .work-intro-statement,
     .work-intro-title,

@@ -34,3 +34,19 @@
 @import "pages/perspectives";
 @import "pages/terms";
 @import "pages/work";
+
+@media (forced-colors: active) {
+    .a:focus-visible,
+    .button:focus-visible,
+    .contact-input:focus-visible,
+    .logo-carousel-toggle:focus-visible,
+    .nav-toggle:focus-visible,
+    .project-gallery-button:focus-visible,
+    .recommendation-next:focus-visible,
+    [data-gallery-viewport]:focus-visible,
+    .social-icon:focus-visible {
+        box-shadow: none;
+        outline: 0.125rem solid CanvasText;
+        outline-offset: 0.125rem;
+    }
+}

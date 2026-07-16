@@ -130,3 +130,16 @@
     85% { transform: translateX(100%); }
     100% { transform: translateX(100%); }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .skeleton-title::before,
+    .skeleton-meta-content-separator::before,
+    .skeleton-meta-avatar::before,
+    .skeleton-meta-item1::before,
+    .skeleton-meta-item2::before,
+    .skeleton-image::before,
+    .skeleton-text::before {
+        animation: none;
+        display: none;
+    }
+}

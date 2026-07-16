@@ -1,15 +1,15 @@
 ---
 layout: page
-title: Terms Of Use and Privacy Policy
+title: Terms of Use and Privacy Policy
 permalink: /terms/
 description: "Terms of use and privacy information for janmichael.io, including analytics, local browser storage, external services, and contact details."
 ---
 <main class="main terms" id="main-content" tabindex="-1">
-    <h2 class="h2 massive">Terms Of Use and Privacy Policy</h2>
+    <h2 class="h2 massive">Terms of Use and Privacy Policy</h2>
 
     <section>
         <h3 class="h3">Effective Date</h3>
-        <p class="p">These Terms Of Use and Privacy Policy are effective as of July 14, 2026.</p>
+        <p class="p">These Terms of Use and this Privacy Policy are effective as of July 15, 2026.</p>
     </section>
 
     <section>
@@ -19,8 +19,7 @@ description: "Terms of use and privacy information for janmichael.io, including 
 
     <section>
         <h3 class="h3">Information Used by This Site</h3>
-        <p class="p">This site uses a small amount of browser-based functionality to make the experience work as intended. When you use an inquiry email link, JavaScript creates a reference number using the current date and a local count stored in your browser. This helps make inquiries easier to identify and organize.</p>
-        <p class="p">The inquiry count is stored locally in your browser as <span class="span">janmichaelInquiryCount</span>. It is not submitted to this website by that script.</p>
+        <p class="p">This site uses a small amount of browser-based functionality to make the experience work as intended.</p>
         <p class="p">When you submit the contact form, your first name, last name, email address, subject, message, and related request information are transmitted to Web3Forms. Web3Forms processes the submission and forwards it to my email inbox. The email address you provide is used as the reply-to address for that message.</p>
         <p class="p">If you respond to the consent banner, your analytics choice is stored locally in your browser as <span class="span">janmichaelConsentPreference</span>. This prevents the site from asking for the same choice on every visit.</p>
         <p class="p">This site also uses JavaScript to adjust the header while scrolling and to load recent article content for the Perspectives page. Those features are used to display the site and its content properly.</p>
@@ -42,7 +41,7 @@ description: "Terms of use and privacy information for janmichael.io, including 
 
     <section>
         <h3 class="h3">Your Choices</h3>
-        <p class="p">You can choose not to submit the contact form and can email me directly instead. You can also clear this site's local browser storage through your browser settings if you want to remove the locally stored inquiry count.</p>
+        <p class="p">You can choose not to submit the contact form and can email me directly instead. You can also clear this site's local browser storage through your browser settings if you want to remove your saved analytics preference.</p>
         <p class="p">You may use browser settings, privacy tools, or extensions to limit cookies, local storage, JavaScript, analytics, or third-party requests. Blocking Web3Forms or other required services may prevent the contact form from submitting.</p>
     </section>
 
@@ -68,6 +67,6 @@ description: "Terms of use and privacy information for janmichael.io, including 
 
     <section>
         <h3 class="h3">Contact</h3>
-        <p class="p">Questions about these terms, this privacy policy, or this site's use of information can be sent to <a class="a" href="mailto:hello@janmichael.io" data-randomized-mailto>hello@janmichael.io</a>.</p>
+        <p class="p">Questions about these terms, this privacy policy, or this site's use of information can be sent to <a class="a" href="mailto:hello@janmichael.io">hello@janmichael.io</a>.</p>
     </section>
 </main>

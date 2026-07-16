@@ -22,7 +22,12 @@ description: "Fractional product design leadership for growing companies navigat
                 </div>
             </div>
             <div class="image-wrapper">
-                <img width="834" height="882" class="image" src="{{ '/images/hero/janmichael.png' | relative_url }}?v={{ site.asset_version }}" alt="Jan Michael Wallace II" decoding="async" fetchpriority="high">
+                <picture class="image-picture">
+                    <source media="(min-width: 73.8125rem)" type="image/avif" srcset="{{ '/images/hero/janmichael.avif' | relative_url }}?v={{ site.asset_version }}">
+                    <source media="(min-width: 73.8125rem)" type="image/webp" srcset="{{ '/images/hero/janmichael.webp' | relative_url }}?v={{ site.asset_version }}">
+                    <source media="(min-width: 73.8125rem)" srcset="{{ '/images/hero/janmichael.png' | relative_url }}?v={{ site.asset_version }}">
+                    <img width="834" height="882" class="image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 834 882'%3E%3C/svg%3E" alt="Jan Michael Wallace II" decoding="async" fetchpriority="high">
+                </picture>
             </div>
         </div>
     </section>
@@ -69,7 +74,7 @@ description: "Fractional product design leadership for growing companies navigat
             </header>
             <div class="logo-carousel" data-reveal="up">
                 <div class="logo-carousel-viewport">
-                    <div class="logo-carousel-track">
+                    <div class="logo-carousel-track" id="company-logo-track">
                         <ul class="testimony-list">
                             <li class="testimony-item">
                                 <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/globalpayments.svg" alt="Global Payments">
@@ -128,9 +133,12 @@ description: "Fractional product design leadership for growing companies navigat
                         </ul>
                     </div>
                 </div>
+                <button class="logo-carousel-toggle" type="button" data-logo-carousel-toggle aria-controls="company-logo-track" hidden>
+                    <span data-logo-carousel-toggle-label>Pause logo movement</span>
+                </button>
             </div>
             <div class="recommendations" data-reveal="up">
-                <ul class="recommendation-list">
+                <ul class="recommendation-list" id="recommendation-list" aria-live="polite" aria-atomic="true">
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan taught our team the product design process with patience and professionalism, helping us craft products that met stakeholder and user needs.”</blockquote>
                         <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Blake Spears, <span class="recommendation-role">Product Manager</span></p>
@@ -228,6 +236,10 @@ description: "Fractional product design leadership for growing companies navigat
                         <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Brittany Robinson, <span class="recommendation-role">Sr. Designer</span></p>
                     </li>
                 </ul>
+                <button class="recommendation-next" type="button" data-recommendation-next aria-controls="recommendation-list" hidden>
+                    <span>Next recommendation</span>
+                    <span class="recommendation-next-icon" aria-hidden="true">→</span>
+                </button>
             </div>
         </div>
     </section>

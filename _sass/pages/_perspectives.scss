@@ -82,6 +82,20 @@
 .perspectives-feed-fallback {
   padding-top: 0;
 }
+.post-content-wrapper > .most-recent-post {
+  display: none;
+}
+.js .post-content-wrapper.is-feed-loading > .most-recent-post,
+.js .post-content-wrapper.is-feed-ready > .most-recent-post {
+  display: block;
+}
+.js .post-content-wrapper.is-feed-loading:not(.has-active-fallback) > .perspectives-feed-fallback,
+.js .post-content-wrapper.is-feed-ready:not(.has-active-fallback) > .perspectives-feed-fallback {
+  display: none;
+}
+.js .post-content-wrapper.is-feed-error > .most-recent-post {
+  display: none;
+}
 .perspectives-feed-fallback .h2 {
   display: block;
   margin: 0 0 1rem;
@@ -144,11 +158,21 @@
   overflow: hidden;
   width: 2rem;
 }
+.post-author-picture {
+  display: block;
+  height: 2rem;
+  width: 2rem;
+}
 .post-author-image {
   display: block;
   height: 2rem;
   object-fit: cover;
   width: 2rem;
+}
+
+.main.perspectives .skeleton-image {
+  aspect-ratio: 16 / 9;
+  min-height: 0;
 }
 
 @media (min-width: 75rem) {
