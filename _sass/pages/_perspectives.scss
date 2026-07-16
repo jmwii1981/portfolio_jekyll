@@ -175,10 +175,18 @@
   min-height: 0;
 }
 
-@media (min-width: 75rem) {
+@media (min-width: 88rem) {
   .main.perspectives {
-    column-gap: clamp(4rem, 6vw, 7rem);
-    grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
+    column-gap: clamp(3rem, 4vw, 5rem);
+    grid-template-columns: minmax(46rem, 2.3fr) minmax(16rem, 0.7fr);
     row-gap: 0;
+  }
+
+  .post-title {
+    font-size: clamp(3.75rem, 4.5vw, 4.75rem);
+  }
+
+  .perspectives-sidebar-title {
+    font-size: clamp(2rem, 2.5vw, 2.5rem);
   }
 }

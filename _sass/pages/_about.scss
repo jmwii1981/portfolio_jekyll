@@ -66,7 +66,7 @@
     justify-content: space-between;
     margin: 0 auto;
     min-height: 0;
-    padding: clamp(1.5rem, calc(33.755vw - 7.846rem), 6.5rem) var(--site-frame-gutter) var(--site-outer-gutter);
+    padding: clamp(1.5rem, calc(33.755vw - 7.846rem), 6.5rem) var(--site-frame-gutter) clamp(1.5rem, 4vw, 3rem);
     position: relative;
     width: 100%;
 }
@@ -148,19 +148,11 @@
 
 @media (min-width: 42.5625rem) {
     .hero {
-        min-height: 51rem;
-        min-height: max(51rem, calc(100vh - var(--site-top-gutter)));
-        min-height: max(51rem, calc(100svh - var(--site-top-gutter)));
+        min-height: clamp(27rem, 64vw, 49rem);
     }
 
     .hero > .content-wrapper {
         min-height: inherit;
-        padding: 6rem var(--site-frame-gutter) 0;
-    }
-
-    .hero .copy-wrapper {
-        flex-basis: 30rem;
-        max-width: 30rem;
     }
 
     .hero .h2 {
@@ -171,9 +163,6 @@
         font-size: clamp(1.2rem, calc(1.47vw + 0.58rem), 1.4rem);
     }
 
-    .hero .h4 {
-        max-width: 28rem;
-    }
 }
 
 @media (min-width: 56.0625rem) {
@@ -197,32 +186,39 @@
     }
 }
 
-@media (min-width: 73.8125rem) {
+@media (min-width: 56.0625rem) {
     .hero .image-wrapper {
         animation: home-image-reveal 1.2s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
         bottom: 0;
         display: block;
-        height: 46rem;
-        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 38%, #000000 72%);
+        height: min(42rem, calc(100% - 1.5rem));
+        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 50%, #000000 82%);
         position: absolute;
         right: 0;
-        width: 42.5rem;
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 38%, #000000 72%);
+        width: clamp(26rem, 46vw, 42.5rem);
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 50%, #000000 82%);
         z-index: 1;
     }
 
     .hero .image-wrapper .image {
         display: block;
-        height: 46rem;
+        height: 100%;
         object-fit: contain;
         object-position: bottom center;
-        width: 42.5rem;
+        width: 100%;
     }
 
     .hero .image-picture {
         display: block;
         height: 100%;
         width: 100%;
+    }
+}
+
+@media (min-width: 65rem) {
+    .hero .image-wrapper {
+        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 42%, #000000 72%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 42%, #000000 72%);
     }
 }
 
@@ -308,6 +304,22 @@
     }
 }
 
+@media (min-width: 42.5625rem) and (max-height: 48rem) {
+    .hero {
+        min-height: 0;
+    }
+
+    .hero > .content-wrapper {
+        min-height: 0;
+        padding-bottom: clamp(2.5rem, 10vh, 4rem);
+        padding-top: clamp(3rem, 12vh, 5rem);
+    }
+
+    .hero .image-wrapper {
+        height: min(42rem, calc(100% - 1rem));
+    }
+}
+
 @media (min-width: 42.0625rem) {
     .home-section-title {
         font-size: clamp(3rem, 6vw, 5.5rem);
@@ -381,7 +393,7 @@
         margin: 0 0 clamp(2.5rem, 6vw, 5rem);
     }
 
-    @container (min-width: 34.0625rem) {
+    @container (min-width: 32rem) {
         .help-list {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -933,7 +945,7 @@
     width: 100%;
 }
 
-@media screen and (min-width: 64rem) {
+@media screen and (min-width: 70rem) {
     .about-me-inner {
         gap: clamp(3rem, 7vw, 8rem);
         grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);

@@ -8,6 +8,8 @@
     align-items: start;
     display: grid;
     gap: var(--site-section-gap);
+    column-gap: clamp(4rem, 7vw, 8rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 28rem), 1fr));
     width: 100%;
 }
 
@@ -184,13 +186,5 @@
 
     .contact-submit {
         width: auto;
-    }
-}
-
-@media (min-width: 80rem) {
-    .contact-section {
-        column-gap: clamp(4rem, 7vw, 8rem);
-        grid-template-columns: minmax(0, 0.95fr) minmax(28rem, 1fr);
-        row-gap: 0;
     }
 }

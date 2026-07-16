@@ -19,7 +19,7 @@
     left: 0;
     margin-left: auto;
     margin-right: auto;
-    padding: 0.15rem 1rem;
+    padding: 0.15rem clamp(0rem, calc(4rem - 13.333vw), 1rem);
     position: fixed;
     right: 0;
     top: 0;
@@ -100,13 +100,6 @@
     display: block;
     font: inherit;
     margin: 0;
-}
-
-@media screen and (min-width: 26.3125rem) {
-    .header {
-        padding-left: 0;
-        padding-right: 0;
-    }
 }
 
 @supports not ((backdrop-filter: blur(1rem)) or (-webkit-backdrop-filter: blur(1rem))) {

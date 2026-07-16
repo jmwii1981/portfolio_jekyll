@@ -1,9 +1,9 @@
 :root {
     // Layout
-    --site-content-gutter: 2rem;
-    --site-frame-gutter: 1.5rem;
+    --site-content-gutter: clamp(2rem, 8vw, 7rem);
+    --site-frame-gutter: clamp(1.5rem, 4vw, 4rem);
     --site-max-width: 101.5rem;
-    --site-outer-gutter: 0rem;
+    --site-outer-gutter: clamp(0rem, calc(8.2vw - 1.64rem), 4.5rem);
     --site-page-padding-top: 10rem;
     --site-section-gap: 3rem;
     --site-section-padding-y: 7rem;
@@ -72,17 +72,8 @@
     --gradient-shimmer-line: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.45) 50%, rgba(255, 255, 255, 0) 100%);
 }
 
-@media (min-width: 26.3125rem) {
-    :root {
-        --site-outer-gutter: 1.5rem;
-    }
-}
-
 @media (min-width: 42.0625rem) {
     :root {
-        --site-content-gutter: 7rem;
-        --site-frame-gutter: 4rem;
-        --site-outer-gutter: 4.5rem;
         --site-section-gap: 4rem;
     }
 }
