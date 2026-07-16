@@ -5,49 +5,6 @@
 
 (async () => {
     try {
-        const getCurrentDateStamp = () => {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-
-            return `${year}${month}${day}`;
-        };
-
-        const getNextInquiryCount = () => {
-            const storageKey = 'janmichaelInquiryCount';
-            try {
-                const currentCount = Number(localStorage.getItem(storageKey) || 0);
-                const nextCount = currentCount + 1;
-
-                localStorage.setItem(storageKey, nextCount);
-
-                return String(nextCount).padStart(2, '0');
-            } catch (error) {
-                return '01';
-            }
-        };
-
-        const initializeInquiryMailtoLinks = () => {
-            const links = document.querySelectorAll('[data-randomized-mailto]');
-
-            links.forEach((link) => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault();
-
-                    const dateStamp = getCurrentDateStamp();
-                    const inquiryId = `${dateStamp}-${getNextInquiryCount()}`;
-                    const subject = `Possible Project Lead – Inquiry #${inquiryId}`;
-                    const body = `${subject}\r\n\r\nHi Jan Michael. Please connect with me at `;
-                    const emailAddress = link.getAttribute('href').replace('mailto:', '').split('?')[0];
-                    const mailto = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-                    link.setAttribute('href', mailto);
-                    window.open(mailto, '_self', 'noopener');
-                });
-            });
-        };
-
         const initializeContactForm = () => {
             const form = document.querySelector('[data-contact-form]');
 
@@ -73,8 +30,78 @@
                 }
             };
 
+            const withDirectEmailFallback = (message) => {
+                const trimmedMessage = message.trim();
+                const punctuation = /[.!?]$/.test(trimmedMessage) ? '' : '.';
+
+                return `${trimmedMessage}${punctuation} You can also use the direct email link below.`;
+            };
+
+            const getFieldName = (field) => {
+                const label = field.labels?.[0]?.textContent.trim();
+
+                return label ? label.toLowerCase() : 'field';
+            };
+
+            const getFieldErrorMessage = (field) => {
+                const fieldName = getFieldName(field);
+
+                if (field.required && !field.value.trim()) {
+                    return `Enter your ${fieldName}.`;
+                }
+
+                if (field.validity.typeMismatch && field.type === 'email') {
+                    return 'Enter an email address in the format name@example.com.';
+                }
+
+                if (field.validity.tooLong) {
+                    return `Keep your ${fieldName} to ${field.maxLength} characters or fewer.`;
+                }
+
+                if (!field.validity.valid) {
+                    return `Review your ${fieldName}.`;
+                }
+
+                return '';
+            };
+
+            const setFieldError = (field, message = '') => {
+                const error = document.getElementById(`${field.id}-error`);
+
+                if (!error) return;
+
+                error.textContent = message;
+                error.hidden = !message;
+
+                if (message) {
+                    field.setAttribute('aria-invalid', 'true');
+                } else {
+                    field.removeAttribute('aria-invalid');
+                }
+            };
+
+            const clearFieldErrors = () => {
+                requiredFields.forEach((field) => setFieldError(field));
+            };
+
+            // Replace temporary browser bubbles only when the inline validation enhancement is active.
+            // Without JavaScript, the authored constraints and direct form POST remain unchanged.
+            form.noValidate = true;
+
             requiredFields.forEach((field) => {
-                field?.addEventListener('input', () => field.setCustomValidity(''));
+                field.addEventListener('invalid', () => {
+                    setFieldError(field, getFieldErrorMessage(field));
+                });
+
+                field.addEventListener('input', () => {
+                    if (field.getAttribute('aria-invalid') === 'true') {
+                        setFieldError(field, getFieldErrorMessage(field));
+                    }
+
+                    if (status.dataset.state && status.dataset.state !== 'pending') {
+                        setStatus();
+                    }
+                });
             });
 
             form.addEventListener('submit', async (event) => {
@@ -82,14 +109,18 @@
 
                 if (isSubmitting) return;
 
-                const emptyField = requiredFields.find((field) => !field.value.trim());
+                const invalidFields = requiredFields
+                    .map((field) => ({ field, message: getFieldErrorMessage(field) }))
+                    .filter(({ message }) => message);
 
-                if (emptyField) {
-                    emptyField.setCustomValidity('Please complete this field.');
-                    emptyField.reportValidity();
+                if (invalidFields.length) {
+                    setStatus();
+                    invalidFields.forEach(({ field, message }) => setFieldError(field, message));
+                    invalidFields[0].field.focus();
                     return;
                 }
 
+                clearFieldErrors();
                 isSubmitting = true;
                 form.setAttribute('aria-busy', 'true');
                 submitButton.disabled = true;
@@ -107,9 +138,11 @@
                     const data = await response.json();
 
                     if (!response.ok || data?.success !== true) {
+                        const responseMessage = [data?.message, data?.body?.message, data?.error]
+                            .find((message) => typeof message === 'string' && message.trim());
                         const message = response.status === 429
-                            ? 'Too many attempts were made. Please wait and try again.'
-                            : data?.message || data?.body?.message || data?.error || 'I couldn’t send your message. Please try again.';
+                            ? 'Too many attempts were made. Please wait and try again, or use the direct email link below.'
+                            : withDirectEmailFallback(responseMessage || 'I couldn’t send your message. Please try again.');
                         const submissionError = new Error(message);
 
                         submissionError.name = 'ContactSubmissionError';
@@ -117,13 +150,14 @@
                     }
 
                     form.reset();
+                    clearFieldErrors();
                     setStatus('Thanks—your message has been sent.', 'success');
                 } catch (error) {
                     console.error('Contact form submission failed:', error);
 
                     const message = error?.name === 'ContactSubmissionError'
                         ? error.message
-                        : 'Something went wrong. Please try again or email me directly.';
+                        : 'Something went wrong. Please try again or use the direct email link below.';
 
                     setStatus(message, 'error');
                 } finally {
@@ -244,7 +278,7 @@
             const navContainer = document.querySelector('.nav-container');
             const toggle = navContainer?.querySelector('.nav-toggle');
             const nav = navContainer?.querySelector('.nav');
-            const backgroundRegions = Array.from(document.querySelectorAll('main, footer, [data-consent-banner]'));
+            const backgroundRegions = Array.from(document.querySelectorAll('.skip-link, .site-identity, main, footer, [data-consent-banner]'));
 
             if (!navContainer || !toggle || !nav) return;
 
@@ -252,6 +286,7 @@
 
             const setMenuState = (isOpen, { restoreFocus = false } = {}) => {
                 navContainer.classList.toggle('is-open', isOpen);
+                document.documentElement.classList.toggle('is-nav-open', isOpen);
                 document.body.classList.toggle('is-nav-open', isOpen);
                 toggle.setAttribute('aria-expanded', String(isOpen));
                 toggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
@@ -281,9 +316,15 @@
                 }
             });
 
-            mobileQuery.addEventListener('change', (event) => {
+            const handleMobileChange = (event) => {
                 if (!event.matches) setMenuState(false);
-            });
+            };
+
+            if (typeof mobileQuery.addEventListener === 'function') {
+                mobileQuery.addEventListener('change', handleMobileChange);
+            } else if (typeof mobileQuery.addListener === 'function') {
+                mobileQuery.addListener(handleMobileChange);
+            }
         };
 
         const initializeScrollReveals = () => {
@@ -766,7 +807,11 @@
             });
 
             navContainer.addEventListener('navstatechange', requestIndicatorUpdate);
-            mobileQuery.addEventListener('change', requestIndicatorUpdate);
+            if (typeof mobileQuery.addEventListener === 'function') {
+                mobileQuery.addEventListener('change', requestIndicatorUpdate);
+            } else if (typeof mobileQuery.addListener === 'function') {
+                mobileQuery.addListener(requestIndicatorUpdate);
+            }
             window.addEventListener('resize', requestIndicatorUpdate);
         };
 
@@ -777,8 +822,10 @@
 
             const track = carousel.querySelector('.logo-carousel-track');
             const items = Array.from(carousel.querySelectorAll('.testimony-item'));
+            const toggle = carousel.querySelector('[data-logo-carousel-toggle]');
+            const toggleLabel = carousel.querySelector('[data-logo-carousel-toggle-label]');
 
-            if (!track || items.length < 2) return;
+            if (!track || items.length < 2 || !toggle || !toggleLabel) return;
 
             const createSequence = (isDuplicate = false) => {
                 const sequence = document.createElement('ul');
@@ -800,69 +847,47 @@
             carousel.classList.add('is-continuous');
 
             const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+            let isUserPaused = false;
 
-            if (reducedMotionQuery.matches) return;
-
-            let animationFrameId = null;
-            let isCarouselVisible = !('IntersectionObserver' in window);
-
-            const fadeLogosAtEdges = () => {
-                if (!isCarouselVisible) {
-                    animationFrameId = null;
-                    return;
-                }
-
-                const viewport = carousel.querySelector('.logo-carousel-viewport');
-
-                if (!viewport) return;
-
-                const viewportRect = viewport.getBoundingClientRect();
-                const fadeWidth = Math.min(360, viewportRect.width * 0.4);
-                const visibleItems = Array.from(track.querySelectorAll('.testimony-item'));
-
-                visibleItems.forEach((item) => {
-                    const itemRect = item.getBoundingClientRect();
-                    const logo = item.querySelector('.company-logo');
-                    const itemCenter = itemRect.left + itemRect.width / 2;
-                    const leftOpacity = (itemCenter - viewportRect.left) / fadeWidth;
-                    const rightOpacity = (viewportRect.right - itemCenter) / fadeWidth;
-                    const opacity = Math.max(0, Math.min(1, leftOpacity, rightOpacity));
-
-                    logo?.style.setProperty('--logo-opacity', opacity.toFixed(3));
-                });
-
-                animationFrameId = window.requestAnimationFrame(fadeLogosAtEdges);
+            const setPaused = (isPaused) => {
+                carousel.classList.toggle('is-paused', isPaused);
+                toggleLabel.textContent = isPaused ? 'Resume logo movement' : 'Pause logo movement';
             };
 
-            if ('IntersectionObserver' in window) {
-                const visibilityObserver = new IntersectionObserver(([entry]) => {
-                    isCarouselVisible = entry.isIntersecting;
+            const syncMotionPreference = () => {
+                const shouldReduceMotion = reducedMotionQuery.matches;
 
-                    if (isCarouselVisible && animationFrameId === null) {
-                        animationFrameId = window.requestAnimationFrame(fadeLogosAtEdges);
-                    }
-                });
+                toggle.hidden = shouldReduceMotion;
+                setPaused(shouldReduceMotion || isUserPaused);
+            };
 
-                visibilityObserver.observe(carousel);
-            } else {
-                animationFrameId = window.requestAnimationFrame(fadeLogosAtEdges);
+            toggle.addEventListener('click', () => {
+                isUserPaused = !isUserPaused;
+                setPaused(isUserPaused);
+            });
+
+            syncMotionPreference();
+
+            if (typeof reducedMotionQuery.addEventListener === 'function') {
+                reducedMotionQuery.addEventListener('change', syncMotionPreference);
+            } else if (typeof reducedMotionQuery.addListener === 'function') {
+                reducedMotionQuery.addListener(syncMotionPreference);
             }
         };
 
         const initializeRecommendationCarousel = () => {
             const carousel = document.querySelector('.recommendation-list');
+            const nextButton = document.querySelector('[data-recommendation-next]');
 
-            if (!carousel) return;
+            if (!carousel || !nextButton) return;
 
             const items = Array.from(carousel.querySelectorAll('.recommendation-item'));
-            const transitionDelayMs = 450;
+            const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
             let currentIndex = 0;
-            let transitionTimerId;
-            let isTransitioning = false;
 
             if (items.length < 2) return;
 
-            const activateItem = (index) => {
+            const activateItem = (index, shouldAnimate = false) => {
                 items.forEach((item, itemIndex) => {
                     const isActive = itemIndex === index;
                     item.classList.toggle('is-active', isActive);
@@ -870,44 +895,35 @@
                 });
 
                 currentIndex = index;
-            };
 
-            const transitionToItem = (index) => {
-                if (isTransitioning) return;
+                const activeItem = items[currentIndex];
 
-                isTransitioning = true;
-                window.clearTimeout(transitionTimerId);
-
-                items[currentIndex]?.classList.remove('is-active');
-
-                transitionTimerId = window.setTimeout(() => {
-                    activateItem(index);
-                    isTransitioning = false;
-                }, transitionDelayMs);
+                if (shouldAnimate && !reducedMotionQuery.matches && typeof activeItem?.animate === 'function') {
+                    activeItem.animate(
+                        [
+                            { opacity: 0 },
+                            { opacity: 1 }
+                        ],
+                        {
+                            duration: 350,
+                            easing: 'ease-out'
+                        }
+                    );
+                }
             };
 
             const showNextItem = () => {
-                transitionToItem((currentIndex + 1) % items.length);
+                activateItem((currentIndex + 1) % items.length, true);
             };
 
             carousel.classList.add('is-controlled');
-            carousel.setAttribute('role', 'button');
-            carousel.setAttribute('tabindex', '0');
-            carousel.setAttribute('aria-label', 'Show next recommendation');
-
             activateItem(currentIndex);
+            nextButton.hidden = false;
 
-            carousel.addEventListener('click', showNextItem);
-            carousel.addEventListener('keydown', (event) => {
-                if (event.key !== 'Enter' && event.key !== ' ') return;
-
-                event.preventDefault();
-                showNextItem();
-            });
+            nextButton.addEventListener('click', showNextItem);
         };
 
         initializeLogoAnimation();
-        initializeInquiryMailtoLinks();
         initializeContactForm();
         initializeConsentBanner();
         initializeScrollHeader();

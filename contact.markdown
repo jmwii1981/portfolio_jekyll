@@ -21,36 +21,42 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
             <div class="contact-name-fields">
                 <div class="contact-field">
                     <label class="contact-label" for="contact-first-name">First Name</label>
-                    <input class="contact-input" id="contact-first-name" name="First Name" type="text" autocomplete="given-name" maxlength="80" required>
+                    <input class="contact-input" id="contact-first-name" name="First Name" type="text" autocomplete="given-name" maxlength="80" required aria-describedby="contact-first-name-error">
+                    <p class="p contact-field-error" id="contact-first-name-error" data-contact-error hidden></p>
                 </div>
 
                 <div class="contact-field">
                     <label class="contact-label" for="contact-last-name">Last Name</label>
-                    <input class="contact-input" id="contact-last-name" name="Last Name" type="text" autocomplete="family-name" maxlength="80" required>
+                    <input class="contact-input" id="contact-last-name" name="Last Name" type="text" autocomplete="family-name" maxlength="80" required aria-describedby="contact-last-name-error">
+                    <p class="p contact-field-error" id="contact-last-name-error" data-contact-error hidden></p>
                 </div>
             </div>
 
             <div class="contact-field">
                 <label class="contact-label" for="contact-email">Email</label>
-                <input class="contact-input" id="contact-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" spellcheck="false" required>
+                <input class="contact-input" id="contact-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" spellcheck="false" required aria-describedby="contact-email-error">
+                <p class="p contact-field-error" id="contact-email-error" data-contact-error hidden></p>
             </div>
 
             <div class="contact-field">
                 <label class="contact-label" for="contact-subject">Subject</label>
-                <input class="contact-input" id="contact-subject" name="subject" type="text" maxlength="120" required>
+                <input class="contact-input" id="contact-subject" name="subject" type="text" maxlength="120" required aria-describedby="contact-subject-error">
+                <p class="p contact-field-error" id="contact-subject-error" data-contact-error hidden></p>
             </div>
 
             <div class="contact-field">
                 <label class="contact-label" for="contact-message">Message</label>
-                <textarea class="contact-input contact-textarea" id="contact-message" name="message" rows="7" maxlength="5000" required></textarea>
+                <textarea class="contact-input contact-textarea" id="contact-message" name="message" rows="7" maxlength="5000" required aria-describedby="contact-message-error"></textarea>
+                <p class="p contact-field-error" id="contact-message-error" data-contact-error hidden></p>
             </div>
 
             <div class="contact-actions">
                 <button class="button primary contact-submit" type="submit">
-                    <span class="button-label">Send Email</span>
+                    <span class="button-label">Send message</span>
                     <span class="button-fill" aria-hidden="true"></span>
                 </button>
                 <p class="p contact-form-status" id="contact-form-status" data-contact-status role="status" aria-live="polite" aria-atomic="true"></p>
+                <p class="p contact-direct-email" id="contact-direct-email">If you can’t use the form, email me directly at <a class="a" href="mailto:hello@janmichael.io">hello@janmichael.io</a>.</p>
             </div>
         </form>
     </section>

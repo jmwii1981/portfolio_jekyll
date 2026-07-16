@@ -13,12 +13,13 @@
     {% assign meta_description = page.description | default: site.description %}
     {% assign social_image = page.social_image | default: '/images/facebook-og-image.webp' %}
     {% assign canonical_url = page.url | absolute_url %}
+    {% assign robots_directive = page.robots | default: 'index, follow' %}
 
     <!-- site identity taxonomy / meta -->
     <title>{{ page_title }}</title>
     <meta name="description" content="{{ meta_description }}">
     <meta name="author" content="{{ site_name }}">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="{{ robots_directive }}">
     <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ '/sitemap.xml' | absolute_url }}">
     <link rel="author" href="{{ '/' | absolute_url }}">
     <link rel="canonical" href="{{ canonical_url }}">

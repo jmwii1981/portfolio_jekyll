@@ -75,7 +75,7 @@
     -webkit-appearance: none;
     appearance: none;
     background-color: var(--color-background);
-    border: 0.0625rem solid var(--color-border-muted);
+    border: 0.0625rem solid var(--color-border-control);
     border-radius: 0;
     color: var(--color-text);
     font-size: 1rem;
@@ -98,6 +98,23 @@
 
 .contact-input:focus-visible {
     box-shadow: 0 0 0 0.2rem var(--color-focus-ring);
+}
+
+.contact-input[aria-invalid="true"] {
+    border-color: var(--color-text);
+}
+
+.contact-field-error {
+    color: var(--color-text-soft);
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.45;
+    margin: -0.15rem 0 0;
+}
+
+.contact-field-error[hidden] {
+    display: none;
 }
 
 .contact-textarea {
@@ -146,6 +163,14 @@
 
 .contact-form-status:not(:empty) {
     margin-top: 0.75rem;
+}
+
+.contact-direct-email {
+    color: var(--color-text-soft);
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    margin: 0.75rem 0 0;
 }
 
 @media (min-width: 38rem) {

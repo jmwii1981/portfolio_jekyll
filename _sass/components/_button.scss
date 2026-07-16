@@ -93,6 +93,10 @@
         width: 200%;
     }
 
+    &:focus-visible {
+        box-shadow: 0 0 0 0.2rem var(--color-focus-ring);
+    }
+
     &:active .button-fill {
         background-color: var(--button-active-fill);
     }

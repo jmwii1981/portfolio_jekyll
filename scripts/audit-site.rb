@@ -2,6 +2,7 @@
 
 require "json"
 require "pathname"
+require "rexml/document"
 require "uri"
 
 site_root = Pathname.new(__dir__).join("..", "_site").expand_path
@@ -15,10 +16,24 @@ end
 site_root.glob("**/*.html").each do |file|
   html = file.read
   relative = file.relative_path_from(site_root)
+  ids = html.scan(/\bid=(['"])(.*?)\1/i).map(&:last)
   h1_count = html.scan(/<h1\b/i).length
+
   failures << "#{relative}: expected exactly one h1, found #{h1_count}" unless h1_count == 1
   failures << "#{relative}: branded h1 is missing its accessible name" unless html.match?(/<h1\b[^>]*class=(['"])[^'"]*site-identity[^'"]*\1[^>]*aria-label=(['"])Jan Michael Wallace II\2/i)
   failures << "#{relative}: expected exactly one main landmark" unless html.scan(/<main\b/i).length == 1
+  failures << "#{relative}: missing the keyboard-focusable main-content target" unless html.match?(/<main\b[^>]*\bid=(['"])main-content\1[^>]*\btabindex=(['"])-1\2/i)
+  failures << "#{relative}: missing the skip link to main content" unless html.match?(/<a\b[^>]*\bclass=(['"])[^'"]*skip-link[^'"]*\1[^>]*\bhref=(['"])#main-content\2/i)
+
+  ids.tally.each do |id, count|
+    failures << "#{relative}: duplicate id #{id.inspect}" if count > 1
+  end
+
+  html.scan(/\baria-(?:controls|describedby|labelledby)=(['"])(.*?)\1/i).each do |(_, references)|
+    references.split.each do |reference|
+      failures << "#{relative}: ARIA reference ##{reference} does not exist" unless ids.include?(reference)
+    end
+  end
 
   html.scan(/<img\b[^>]*>/i).each do |image|
     failures << "#{relative}: image is missing alt text" unless image.match?(/\balt=(['"]).*?\1/i)
@@ -29,6 +44,21 @@ site_root.glob("**/*.html").each do |file|
     asset_path = URI.decode_www_form_component(src.split("?").first).delete_prefix("/")
     asset = site_root.join(asset_path)
     failures << "#{relative}: missing local image #{src}" unless asset.file?
+
+    if asset_path.match?(/\.(?:avif|jpe?g|png|webp)$/i)
+      failures << "#{relative}: raster image #{src} is missing width" unless image.match?(/\bwidth=(['"])\d+\1/i)
+      failures << "#{relative}: raster image #{src} is missing height" unless image.match?(/\bheight=(['"])\d+\1/i)
+    end
+  end
+
+  html.scan(/<(?:img|source)\b[^>]*\bsrcset=(['"])(.*?)\1[^>]*>/i).each do |(_, srcset)|
+    srcset.split(",").each do |candidate|
+      source = candidate.strip.split(/\s+/, 2).first
+      next unless source&.start_with?("/")
+
+      asset_path = URI.decode_www_form_component(source.split("?").first).delete_prefix("/")
+      failures << "#{relative}: missing local srcset image #{source}" unless site_root.join(asset_path).file?
+    end
   end
 
   html.scan(/<a\b[^>]*target=(?:"_blank"|'_blank')[^>]*>/i).each do |link|
@@ -51,11 +81,49 @@ site_root.glob("**/*.html").each do |file|
   end
 end
 
+contact = site_root.join("contact", "index.html")
+if contact.file?
+  html = contact.read
+  failures << "contact/index.html: Web3Forms action is missing" unless html.match?(/<form\b[^>]*action=(['"])https:\/\/api\.web3forms\.com\/submit\1/i)
+  failures << "contact/index.html: Web3Forms access key is missing" unless html.match?(/<input\b[^>]*name=(['"])access_key\1[^>]*value=(['"])[^'"]+\2/i)
+  failures << "contact/index.html: honeypot field is missing" unless html.match?(/<input\b[^>]*name=(['"])botcheck\1/i)
+  failures << "contact/index.html: direct email fallback is missing" unless html.match?(/<a\b[^>]*href=(['"])mailto:hello@janmichael\.io\1/i)
+  failures << "contact/index.html: form status live region is missing" unless html.match?(/\bdata-contact-status\b[^>]*\baria-live=(['"])polite\1/i)
+
+  html.scan(/<(?:input|textarea)\b[^>]*\brequired\b[^>]*>/i).each do |field|
+    id = field[/\bid=(['"])(.*?)\1/i, 2]
+    described_by = field[/\baria-describedby=(['"])(.*?)\1/i, 2]
+    failures << "contact/index.html: required field is missing an id" unless id
+    failures << "contact/index.html: required field ##{id} is missing persistent error help" unless described_by&.split&.include?("#{id}-error")
+  end
+else
+  failures << "contact/index.html: missing from build output"
+end
+
+not_found = site_root.join("404.html")
+if not_found.file?
+  failures << "404.html: missing noindex robots directive" unless not_found.read.match?(/<meta\b[^>]*name=(['"])robots\1[^>]*content=(['"])[^'"]*noindex[^'"]*\2/i)
+else
+  failures << "404.html: missing from build output"
+end
+
+browserconfig = site_root.join("favicons", "browserconfig.xml")
+if browserconfig.file?
+  begin
+    REXML::Document.new(browserconfig.read)
+  rescue REXML::ParseException => error
+    failures << "favicons/browserconfig.xml: invalid XML (#{error.message})"
+  end
+else
+  failures << "favicons/browserconfig.xml: missing from build output"
+end
+
 sitemap = site_root.join("sitemap.xml")
 if sitemap.file?
   contents = sitemap.read
   failures << "sitemap.xml: contains an insecure HTTP URL" if contents.match?(%r{<loc>http://}i)
   failures << "sitemap.xml: references removed endorsements page" if contents.include?("/endorsements/")
+  failures << "sitemap.xml: references the noindex 404 page" if contents.include?("/404")
 else
   failures << "sitemap.xml: missing from build output"
 end
@@ -65,4 +133,4 @@ if failures.any?
   exit 1
 end
 
-puts "Site audit passed: headings, image alternatives, external-link safety, JSON-LD, and sitemap checks."
+puts "Site audit passed: structure, ARIA references, image delivery, contact fallback, metadata, external-link safety, JSON-LD/XML, and sitemap checks."

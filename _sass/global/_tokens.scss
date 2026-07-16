@@ -36,6 +36,7 @@
 
     // Surfaces and borders
     --color-border-muted: #CBD6E0;
+    --color-border-control: #89949F;
     --color-border-subtle: #D4D4D4;
     --color-skeleton: #EDF0F6;
     --color-surface: #F5F6F6;
@@ -43,7 +44,7 @@
     --color-surface-subtle: #F2F2F2;
 
     // Text hierarchy
-    --color-text-muted: #7F8490;
+    --color-text-muted: #696E79;
     --color-text-muted-on-dark: #AEB1B8;
     --color-text-soft: #2F3237;
 
@@ -51,7 +52,7 @@
     --color-carousel-dot: var(--color-border-subtle);
     --color-carousel-dot-active: #222E85;
     --color-carousel-dot-hover: #868CB8;
-    --color-focus-ring: rgba(1, 96, 123, 0.6);
+    --color-focus-ring: #007C9C;
     --color-selection: rgba(43, 132, 157, 0.1);
 
     // Glass and overlays
