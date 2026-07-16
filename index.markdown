@@ -23,9 +23,9 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
             <div class="image-wrapper">
                 <picture class="image-picture">
-                    <source media="(min-width: 73.8125rem)" type="image/avif" srcset="{{ '/images/hero/janmichael.avif' | relative_url }}?v={{ site.asset_version }}">
-                    <source media="(min-width: 73.8125rem)" type="image/webp" srcset="{{ '/images/hero/janmichael.webp' | relative_url }}?v={{ site.asset_version }}">
-                    <source media="(min-width: 73.8125rem)" srcset="{{ '/images/hero/janmichael.png' | relative_url }}?v={{ site.asset_version }}">
+                    <source media="(min-width: 56.0625rem)" type="image/avif" srcset="{{ '/images/hero/janmichael.avif' | relative_url }}?v={{ site.asset_version }}">
+                    <source media="(min-width: 56.0625rem)" type="image/webp" srcset="{{ '/images/hero/janmichael.webp' | relative_url }}?v={{ site.asset_version }}">
+                    <source media="(min-width: 56.0625rem)" srcset="{{ '/images/hero/janmichael.png' | relative_url }}?v={{ site.asset_version }}">
                     <img width="834" height="882" class="image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 834 882'%3E%3C/svg%3E" alt="Jan Michael Wallace II" decoding="async" fetchpriority="high">
                 </picture>
             </div>

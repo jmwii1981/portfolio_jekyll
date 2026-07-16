@@ -51,10 +51,10 @@
     overflow-wrap: anywhere;
 }
 
-@media (min-width: 70rem) {
+@media (min-width: 78rem) {
     .main.terms > section {
-        column-gap: clamp(3rem, 6vw, 7rem);
-        grid-template-columns: minmax(13rem, 18rem) minmax(0, 46rem);
+        column-gap: clamp(2.5rem, 5vw, 5rem);
+        grid-template-columns: minmax(21rem, 23rem) minmax(0, 46rem);
         row-gap: 1.25rem;
     }
 

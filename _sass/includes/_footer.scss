@@ -164,11 +164,13 @@
 
 @media (min-width: 42.0625rem) {
     .footer {
-        grid-template-columns: 1fr auto;
+        column-gap: clamp(1.5rem, 4vw, 4rem);
+        grid-template-columns: max-content minmax(0, 1fr);
 
         .site-signature {
             grid-column: 1;
             grid-row: 2;
+            width: max-content;
         }
 
         .copyright {

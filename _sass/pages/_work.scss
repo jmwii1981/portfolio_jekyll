@@ -120,12 +120,12 @@
 
 .work-collection {
     box-sizing: border-box;
-    padding: clamp(6rem, 12vw, 12rem) var(--site-frame-gutter);
+    padding: clamp(5rem, 10vw, 9rem) var(--site-frame-gutter);
     width: 100%;
 }
 
 .work-collection-header {
-    margin-bottom: clamp(4rem, 8vw, 8rem);
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
     max-width: 58rem;
 }
 
@@ -148,15 +148,57 @@
     margin: 0;
 }
 
+.work-project-index {
+    border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.14);
+    margin-bottom: clamp(4rem, 7vw, 6rem);
+}
+
+.work-project-index-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.work-project-index-list li {
+    border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
+    min-width: 0;
+}
+
+.work-project-index-list .a {
+    align-items: center;
+    display: flex;
+    font-size: 0.78rem;
+    font-weight: 700;
+    gap: 0.75rem;
+    letter-spacing: 0.06em;
+    min-height: 3.25rem;
+    padding: 0.75rem clamp(0.75rem, 2vw, 1.25rem);
+    text-transform: uppercase;
+}
+
+.work-project-index-list .a:hover,
+.work-project-index-list .a:focus-visible {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.work-project-index-list .a span {
+    color: var(--color-text-muted-on-dark);
+    font-size: 0.68rem;
+    font-variant-numeric: tabular-nums;
+}
+
 .work-items-wrapper {
     display: flex;
     flex-direction: column;
-    gap: clamp(10rem, 18vw, 18rem);
+    gap: clamp(6rem, 9vw, 9rem);
 }
 
 .project-story {
     border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
     padding-top: clamp(3rem, 6vw, 5rem);
+    scroll-margin-top: calc(var(--site-top-gutter) + 2rem);
 }
 
 .project-story-header {
@@ -465,7 +507,7 @@
 
 .work-summary {
     box-sizing: border-box;
-    padding: 0 var(--site-frame-gutter) clamp(8rem, 14vw, 14rem);
+    padding: 0 var(--site-frame-gutter) clamp(6rem, 11vw, 10rem);
     width: 100%;
 }
 
@@ -488,11 +530,11 @@
 
 .work-summary-title {
     display: block;
-    font-size: clamp(2.75rem, 6vw, 5.5rem);
+    font-size: clamp(2.75rem, 5.25vw, 5rem);
     letter-spacing: var(--type-feature-letter-spacing);
     line-height: var(--type-feature-line-height);
     margin: 0;
-    max-width: 12ch;
+    max-width: 14ch;
 }
 
 .work-summary-statement {
@@ -509,7 +551,7 @@
     display: grid;
     gap: 0;
     list-style: none;
-    margin: clamp(5rem, 10vw, 9rem) 0 0;
+    margin: clamp(4rem, 7vw, 6rem) 0 0;
     padding: 0;
 }
 
@@ -549,17 +591,17 @@
     border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
     display: grid;
     gap: 3rem;
-    margin-top: clamp(4rem, 9vw, 8rem);
+    margin-top: clamp(4rem, 7vw, 6rem);
     padding-top: clamp(3rem, 6vw, 5rem);
 }
 
 .work-summary-next .h3 {
     display: block;
-    font-size: clamp(2rem, 4vw, 3.75rem);
+    font-size: clamp(2rem, 3.5vw, 3.25rem);
     letter-spacing: -0.04em;
     line-height: 1.05;
     margin: 0;
-    max-width: 16ch;
+    max-width: 22ch;
 }
 
 .work-summary-actions {
@@ -640,6 +682,15 @@
     }
 }
 
+@media screen and (min-width: 42.0625rem) {
+    .project-gallery-copy-item--overview,
+    .no-js .project-story-details {
+        display: grid;
+        gap: clamp(2rem, 5vw, 4rem);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
 @media screen and (min-width: 48.0625rem) {
     .body--work .nav {
         background: transparent;
@@ -648,13 +699,16 @@
     .project-story-header--right {
         margin-left: auto;
     }
+
 }
 
-@media screen and (min-width: 64.0625rem) {
+@media screen and (min-width: 60.0625rem) {
     .project-story-overview {
         align-items: start;
         gap: clamp(3rem, 6vw, 7rem);
         grid-template-columns: repeat(12, minmax(0, 1fr));
+        // Ease out the stacked layout's height instead of collapsing every case study at once.
+        min-height: clamp(0rem, calc(178.125rem - 187.5vw), 65.5rem);
     }
 
     .project-cover {
@@ -669,6 +723,12 @@
     .project-story-details {
         grid-column: 1 / span 5;
         grid-row: 1;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .project-gallery-copy-item--overview,
+    .no-js .project-story-details {
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .project-story-overview--reverse .project-walkthrough--integrated {

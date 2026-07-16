@@ -4,7 +4,7 @@ title: Work
 permalink: /work/
 description: "Selected product design leadership work spanning merchant operations, enterprise design systems, fintech workflows, and scalable product foundations."
 ---
-{% assign work_image_sizes = '(min-width: 110.5rem) 52rem, (min-width: 64.0625rem) calc(56vw - 10rem), (min-width: 42.0625rem) calc(100vw - 17rem), (min-width: 26.3125rem) calc(100vw - 6rem), calc(100vw - 3rem)' %}
+{% assign work_image_sizes = '(min-width: 110.5rem) 52rem, (min-width: 60.0625rem) calc(56vw - 6rem), (min-width: 42.0625rem) calc(100vw - 9rem), (min-width: 26.3125rem) calc(100vw - 5rem), calc(100vw - 3rem)' %}
 <main class="main work" id="main-content" tabindex="-1">
     <section class="work-intro" aria-labelledby="work-intro-title">
         <div class="work-intro-copy">
@@ -24,8 +24,19 @@ description: "Selected product design leadership work spanning merchant operatio
             <h2 class="h2 work-collection-title" id="work-collection-title">Products, systems, and teams I’ve helped move forward.</h2>
         </header>
 
+        <nav class="work-project-index" aria-label="Jump to a selected project" data-reveal="up">
+            <ul class="work-project-index-list">
+                <li><a class="a" href="#project-lionfinancial"><span aria-hidden="true">01</span> LionFinancial</a></li>
+                <li><a class="a" href="#project-vega"><span aria-hidden="true">02</span> Vega</a></li>
+                <li><a class="a" href="#project-avenapay"><span aria-hidden="true">03</span> AvenaPay</a></li>
+                <li><a class="a" href="#project-paladin"><span aria-hidden="true">04</span> Paladin</a></li>
+                <li><a class="a" href="#project-ledgerflow"><span aria-hidden="true">05</span> LedgerFlow</a></li>
+                <li><a class="a" href="#project-northstar"><span aria-hidden="true">06</span> Northstar</a></li>
+            </ul>
+        </nav>
+
         <div class="work-items-wrapper">
-            <article class="project-story" aria-labelledby="lmms-title">
+            <article class="project-story" id="project-lionfinancial" aria-labelledby="lmms-title">
                 <header class="project-story-header" data-reveal="up">
                     <p class="p project-story-meta">LionFinancial <span aria-hidden="true">/</span> Merchant operations</p>
                     <h3 class="h3 project-story-title" id="lmms-title">A calmer operating system for merchant performance.</h3>
@@ -85,7 +96,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 </div>
             </article>
 
-            <article class="project-story" aria-labelledby="vega-title">
+            <article class="project-story" id="project-vega" aria-labelledby="vega-title">
                 <header class="project-story-header project-story-header--right" data-reveal="up">
                     <p class="p project-story-meta">Global Payments <span aria-hidden="true">/</span> Enterprise design system</p>
                     <h3 class="h3 project-story-title" id="vega-title">A north star for product design across a global ecosystem.</h3>
@@ -146,7 +157,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 </div>
             </article>
 
-            <article class="project-story" aria-labelledby="avena-title">
+            <article class="project-story" id="project-avenapay" aria-labelledby="avena-title">
                 <header class="project-story-header" data-reveal="up">
                     <p class="p project-story-meta">AvenaPay <span aria-hidden="true">/</span> Disputes management</p>
                     <h3 class="h3 project-story-title" id="avena-title">Turning dispute complexity into actionable clarity.</h3>
@@ -206,7 +217,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 </div>
             </article>
 
-            <article class="project-story" aria-labelledby="paladin-title">
+            <article class="project-story" id="project-paladin" aria-labelledby="paladin-title">
                 <header class="project-story-header project-story-header--right" data-reveal="up">
                     <p class="p project-story-meta">Paladin <span aria-hidden="true">/</span> UX framing kit</p>
                     <h3 class="h3 project-story-title" id="paladin-title">A shared language for solving complex product problems.</h3>
@@ -248,7 +259,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 </div>
             </article>
 
-            <article class="project-story" aria-labelledby="ledger-title">
+            <article class="project-story" id="project-ledgerflow" aria-labelledby="ledger-title">
                 <header class="project-story-header" data-reveal="up">
                     <p class="p project-story-meta">LedgerFlow <span aria-hidden="true">/</span> Payments and invoicing</p>
                     <h3 class="h3 project-story-title" id="ledger-title">One understandable flow from invoice to payment.</h3>
@@ -290,7 +301,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 </div>
             </article>
 
-            <article class="project-story" aria-labelledby="northstar-title">
+            <article class="project-story" id="project-northstar" aria-labelledby="northstar-title">
                 <header class="project-story-header project-story-header--right" data-reveal="up">
                     <p class="p project-story-meta">Northstar Commerce <span aria-hidden="true">/</span> Conversion strategy</p>
                     <h3 class="h3 project-story-title" id="northstar-title">A clearer path from first impression to confident conversion.</h3>
