@@ -23,9 +23,9 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
             <div class="image-wrapper">
                 <picture class="image-picture">
-                    <source media="(min-width: 56.0625rem)" type="image/avif" srcset="{{ '/images/hero/janmichael.avif' | relative_url }}?v={{ site.asset_version }}">
-                    <source media="(min-width: 56.0625rem)" type="image/webp" srcset="{{ '/images/hero/janmichael.webp' | relative_url }}?v={{ site.asset_version }}">
-                    <source media="(min-width: 56.0625rem)" srcset="{{ '/images/hero/janmichael.png' | relative_url }}?v={{ site.asset_version }}">
+                    <source media="(min-width: 65rem)" type="image/avif" srcset="{{ '/images/hero/janmichael.avif' | relative_url }}?v={{ site.asset_version }}">
+                    <source media="(min-width: 65rem)" type="image/webp" srcset="{{ '/images/hero/janmichael.webp' | relative_url }}?v={{ site.asset_version }}">
+                    <source media="(min-width: 65rem)" srcset="{{ '/images/hero/janmichael.png' | relative_url }}?v={{ site.asset_version }}">
                     <img width="834" height="882" class="image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 834 882'%3E%3C/svg%3E" alt="Jan Michael Wallace II" decoding="async" fetchpriority="high">
                 </picture>
             </div>
@@ -134,6 +134,8 @@ description: "Fractional product design leadership for growing companies navigat
                     </div>
                 </div>
                 <button class="logo-carousel-toggle" type="button" data-logo-carousel-toggle aria-controls="company-logo-track" hidden>
+                    <svg class="logo-carousel-toggle-icon logo-carousel-toggle-icon--pause" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M7 5v10M13 5v10" /></svg>
+                    <svg class="logo-carousel-toggle-icon logo-carousel-toggle-icon--play" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="m7 5 7 5-7 5V5Z" /></svg>
                     <span data-logo-carousel-toggle-label>Pause logo movement</span>
                 </button>
             </div>
@@ -236,9 +238,8 @@ description: "Fractional product design leadership for growing companies navigat
                         <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Brittany Robinson, <span class="recommendation-role">Sr. Designer</span></p>
                     </li>
                 </ul>
-                <button class="recommendation-next" type="button" data-recommendation-next aria-controls="recommendation-list" hidden>
-                    <span>Next recommendation</span>
-                    <span class="recommendation-next-icon" aria-hidden="true">→</span>
+                <button class="recommendation-next" type="button" data-recommendation-next aria-controls="recommendation-list" aria-label="Next recommendation" hidden>
+                    <svg class="recommendation-next-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg>
                 </button>
             </div>
         </div>

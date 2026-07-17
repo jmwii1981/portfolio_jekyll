@@ -274,6 +274,234 @@
             window.addEventListener('scroll', requestHeaderUpdate, { passive: true });
         };
 
+        const initializeWorkProjectIndex = () => {
+            const projectIndex = document.querySelector('.work-project-index');
+            const projectList = projectIndex?.querySelector('.work-project-index-list');
+            const previousProjectButton = projectIndex?.querySelector('[data-project-index-previous]');
+            const nextProjectButton = projectIndex?.querySelector('[data-project-index-next]');
+            const projectLinks = Array.from(projectIndex?.querySelectorAll('a[href^="#project-"]') || []);
+            const projectEntries = projectLinks.map((link) => {
+                const projectId = link.getAttribute('href')?.slice(1);
+                const project = projectId ? document.getElementById(projectId) : null;
+                const heading = project?.querySelector('.project-story-title');
+                const item = link.closest('li');
+
+                return project && heading && item ? { heading, item, link, project, projectId } : null;
+            }).filter(Boolean);
+
+            if (!projectIndex || !projectList || !projectEntries.length) return;
+
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let activeProjectId = null;
+            let navigationFrameId = null;
+            let isTicking = false;
+            let navigationToken = 0;
+
+            projectEntries.forEach((entry) => {
+                entry.heading.tabIndex = -1;
+            });
+
+            const updateProjectScrollControls = () => {
+                const maximumScrollLeft = Math.max(0, projectList.scrollWidth - projectList.clientWidth);
+                const hasOverflow = maximumScrollLeft > 1;
+
+                if (previousProjectButton) {
+                    previousProjectButton.hidden = !hasOverflow || projectList.scrollLeft <= 1;
+                }
+
+                if (nextProjectButton) {
+                    nextProjectButton.hidden = !hasOverflow || projectList.scrollLeft >= maximumScrollLeft - 1;
+                }
+            };
+
+            const scrollProjectList = (direction) => {
+                const step = projectEntries[0]?.item.offsetWidth || projectList.clientWidth * 0.5;
+
+                projectList.scrollBy({
+                    behavior: reducedMotion ? 'auto' : 'smooth',
+                    left: direction * step
+                });
+            };
+
+            const triggerProjectIndicatorSheen = () => {
+                if (reducedMotion) return;
+
+                projectList.classList.remove('is-sheening');
+                void projectList.offsetWidth;
+                projectList.classList.add('is-sheening');
+            };
+
+            const clearActiveProject = () => {
+                projectLinks.forEach((link) => link.removeAttribute('aria-current'));
+                projectList.classList.remove('has-active-project');
+                activeProjectId = null;
+            };
+
+            const setActiveProject = (entry, { ensureVisible = false } = {}) => {
+                const hasChanged = activeProjectId !== entry.projectId;
+
+                projectList.style.setProperty('--work-project-indicator-x', `${entry.item.offsetLeft}px`);
+                projectList.style.setProperty('--work-project-indicator-width', `${entry.item.offsetWidth}px`);
+                projectLinks.forEach((link) => {
+                    if (link === entry.link) {
+                        link.setAttribute('aria-current', 'location');
+                    } else {
+                        link.removeAttribute('aria-current');
+                    }
+                });
+                projectList.classList.add('has-active-project');
+                activeProjectId = entry.projectId;
+
+                if ((hasChanged || ensureVisible) && projectList.scrollWidth > projectList.clientWidth) {
+                    const centeredLeft = entry.item.offsetLeft - ((projectList.clientWidth - entry.item.offsetWidth) / 2);
+
+                    projectList.scrollTo({
+                        behavior: reducedMotion ? 'auto' : 'smooth',
+                        left: Math.max(0, centeredLeft)
+                    });
+                }
+            };
+
+            const cancelProjectNavigation = () => {
+                navigationToken += 1;
+
+                if (navigationFrameId !== null) {
+                    window.cancelAnimationFrame(navigationFrameId);
+                    navigationFrameId = null;
+                }
+            };
+
+            const scrollToProject = (entry) => {
+                cancelProjectNavigation();
+
+                const currentNavigationToken = ++navigationToken;
+                const destinationHash = `#${entry.projectId}`;
+
+                if (window.location.hash !== destinationHash) {
+                    window.history.pushState(null, '', destinationHash);
+                }
+
+                const expectedTop = Number.parseFloat(window.getComputedStyle(entry.project).scrollMarginTop) || 0;
+                const maximumScrollTop = document.documentElement.scrollHeight - window.innerHeight;
+                const startTop = window.scrollY;
+                const destinationTop = Math.min(
+                    maximumScrollTop,
+                    Math.max(0, startTop + entry.project.getBoundingClientRect().top - expectedTop)
+                );
+                const distance = Math.abs(destinationTop - startTop);
+
+                const finishNavigation = () => {
+                    if (currentNavigationToken !== navigationToken) return;
+
+                    navigationFrameId = null;
+                    window.scrollTo(0, destinationTop);
+                    entry.heading.focus({ preventScroll: true });
+                };
+
+                if (reducedMotion || distance < 2) {
+                    window.scrollTo(0, destinationTop);
+                    navigationFrameId = window.requestAnimationFrame(finishNavigation);
+                    return;
+                }
+
+                const duration = Math.min(900, Math.max(500, 420 + Math.sqrt(distance) * 5));
+                const animationStart = window.performance.now();
+
+                const animateProjectScroll = (currentTime) => {
+                    if (currentNavigationToken !== navigationToken) return;
+
+                    const progress = Math.min(1, (currentTime - animationStart) / duration);
+                    const easedProgress = progress < 0.5
+                        ? 4 * progress ** 3
+                        : 1 - ((-2 * progress + 2) ** 3) / 2;
+
+                    window.scrollTo(0, startTop + (destinationTop - startTop) * easedProgress);
+
+                    if (progress < 1) {
+                        navigationFrameId = window.requestAnimationFrame(animateProjectScroll);
+                    } else {
+                        finishNavigation();
+                    }
+                };
+
+                navigationFrameId = window.requestAnimationFrame(animateProjectScroll);
+            };
+
+            const updateProjectIndexState = () => {
+                const stickyTop = Number.parseFloat(window.getComputedStyle(projectIndex).top) || 0;
+                const projectIndexRect = projectIndex.getBoundingClientRect();
+                const currentTop = projectIndexRect.top;
+                const isStuck = Math.abs(currentTop - stickyTop) < 1.5;
+
+                projectIndex.classList.toggle('is-stuck', isStuck);
+
+                if (isStuck) {
+                    const activationLine = Math.max(projectIndexRect.bottom + 2 * 16, window.innerHeight * 0.38);
+                    const activeEntry = projectEntries.reduce((currentEntry, entry) => (
+                        entry.project.getBoundingClientRect().top <= activationLine ? entry : currentEntry
+                    ), projectEntries[0]);
+
+                    setActiveProject(activeEntry);
+                } else {
+                    clearActiveProject();
+                }
+
+                isTicking = false;
+            };
+
+            const requestProjectIndexUpdate = () => {
+                if (isTicking) return;
+
+                window.requestAnimationFrame(updateProjectIndexState);
+                isTicking = true;
+            };
+
+            const handleProjectIndexResize = () => {
+                updateProjectScrollControls();
+                requestProjectIndexUpdate();
+                window.requestAnimationFrame(() => {
+                    updateProjectScrollControls();
+                    requestProjectIndexUpdate();
+                });
+            };
+
+            previousProjectButton?.addEventListener('click', () => scrollProjectList(-1));
+            nextProjectButton?.addEventListener('click', () => scrollProjectList(1));
+            projectList.addEventListener('scroll', updateProjectScrollControls, { passive: true });
+            projectList.addEventListener('animationend', (event) => {
+                if (event.animationName === 'work-project-indicator-sheen') {
+                    projectList.classList.remove('is-sheening');
+                }
+            });
+
+            projectEntries.forEach((entry) => {
+                entry.link.addEventListener('click', (event) => {
+                    const hasModifier = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
+
+                    if (event.defaultPrevented || event.button !== 0 || hasModifier) return;
+
+                    event.preventDefault();
+                    triggerProjectIndicatorSheen();
+                    scrollToProject(entry);
+                });
+            });
+
+            ['wheel', 'touchstart'].forEach((eventName) => {
+                window.addEventListener(eventName, cancelProjectNavigation, { passive: true });
+            });
+
+            window.addEventListener('keydown', (event) => {
+                const scrollKeys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
+
+                if (scrollKeys.includes(event.key)) cancelProjectNavigation();
+            });
+
+            updateProjectScrollControls();
+            updateProjectIndexState();
+            window.addEventListener('scroll', requestProjectIndexUpdate, { passive: true });
+            window.addEventListener('resize', handleProjectIndexResize);
+        };
+
         const initializeMobileNavigation = () => {
             const navContainer = document.querySelector('.nav-container');
             const toggle = navContainer?.querySelector('.nav-toggle');
@@ -282,9 +510,20 @@
 
             if (!navContainer || !toggle || !nav) return;
 
-            const mobileQuery = window.matchMedia('(max-width: 48rem)');
+            const mobileQuery = window.matchMedia('(max-width: 44.25rem)');
+            let transitionTimerId = null;
 
-            const setMenuState = (isOpen, { restoreFocus = false } = {}) => {
+            const cancelMenuTransition = () => {
+                window.clearTimeout(transitionTimerId);
+                transitionTimerId = null;
+                navContainer.classList.remove('is-transitioning');
+            };
+
+            const setMenuState = (isOpen, { animate = false, restoreFocus = false } = {}) => {
+                const shouldAnimate = animate && mobileQuery.matches;
+
+                cancelMenuTransition();
+                navContainer.classList.toggle('is-transitioning', shouldAnimate);
                 navContainer.classList.toggle('is-open', isOpen);
                 document.documentElement.classList.toggle('is-nav-open', isOpen);
                 document.body.classList.toggle('is-nav-open', isOpen);
@@ -300,10 +539,14 @@
                 } else if (restoreFocus) {
                     toggle.focus();
                 }
+
+                if (shouldAnimate) {
+                    transitionTimerId = window.setTimeout(cancelMenuTransition, 300);
+                }
             };
 
             toggle.addEventListener('click', () => {
-                setMenuState(!navContainer.classList.contains('is-open'));
+                setMenuState(!navContainer.classList.contains('is-open'), { animate: true });
             });
 
             nav.querySelectorAll('.tab').forEach((link) => {
@@ -312,7 +555,7 @@
 
             document.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape' && navContainer.classList.contains('is-open')) {
-                    setMenuState(false, { restoreFocus: true });
+                    setMenuState(false, { animate: true, restoreFocus: true });
                 }
             });
 
@@ -325,6 +568,8 @@
             } else if (typeof mobileQuery.addListener === 'function') {
                 mobileQuery.addListener(handleMobileChange);
             }
+
+            window.addEventListener('resize', cancelMenuTransition, { passive: true });
         };
 
         const initializeScrollReveals = () => {
@@ -704,7 +949,7 @@
 
             const links = Array.from(nav.querySelectorAll('.tab'));
             const activeLink = nav.querySelector('.tab.active');
-            const mobileQuery = window.matchMedia('(max-width: 48rem)');
+            const mobileQuery = window.matchMedia('(max-width: 44.25rem)');
             let currentLink = activeLink;
             let hasPositionedIndicator = false;
             let isTicking = false;
@@ -715,9 +960,10 @@
             const toRem = (value) => `${value / rootSize()}rem`;
 
             const setIndicatorGeometry = ({ x, y, width }) => {
-                const containingBlock = indicator.closest('.header')?.getBoundingClientRect();
-                const localX = x - (containingBlock?.left || 0);
-                const localY = y - (containingBlock?.top || 0);
+                const containingElement = indicator.closest('.header');
+                const containingBlock = containingElement?.getBoundingClientRect();
+                const localX = x - (containingBlock?.left || 0) - (containingElement?.clientLeft || 0);
+                const localY = y - (containingBlock?.top || 0) - (containingElement?.clientTop || 0);
 
                 indicator.style.setProperty('--nav-indicator-x', toRem(localX));
                 indicator.style.setProperty('--nav-indicator-width', toRem(width));
@@ -756,21 +1002,9 @@
                 currentLink = link;
             };
 
-            const setMobileTarget = () => {
-                const toggleRect = toggle.getBoundingClientRect();
-                const lineWidth = rootSize() * 1.625;
-                const isOpen = navContainer.classList.contains('is-open');
-
-                setIndicatorGeometry({
-                    x: toggleRect.left + ((toggleRect.width - lineWidth) / 2),
-                    y: toggleRect.top + (toggleRect.height / 2) + (isOpen ? -1 : rootSize() * 0.25),
-                    width: lineWidth
-                });
-            };
-
             const updateIndicator = () => {
                 if (mobileQuery.matches) {
-                    setMobileTarget();
+                    indicator.classList.remove('is-ready');
                 } else {
                     setDesktopTarget(currentLink || activeLink || links[0]);
                 }
@@ -927,6 +1161,7 @@
         initializeContactForm();
         initializeConsentBanner();
         initializeScrollHeader();
+        initializeWorkProjectIndex();
         initializeMobileNavigation();
         initializeProjectGalleries();
         initializeScrollReveals();

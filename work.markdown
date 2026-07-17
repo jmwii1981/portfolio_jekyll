@@ -25,7 +25,8 @@ description: "Selected product design leadership work spanning merchant operatio
         </header>
 
         <nav class="work-project-index" aria-label="Jump to a selected project" data-reveal="up">
-            <ul class="work-project-index-list">
+            <button class="work-project-index-scroll-button work-project-index-scroll-button--previous" type="button" data-project-index-previous aria-controls="work-project-index-list" aria-label="Show previous projects" hidden><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M16 10H4M9 5l-5 5 5 5" /></svg></button>
+            <ul class="work-project-index-list" id="work-project-index-list">
                 <li><a class="a" href="#project-lionfinancial"><span aria-hidden="true">01</span> LionFinancial</a></li>
                 <li><a class="a" href="#project-vega"><span aria-hidden="true">02</span> Vega</a></li>
                 <li><a class="a" href="#project-avenapay"><span aria-hidden="true">03</span> AvenaPay</a></li>
@@ -33,6 +34,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 <li><a class="a" href="#project-ledgerflow"><span aria-hidden="true">05</span> LedgerFlow</a></li>
                 <li><a class="a" href="#project-northstar"><span aria-hidden="true">06</span> Northstar</a></li>
             </ul>
+            <button class="work-project-index-scroll-button work-project-index-scroll-button--next" type="button" data-project-index-next aria-controls="work-project-index-list" aria-label="Show more projects" hidden><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></button>
         </nav>
 
         <div class="work-items-wrapper">
@@ -101,7 +103,7 @@ description: "Selected product design leadership work spanning merchant operatio
                     <p class="p project-story-meta">Global Payments <span aria-hidden="true">/</span> Enterprise design system</p>
                     <h3 class="h3 project-story-title" id="vega-title">A north star for product design across a global ecosystem.</h3>
                     <p class="p project-story-intro">All roads intersect at Vega—a shared foundation for software product design across three continents, numerous countries, and distributed product, design, and engineering teams.</p>
-                    <a class="a project-story-link" href="https://vega.globalpayments.com/" target="_blank" rel="noopener noreferrer">Visit Vega <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></a>
+                    <a class="a button primary project-story-link" href="https://vega.globalpayments.com/" target="_blank" rel="noopener noreferrer"><span class="button-label">Visit Vega <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span><span class="button-fill"></span></a>
                 </header>
                 <div class="project-story-overview project-story-overview--reverse">
                     <figure class="project-cover" data-reveal="left">

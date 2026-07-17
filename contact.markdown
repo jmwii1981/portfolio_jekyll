@@ -16,7 +16,7 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
             <input type="hidden" name="from_name" value="janmichael.io Contact Form">
             <input class="contact-botcheck" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-            <p class="p contact-required-note" id="contact-required-note">All fields are required.</p>
+            <p class="p contact-required-note" id="contact-required-note">Fields marked with an asterisk are required.</p>
 
             <div class="contact-name-fields">
                 <div class="contact-field">
@@ -56,7 +56,7 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
                     <span class="button-fill" aria-hidden="true"></span>
                 </button>
                 <p class="p contact-form-status" id="contact-form-status" data-contact-status role="status" aria-live="polite" aria-atomic="true"></p>
-                <p class="p contact-direct-email" id="contact-direct-email">If you can’t use the form, email me directly at <a class="a" href="mailto:hello@janmichael.io">hello@janmichael.io</a>.</p>
+                <p class="p contact-direct-email" id="contact-direct-email">If you’re having trouble with the form or prefer to reach out directly, please feel free to email me at <a class="a" href="mailto:hello@janmichael.io">hello@janmichael.io</a> or call or text my personal cell at <a class="a" href="tel:+15027974994">+1 (502) 797-4994</a>.</p>
             </div>
         </form>
     </section>
