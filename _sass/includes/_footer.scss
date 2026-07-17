@@ -83,6 +83,7 @@
         justify-self: start;
 
         .p {
+            line-height: 1.5;
             text-align: left;
         }
     }
@@ -162,7 +163,7 @@
     }
 }
 
-@media (min-width: 42.0625rem) {
+@media (min-width: 50rem) {
     .footer {
         column-gap: clamp(1.5rem, 4vw, 4rem);
         grid-template-columns: max-content minmax(0, 1fr);

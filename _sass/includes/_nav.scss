@@ -22,7 +22,7 @@
     --nav-indicator-y: 0rem;
 
     background: var(--color-ink);
-    display: block;
+    display: none;
     height: 0.125rem;
     left: 0;
     opacity: 0;
@@ -133,8 +133,6 @@
         box-sizing: border-box;
         cursor: pointer;
         display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
         height: 3rem;
         justify-content: center;
         padding: 0.625rem;
@@ -153,19 +151,29 @@
         background: var(--color-ink);
         display: block;
         height: 0.125rem;
-        transform: translateY(-0.25rem);
+        left: 50%;
+        position: absolute;
+        top: calc(50% - 0.0625rem);
         transform-origin: center;
         transition: transform 0.25s ease;
         width: 1.625rem;
 }
 
+.nav-toggle-line--top {
+        transform: translateX(-50%) translateY(-0.25rem);
+}
+
+.nav-toggle-line--bottom {
+        transform: translateX(-50%) translateY(0.25rem);
+}
+
 .nav-container.is-open {
-        .nav-toggle-line {
-            transform: translateY(0) rotate(45deg);
+        .nav-toggle-line--top {
+            transform: translateX(-50%) rotate(45deg);
         }
 
-        .nav-indicator {
-            --nav-indicator-rotation: -45deg;
+        .nav-toggle-line--bottom {
+            transform: translateX(-50%) rotate(-45deg);
         }
 }
 
@@ -193,10 +201,7 @@
         pointer-events: none;
         position: fixed;
         transform: translateY(-0.75rem);
-        transition:
-            opacity 0.2s ease,
-            transform 0.25s ease,
-            visibility 0s linear 0.25s;
+        transition: none;
         visibility: hidden;
         width: 100%;
         z-index: 3;
@@ -211,11 +216,22 @@
         opacity: 1;
         pointer-events: auto;
         transform: translateY(0);
+        transition: none;
+        visibility: visible;
+}
+
+.nav-container.is-transitioning .nav {
+        transition:
+            opacity 0.2s ease,
+            transform 0.25s ease,
+            visibility 0s linear 0.25s;
+}
+
+.nav-container.is-open.is-transitioning .nav {
         transition:
             opacity 0.2s ease,
             transform 0.25s ease,
             visibility 0s;
-        visibility: visible;
 }
 
 .tab-container,
@@ -310,13 +326,17 @@
     font-size: 1.1rem;
 }
 
-@media screen and (min-width: 48.0625rem) {
+@media screen and (min-width: 44.3125rem) {
     .nav-container {
         position: relative;
     }
 
     .nav-toggle {
         display: none;
+    }
+
+    .nav-indicator {
+        display: block;
     }
 
     .nav {
@@ -368,7 +388,7 @@
     }
 }
 
-@media screen and (min-width: 48.0625rem) {
+@media screen and (min-width: 44.3125rem) {
     .no-js .header {
         flex-direction: row;
         padding-bottom: 0.15rem;

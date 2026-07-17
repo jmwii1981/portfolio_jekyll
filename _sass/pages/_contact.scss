@@ -73,6 +73,11 @@
     text-transform: uppercase;
 }
 
+.contact-field:has(.contact-input:required) .contact-label::after {
+    color: var(--color-error);
+    content: " *";
+}
+
 .contact-input {
     -webkit-appearance: none;
     appearance: none;
@@ -103,11 +108,11 @@
 }
 
 .contact-input[aria-invalid="true"] {
-    border-color: var(--color-text);
+    border-color: var(--color-error);
 }
 
 .contact-field-error {
-    color: var(--color-text-soft);
+    color: var(--color-error);
     display: block;
     font-size: 0.875rem;
     font-weight: 500;
@@ -167,12 +172,16 @@
     margin-top: 0.75rem;
 }
 
+.contact-form-status[data-state="error"] {
+    color: var(--color-error);
+}
+
 .contact-direct-email {
     color: var(--color-text-soft);
     display: block;
     font-size: 0.875rem;
     line-height: 1.55;
-    margin: 0.75rem 0 0;
+    margin: clamp(1.5rem, 4vw, 2rem) 0 0;
 }
 
 @media (min-width: 38rem) {

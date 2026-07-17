@@ -20,8 +20,23 @@
   margin: 0;
   width: 100%;
 }
+.perspectives-latest-label {
+  color: var(--color-text-muted);
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  margin: 0 0 1.5rem;
+  text-transform: uppercase;
+}
+.perspectives-latest-label span {
+  margin: 0 0.55rem;
+  opacity: 0.5;
+}
 .perspectives-sidebar .section-label {
-  margin-bottom: 1.5rem;
+  display: block;
+  margin: 0 0 1.5rem;
 }
 .perspectives-summary {
   color: var(--color-text-soft);
@@ -34,6 +49,7 @@
 }
 .perspectives-sidebar {
   background-color: transparent;
+  container-type: inline-size;
   min-height: 0;
   padding: 0;
   width: 100%;
@@ -53,6 +69,17 @@
 }
 .perspectives-actions .button {
   width: 100%;
+}
+@container (min-width: 24.5625rem) {
+  .perspectives-actions {
+    align-items: center;
+    flex-direction: row;
+    width: auto;
+  }
+
+  .perspectives-actions .button {
+    width: auto;
+  }
 }
 .post-featured-image-figure {
   aspect-ratio: 16 / 9;
@@ -108,6 +135,7 @@
 .post-body {
   display: flow-root;
   line-height: var(--type-reading-line-height);
+  padding-top: clamp(2rem, 4vw, 3rem);
 }
 .post-body :where(p, ul, ol, blockquote, figure) {
   margin-bottom: 1.5rem;
@@ -173,6 +201,18 @@
 .main.perspectives .skeleton-image {
   aspect-ratio: 16 / 9;
   min-height: 0;
+}
+
+@media (min-width: 58rem) {
+  .main.perspectives {
+    column-gap: clamp(2.5rem, 4vw, 4rem);
+    grid-template-columns: minmax(0, 2fr) minmax(14rem, 0.8fr);
+    row-gap: 0;
+  }
+
+  .perspectives-sidebar {
+    align-self: start;
+  }
 }
 
 @media (min-width: 88rem) {
