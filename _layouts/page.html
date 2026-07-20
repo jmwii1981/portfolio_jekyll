@@ -11,9 +11,17 @@
         {% assign page_title = page.title | append: " — " | append: site_name %}
     {% endif %}
     {% assign meta_description = page.description | default: site.description %}
-    {% assign social_image = page.social_image | default: '/images/facebook-og-image.webp' %}
+    {% assign profile_image = '/images/headshots/bio-pic.png' %}
+    {% assign profile_image_4x3 = '/images/headshots/jan-michael-wallace-ii-profile-4x3.png' %}
+    {% assign profile_image_16x9 = '/images/headshots/jan-michael-wallace-ii-profile-16x9.png' %}
+    {% assign profile_image_alt = 'Portrait of Jan Michael Wallace II' %}
+    {% assign social_image = page.social_image | default: profile_image %}
+    {% assign social_image_alt = page.social_image_alt | default: profile_image_alt %}
+    {% assign social_image_width = page.social_image_width | default: 1262 %}
+    {% assign social_image_height = page.social_image_height | default: 1266 %}
+    {% assign social_image_type = page.social_image_type | default: 'image/png' %}
     {% assign canonical_url = page.url | absolute_url %}
-    {% assign robots_directive = page.robots | default: 'index, follow' %}
+    {% assign robots_directive = page.robots | default: 'index, follow, max-image-preview:large' %}
     {% assign page_schema_type = 'WebPage' %}
     {% if page.url == '/' %}
         {% assign page_schema_type = 'ProfilePage' %}
@@ -30,6 +38,7 @@
     <meta name="robots" content="{{ robots_directive }}">
     <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ '/sitemap.xml' | absolute_url }}">
     <link rel="author" href="{{ '/' | absolute_url }}">
+    <link rel="image_src" href="{{ social_image | absolute_url }}">
     <link rel="canonical" href="{{ canonical_url }}">
 
     <!-- general social meta -->
@@ -42,17 +51,17 @@
 
     <!-- facebook meta -->
     <meta property="og:image" content="{{ social_image | absolute_url }}">
-    <meta property="og:image:alt" content="{{ page_title }}">
-    <meta property="og:image:width" content="1081">
-    <meta property="og:image:height" content="600">
-    <meta property="og:image:type" content="image/webp">
+    <meta property="og:image:alt" content="{{ social_image_alt }}">
+    <meta property="og:image:width" content="{{ social_image_width }}">
+    <meta property="og:image:height" content="{{ social_image_height }}">
+    <meta property="og:image:type" content="{{ social_image_type }}">
 
     <!-- twitter meta -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ page_title }}">
     <meta name="twitter:description" content="{{ meta_description }}">
     <meta name="twitter:image" content="{{ social_image | absolute_url }}">
-    <meta name="twitter:image:alt" content="{{ page_title }}">
+    <meta name="twitter:image:alt" content="{{ social_image_alt }}">
 
     <!-- Current-page and person structured data -->
     <script type="application/ld+json">
@@ -74,25 +83,69 @@
                     "description": {{ meta_description | jsonify }},
                     "isPartOf": { "@id": {{ '/' | absolute_url | append: '#website' | jsonify }} },
                     "about": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} }{% if page.url == '/' %},
-                    "mainEntity": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} }
+                    "dateModified": "2026-07-20",
+                    "mainEntity": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} },
+                    "primaryImageOfPage": { "@id": {{ '/' | absolute_url | append: '#profile-image' | jsonify }} }
                     {% elsif page.url == '/work/' %},
                     "mainEntity": { "@id": {{ canonical_url | append: '#selected-work' | jsonify }} }
                     {% endif %}
+                },
+                {
+                    "@type": "ImageObject",
+                    "@id": {{ '/' | absolute_url | append: '#profile-image' | jsonify }},
+                    "url": {{ profile_image | absolute_url | jsonify }},
+                    "contentUrl": {{ profile_image | absolute_url | jsonify }},
+                    "name": "Jan Michael Wallace II profile portrait",
+                    "caption": {{ profile_image_alt | jsonify }},
+                    "width": 1262,
+                    "height": 1266,
+                    "representativeOfPage": true
+                },
+                {
+                    "@type": "ImageObject",
+                    "@id": {{ '/' | absolute_url | append: '#profile-image-4x3' | jsonify }},
+                    "url": {{ profile_image_4x3 | absolute_url | jsonify }},
+                    "contentUrl": {{ profile_image_4x3 | absolute_url | jsonify }},
+                    "name": "Jan Michael Wallace II profile portrait, four by three",
+                    "caption": {{ profile_image_alt | jsonify }},
+                    "width": 1448,
+                    "height": 1086
+                },
+                {
+                    "@type": "ImageObject",
+                    "@id": {{ '/' | absolute_url | append: '#profile-image-16x9' | jsonify }},
+                    "url": {{ profile_image_16x9 | absolute_url | jsonify }},
+                    "contentUrl": {{ profile_image_16x9 | absolute_url | jsonify }},
+                    "name": "Jan Michael Wallace II profile portrait, sixteen by nine",
+                    "caption": {{ profile_image_alt | jsonify }},
+                    "width": 1672,
+                    "height": 941
                 },
                 {
                     "@type": "Person",
                     "@id": {{ '/' | absolute_url | append: '#person' | jsonify }},
                     "name": {{ site_name | jsonify }},
                     "alternateName": ["Jan Michael", "Jan Michael Wallace"],
+                    "givenName": "Jan Michael",
+                    "familyName": "Wallace",
+                    "honorificSuffix": "II",
+                    "identifier": "jmwii1981",
                     "url": {{ '/' | absolute_url | jsonify }},
+                    "mainEntityOfPage": { "@id": {{ '/' | absolute_url | append: '#webpage' | jsonify }} },
                     "email": "mailto:hello@janmichael.io",
                     "description": {{ site.description | jsonify }},
-                    "image": {{ '/images/hero/janmichael.webp' | absolute_url | jsonify }},
+                    "image": [
+                        { "@id": {{ '/' | absolute_url | append: '#profile-image' | jsonify }} },
+                        { "@id": {{ '/' | absolute_url | append: '#profile-image-4x3' | jsonify }} },
+                        { "@id": {{ '/' | absolute_url | append: '#profile-image-16x9' | jsonify }} }
+                    ],
                     "sameAs": [
                         "https://www.linkedin.com/in/jmwii1981/",
+                        "https://www.toptal.com/designers/resume/jan-michael-wallace-ii",
                         "https://medium.com/@jmwii1981/",
                         "https://github.com/jmwii1981/",
-                        "https://figma.com/@jmwii1981"
+                        "https://figma.com/@jmwii1981",
+                        "https://dribbble.com/jmwii1981"
                     ],
                     "jobTitle": "Fractional Product Design Leader",
                     "knowsAbout": [
