@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://janmichael.io/</loc>
     <lastmod>2026-07-20</lastmod>
+    <image:image>
+      <image:loc>https://janmichael.io/images/headshots/bio-pic.png</image:loc>
+      <image:title>Jan Michael Wallace II profile portrait</image:title>
+      <image:caption>Portrait of Jan Michael Wallace II</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://janmichael.io/images/headshots/jan-michael-wallace-ii-profile-4x3.png</image:loc>
+      <image:title>Jan Michael Wallace II profile portrait, four by three</image:title>
+      <image:caption>Portrait of Jan Michael Wallace II</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://janmichael.io/images/headshots/jan-michael-wallace-ii-profile-16x9.png</image:loc>
+      <image:title>Jan Michael Wallace II profile portrait, sixteen by nine</image:title>
+      <image:caption>Portrait of Jan Michael Wallace II</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://janmichael.io/work/</loc>

@@ -133,8 +133,49 @@ if sitemap.file?
   failures << "sitemap.xml: contains an insecure HTTP URL" if contents.match?(%r{<loc>http://}i)
   failures << "sitemap.xml: references removed endorsements page" if contents.include?("/endorsements/")
   failures << "sitemap.xml: references the noindex 404 page" if contents.include?("/404")
+  failures << "sitemap.xml: preferred profile portrait is missing" unless contents.include?("https://janmichael.io/images/headshots/bio-pic.png")
+  failures << "sitemap.xml: four-by-three profile portrait is missing" unless contents.include?("https://janmichael.io/images/headshots/jan-michael-wallace-ii-profile-4x3.png")
+  failures << "sitemap.xml: sixteen-by-nine profile portrait is missing" unless contents.include?("https://janmichael.io/images/headshots/jan-michael-wallace-ii-profile-16x9.png")
 else
   failures << "sitemap.xml: missing from build output"
+end
+
+home = site_root.join("index.html")
+if home.file?
+  html = home.read
+  preferred_portrait = "https://janmichael.io/images/headshots/bio-pic.png"
+  supporting_portraits = [
+    "https://janmichael.io/images/headshots/jan-michael-wallace-ii-profile-4x3.png",
+    "https://janmichael.io/images/headshots/jan-michael-wallace-ii-profile-16x9.png"
+  ]
+  failures << "index.html: preferred portrait is missing from Open Graph metadata" unless html.match?(/<meta\b[^>]*property=(['"])og:image\1[^>]*content=(['"])#{Regexp.escape(preferred_portrait)}\2/i)
+  failures << "index.html: preferred portrait is missing from Twitter metadata" unless html.match?(/<meta\b[^>]*name=(['"])twitter:image\1[^>]*content=(['"])#{Regexp.escape(preferred_portrait)}\2/i)
+  failures << "index.html: large image previews are not enabled" unless html.match?(/<meta\b[^>]*name=(['"])robots\1[^>]*content=(['"])[^'"]*max-image-preview:large[^'"]*\2/i)
+
+  structured_data = html.scan(/<script\b[^>]*type=(['"])application\/ld\+json\1[^>]*>(.*?)<\/script>/mi).map { |(_, json)| JSON.parse(json) }
+  graph = structured_data.flat_map { |document| document.fetch("@graph", []) }
+  person = graph.find { |node| node["@type"] == "Person" }
+  image = graph.find { |node| node["@type"] == "ImageObject" && node["contentUrl"] == preferred_portrait }
+  profile_page = graph.find { |node| node["@type"] == "ProfilePage" }
+  person_image_ids = Array(person&.fetch("image", nil)).filter_map { |entry| entry.is_a?(Hash) ? entry["@id"] : nil }
+  failures << "index.html: Person schema does not reference the preferred portrait first" unless person_image_ids.first == "https://janmichael.io/#profile-image"
+  failures << "index.html: Person schema does not reference all three portrait ratios" unless person_image_ids == [
+    "https://janmichael.io/#profile-image",
+    "https://janmichael.io/#profile-image-4x3",
+    "https://janmichael.io/#profile-image-16x9"
+  ]
+  failures << "index.html: preferred portrait ImageObject is missing" unless image
+  supporting_portraits.each do |portrait|
+    failures << "index.html: supporting portrait ImageObject is missing (#{portrait})" unless graph.any? { |node| node["@type"] == "ImageObject" && node["contentUrl"] == portrait }
+  end
+  failures << "index.html: Person schema is missing the stable identity handle" unless person&.dig("identifier") == "jmwii1981"
+  failures << "index.html: Person schema is missing the Dribbble profile" unless person&.fetch("sameAs", [])&.include?("https://dribbble.com/jmwii1981")
+  failures << "index.html: Person schema is missing the Toptal profile" unless person&.fetch("sameAs", [])&.include?("https://www.toptal.com/designers/resume/jan-michael-wallace-ii")
+  failures << "index.html: Person schema is not linked back to the ProfilePage" unless person&.dig("mainEntityOfPage", "@id") == "https://janmichael.io/#webpage"
+  failures << "index.html: ProfilePage schema is missing dateModified" unless profile_page&.fetch("dateModified", nil) == "2026-07-20"
+  failures << "index.html: ProfilePage schema does not declare the preferred portrait" unless profile_page&.dig("primaryImageOfPage", "@id") == "https://janmichael.io/#profile-image"
+else
+  failures << "index.html: missing from build output"
 end
 
 if failures.any?
