@@ -5,7 +5,7 @@ permalink: /terms/
 description: "Terms of use and privacy information for janmichael.io, including analytics, local browser storage, external services, and contact details."
 ---
 <main class="main terms" id="main-content" tabindex="-1">
-    <h2 class="h2 massive">Terms of Use and Privacy Policy</h2>
+    <h1 class="h2 massive">Terms of Use and Privacy Policy</h1>
 
     <section>
         <h3 class="h3">Effective Date</h3>

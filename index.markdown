@@ -9,9 +9,9 @@ description: "Fractional product design leadership for growing companies navigat
         <div class="content-wrapper">
             <div class="copy-wrapper">
                 <p class="p section-label hero-intro">Hi! I'm</p>
-                <h2 class="h2">Jan Michael</h2>
-                <h3 class="h3">I’m a Fractional Product Design Leader.</h3>
-                <h4 class="h4">I help growing companies turn product ambiguity into clear strategy, scalable systems, and shipped work that holds up as their businesses evolve.</h4>
+                <h1 class="h2">Jan Michael</h1>
+                <p class="h3">I’m a Fractional Product Design Leader.</p>
+                <p class="h4">I help growing companies turn product ambiguity into clear strategy, scalable systems, and shipped work that holds up as their businesses evolve.</p>
                 <div class="button-group">
                     <a
                     class="a button secondary"
@@ -73,6 +73,16 @@ description: "Fractional product design leadership for growing companies navigat
                 <p class="p home-section-title">The strongest work is built with people.</p>
             </header>
             <div class="logo-carousel" data-reveal="up">
+                <div class="logo-carousel-toolbar">
+                    <button class="logo-carousel-toggle" type="button" data-logo-carousel-toggle aria-controls="company-logo-track" hidden>
+                        <span class="logo-carousel-toggle-surface" aria-hidden="true">
+                            <svg class="logo-carousel-toggle-icon logo-carousel-toggle-icon--pause" viewBox="0 0 20 20" fill="none"><path d="M7 5v10M13 5v10" /></svg>
+                            <svg class="logo-carousel-toggle-icon logo-carousel-toggle-icon--play" viewBox="0 0 20 20" fill="none"><path d="m7 5 7 5-7 5V5Z" /></svg>
+                        </span>
+                        <span class="logo-carousel-toggle-label" data-logo-carousel-toggle-label>Pause logo movement</span>
+                        <span class="logo-carousel-toggle-tooltip" data-logo-carousel-toggle-tooltip aria-hidden="true">Pause motion</span>
+                    </button>
+                </div>
                 <div class="logo-carousel-viewport">
                     <div class="logo-carousel-track" id="company-logo-track">
                         <ul class="testimony-list">
@@ -133,11 +143,6 @@ description: "Fractional product design leadership for growing companies navigat
                         </ul>
                     </div>
                 </div>
-                <button class="logo-carousel-toggle" type="button" data-logo-carousel-toggle aria-controls="company-logo-track" hidden>
-                    <svg class="logo-carousel-toggle-icon logo-carousel-toggle-icon--pause" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M7 5v10M13 5v10" /></svg>
-                    <svg class="logo-carousel-toggle-icon logo-carousel-toggle-icon--play" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="m7 5 7 5-7 5V5Z" /></svg>
-                    <span data-logo-carousel-toggle-label>Pause logo movement</span>
-                </button>
             </div>
             <div class="recommendations" data-reveal="up">
                 <ul class="recommendation-list" id="recommendation-list" aria-live="polite" aria-atomic="true">

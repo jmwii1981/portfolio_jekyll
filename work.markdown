@@ -9,7 +9,7 @@ description: "Selected product design leadership work spanning merchant operatio
     <section class="work-intro" aria-labelledby="work-intro-title">
         <div class="work-intro-copy">
             <p class="p work-intro-eyebrow">Selected work</p>
-            <h2 class="h1 work-intro-title" id="work-intro-title">Clarity for what comes next.</h2>
+            <h1 class="h1 work-intro-title" id="work-intro-title">Clarity for what comes next.</h1>
             <p class="p work-intro-statement">I help teams navigate unfamiliar product challenges—bringing clarity to complexity, aligning people around a direction, and turning innovation into products that can scale.</p>
         </div>
         <div class="work-intro-transition" aria-hidden="true">

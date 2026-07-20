@@ -1,8 +1,10 @@
-User-agent: *
-# Disallow: /not-applicable-yet/
-
-# Allow all other pages to be indexed
+User-agent: OAI-SearchBot
 Allow: /
 
-# Specify the location of your sitemap
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: *
+Allow: /
+
 Sitemap: https://janmichael.io/sitemap.xml

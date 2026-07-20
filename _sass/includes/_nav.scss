@@ -126,10 +126,18 @@
 }
 
 .nav-toggle {
+        @include glass-control;
+
+        --control-glass-shadow: inset 0 0.0625rem rgba(255, 255, 255, 0.62),
+            inset 0 -0.0625rem rgba(4, 4, 5, 0.06),
+            0 0.35rem 1rem rgba(4, 4, 5, 0.05);
+        --control-glass-sheen-opacity: 0.28;
+
         align-items: center;
         appearance: none;
-        background: transparent;
-        border: 0;
+        background: rgba(255, 255, 255, 0.16);
+        border: 0.0625rem solid rgba(4, 4, 5, 0.06);
+        border-radius: 100px;
         box-sizing: border-box;
         cursor: pointer;
         display: flex;
@@ -140,8 +148,13 @@
         width: 3rem;
         z-index: 4;
 
+        &:hover {
+            background: rgba(255, 255, 255, 0.32);
+            border-color: rgba(4, 4, 5, 0.12);
+        }
+
         &:focus-visible {
-            border-radius: 0.25rem;
+            border-radius: 100px;
             outline: 0.125rem solid var(--color-focus-ring);
             outline-offset: 0.125rem;
         }
@@ -157,6 +170,7 @@
         transform-origin: center;
         transition: transform 0.25s ease;
         width: 1.625rem;
+        z-index: 2;
 }
 
 .nav-toggle-line--top {
@@ -410,6 +424,10 @@
     .nav-indicator,
     .nav-toggle-line,
     .tab {
+        transition: none;
+    }
+
+    .nav-toggle::after {
         transition: none;
     }
 }
