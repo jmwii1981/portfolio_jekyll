@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
     {% assign site_name = "Jan Michael Wallace II" %}
-    {% assign page_title = site_name | append: " — Fractional Product Design Leader" %}
+    {% assign person_name = "Jan Michael Wallace II" %}
+    {% assign page_title = site_name %}
     {% if page.url != '/' %}
         {% assign page_title = page.title | append: " — " | append: site_name %}
     {% endif %}
@@ -34,7 +35,7 @@
     <!-- site identity taxonomy / meta -->
     <title>{{ page_title }}</title>
     <meta name="description" content="{{ meta_description }}">
-    <meta name="author" content="{{ site_name }}">
+    <meta name="author" content="{{ person_name }}">
     <meta name="robots" content="{{ robots_directive }}">
     <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ '/sitemap.xml' | absolute_url }}">
     <link rel="author" href="{{ '/' | absolute_url }}">
@@ -73,6 +74,7 @@
                     "@id": {{ '/' | absolute_url | append: '#website' | jsonify }},
                     "url": {{ '/' | absolute_url | jsonify }},
                     "name": {{ site_name | jsonify }},
+                    "alternateName": ["Jan Michael", "Jan Michael Wallace", "janmichael.io"],
                     "description": {{ site.description | jsonify }}
                 },
                 {
@@ -124,7 +126,7 @@
                 {
                     "@type": "Person",
                     "@id": {{ '/' | absolute_url | append: '#person' | jsonify }},
-                    "name": {{ site_name | jsonify }},
+                    "name": {{ person_name | jsonify }},
                     "alternateName": ["Jan Michael", "Jan Michael Wallace"],
                     "givenName": "Jan Michael",
                     "familyName": "Wallace",

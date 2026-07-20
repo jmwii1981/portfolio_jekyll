@@ -5,11 +5,11 @@ description: "Fractional product design leadership for growing companies navigat
 ---
 
 <main class="main about" id="main-content" tabindex="-1">
-    <section class="hero">
+    <section class="hero" id="about" aria-labelledby="about-title">
         <div class="content-wrapper">
             <div class="copy-wrapper">
                 <p class="p section-label hero-intro">Hi! I'm</p>
-                <h1 class="h2">Jan Michael</h1>
+                <h1 class="h2" id="about-title">Jan Michael</h1>
                 <p class="h3">I’m a Fractional Product Design Leader.</p>
                 <p class="h4">I help growing companies turn product ambiguity into clear strategy, scalable systems, and shipped work that holds up as their businesses evolve.</p>
                 <div class="button-group">

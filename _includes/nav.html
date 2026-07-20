@@ -1,6 +1,7 @@
 <!-- main navigation container -->
 <nav 
-    class="nav-container">
+    class="nav-container"
+    aria-label="Primary">
     <button
         class="nav-toggle"
         type="button"
@@ -16,10 +17,10 @@
             id="about-tab"
             class="tab-container">
                 <a 
-                id="about"
+                id="about-link"
                 class="a tab {% if page.url == '/' %}active{% endif %}"
                 {% if page.url == '/' %}aria-current="page"{% endif %}
-                href="{{ '/' | relative_url }}">About</a>
+                href="{{ '/#about' | relative_url }}">About</a>
         </li>
         <li 
             id="work-tab"
