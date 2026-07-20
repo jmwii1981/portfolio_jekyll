@@ -2,17 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://janmichael.io/</loc>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
     <loc>https://janmichael.io/work/</loc>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
     <loc>https://janmichael.io/perspectives/</loc>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
     <loc>https://janmichael.io/contact/</loc>
+    <lastmod>2026-07-20</lastmod>
   </url>
   <url>
     <loc>https://janmichael.io/terms/</loc>
+    <lastmod>2026-07-20</lastmod>
   </url>
 </urlset>

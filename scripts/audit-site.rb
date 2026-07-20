@@ -18,12 +18,14 @@ site_root.glob("**/*.html").each do |file|
   relative = file.relative_path_from(site_root)
   ids = html.scan(/\bid=(['"])(.*?)\1/i).map(&:last)
   h1_count = html.scan(/<h1\b/i).length
+  main_html = html[/<main\b.*?<\/main>/mi]
 
   failures << "#{relative}: expected exactly one h1, found #{h1_count}" unless h1_count == 1
-  failures << "#{relative}: branded h1 is missing its accessible name" unless html.match?(/<h1\b[^>]*class=(['"])[^'"]*site-identity[^'"]*\1[^>]*aria-label=(['"])Jan Michael Wallace II\2/i)
+  failures << "#{relative}: primary h1 must be inside the main landmark" unless main_html&.scan(/<h1\b/i)&.length == 1
   failures << "#{relative}: expected exactly one main landmark" unless html.scan(/<main\b/i).length == 1
   failures << "#{relative}: missing the keyboard-focusable main-content target" unless html.match?(/<main\b[^>]*\bid=(['"])main-content\1[^>]*\btabindex=(['"])-1\2/i)
   failures << "#{relative}: missing the skip link to main content" unless html.match?(/<a\b[^>]*\bclass=(['"])[^'"]*skip-link[^'"]*\1[^>]*\bhref=(['"])#main-content\2/i)
+  failures << "#{relative}: labeled home logo must hide its decorative SVG" unless html.match?(/<a\b[^>]*\bclass=(['"])[^'"]*logo-container[^'"]*\1[^>]*\baria-label=(['"])Jan Michael Wallace II, home\2[^>]*>\s*<svg\b[^>]*\baria-hidden=(['"])true\3[^>]*\bfocusable=(['"])false\4/i)
 
   ids.tally.each do |id, count|
     failures << "#{relative}: duplicate id #{id.inspect}" if count > 1
@@ -37,6 +39,7 @@ site_root.glob("**/*.html").each do |file|
 
   html.scan(/<img\b[^>]*>/i).each do |image|
     failures << "#{relative}: image is missing alt text" unless image.match?(/\balt=(['"]).*?\1/i)
+    failures << "#{relative}: company logo is missing its company-name alternative" if image.match?(/\bclass=(['"])[^'"]*company-logo[^'"]*\1/i) && !image.match?(/\balt=(['"])[^'"]+\1/i)
 
     src = image[/\bsrc=(['"])(.*?)\1/i, 2]
     next unless src&.start_with?("/")
@@ -63,6 +66,12 @@ site_root.glob("**/*.html").each do |file|
 
   html.scan(/<a\b[^>]*target=(?:"_blank"|'_blank')[^>]*>/i).each do |link|
     failures << "#{relative}: target=_blank link is missing rel=noopener" unless link.match?(/\brel=(['"])[^'"]*noopener[^'"]*\1/i)
+  end
+
+  html.scan(/<a\b[^>]*\bclass=(['"])[^'"]*social-icon[^'"]*\1[^>]*>.*?<\/a>/mi) do
+    markup = Regexp.last_match[0]
+    failures << "#{relative}: social icon link is missing an accessible label" unless markup.match?(/\baria-label=(['"])[^'"]+\1/i)
+    failures << "#{relative}: social icon SVG must be hidden from assistive technology" unless markup.match?(/<svg\b[^>]*\baria-hidden=(['"])true\1[^>]*\bfocusable=(['"])false\2/i)
   end
 
   html.scan(/<a\b[^>]*href=(['"])(.*?)\1[^>]*>/i).each do |(_, href)|

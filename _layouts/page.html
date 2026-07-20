@@ -14,6 +14,14 @@
     {% assign social_image = page.social_image | default: '/images/facebook-og-image.webp' %}
     {% assign canonical_url = page.url | absolute_url %}
     {% assign robots_directive = page.robots | default: 'index, follow' %}
+    {% assign page_schema_type = 'WebPage' %}
+    {% if page.url == '/' %}
+        {% assign page_schema_type = 'ProfilePage' %}
+    {% elsif page.url == '/work/' %}
+        {% assign page_schema_type = 'CollectionPage' %}
+    {% elsif page.url == '/contact/' %}
+        {% assign page_schema_type = 'ContactPage' %}
+    {% endif %}
 
     <!-- site identity taxonomy / meta -->
     <title>{{ page_title }}</title>
@@ -59,13 +67,17 @@
                     "description": {{ site.description | jsonify }}
                 },
                 {
-                    "@type": "WebPage",
+                    "@type": {{ page_schema_type | jsonify }},
                     "@id": {{ canonical_url | append: '#webpage' | jsonify }},
                     "url": {{ canonical_url | jsonify }},
                     "name": {{ page_title | jsonify }},
                     "description": {{ meta_description | jsonify }},
                     "isPartOf": { "@id": {{ '/' | absolute_url | append: '#website' | jsonify }} },
-                    "about": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} }
+                    "about": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} }{% if page.url == '/' %},
+                    "mainEntity": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} }
+                    {% elsif page.url == '/work/' %},
+                    "mainEntity": { "@id": {{ canonical_url | append: '#selected-work' | jsonify }} }
+                    {% endif %}
                 },
                 {
                     "@type": "Person",
@@ -75,14 +87,110 @@
                     "url": {{ '/' | absolute_url | jsonify }},
                     "email": "mailto:hello@janmichael.io",
                     "description": {{ site.description | jsonify }},
+                    "image": {{ '/images/hero/janmichael.webp' | absolute_url | jsonify }},
                     "sameAs": [
                         "https://www.linkedin.com/in/jmwii1981/",
                         "https://medium.com/@jmwii1981/",
                         "https://github.com/jmwii1981/",
                         "https://figma.com/@jmwii1981"
                     ],
-                    "jobTitle": "Fractional Product Design Leader"
+                    "jobTitle": "Fractional Product Design Leader",
+                    "knowsAbout": [
+                        "Product design leadership",
+                        "Product strategy",
+                        "Design systems",
+                        "Team alignment",
+                        "User experience design",
+                        "Fintech and payments"
+                    ]
+                }{% if page.url == '/work/' %},
+                {
+                    "@type": "ItemList",
+                    "@id": {{ canonical_url | append: '#selected-work' | jsonify }},
+                    "name": "Selected product design work",
+                    "numberOfItems": 6,
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "item": {
+                                "@type": "CreativeWork",
+                                "@id": {{ canonical_url | append: '#project-lionfinancial' | jsonify }},
+                                "url": {{ canonical_url | append: '#project-lionfinancial' | jsonify }},
+                                "name": "LionFinancial Merchant Management System",
+                                "headline": "A calmer operating system for merchant performance",
+                                "description": "A representative merchant-management operating system connecting accounts, customers, transactions, approvals, payouts, and reporting.",
+                                "creator": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} }
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "item": {
+                                "@type": "CreativeWork",
+                                "@id": {{ canonical_url | append: '#project-vega' | jsonify }},
+                                "url": {{ canonical_url | append: '#project-vega' | jsonify }},
+                                "name": "Vega Enterprise Design System",
+                                "headline": "A north star for product design across a global ecosystem",
+                                "description": "An enterprise design system supporting distributed product, design, and engineering teams across a global ecosystem.",
+                                "creator": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} }
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "item": {
+                                "@type": "CreativeWork",
+                                "@id": {{ canonical_url | append: '#project-avenapay' | jsonify }},
+                                "url": {{ canonical_url | append: '#project-avenapay' | jsonify }},
+                                "name": "AvenaPay Disputes Analytics",
+                                "headline": "Turning dispute complexity into actionable clarity",
+                                "description": "A representative disputes analytics experience helping merchants understand change, prioritize attention, and identify recovery opportunities.",
+                                "creator": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} }
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 4,
+                            "item": {
+                                "@type": "CreativeWork",
+                                "@id": {{ canonical_url | append: '#project-paladin' | jsonify }},
+                                "url": {{ canonical_url | append: '#project-paladin' | jsonify }},
+                                "name": "Paladin Wireframing System",
+                                "headline": "A shared language for solving complex product problems",
+                                "description": "A wireframing system designed to help teams align early, test consequential workflows, and reduce avoidable rework.",
+                                "creator": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} }
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 5,
+                            "item": {
+                                "@type": "CreativeWork",
+                                "@id": {{ canonical_url | append: '#project-ledgerflow' | jsonify }},
+                                "url": {{ canonical_url | append: '#project-ledgerflow' | jsonify }},
+                                "name": "LedgerFlow Payments and Invoicing",
+                                "headline": "One understandable flow from invoice to payment",
+                                "description": "A representative fintech experience connecting invoicing, payments, customers, reminders, reporting, and mobile collection.",
+                                "creator": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} }
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 6,
+                            "item": {
+                                "@type": "CreativeWork",
+                                "@id": {{ canonical_url | append: '#project-northstar' | jsonify }},
+                                "url": {{ canonical_url | append: '#project-northstar' | jsonify }},
+                                "name": "Northstar Commerce Conversion Strategy",
+                                "headline": "A clearer path from first impression to confident conversion",
+                                "description": "A representative conversion strategy helping small businesses compare payment products, understand rates, and choose an appropriate setup.",
+                                "creator": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} }
+                            }
+                        }
+                    ]
                 }
+                {% endif %}
             ]
         }
     </script>

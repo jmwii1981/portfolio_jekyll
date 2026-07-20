@@ -1058,8 +1058,9 @@
             const items = Array.from(carousel.querySelectorAll('.testimony-item'));
             const toggle = carousel.querySelector('[data-logo-carousel-toggle]');
             const toggleLabel = carousel.querySelector('[data-logo-carousel-toggle-label]');
+            const toggleTooltip = carousel.querySelector('[data-logo-carousel-toggle-tooltip]');
 
-            if (!track || items.length < 2 || !toggle || !toggleLabel) return;
+            if (!track || items.length < 2 || !toggle || !toggleLabel || !toggleTooltip) return;
 
             const createSequence = (isDuplicate = false) => {
                 const sequence = document.createElement('ul');
@@ -1086,6 +1087,7 @@
             const setPaused = (isPaused) => {
                 carousel.classList.toggle('is-paused', isPaused);
                 toggleLabel.textContent = isPaused ? 'Resume logo movement' : 'Pause logo movement';
+                toggleTooltip.textContent = isPaused ? 'Resume motion' : 'Pause motion';
             };
 
             const syncMotionPreference = () => {

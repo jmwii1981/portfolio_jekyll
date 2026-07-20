@@ -7,7 +7,7 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
 <main class="main contact" id="main-content" tabindex="-1">
     <section class="contact-section" aria-labelledby="contact-heading">
         <div class="contact-intro">
-            <h2 class="h2 massive" id="contact-heading">Let’s create a clear path forward.</h2>
+            <h1 class="h2 massive" id="contact-heading">Let’s create a clear path forward.</h1>
             <p class="p">I’m open to leadership opportunities and conversations with teams navigating unfamiliar product territory, scaling design practice, or aligning around what comes next.</p>
         </div>
 

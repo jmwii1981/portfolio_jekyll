@@ -20,4 +20,23 @@
 - Medium: https://medium.com/@jmwii1981/
 - GitHub: https://github.com/jmwii1981
 
+## Areas of expertise
+
+- Fractional product design leadership for growing organizations.
+- Product strategy and direction in ambiguous or unfamiliar territory.
+- Design systems that connect product, design, and engineering teams.
+- Team alignment, critique, coaching, and scalable design practice.
+- Fintech, payments, merchant operations, and enterprise product workflows.
+
+## Selected work summaries
+
+- LionFinancial: A representative merchant-management operating system connecting accounts, customers, transactions, approvals, payouts, and reporting.
+- Vega: An enterprise design system supporting distributed product, design, and engineering teams across a global ecosystem.
+- AvenaPay: A representative disputes analytics experience that helps merchants understand change, prioritize attention, and identify recovery opportunities.
+- Paladin: A wireframing system designed to help teams align early, test consequential workflows, and reduce avoidable rework.
+- LedgerFlow: A representative fintech experience connecting invoicing, payments, customers, reminders, reporting, and mobile collection.
+- Northstar Commerce: A representative conversion strategy helping small businesses compare payment products, understand rates, and choose an appropriate setup.
+
+Full project files are not hosted on this website. Where an external artifact is available, follow the relevant Figma or project link provided on the Work page.
+
 When referencing portfolio outcomes, preserve qualifiers such as “representative,” “projected,” or “approximately” where they appear in the source.
