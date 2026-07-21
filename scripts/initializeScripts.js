@@ -744,6 +744,118 @@
             });
         };
 
+        const initializeNavIndicator = () => {
+            const navContainer = document.querySelector('.nav-container');
+            const nav = navContainer?.querySelector('.nav');
+            const indicator = navContainer?.querySelector('.nav-indicator');
+            const links = nav ? Array.from(nav.querySelectorAll('.tab')) : [];
+            const activeLink = nav?.querySelector('.tab[aria-current="page"], .tab.active');
+            const desktopQuery = window.matchMedia('(min-width: 44.3125rem)');
+
+            if (!navContainer || !nav || !indicator || !links.length) return;
+
+            let currentLink = activeLink || null;
+            let focusedLink = null;
+            let hoveredLink = null;
+            let updateFrame = 0;
+
+            const rootFontSize = () => (
+                Number.parseFloat(getComputedStyle(document.documentElement).fontSize) || 16
+            );
+
+            const persistentTarget = () => {
+                return focusedLink || hoveredLink || activeLink || null;
+            };
+
+            const positionIndicator = () => {
+                updateFrame = 0;
+
+                if (!desktopQuery.matches || !currentLink?.isConnected) {
+                    navContainer.classList.remove('is-indicator-ready');
+                    return;
+                }
+
+                const containerRect = navContainer.getBoundingClientRect();
+                const linkRect = currentLink.getBoundingClientRect();
+                const underlineOffset = rootFontSize() * 0.75;
+                const x = linkRect.left - containerRect.left;
+                const y = linkRect.bottom - containerRect.top + underlineOffset;
+
+                if (![x, y, linkRect.width].every(Number.isFinite) || linkRect.width <= 0) {
+                    navContainer.classList.remove('is-indicator-ready');
+                    return;
+                }
+
+                indicator.style.setProperty('--nav-indicator-x', `${x}px`);
+                indicator.style.setProperty('--nav-indicator-y', `${y}px`);
+                indicator.style.setProperty('--nav-indicator-width', `${linkRect.width}px`);
+                navContainer.classList.add('is-indicator-ready');
+            };
+
+            const requestIndicatorUpdate = () => {
+                if (updateFrame) return;
+
+                updateFrame = window.requestAnimationFrame(positionIndicator);
+            };
+
+            const targetLink = (link) => {
+                currentLink = link;
+                requestIndicatorUpdate();
+            };
+
+            links.forEach((link) => {
+                link.addEventListener('pointerenter', () => {
+                    hoveredLink = link;
+                    targetLink(link);
+                });
+                link.addEventListener('focus', () => {
+                    focusedLink = link;
+                    targetLink(link);
+                });
+                link.addEventListener('blur', () => {
+                    if (focusedLink === link) focusedLink = null;
+                    targetLink(persistentTarget());
+                });
+            });
+
+            nav.addEventListener('pointerleave', () => {
+                hoveredLink = null;
+                targetLink(persistentTarget());
+            });
+
+            const handleDesktopChange = () => {
+                currentLink = persistentTarget();
+
+                if (!desktopQuery.matches) {
+                    navContainer.classList.remove('is-indicator-ready');
+                }
+
+                requestIndicatorUpdate();
+            };
+
+            if (typeof desktopQuery.addEventListener === 'function') {
+                desktopQuery.addEventListener('change', handleDesktopChange);
+            } else if (typeof desktopQuery.addListener === 'function') {
+                desktopQuery.addListener(handleDesktopChange);
+            }
+
+            if (typeof window.ResizeObserver === 'function') {
+                const resizeObserver = new ResizeObserver(requestIndicatorUpdate);
+                resizeObserver.observe(navContainer);
+                links.forEach((link) => resizeObserver.observe(link));
+            } else {
+                window.addEventListener('resize', requestIndicatorUpdate, { passive: true });
+            }
+
+            const initializePosition = () => requestIndicatorUpdate();
+
+            if (document.fonts?.ready) {
+                document.fonts.ready.then(initializePosition).catch(initializePosition);
+            } else {
+                window.addEventListener('load', initializePosition, { once: true });
+            }
+        };
+
         const initializeCompanyLogoCarousel = () => {
             const carousel = document.querySelector('.logo-carousel');
 
@@ -859,6 +971,7 @@
         safelyInitialize('scrolling header', initializeScrollHeader);
         safelyInitialize('work project index', initializeWorkProjectIndex);
         safelyInitialize('mobile navigation', initializeMobileNavigation);
+        safelyInitialize('desktop navigation indicator', initializeNavIndicator);
         safelyInitialize('project galleries', initializeProjectGalleries);
         safelyInitialize('company logo carousel', initializeCompanyLogoCarousel);
         safelyInitialize('recommendation carousel', initializeRecommendationCarousel);

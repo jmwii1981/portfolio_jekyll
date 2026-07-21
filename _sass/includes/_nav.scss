@@ -15,6 +15,39 @@
     display: none;
 }
 
+// The individual link underlines below are the complete CSS/no-JavaScript
+// experience. This shared indicator is revealed only after its optional
+// desktop enhancement has measured a valid target.
+.nav-indicator {
+    --nav-indicator-width: 0px;
+    --nav-indicator-x: 0px;
+    --nav-indicator-y: 0px;
+
+    background: currentColor;
+    background: var(--color-link, currentColor);
+    border-radius: 999rem;
+    display: none;
+    height: 0.125rem;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    transform: translate3d(
+        var(--nav-indicator-x),
+        var(--nav-indicator-y),
+        0
+    );
+    transform-origin: left center;
+    transition:
+        opacity 0.18s ease,
+        transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+        width 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+    width: var(--nav-indicator-width);
+    will-change: transform, width;
+    z-index: 1;
+}
+
 .nav {
     align-items: center;
     display: flex;
@@ -75,6 +108,7 @@
 
     &::after {
         background: currentColor;
+        border-radius: 999rem;
         bottom: -0.75rem;
         content: "";
         height: 0.125rem;
@@ -320,6 +354,22 @@
         display: none;
     }
 
+    .nav-indicator {
+        display: block;
+    }
+
+    .nav-container.is-indicator-ready {
+        .nav-indicator {
+            opacity: 1;
+        }
+
+        .tab::after {
+            opacity: 0;
+            transform: scaleX(0);
+            transition: none;
+        }
+    }
+
     .nav {
         align-items: center;
         background: transparent;
@@ -396,6 +446,7 @@
 
 @media (prefers-reduced-motion: reduce) {
     .nav,
+    .nav-indicator,
     .nav-toggle-line,
     .tab,
     .tab::after {

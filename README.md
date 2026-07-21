@@ -97,7 +97,7 @@ The main entry point is:
 scripts/initializeScripts.js
 ```
 
-Current behaviors include the static site search, progressive contact-form validation and submission, user-controlled carousels and recommendations, consent handling, and related page interactions. The site remains readable and navigable without JavaScript.
+Current behaviors include the static site search, progressive contact-form validation and submission, an optional sliding desktop-navigation indicator, user-controlled carousels and recommendations, consent handling, and related page interactions. The site remains readable and navigable without JavaScript.
 
 ### Progressive-enhancement standard
 
@@ -112,7 +112,7 @@ Native HTML and CSS are the default implementation layer for this project. JavaS
 - JavaScript may manage data retrieval, generated search results, persisted consent, carousel state, focus movement, `inert`, live regions, and synchronization of a working enhancement’s dynamic ARIA state. It must never be the sole source of essential semantics or operability.
 - CSS-only state techniques must not replace native or scripted controls when doing so would weaken keyboard behavior, focus management, semantics, or assistive-technology support.
 
-For example, the mobile navigation remains an ordinary list of links unless its accessible overlay enhancement initializes. Its line motion and menu transitions are CSS; its script synchronizes open/closed state, scroll locking, focus containment, background inertness, and ARIA state. Search remains hidden until its modal, index, keyboard behavior, and result announcements are ready.
+For example, the mobile navigation remains an ordinary list of links unless its accessible overlay enhancement initializes. Its line motion and menu transitions are CSS; its script synchronizes open/closed state, scroll locking, focus containment, background inertness, and ARIA state. On desktop, each link always has CSS active, hover, and focus underlines; after successful measurement, JavaScript may replace them with one continuous sliding indicator whose interpolation remains in CSS. Search remains hidden until its modal, index, keyboard behavior, and result announcements are ready.
 
 ### Static search database
 
