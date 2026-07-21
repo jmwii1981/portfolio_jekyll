@@ -8,6 +8,7 @@ const { join } = require('path');
     const { records } = payload;
 
     const expectedRecordIds = [
+        'profile:jan-michael-wallace-ii',
         'page:/',
         'page:/work/',
         'page:/perspectives/',
@@ -44,7 +45,7 @@ const { join } = require('path');
     assert.equal(payload.version, 1);
     assert.equal(records.length, expectedRecordIds.length);
     assert.equal(new Set(records.map(({ id }) => id)).size, records.length);
-    assert.equal(new Set(records.map(({ url }) => url)).size, records.length);
+    assert.equal(new Set(records.filter(({ id }) => id !== 'profile:jan-michael-wallace-ii').map(({ url }) => url)).size, records.length - 1);
 
     expectedRecordIds.forEach((id) => {
         assert(records.some((record) => record.id === id), `Missing expected search record: ${id}`);
@@ -73,6 +74,7 @@ const { join } = require('path');
     expectTopResult('payment products rates', 'section:/work/#project-northstar');
     expectTopResult('great cup coffee', 'section:/#beyond-the-work');
     expectTopResult('Global Payments', 'section:/#recommendations');
+    expectTopResult('jmwii1981', 'profile:jan-michael-wallace-ii');
 
     const web3FormsResults = rankSearchRecords(records, 'Web3Forms').map(({ id }) => id);
     assert(web3FormsResults.includes('section:/terms/#information-used-by-this-site'));
