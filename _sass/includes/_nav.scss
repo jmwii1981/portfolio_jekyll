@@ -15,42 +15,6 @@
     display: none;
 }
 
-.nav-indicator {
-    --nav-indicator-rotation: 0deg;
-    --nav-indicator-width: 0rem;
-    --nav-indicator-x: 0rem;
-    --nav-indicator-y: 0rem;
-
-    background: var(--color-ink);
-    display: none;
-    height: 0.125rem;
-    left: 0;
-    opacity: 0;
-    pointer-events: none;
-    position: fixed;
-    top: 0;
-    transform: translate3d(
-        var(--nav-indicator-x),
-        var(--nav-indicator-y),
-        0
-    ) rotate(var(--nav-indicator-rotation));
-    transform-origin: center;
-    transition:
-        opacity 0.15s ease,
-        transform 0.35s ease,
-        width 0.35s ease;
-    width: var(--nav-indicator-width);
-    z-index: 5;
-
-    &.is-ready {
-        opacity: 1;
-    }
-
-    &.is-positioning {
-        transition: none;
-    }
-}
-
 .nav {
     align-items: center;
     display: flex;
@@ -104,9 +68,29 @@
     letter-spacing: 0.055rem;
     text-shadow: none;
     text-transform: uppercase;
+    position: relative;
     transition:
         color 0.2s ease,
         text-shadow 0.2s ease;
+
+    &::after {
+        background: currentColor;
+        bottom: -0.75rem;
+        content: "";
+        height: 0.125rem;
+        left: 0;
+        position: absolute;
+        right: 0;
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 0.25s ease;
+    }
+
+    &:hover::after,
+    &:focus-visible::after,
+    &.active::after {
+        transform: scaleX(1);
+    }
 }
 
 .tab.active {
@@ -126,18 +110,11 @@
 }
 
 .nav-toggle {
-        @include glass-control;
-
-        --control-glass-shadow: inset 0 0.0625rem rgba(255, 255, 255, 0.62),
-            inset 0 -0.0625rem rgba(4, 4, 5, 0.06),
-            0 0.35rem 1rem rgba(4, 4, 5, 0.05);
-        --control-glass-sheen-opacity: 0.28;
-
         align-items: center;
         appearance: none;
-        background: rgba(255, 255, 255, 0.16);
-        border: 0.0625rem solid rgba(4, 4, 5, 0.06);
-        border-radius: 100px;
+        background: transparent;
+        border: 0.0625rem solid transparent;
+        border-radius: 0.25rem;
         box-sizing: border-box;
         cursor: pointer;
         display: flex;
@@ -149,12 +126,12 @@
         z-index: 4;
 
         &:hover {
-            background: rgba(255, 255, 255, 0.32);
-            border-color: rgba(4, 4, 5, 0.12);
+            background: transparent;
+            border-color: transparent;
         }
 
         &:focus-visible {
-            border-radius: 100px;
+            border-radius: 0.25rem;
             outline: 0.125rem solid var(--color-focus-ring);
             outline-offset: 0.125rem;
         }
@@ -220,8 +197,7 @@
         width: 100%;
         z-index: 3;
 
-        &::before,
-        &.has-sliding-underline::before {
+        &::before {
             display: none;
         }
 }
@@ -285,16 +261,6 @@
         }
 }
 
-.nav:hover,
-.nav.has-sliding-underline {
-        .tab::after,
-        .tab.active::after,
-        .tab-container:hover .tab::after,
-        .tab-container:hover .tab.active::after {
-            display: none;
-        }
-}
-
 .html.is-nav-open,
 .body.is-nav-open {
     overflow: hidden;
@@ -307,24 +273,27 @@
     z-index: 11;
 }
 
-.no-js .header {
+.no-js .header,
+.html:not(.navigation-ready) .header {
     flex-direction: column;
     gap: 0.75rem;
     padding-bottom: 1rem;
     position: relative;
 }
 
-.no-js .nav-container {
+.no-js .nav-container,
+.html:not(.navigation-ready) .nav-container {
     height: auto;
     width: 100%;
 }
 
 .no-js .nav-toggle,
-.no-js .nav-indicator {
+.html:not(.navigation-ready) .nav-toggle {
     display: none;
 }
 
-.no-js .nav {
+.no-js .nav,
+.html:not(.navigation-ready) .nav {
     gap: 0.5rem;
     height: auto;
     opacity: 1;
@@ -336,7 +305,9 @@
 }
 
 .no-js .tab,
-.no-js .tab.active {
+.no-js .tab.active,
+.html:not(.navigation-ready) .tab,
+.html:not(.navigation-ready) .tab.active {
     font-size: 1.1rem;
 }
 
@@ -347,10 +318,6 @@
 
     .nav-toggle {
         display: none;
-    }
-
-    .nav-indicator {
-        display: block;
     }
 
     .nav {
@@ -400,30 +367,38 @@
         padding: 0;
         text-transform: uppercase;
     }
+
+    .tab::after {
+        display: block;
+    }
 }
 
 @media screen and (min-width: 44.3125rem) {
-    .no-js .header {
+    .no-js .header,
+    .html:not(.navigation-ready) .header {
         flex-direction: row;
         padding-bottom: 0.15rem;
         position: fixed;
     }
 
-    .no-js .nav-container {
+    .no-js .nav-container,
+    .html:not(.navigation-ready) .nav-container {
         width: auto;
     }
 
     .no-js .tab,
-    .no-js .tab.active {
+    .no-js .tab.active,
+    .html:not(.navigation-ready) .tab,
+    .html:not(.navigation-ready) .tab.active {
         font-size: 0.82rem;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .nav,
-    .nav-indicator,
     .nav-toggle-line,
-    .tab {
+    .tab,
+    .tab::after {
         transition: none;
     }
 

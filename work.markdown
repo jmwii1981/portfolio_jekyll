@@ -6,7 +6,7 @@ description: "Selected product design leadership work spanning merchant operatio
 ---
 {% assign work_image_sizes = '(min-width: 110.5rem) 52rem, (min-width: 60.0625rem) calc(56vw - 6rem), (min-width: 42.0625rem) calc(100vw - 9rem), (min-width: 26.3125rem) calc(100vw - 5rem), calc(100vw - 3rem)' %}
 <main class="main work" id="main-content" tabindex="-1">
-    <section class="work-intro" aria-labelledby="work-intro-title">
+    <section class="work-intro" id="selected-work" aria-labelledby="work-intro-title" data-search-section data-search-title="Selected Work" data-search-category="Work" data-search-summary="Product design leadership work that brings clarity to complexity and turns innovation into products that can scale." data-search-keywords="portfolio case studies product design systems teams">
         <div class="work-intro-copy">
             <p class="p work-intro-eyebrow">Selected work</p>
             <h1 class="h1 work-intro-title" id="work-intro-title">Clarity for what comes next.</h1>
@@ -38,7 +38,7 @@ description: "Selected product design leadership work spanning merchant operatio
         </nav>
 
         <div class="work-items-wrapper">
-            <article class="project-story" id="project-lionfinancial" aria-labelledby="lmms-title">
+            <article class="project-story" id="project-lionfinancial" aria-labelledby="lmms-title" data-search-section data-search-title="LionFinancial Merchant Management System" data-search-category="Selected Work" data-search-summary="A connected operating system for merchant accounts, customers, transactions, approvals, payouts, reporting, and performance." data-search-keywords="LMMS merchant operations accounts transactions customers payouts reports fintech dashboard">
                 <header class="project-story-header" data-reveal="up">
                     <p class="p project-story-meta">LionFinancial <span aria-hidden="true">/</span> Merchant operations</p>
                     <h3 class="h3 project-story-title" id="lmms-title">A calmer operating system for merchant performance.</h3>
@@ -98,7 +98,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 </div>
             </article>
 
-            <article class="project-story" id="project-vega" aria-labelledby="vega-title">
+            <article class="project-story" id="project-vega" aria-labelledby="vega-title" data-search-section data-search-title="Vega Product Design System" data-search-category="Selected Work" data-search-summary="A shared foundation of components, tokens, documentation, and practices for global product teams." data-search-keywords="design system design systems components tokens documentation global product teams Figma">
                 <header class="project-story-header project-story-header--right" data-reveal="up">
                     <p class="p project-story-meta">Global Payments <span aria-hidden="true">/</span> Enterprise design system</p>
                     <h3 class="h3 project-story-title" id="vega-title">A north star for product design across a global ecosystem.</h3>
@@ -159,7 +159,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 </div>
             </article>
 
-            <article class="project-story" id="project-avenapay" aria-labelledby="avena-title">
+            <article class="project-story" id="project-avenapay" aria-labelledby="avena-title" data-search-section data-search-title="AvenaPay Disputes Analytics" data-search-category="Selected Work" data-search-summary="Disputes analytics that help merchants understand change, direct attention, and identify strong recovery opportunities." data-search-keywords="chargebacks disputes analytics merchants artificial intelligence AI reporting dashboard">
                 <header class="project-story-header" data-reveal="up">
                     <p class="p project-story-meta">AvenaPay <span aria-hidden="true">/</span> Disputes management</p>
                     <h3 class="h3 project-story-title" id="avena-title">Turning dispute complexity into actionable clarity.</h3>
@@ -219,7 +219,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 </div>
             </article>
 
-            <article class="project-story" id="project-paladin" aria-labelledby="paladin-title">
+            <article class="project-story" id="project-paladin" aria-labelledby="paladin-title" data-search-section data-search-title="Paladin Wireframing Kit" data-search-category="Selected Work" data-search-summary="An accessibility-minded wireframing system for exploring structure, workflows, content priorities, and edge cases." data-search-keywords="wireframes UX kit tables data workflows forms ecommerce dashboard reporting">
                 <header class="project-story-header project-story-header--right" data-reveal="up">
                     <p class="p project-story-meta">Paladin <span aria-hidden="true">/</span> UX framing kit</p>
                     <h3 class="h3 project-story-title" id="paladin-title">A shared language for solving complex product problems.</h3>
@@ -261,7 +261,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 </div>
             </article>
 
-            <article class="project-story" id="project-ledgerflow" aria-labelledby="ledger-title">
+            <article class="project-story" id="project-ledgerflow" aria-labelledby="ledger-title" data-search-section data-search-title="LedgerFlow Payments and Invoicing" data-search-category="Selected Work" data-search-summary="A clearer fintech experience for invoices, payments, customers, reminders, reporting, and mobile collection." data-search-keywords="fintech invoices payments customers reminders reporting mobile collection">
                 <header class="project-story-header" data-reveal="up">
                     <p class="p project-story-meta">LedgerFlow <span aria-hidden="true">/</span> Payments and invoicing</p>
                     <h3 class="h3 project-story-title" id="ledger-title">One understandable flow from invoice to payment.</h3>
@@ -303,7 +303,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 </div>
             </article>
 
-            <article class="project-story" id="project-northstar" aria-labelledby="northstar-title">
+            <article class="project-story" id="project-northstar" aria-labelledby="northstar-title" data-search-section data-search-title="Northstar Commerce Conversion Experience" data-search-category="Selected Work" data-search-summary="A conversion-focused experience for understanding offers, comparing payment products and rates, and choosing the right setup." data-search-keywords="commerce conversion landing page pricing comparison trust support responsive">
                 <header class="project-story-header project-story-header--right" data-reveal="up">
                     <p class="p project-story-meta">Northstar Commerce <span aria-hidden="true">/</span> Conversion strategy</p>
                     <h3 class="h3 project-story-title" id="northstar-title">A clearer path from first impression to confident conversion.</h3>
@@ -347,7 +347,7 @@ description: "Selected product design leadership work spanning merchant operatio
         </div>
     </section>
 
-    <section class="work-summary" aria-labelledby="work-summary-title">
+    <section class="work-summary" id="design-leadership-principles" aria-labelledby="work-summary-title" data-search-section data-search-title="Product Design Leadership Principles" data-search-category="Approach" data-search-keywords="clarity complexity systems momentum leadership execution product territory">
         <div class="work-summary-intro" data-reveal="up">
             <p class="p work-summary-eyebrow">The throughline</p>
             <h2 class="h2 work-summary-title" id="work-summary-title">Every challenge is different. Progress starts with clarity.</h2>

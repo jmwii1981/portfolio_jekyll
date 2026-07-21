@@ -2,6 +2,7 @@
 <nav 
     class="nav-container"
     aria-label="Primary">
+    {% include site-search.html %}
     <button
         class="nav-toggle"
         type="button"
@@ -11,7 +12,6 @@
         <span class="nav-toggle-line nav-toggle-line--top" aria-hidden="true"></span>
         <span class="nav-toggle-line nav-toggle-line--bottom" aria-hidden="true"></span>
     </button>
-    <span class="nav-indicator" aria-hidden="true"></span>
     <ul class="nav" id="primary-navigation">
         <li 
             id="about-tab"

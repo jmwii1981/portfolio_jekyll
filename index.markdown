@@ -5,7 +5,7 @@ description: "Fractional product design leadership for growing companies navigat
 ---
 
 <main class="main about" id="main-content" tabindex="-1">
-    <section class="hero" id="about" aria-labelledby="about-title">
+    <section class="hero" id="about" aria-labelledby="about-title" data-search-section data-search-title="About Jan Michael Wallace II" data-search-category="About" data-search-summary="Fractional product design leadership for growing companies turning ambiguity into clear strategy, scalable systems, and durable shipped work." data-search-keywords="fractional product design leader portfolio product strategy leadership">
         <div class="content-wrapper">
             <div class="copy-wrapper">
                 <p class="p section-label hero-intro">Hi! I'm</p>
@@ -31,7 +31,7 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
         </div>
     </section>
-    <section class="help">
+    <section class="help" id="how-i-help" data-search-section data-search-title="How I Help" data-search-category="Services" data-search-keywords="lead shape align scale guide coaching strategy design systems team leadership">
         <div class="content-wrapper">
             <header class="home-section-header" data-reveal="right">
                 <h2 class="h2 section-label">How I help</h2>
@@ -66,7 +66,7 @@ description: "Fractional product design leadership for growing companies navigat
             </ul>
         </div>
     </section>
-    <section class="testimonials">
+    <section class="testimonials" id="recommendations" data-search-section data-search-title="Recommendations and Companies" data-search-category="Experience" data-search-keywords="testimonials recommendations trusted companies clients colleagues global payments tsys worldpay humana adapt health">
         <div class="content-wrapper">
             <header class="home-section-header" data-reveal="left">
                 <h2 class="h2 section-label">Trusted across the globe</h2>
@@ -249,7 +249,7 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
         </div>
     </section>
-    <section class="about-me">
+    <section class="about-me" id="beyond-the-work" data-search-section data-search-title="Beyond the Work" data-search-category="About" data-search-summary="More than 20 years of making, exploring, giving back, raising four kids, and searching for a great cup of coffee." data-search-keywords="personal interests connect linkedin conversation">
         <div class="about-me-inner" data-reveal="up">
             <div class="about-me-copy">
                 <p class="p about-me-eyebrow">Beyond the work</p>

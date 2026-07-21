@@ -5,7 +5,8 @@ require "pathname"
 require "rexml/document"
 require "uri"
 
-site_root = Pathname.new(__dir__).join("..", "_site").expand_path
+source_root = Pathname.new(__dir__).join("..").expand_path
+site_root = source_root.join("_site")
 failures = []
 
 unless site_root.directory?
@@ -20,6 +21,7 @@ site_root.glob("**/*.html").each do |file|
   h1_count = html.scan(/<h1\b/i).length
   main_html = html[/<main\b.*?<\/main>/mi]
 
+  failures << "#{relative}: root element must begin in the resilient no-js state" unless html.match?(/<html\b[^>]*\bclass=(['"])[^'"]*\bno-js\b[^'"]*\1/i)
   failures << "#{relative}: expected exactly one h1, found #{h1_count}" unless h1_count == 1
   failures << "#{relative}: primary h1 must be inside the main landmark" unless main_html&.scan(/<h1\b/i)&.length == 1
   failures << "#{relative}: expected exactly one main landmark" unless html.scan(/<main\b/i).length == 1
@@ -90,6 +92,24 @@ site_root.glob("**/*.html").each do |file|
   end
 end
 
+layout_source = source_root.join("_layouts", "page.html").read
+main_script = source_root.join("scripts", "initializeScripts.js").read
+search_script = source_root.join("scripts", "search", "initializeSiteSearch.mjs").read
+nav_styles = source_root.join("_sass", "includes", "_nav.scss").read
+search_styles = source_root.join("_sass", "components", "_site-search.scss").read
+
+failures << "page layout: no-js state must not be removed by an inline head script" if layout_source.match?(/classList\.replace\([^\n]*no-js/i)
+failures << "initializeScripts.js: module must confirm JavaScript execution before enhancing" unless main_script.match?(/classList\.replace\((['"])no-js\1,\s*(['"])js\2\)/)
+failures << "initializeScripts.js: mobile navigation is missing its successful-initialization gate" unless main_script.include?("classList.add('navigation-ready')")
+failures << "initializeScripts.js: project gallery controls are missing their per-instance readiness gate" unless main_script.include?("classList.add('is-gallery-ready')")
+failures << "initializeScripts.js: one failed enhancement can prevent unrelated initialization" unless main_script.include?("const safelyInitialize =")
+failures << "initializeScripts.js: purely visual Web Animations API usage must remain in CSS" if main_script.include?(".animate(")
+failures << "initializeScripts.js: obsolete scripted visual initializer remains" if main_script.match?(/initialize(?:LogoAnimation|ScrollReveals|NavIndicator)/)
+failures << "site search: control is missing its successful-initialization gate" unless search_script.include?("classList.add('is-ready')")
+failures << "site search: control must be hidden before its enhancement is ready" unless search_styles.match?(/\.site-search\s*\{.*?display:\s*none;/m)
+failures << "site search: ready control is not revealed" unless search_styles.match?(/\.site-search\.is-ready\s*\{.*?display:\s*flex;/m)
+failures << "navigation: static fallback is missing when enhancement initialization fails" unless nav_styles.include?(".html:not(.navigation-ready) .nav")
+
 contact = site_root.join("contact", "index.html")
 if contact.file?
   html = contact.read
@@ -140,6 +160,57 @@ else
   failures << "sitemap.xml: missing from build output"
 end
 
+search_index = site_root.join("search-index.json")
+if search_index.file?
+  begin
+    payload = JSON.parse(search_index.read)
+    records = payload["records"]
+
+    if payload["version"] != 1
+      failures << "search-index.json: unsupported or missing version"
+    end
+
+    unless records.is_a?(Array) && records.length >= 5
+      failures << "search-index.json: expected records for every public page"
+      records = []
+    end
+
+    duplicate_record_ids = records.filter_map { |record| record["id"] }.tally.select { |_, count| count > 1 }.keys
+    duplicate_record_ids.each do |id|
+      failures << "search-index.json: duplicate record id #{id.inspect}"
+    end
+
+    records.each_with_index do |record, index|
+      %w[id title url category summary content keywords priority].each do |field|
+        failures << "search-index.json: record #{index} is missing #{field}" unless record.key?(field)
+      end
+
+      url = record["url"].to_s
+      unless url.start_with?("/")
+        failures << "search-index.json: record #{index} must use an internal URL"
+        next
+      end
+
+      path, anchor = url.split("#", 2)
+      destination = site_root.join(path.delete_prefix("/"))
+      destination = destination.join("index.html") if path.end_with?("/")
+
+      unless destination.file?
+        failures << "search-index.json: record #{index} points to missing page #{url}"
+        next
+      end
+
+      if anchor && !destination.read.match?(/\bid=(['"])#{Regexp.escape(anchor)}\1/i)
+        failures << "search-index.json: record #{index} points to missing anchor #{url}"
+      end
+    end
+  rescue JSON::ParserError => error
+    failures << "search-index.json: invalid JSON (#{error.message})"
+  end
+else
+  failures << "search-index.json: missing from build output"
+end
+
 home = site_root.join("index.html")
 if home.file?
   html = home.read
@@ -183,4 +254,4 @@ if failures.any?
   exit 1
 end
 
-puts "Site audit passed: structure, ARIA references, image delivery, contact fallback, metadata, external-link safety, JSON-LD/XML, and sitemap checks."
+puts "Site audit passed: progressive enhancement, structure, ARIA references, image delivery, contact fallback, metadata, static search, external-link safety, JSON-LD/XML, and sitemap checks."

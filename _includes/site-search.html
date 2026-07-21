@@ -1,0 +1,54 @@
+<div
+    class="site-search"
+    data-site-search
+    data-search-index-url="{{ '/search-index.json' | relative_url }}?v={{ site.asset_version }}">
+    <button
+        class="site-search-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-search-panel"
+        aria-label="Search this site"
+        data-search-toggle>
+        {% include icon.html name="search" class="site-search-icon" %}
+    </button>
+
+    <dialog
+        class="site-search-panel"
+        id="site-search-panel"
+        aria-label="Search Jan Michael Wallace II’s site"
+        data-search-panel>
+        <div class="site-search-surface">
+            <div class="site-search-field" data-search-field>
+                {% include icon.html name="search" class="site-search-field-icon" %}
+                <label class="site-search-label" for="site-search-input">Search this site</label>
+                <input
+                    class="site-search-input"
+                    id="site-search-input"
+                    type="search"
+                    role="combobox"
+                    autocomplete="off"
+                    autocapitalize="none"
+                    enterkeyhint="search"
+                    spellcheck="false"
+                    aria-autocomplete="list"
+                    aria-controls="site-search-results"
+                    aria-expanded="false"
+                    aria-describedby="site-search-status"
+                    placeholder="Search Jan Michael’s site"
+                    data-search-input>
+                <button class="site-search-close" type="button" aria-label="Close search" data-search-close>
+                    Close
+                </button>
+            </div>
+
+            <div class="site-search-dropdown" data-search-dropdown hidden>
+                <p class="site-search-status" id="site-search-status" role="status" aria-live="polite" aria-atomic="true" data-search-status></p>
+                <ul class="site-search-results" id="site-search-results" role="listbox" aria-label="Search suggestions" data-search-results></ul>
+                <div class="site-search-empty" data-search-empty hidden>
+                    <p class="site-search-empty-title">No matching content</p>
+                    <p>Try a broader phrase, or <a class="a" href="{{ '/contact/' | relative_url }}">ask Jan directly</a>.</p>
+                </div>
+            </div>
+        </div>
+    </dialog>
+</div>

@@ -6,7 +6,7 @@ description: "Perspectives from Jan Michael Wallace II on product design leaders
 ---
 <main class="main perspectives" id="main-content" tabindex="-1">
     <!-- Content Container -->
-    <section class="post-content-wrapper">
+    <section class="post-content-wrapper" id="latest-perspectives" data-search-section data-search-title="Latest Perspectives" data-search-category="Perspectives" data-search-keywords="articles writing Medium product design leadership">
         <h1 class="p perspectives-latest-label">Perspectives <span aria-hidden="true">/</span> Latest article</h1>
         <div class="perspectives-feed-fallback" data-feed-fallback>
             <h2 class="h2">Latest writing</h2>
@@ -49,7 +49,7 @@ description: "Perspectives from Jan Michael Wallace II on product design leaders
             <div class="skeleton-text"></div>
         </div>
     </section>
-    <aside class="perspectives-sidebar" aria-label="Additional perspectives content">
+    <aside class="perspectives-sidebar" id="read-more-on-medium" aria-label="Additional perspectives content" data-search-section data-search-title="Read More on Medium" data-search-category="Perspectives" data-search-summary="Field notes on navigating ambiguity, aligning teams, and making better product decisions." data-search-keywords="field notes ambiguity teams product decisions articles">
         <p class="p section-label">Read more on Medium</p>
         <h2 class="h2 perspectives-sidebar-title">Thoughts on design, leadership, and building products that last.</h2>
         <p class="p perspectives-summary">Field notes on navigating ambiguity, aligning teams, and making better product decisions.</p>

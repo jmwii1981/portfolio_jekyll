@@ -1,6 +1,8 @@
 # Site scripts
 
-`initializeScripts.js` is the browser entry point. It progressively enhances contact-form validation and submission, consent and analytics loading, the fixed header, mobile navigation, reveal effects, project galleries, logo motion, the company-logo carousel, recommendations, and the Perspectives feed.
+`initializeScripts.js` is the browser entry point. It progressively enhances static site search, contact-form validation and submission, consent and analytics loading, the fixed header, mobile navigation, reveal effects, project galleries, logo motion, the company-logo carousel, recommendations, and the Perspectives feed.
+
+`build-search-index.rb` reads the rendered public pages in `_site/` and generates the committed `search-index.json` database. It indexes meaningful page text and non-empty image alternatives, creates precise records for anchored `data-search-section` containers, and removes interface/decorative content before indexing. The Medium article body remains a dynamic browser enhancement and is not copied into this static database.
 
 The `perspectives/` modules fetch the latest Medium item once, convert it into a structured object, sanitize externally supplied markup, and render it into the reserved article container. If the module or request fails—or JavaScript is unavailable—the static Medium fallback remains visible.
 
@@ -8,8 +10,11 @@ The `perspectives/` modules fetch the latest Medium item once, convert it into a
 
 ```bash
 bundle exec jekyll build
+ruby scripts/build-search-index.rb --check
 node --check scripts/initializeScripts.js
 for file in scripts/perspectives/*.mjs; do node --check "$file"; done
+for file in scripts/search/*.mjs; do node --check "$file"; done
+node scripts/search/searchIndex.test.cjs
 ruby scripts/audit-site.rb
 ```
 

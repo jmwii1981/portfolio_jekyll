@@ -4,6 +4,8 @@
  */
 
 (async () => {
+    document.documentElement.classList.replace('no-js', 'js');
+
     try {
         const initializeContactForm = () => {
             const form = document.querySelector('[data-contact-form]');
@@ -84,10 +86,6 @@
                 requiredFields.forEach((field) => setFieldError(field));
             };
 
-            // Replace temporary browser bubbles only when the inline validation enhancement is active.
-            // Without JavaScript, the authored constraints and direct form POST remain unchanged.
-            form.noValidate = true;
-
             requiredFields.forEach((field) => {
                 field.addEventListener('invalid', () => {
                     setFieldError(field, getFieldErrorMessage(field));
@@ -167,6 +165,10 @@
                     buttonLabel.textContent = defaultButtonLabel;
                 }
             });
+
+            // Disable native bubbles only after the complete enhanced submission path is ready.
+            // If initialization fails earlier, authored validation and direct POST remain intact.
+            form.noValidate = true;
         };
 
         const initializeConsentBanner = () => {
@@ -506,9 +508,10 @@
             const navContainer = document.querySelector('.nav-container');
             const toggle = navContainer?.querySelector('.nav-toggle');
             const nav = navContainer?.querySelector('.nav');
+            const searchControl = navContainer?.querySelector('.site-search');
             const backgroundRegions = Array.from(document.querySelectorAll('.skip-link, .site-identity, main, footer, [data-consent-banner]'));
 
-            if (!navContainer || !toggle || !nav) return;
+            if (!navContainer || !toggle || !nav || !('inert' in HTMLElement.prototype)) return;
 
             const mobileQuery = window.matchMedia('(max-width: 44.25rem)');
             let transitionTimerId = null;
@@ -533,6 +536,7 @@
                 backgroundRegions.forEach((region) => {
                     region.inert = isOpen;
                 });
+                if (searchControl) searchControl.inert = isOpen;
 
                 if (isOpen) {
                     window.requestAnimationFrame(() => nav.querySelector('.tab')?.focus());
@@ -556,6 +560,21 @@
             document.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape' && navContainer.classList.contains('is-open')) {
                     setMenuState(false, { animate: true, restoreFocus: true });
+                    return;
+                }
+
+                if (event.key !== 'Tab' || !navContainer.classList.contains('is-open')) return;
+
+                const focusableItems = [toggle, ...nav.querySelectorAll('.tab')];
+                const firstItem = focusableItems[0];
+                const lastItem = focusableItems[focusableItems.length - 1];
+
+                if (event.shiftKey && document.activeElement === firstItem) {
+                    event.preventDefault();
+                    lastItem.focus();
+                } else if (!event.shiftKey && document.activeElement === lastItem) {
+                    event.preventDefault();
+                    firstItem.focus();
                 }
             });
 
@@ -570,483 +589,159 @@
             }
 
             window.addEventListener('resize', cancelMenuTransition, { passive: true });
-        };
-
-        const initializeScrollReveals = () => {
-            const elements = Array.from(document.querySelectorAll('[data-reveal]'));
-
-            if (!elements.length) return;
-
-            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-            if (reducedMotion || !('IntersectionObserver' in window)) {
-                elements.forEach((element) => element.classList.add('is-visible'));
-                return;
-            }
-
-            document.documentElement.classList.add('has-scroll-reveal');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (!entry.isIntersecting) return;
-
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                });
-            }, {
-                rootMargin: '0px 0px -10% 0px',
-                threshold: 0.12
-            });
-
-            elements.forEach((element) => observer.observe(element));
+            document.documentElement.classList.add('navigation-ready');
         };
 
         const initializeProjectGalleries = () => {
             const galleries = document.querySelectorAll('[data-project-gallery]');
 
             galleries.forEach((gallery) => {
-                const story = gallery.closest('.project-story');
-                const overview = story?.querySelector('.project-story-overview');
-                const cover = overview?.querySelector('.project-cover');
-                const details = overview?.querySelector('.project-story-details');
-                const viewport = gallery.querySelector('[data-gallery-viewport]');
-                const track = gallery.querySelector('.project-gallery-track');
-                const previousButton = gallery.querySelector('[data-gallery-previous]');
-                const nextButton = gallery.querySelector('[data-gallery-next]');
-                const copyItems = [];
+                try {
+                    const story = gallery.closest('.project-story');
+                    const overview = story?.querySelector('.project-story-overview');
+                    const cover = overview?.querySelector('.project-cover');
+                    const details = overview?.querySelector('.project-story-details');
+                    const viewport = gallery.querySelector('[data-gallery-viewport]');
+                    const track = gallery.querySelector('.project-gallery-track');
+                    const previousButton = gallery.querySelector('[data-gallery-previous]');
+                    const nextButton = gallery.querySelector('[data-gallery-next]');
+                    const copyItems = [];
 
-                if (!viewport || !track || !previousButton || !nextButton) return;
+                    if (!viewport || !track || !previousButton || !nextButton) return;
 
-                if (cover && details && overview) {
-                    const coverSlide = document.createElement('figure');
-                    const coverImageWrapper = document.createElement('div');
-                    const coverImage = cover.querySelector('img')?.cloneNode(true);
+                    if (cover && details && overview) {
+                        const coverSlide = document.createElement('figure');
+                        const coverImageWrapper = document.createElement('div');
+                        const coverImage = cover.querySelector('img')?.cloneNode(true);
 
-                    if (coverImage) {
-                        coverSlide.className = 'project-screen project-screen--cover';
-                        coverSlide.dataset.gallerySlide = '';
-                        coverImageWrapper.className = 'project-screen-image';
-                        coverImageWrapper.append(coverImage);
-                        coverSlide.append(coverImageWrapper);
-                        track.prepend(coverSlide);
+                        if (coverImage) {
+                            coverSlide.className = 'project-screen project-screen--cover';
+                            coverSlide.dataset.gallerySlide = '';
+                            coverImageWrapper.className = 'project-screen-image';
+                            coverImageWrapper.append(coverImage);
+                            coverSlide.append(coverImageWrapper);
+                            track.prepend(coverSlide);
+                        }
+
+                        const overviewCopy = document.createElement('div');
+                        overviewCopy.className = 'project-gallery-copy-item project-gallery-copy-item--overview';
+                        overviewCopy.append(...Array.from(details.children));
+                        details.classList.add('project-story-copy-panel');
+                        details.setAttribute('aria-live', 'polite');
+                        details.append(overviewCopy);
+                        copyItems.push(overviewCopy);
+
+                        gallery.dataset.reveal = cover.dataset.reveal || 'up';
+                        gallery.classList.add('project-walkthrough--integrated');
+                        overview.insertBefore(gallery, details);
+                        cover.remove();
                     }
 
-                    const overviewCopy = document.createElement('div');
-                    overviewCopy.className = 'project-gallery-copy-item project-gallery-copy-item--overview';
-                    overviewCopy.append(...Array.from(details.children));
-                    details.classList.add('project-story-copy-panel');
-                    details.setAttribute('aria-live', 'polite');
-                    details.append(overviewCopy);
-                    copyItems.push(overviewCopy);
+                    const slides = Array.from(gallery.querySelectorAll('[data-gallery-slide]'));
 
-                    gallery.dataset.reveal = cover.dataset.reveal || 'up';
-                    gallery.classList.add('project-walkthrough--integrated');
-                    overview.insertBefore(gallery, details);
-                    cover.remove();
-                }
+                    slides.slice(copyItems.length).forEach((slide) => {
+                        const caption = slide.querySelector('.project-screen-caption');
 
-                const slides = Array.from(gallery.querySelectorAll('[data-gallery-slide]'));
+                        if (!caption || !details) return;
 
-                slides.slice(copyItems.length).forEach((slide) => {
-                    const caption = slide.querySelector('.project-screen-caption');
+                        caption.classList.add('project-gallery-copy-item');
+                        details.append(caption);
+                        copyItems.push(caption);
+                    });
+                    const countLabel = gallery.querySelector('.project-gallery-count');
+                    const currentLabel = gallery.querySelector('[data-gallery-current]');
 
-                    if (!caption || !details) return;
+                    if (slides.length < 2) return;
 
-                    caption.classList.add('project-gallery-copy-item');
-                    details.append(caption);
-                    copyItems.push(caption);
-                });
-                const countLabel = gallery.querySelector('.project-gallery-count');
-                const currentLabel = gallery.querySelector('[data-gallery-current]');
+                    if (countLabel?.lastChild) {
+                        countLabel.lastChild.textContent = ` / ${slides.length}`;
+                    }
 
-                if (slides.length < 2) return;
+                    let currentIndex = 0;
+                    let isTicking = false;
+                    let isProgrammaticNavigation = false;
+                    let navigationTimerId;
+                    let visibleCopyIndex = null;
 
-                if (countLabel?.lastChild) {
-                    countLabel.lastChild.textContent = ` / ${slides.length}`;
-                }
+                    const updateCopy = (index) => {
+                        if (!copyItems.length || visibleCopyIndex === index) return;
 
-                let currentIndex = 0;
-                let isTicking = false;
-                let isProgrammaticNavigation = false;
-                let navigationTimerId;
-                let visibleCopyIndex = null;
-                let copyTransitionToken = 0;
-
-                const updateCopy = (index) => {
-                    if (!copyItems.length || visibleCopyIndex === index) return;
-
-                    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                    const outgoing = visibleCopyIndex === null ? null : copyItems[visibleCopyIndex];
-                    const incoming = copyItems[index];
-                    const canAnimate = typeof incoming?.animate === 'function' && (!outgoing || typeof outgoing.animate === 'function');
-                    const transitionToken = ++copyTransitionToken;
-
-                    copyItems.forEach((item) => item.getAnimations?.().forEach((animation) => animation.cancel()));
-
-                    const revealIncoming = () => {
-                        if (transitionToken !== copyTransitionToken) return;
+                        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                        const incoming = copyItems[index];
 
                         copyItems.forEach((item, itemIndex) => {
+                            item.classList.remove('is-entering');
                             item.hidden = itemIndex !== index;
                         });
                         visibleCopyIndex = index;
 
-                        if (!reducedMotion && canAnimate) {
-                            incoming.animate(
-                                [
-                                    { opacity: 0, transform: 'translateY(0.5rem)' },
-                                    { opacity: 1, transform: 'translateY(0)' }
-                                ],
-                                { duration: 240, easing: 'ease-out' }
-                            );
+                        if (!reducedMotion && incoming) {
+                            void incoming.offsetWidth;
+                            incoming.classList.add('is-entering');
                         }
                     };
 
-                    if (!outgoing || reducedMotion || !canAnimate) {
-                        revealIncoming();
-                        return;
-                    }
+                    const updateState = (index) => {
+                        currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+                        previousButton.disabled = currentIndex === 0;
+                        nextButton.disabled = currentIndex === slides.length - 1;
+                        updateCopy(currentIndex);
 
-                    outgoing.animate(
-                        [
-                            { opacity: 1, transform: 'translateY(0)' },
-                            { opacity: 0, transform: 'translateY(-0.25rem)' }
-                        ],
-                        { duration: 140, easing: 'ease-in' }
-                    ).finished.then(revealIncoming).catch(() => {});
-                };
+                        if (currentLabel) currentLabel.textContent = String(currentIndex + 1);
+                    };
 
-                const updateState = (index) => {
-                    currentIndex = Math.max(0, Math.min(index, slides.length - 1));
-                    previousButton.disabled = currentIndex === 0;
-                    nextButton.disabled = currentIndex === slides.length - 1;
-                    updateCopy(currentIndex);
+                    const getNearestSlideIndex = () => slides.reduce((nearestIndex, slide, index) => {
+                        const nearestDistance = Math.abs(slides[nearestIndex].offsetLeft - viewport.scrollLeft);
+                        const slideDistance = Math.abs(slide.offsetLeft - viewport.scrollLeft);
 
-                    if (currentLabel) currentLabel.textContent = String(currentIndex + 1);
-                };
+                        return slideDistance < nearestDistance ? index : nearestIndex;
+                    }, 0);
 
-                const getNearestSlideIndex = () => slides.reduce((nearestIndex, slide, index) => {
-                    const nearestDistance = Math.abs(slides[nearestIndex].offsetLeft - viewport.scrollLeft);
-                    const slideDistance = Math.abs(slide.offsetLeft - viewport.scrollLeft);
+                    const goToSlide = (index) => {
+                        const targetIndex = Math.max(0, Math.min(index, slides.length - 1));
+                        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-                    return slideDistance < nearestDistance ? index : nearestIndex;
-                }, 0);
+                        window.clearTimeout(navigationTimerId);
+                        isProgrammaticNavigation = true;
 
-                const goToSlide = (index) => {
-                    const targetIndex = Math.max(0, Math.min(index, slides.length - 1));
-                    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                        viewport.scrollTo({
+                            behavior: reducedMotion ? 'auto' : 'smooth',
+                            left: slides[targetIndex].offsetLeft
+                        });
+                        updateState(targetIndex);
 
-                    window.clearTimeout(navigationTimerId);
-                    isProgrammaticNavigation = true;
+                        navigationTimerId = window.setTimeout(() => {
+                            isProgrammaticNavigation = false;
+                        }, reducedMotion ? 0 : 500);
+                    };
 
-                    viewport.scrollTo({
-                        behavior: reducedMotion ? 'auto' : 'smooth',
-                        left: slides[targetIndex].offsetLeft
+                    previousButton.addEventListener('click', () => goToSlide(currentIndex - 1));
+                    nextButton.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+                    viewport.addEventListener('keydown', (event) => {
+                        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+
+                        event.preventDefault();
+                        goToSlide(currentIndex + (event.key === 'ArrowRight' ? 1 : -1));
                     });
-                    updateState(targetIndex);
 
-                    navigationTimerId = window.setTimeout(() => {
-                        isProgrammaticNavigation = false;
-                    }, reducedMotion ? 0 : 500);
-                };
+                    viewport.addEventListener('scroll', () => {
+                        if (isTicking || isProgrammaticNavigation) return;
 
-                previousButton.addEventListener('click', () => goToSlide(currentIndex - 1));
-                nextButton.addEventListener('click', () => goToSlide(currentIndex + 1));
+                        window.requestAnimationFrame(() => {
+                            updateState(getNearestSlideIndex());
+                            isTicking = false;
+                        });
+                        isTicking = true;
+                    }, { passive: true });
 
-                viewport.addEventListener('keydown', (event) => {
-                    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
-
-                    event.preventDefault();
-                    goToSlide(currentIndex + (event.key === 'ArrowRight' ? 1 : -1));
-                });
-
-                viewport.addEventListener('scroll', () => {
-                    if (isTicking || isProgrammaticNavigation) return;
-
-                    window.requestAnimationFrame(() => {
-                        updateState(getNearestSlideIndex());
-                        isTicking = false;
-                    });
-                    isTicking = true;
-                }, { passive: true });
-
-                window.addEventListener('resize', () => goToSlide(currentIndex));
-                updateState(currentIndex);
-            });
-        };
-
-        const initializeLogoAnimation = () => {
-            const logo = document.querySelector('.logo-container.large .logo.large');
-            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-            if (!logo || reducedMotion) return;
-
-            const paths = [1, 2, 3, 4]
-                .map((column) => logo.querySelector(`.anim-col-${column}`));
-
-            if (paths.some((path) => !path)) return;
-
-            const subpageFrames = [
-                [
-                    [0, 33, 92, 125, 1],
-                    [0.22, 33, 72, 108, 1],
-                    [0.48, 33, 58, 96, 1],
-                    [0.72, 33, 76, 112, 1],
-                    [0.88, 33, 88, 122, 1],
-                    [1, 33, 92, 125, 1]
-                ],
-                [
-                    [0, 64, 33, 125, 1],
-                    [0.22, 64, 47, 112, 1],
-                    [0.48, 64, 26, 130, 1],
-                    [0.72, 64, 42, 118, 1],
-                    [0.88, 64, 35, 124, 1],
-                    [1, 64, 33, 125, 1]
-                ],
-                [
-                    [0, 95, 33, 125, 1],
-                    [0.22, 95, 52, 108, 1],
-                    [0.48, 95, 40, 116, 1],
-                    [0.72, 95, 22, 130, 1],
-                    [0.88, 95, 31, 126, 1],
-                    [1, 95, 33, 125, 1]
-                ],
-                [
-                    [0, 126, 33, 125, 1],
-                    [0.22, 126, 60, 98, 1],
-                    [0.48, 126, 48, 112, 1],
-                    [0.72, 126, 27, 130, 1],
-                    [0.88, 126, 35, 123, 1],
-                    [1, 126, 33, 125, 1]
-                ]
-            ];
-
-            const homeFrames = [
-                [
-                    [0, 33, 114.9, 115, 1],
-                    [0.23, 33, 114.9, 115, 1],
-                    [0.31, 64, 95, 125, 1],
-                    [0.39, 64, 95, 125, 1],
-                    [0.47, 48.5, 43, 125, 1],
-                    [0.55, 48.5, 43, 125, 1],
-                    [0.63, 48.5, 43, 125, 1],
-                    [0.71, 48.5, 43, 125, 1],
-                    [0.79, 33, 114.9, 115, 0],
-                    [0.87, 33, 114.9, 115, 0],
-                    [1, 33, 92, 125, 1]
-                ],
-                [
-                    [0, 64, 114.9, 115, 0],
-                    [0.055, 64, 114.9, 115, 0],
-                    [0.056, 64, 114.9, 115, 1],
-                    [0.23, 64, 114.9, 115, 1],
-                    [0.31, 95, 43, 125, 1],
-                    [0.39, 95, 43, 125, 1],
-                    [0.47, 79.5, 54, 92, 1],
-                    [0.55, 79.5, 54, 92, 1],
-                    [0.63, 79.5, 83, 111, 1],
-                    [0.71, 79.5, 83, 111, 1],
-                    [0.79, 64, 114.9, 115, 0],
-                    [0.87, 64, 114.9, 115, 0],
-                    [1, 64, 33, 125, 1]
-                ],
-                [
-                    [0, 95, 114.9, 115, 0],
-                    [0.11, 95, 114.9, 115, 0],
-                    [0.111, 95, 114.9, 115, 1],
-                    [0.23, 95, 114.9, 115, 1],
-                    [0.31, 95, 114.9, 115, 0],
-                    [0.39, 95, 114.9, 115, 0],
-                    [0.47, 110.5, 43, 125, 1],
-                    [0.55, 110.5, 43, 125, 1],
-                    [0.63, 110.5, 43, 125, 1],
-                    [0.71, 110.5, 43, 125, 1],
-                    [0.79, 64, 43, 125, 1],
-                    [0.87, 64, 43, 125, 1],
-                    [1, 95, 33, 125, 1]
-                ],
-                [
-                    [0, 126, 114.9, 115, 0],
-                    [0.165, 126, 114.9, 115, 0],
-                    [0.166, 126, 114.9, 115, 1],
-                    [0.23, 126, 114.9, 115, 1],
-                    [0.31, 126, 114.9, 115, 0],
-                    [0.71, 126, 114.9, 115, 0],
-                    [0.79, 95, 43, 125, 1],
-                    [0.87, 95, 43, 125, 1],
-                    [1, 126, 33, 125, 1]
-                ]
-            ];
-
-            const isHome = logo.closest('.logo-container--home');
-            const duration = isHome ? 3600 : 900;
-            const delays = isHome ? [0, 0, 0, 0] : [0, 40, 80, 120];
-            const framesByPath = isHome ? homeFrames : subpageFrames;
-            const originals = paths.map((path) => path.getAttribute('d'));
-            const ease = (value) => value < 0.5
-                ? 4 * value * value * value
-                : 1 - Math.pow(-2 * value + 2, 3) / 2;
-            const interpolate = (start, end, progress) => start + ((end - start) * progress);
-
-            const sampleFrames = (frames, progress) => {
-                const nextIndex = frames.findIndex((frame) => frame[0] >= progress);
-
-                if (nextIndex <= 0) return frames[0];
-                if (nextIndex === -1) return frames[frames.length - 1];
-
-                const previous = frames[nextIndex - 1];
-                const next = frames[nextIndex];
-                const span = next[0] - previous[0];
-                const localProgress = span ? ease((progress - previous[0]) / span) : 1;
-
-                return [
-                    progress,
-                    interpolate(previous[1], next[1], localProgress),
-                    interpolate(previous[2], next[2], localProgress),
-                    interpolate(previous[3], next[3], localProgress),
-                    interpolate(previous[4], next[4], localProgress)
-                ];
-            };
-
-            document.documentElement.classList.add('uses-scripted-logo-animation');
-
-            const startedAt = window.performance.now();
-            const animate = (timestamp) => {
-                let isComplete = true;
-
-                paths.forEach((path, index) => {
-                    const elapsed = timestamp - startedAt - delays[index];
-                    const progress = Math.max(0, Math.min(elapsed / duration, 1));
-                    const [, x, y1, y2, opacity] = sampleFrames(framesByPath[index], progress);
-
-                    path.setAttribute('d', `M${x} ${y1}L${x} ${y2}`);
-                    path.style.opacity = opacity;
-
-                    if (progress < 1) isComplete = false;
-                });
-
-                if (!isComplete) {
-                    window.requestAnimationFrame(animate);
-                    return;
+                    window.addEventListener('resize', () => goToSlide(currentIndex));
+                    gallery.classList.add('is-gallery-ready');
+                    updateState(currentIndex);
+                } catch (error) {
+                    console.error('Unable to initialize a project gallery:', error);
                 }
-
-                paths.forEach((path, index) => {
-                    path.setAttribute('d', originals[index]);
-                    path.style.removeProperty('opacity');
-                });
-            };
-
-            window.requestAnimationFrame(animate);
-        };
-
-        const initializeNavIndicator = () => {
-            const navContainer = document.querySelector('.nav-container');
-            const nav = document.querySelector('.nav');
-            const toggle = navContainer?.querySelector('.nav-toggle');
-            const indicator = navContainer?.querySelector('.nav-indicator');
-
-            if (!navContainer || !nav || !toggle || !indicator) return;
-
-            const links = Array.from(nav.querySelectorAll('.tab'));
-            const activeLink = nav.querySelector('.tab.active');
-            const mobileQuery = window.matchMedia('(max-width: 44.25rem)');
-            let currentLink = activeLink;
-            let hasPositionedIndicator = false;
-            let isTicking = false;
-
-            if (!links.length) return;
-
-            const rootSize = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-            const toRem = (value) => `${value / rootSize()}rem`;
-
-            const setIndicatorGeometry = ({ x, y, width }) => {
-                const containingElement = indicator.closest('.header');
-                const containingBlock = containingElement?.getBoundingClientRect();
-                const localX = x - (containingBlock?.left || 0) - (containingElement?.clientLeft || 0);
-                const localY = y - (containingBlock?.top || 0) - (containingElement?.clientTop || 0);
-
-                indicator.style.setProperty('--nav-indicator-x', toRem(localX));
-                indicator.style.setProperty('--nav-indicator-width', toRem(width));
-
-                if (!hasPositionedIndicator) {
-                    const dropDistance = rootSize() * 0.75;
-
-                    indicator.classList.add('is-positioning');
-                    indicator.style.setProperty('--nav-indicator-y', toRem(localY - dropDistance));
-                    indicator.getBoundingClientRect();
-                    indicator.classList.add('is-ready');
-                    indicator.classList.remove('is-positioning');
-                    hasPositionedIndicator = true;
-
-                    window.requestAnimationFrame(() => {
-                        indicator.style.setProperty('--nav-indicator-y', toRem(localY));
-                    });
-                    return;
-                }
-
-                indicator.style.setProperty('--nav-indicator-y', toRem(localY));
-                indicator.classList.add('is-ready');
-            };
-
-            const setDesktopTarget = (link) => {
-                if (!link) return;
-
-                const linkRect = link.getBoundingClientRect();
-                const tabRect = link.closest('.tab-container')?.getBoundingClientRect() || linkRect;
-
-                setIndicatorGeometry({
-                    x: linkRect.left,
-                    y: tabRect.bottom - (rootSize() * 0.375),
-                    width: linkRect.width
-                });
-                currentLink = link;
-            };
-
-            const updateIndicator = () => {
-                if (mobileQuery.matches) {
-                    indicator.classList.remove('is-ready');
-                } else {
-                    setDesktopTarget(currentLink || activeLink || links[0]);
-                }
-                isTicking = false;
-            };
-
-            const requestIndicatorUpdate = () => {
-                if (isTicking) return;
-
-                window.requestAnimationFrame(updateIndicator);
-                isTicking = true;
-            };
-
-            nav.classList.add('has-sliding-underline');
-            requestIndicatorUpdate();
-
-            if (document.fonts?.ready) {
-                document.fonts.ready.then(requestIndicatorUpdate).catch(requestIndicatorUpdate);
-            } else {
-                window.addEventListener('load', requestIndicatorUpdate, { once: true });
-            }
-
-            links.forEach((link) => {
-                link.addEventListener('mouseenter', () => {
-                    if (!mobileQuery.matches) setDesktopTarget(link);
-                });
-                link.addEventListener('focus', () => {
-                    if (!mobileQuery.matches) setDesktopTarget(link);
-                });
             });
-
-            nav.addEventListener('mouseleave', () => {
-                if (!mobileQuery.matches) setDesktopTarget(activeLink || links[0]);
-            });
-
-            navContainer.addEventListener('navstatechange', requestIndicatorUpdate);
-            if (typeof mobileQuery.addEventListener === 'function') {
-                mobileQuery.addEventListener('change', requestIndicatorUpdate);
-            } else if (typeof mobileQuery.addListener === 'function') {
-                mobileQuery.addListener(requestIndicatorUpdate);
-            }
-            window.addEventListener('resize', requestIndicatorUpdate);
         };
 
         const initializeCompanyLogoCarousel = () => {
@@ -1126,6 +821,7 @@
             const activateItem = (index, shouldAnimate = false) => {
                 items.forEach((item, itemIndex) => {
                     const isActive = itemIndex === index;
+                    item.classList.remove('is-entering');
                     item.classList.toggle('is-active', isActive);
                     item.hidden = !isActive;
                 });
@@ -1134,17 +830,9 @@
 
                 const activeItem = items[currentIndex];
 
-                if (shouldAnimate && !reducedMotionQuery.matches && typeof activeItem?.animate === 'function') {
-                    activeItem.animate(
-                        [
-                            { opacity: 0 },
-                            { opacity: 1 }
-                        ],
-                        {
-                            duration: 350,
-                            easing: 'ease-out'
-                        }
-                    );
+                if (shouldAnimate && !reducedMotionQuery.matches && activeItem) {
+                    void activeItem.offsetWidth;
+                    activeItem.classList.add('is-entering');
                 }
             };
 
@@ -1154,27 +842,44 @@
 
             carousel.classList.add('is-controlled');
             activateItem(currentIndex);
-            nextButton.hidden = false;
-
             nextButton.addEventListener('click', showNextItem);
+            nextButton.hidden = false;
         };
 
-        initializeLogoAnimation();
-        initializeContactForm();
-        initializeConsentBanner();
-        initializeScrollHeader();
-        initializeWorkProjectIndex();
-        initializeMobileNavigation();
-        initializeProjectGalleries();
-        initializeScrollReveals();
-        initializeNavIndicator();
-        initializeCompanyLogoCarousel();
-        initializeRecommendationCarousel();
+        const safelyInitialize = (name, initializer) => {
+            try {
+                initializer();
+            } catch (error) {
+                console.error(`Unable to initialize ${name}:`, error);
+            }
+        };
+
+        safelyInitialize('contact form enhancement', initializeContactForm);
+        safelyInitialize('privacy preferences', initializeConsentBanner);
+        safelyInitialize('scrolling header', initializeScrollHeader);
+        safelyInitialize('work project index', initializeWorkProjectIndex);
+        safelyInitialize('mobile navigation', initializeMobileNavigation);
+        safelyInitialize('project galleries', initializeProjectGalleries);
+        safelyInitialize('company logo carousel', initializeCompanyLogoCarousel);
+        safelyInitialize('recommendation carousel', initializeRecommendationCarousel);
+
+        if (document.querySelector('[data-site-search]')) {
+            try {
+                const { initializeSiteSearch } = await import('./search/initializeSiteSearch.mjs');
+                initializeSiteSearch();
+            } catch (error) {
+                console.error('Unable to initialize site search:', error);
+            }
+        }
 
         if (window.location.pathname.endsWith('/perspectives/')) {
-            const { renderPost } = await import('./perspectives/renderPost.mjs');
-            const feedUrl = 'https://medium.com/feed/@jmwii1981';
-            await renderPost(feedUrl);
+            try {
+                const { renderPost } = await import('./perspectives/renderPost.mjs');
+                const feedUrl = 'https://medium.com/feed/@jmwii1981';
+                await renderPost(feedUrl);
+            } catch (error) {
+                console.error('Unable to initialize Perspectives feed:', error);
+            }
         }
     } catch (error) {
         console.error('Error initializing scripts:', error);
