@@ -7,6 +7,67 @@
  */
 import { sequenceContent } from './sequenceContent.mjs';
 
+function renderRecentArticles(articles) {
+    const list = document.querySelector('[data-medium-article-list]');
+    const emptyState = document.querySelector('[data-medium-articles-empty]');
+    if (!list) return;
+
+    const recentArticles = articles.slice(1, 11).filter(article => {
+        try {
+            return article.title && ['http:', 'https:'].includes(new URL(article.link).protocol);
+        } catch {
+            return false;
+        }
+    });
+
+    list.replaceChildren();
+    recentArticles.forEach(article => {
+        const item = document.createElement('li');
+        item.className = 'medium-article-list-item';
+
+        const heading = document.createElement('h3');
+        heading.className = 'h3 medium-article-list-title';
+
+        const link = document.createElement('a');
+        link.className = 'a medium-article-link';
+        link.href = article.link;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+
+        const label = document.createElement('span');
+        label.textContent = article.title;
+        const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        icon.classList.add('medium-external-icon');
+        icon.setAttribute('aria-hidden', 'true');
+        icon.setAttribute('viewBox', '0 0 20 20');
+        icon.setAttribute('fill', 'none');
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', 'M5 15 15 5M8 5h7v7');
+        icon.append(path);
+        link.append(label, icon);
+        heading.append(link);
+        item.append(heading);
+
+        const publishedAt = new Date(article.pubDate);
+        if (!Number.isNaN(publishedAt.getTime())) {
+            const time = document.createElement('time');
+            time.className = 'p medium-article-date';
+            time.dateTime = publishedAt.toISOString();
+            time.textContent = publishedAt.toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            });
+            item.append(time);
+        }
+
+        list.append(item);
+    });
+
+    list.hidden = recentArticles.length === 0;
+    if (emptyState) emptyState.hidden = recentArticles.length > 0;
+}
+
 export async function renderPost(feedUrl) {
     const mostRecentPostDiv = document.getElementById('most-recent-post');
     const fallback = document.querySelector('[data-feed-fallback]');
@@ -63,6 +124,8 @@ export async function renderPost(feedUrl) {
 
         if (!postData) throw new Error('The Perspectives feed returned no article.');
 
+        renderRecentArticles(postData.recentArticles);
+
         // Remove all <br> elements from the content
         const allBrElements = mostRecentPostDiv.querySelectorAll('br');
         allBrElements.forEach(br => br.remove());
@@ -96,25 +159,17 @@ export async function renderPost(feedUrl) {
             });
         }
 
-        // Replace skeleton-meta-content-separator elements
-        const separators = mostRecentPostDiv.querySelectorAll('.skeleton-meta-content-separator');
-        separators.forEach(separator => {
-            separator.outerHTML = '<hr class="hr post-meta-content-separator" aria-hidden="true">';
-        });
-
         // Replace skeleton-meta-container
         const metaContainer = mostRecentPostDiv.querySelector('.skeleton-meta-container');
         if (metaContainer) {
             const metaHTML = `
                 <div class="post-meta" role="contentinfo" aria-label="Article metadata">
                     <div class="post-meta-author">
-                        <figure class="post-author-figure" aria-label="Author's profile picture">
-                            <picture class="post-author-picture">
-                                <source type="image/avif" srcset="/images/headshots/bio-pic-96.avif">
-                                <source type="image/webp" srcset="/images/headshots/bio-pic-96.webp">
-                                <img class="post-author-image" src="/images/headshots/bio-pic-96.png" width="32" height="32" alt="Jan Michael Wallace II, article author" decoding="async">
-                            </picture>
-                        </figure>
+                        <picture class="post-author-picture">
+                            <source type="image/avif" srcset="/images/headshots/bio-pic-96.avif">
+                            <source type="image/webp" srcset="/images/headshots/bio-pic-96.webp">
+                            <img class="post-author-image" src="/images/headshots/bio-pic-96.png" width="32" height="32" alt="" decoding="async">
+                        </picture>
                         <p class="p post-author-info">
                             <a href="https://medium.com/@jmwii1981" target="_blank" rel="noopener noreferrer" class="a">Jan Michael Wallace II</a>
                         </p>
@@ -122,7 +177,7 @@ export async function renderPost(feedUrl) {
                     <div class="meta-post">
                         <p class="p">
                             <span class="span pub-date">${postData.date || 'Unknown Date'}</span>
-                            <span class="decorative-bullet">•</span>
+                            <span class="decorative-bullet" aria-hidden="true">•</span>
                             <span class="span reading-time">${postData.readingTime || 1} min read</span>
                         </p>
                     </div>

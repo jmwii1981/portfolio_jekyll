@@ -246,13 +246,55 @@ if home.file?
     failures << "index.html: supporting portrait ImageObject is missing (#{portrait})" unless graph.any? { |node| node["@type"] == "ImageObject" && node["contentUrl"] == portrait }
   end
   failures << "index.html: Person schema is missing the stable identity handle" unless person&.dig("identifier") == "jmwii1981"
+  failures << "index.html: Person schema must not expose search-profile data" if person&.key?("skills") || person&.key?("birthDate") || person&.key?("telephone") || person&.key?("homeLocation")
   failures << "index.html: Person schema is missing the Dribbble profile" unless person&.fetch("sameAs", [])&.include?("https://dribbble.com/jmwii1981")
   failures << "index.html: Person schema is missing the Toptal profile" unless person&.fetch("sameAs", [])&.include?("https://www.toptal.com/designers/resume/jan-michael-wallace-ii")
+  failures << "index.html: Person schema is missing the Figma profile" unless person&.fetch("sameAs", [])&.include?("https://www.figma.com/@jmwii1981")
   failures << "index.html: Person schema is not linked back to the ProfilePage" unless person&.dig("mainEntityOfPage", "@id") == "https://janmichael.io/#webpage"
   failures << "index.html: ProfilePage schema is missing dateModified" unless profile_page&.fetch("dateModified", nil) == "2026-07-20"
   failures << "index.html: ProfilePage schema does not declare the preferred portrait" unless profile_page&.dig("primaryImageOfPage", "@id") == "https://janmichael.io/#profile-image"
 else
   failures << "index.html: missing from build output"
+end
+
+project_pages = {
+  "lionfinancial" => "lmms",
+  "vega" => "vega",
+  "avenapay" => "avena",
+  "paladin" => "paladin",
+  "ledgerflow" => "ledger",
+  "northstar" => "northstar"
+}
+work_page_html = site_root.join("work", "index.html").read
+sitemap_html = site_root.join("sitemap.xml").read
+
+project_pages.each do |slug, image_folder|
+  relative = "work/#{slug}/index.html"
+  file = site_root.join(relative)
+
+  unless file.file?
+    failures << "#{relative}: focused project page is missing"
+    next
+  end
+
+  html = file.read
+  canonical = "https://janmichael.io/work/#{slug}/"
+  failures << "#{relative}: canonical URL is missing or incorrect" unless html.match?(/<link\b[^>]*rel=(['"])canonical\1[^>]*href=(['"])#{Regexp.escape(canonical)}\2/i)
+  failures << "#{relative}: Open Graph type must be article" unless html.match?(/<meta\b[^>]*property=(['"])og:type\1[^>]*content=(['"])article\2/i)
+  failures << "#{relative}: project social image is missing" unless html.match?(/<meta\b[^>]*property=(['"])og:image\1[^>]*content=(['"])[^'"]*\/images\/projects\/#{Regexp.escape(image_folder)}\//i)
+  failures << "#{relative}: Work navigation is not current" unless html.match?(/<a\b[^>]*id=(['"])work\1[^>]*class=(['"])[^'"]*\bactive\b[^'"]*\2[^>]*aria-current=(['"])page\3/i)
+  failures << "work/index.html: missing visible link to #{canonical}" unless work_page_html.include?("href=\"/work/#{slug}/\"")
+  failures << "sitemap.xml: missing focused project URL #{canonical}" unless sitemap_html.include?("<loc>#{canonical}</loc>")
+
+  structured_data = html.scan(/<script\b[^>]*type=(['"])application\/ld\+json\1[^>]*>(.*?)<\/script>/mi).map { |(_, json)| JSON.parse(json) }
+  graph = structured_data.flat_map { |document| document.fetch("@graph", []) }
+  web_page = graph.find { |node| node["@type"] == "WebPage" }
+  creative_work = graph.find { |node| node["@type"] == "CreativeWork" }
+  breadcrumb = graph.find { |node| node["@type"] == "BreadcrumbList" }
+  failures << "#{relative}: CreativeWork structured data is missing" unless creative_work
+  failures << "#{relative}: breadcrumb structured data is missing" unless breadcrumb
+  failures << "#{relative}: WebPage does not identify the CreativeWork as its main entity" unless web_page&.dig("mainEntity", "@id") == "#{canonical}#creative-work"
+  failures << "#{relative}: CreativeWork is not linked to Jan Michael Wallace II" unless creative_work&.dig("creator", "@id") == "https://janmichael.io/#person"
 end
 
 if failures.any?

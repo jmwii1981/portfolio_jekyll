@@ -8,8 +8,15 @@ const { join } = require('path');
     const { records } = payload;
 
     const expectedRecordIds = [
+        'profile:jan-michael-wallace-ii',
         'page:/',
         'page:/work/',
+        'page:/work/lionfinancial/',
+        'page:/work/vega/',
+        'page:/work/avenapay/',
+        'page:/work/paladin/',
+        'page:/work/ledgerflow/',
+        'page:/work/northstar/',
         'page:/perspectives/',
         'page:/contact/',
         'page:/terms/',
@@ -25,9 +32,10 @@ const { join } = require('path');
         'section:/work/#project-ledgerflow',
         'section:/work/#project-northstar',
         'section:/work/#design-leadership-principles',
-        'section:/perspectives/#latest-perspectives',
+        'section:/perspectives/#latest-medium-article',
         'section:/perspectives/#read-more-on-medium',
         'section:/contact/#contact-jan',
+        'section:/contact/#send-a-message',
         'section:/terms/#effective-date',
         'section:/terms/#purpose-of-this-site',
         'section:/terms/#information-used-by-this-site',
@@ -44,7 +52,7 @@ const { join } = require('path');
     assert.equal(payload.version, 1);
     assert.equal(records.length, expectedRecordIds.length);
     assert.equal(new Set(records.map(({ id }) => id)).size, records.length);
-    assert.equal(new Set(records.map(({ url }) => url)).size, records.length);
+    assert.equal(new Set(records.filter(({ id }) => id !== 'profile:jan-michael-wallace-ii').map(({ url }) => url)).size, records.length - 1);
 
     expectedRecordIds.forEach((id) => {
         assert(records.some((record) => record.id === id), `Missing expected search record: ${id}`);
@@ -65,14 +73,15 @@ const { join } = require('path');
         assert.equal(topResult?.id, expectedId, `Unexpected top result for ${JSON.stringify(query)}`);
     };
 
-    expectTopResult('design systems', 'section:/work/#project-vega');
-    expectTopResult('probability scoring', 'section:/work/#project-avenapay');
-    expectTopResult('report-preparation time', 'section:/work/#project-lionfinancial');
-    expectTopResult('invoice creation', 'section:/work/#project-ledgerflow');
-    expectTopResult('wireframing accessibility', 'section:/work/#project-paladin');
-    expectTopResult('payment products rates', 'section:/work/#project-northstar');
+    expectTopResult('design systems', 'page:/work/vega/');
+    expectTopResult('probability scoring', 'page:/work/avenapay/');
+    expectTopResult('merchant management operating system', 'page:/work/lionfinancial/');
+    expectTopResult('invoice creation', 'page:/work/ledgerflow/');
+    expectTopResult('wireframing accessibility', 'page:/work/paladin/');
+    expectTopResult('payment products rates', 'page:/work/northstar/');
     expectTopResult('great cup coffee', 'section:/#beyond-the-work');
     expectTopResult('Global Payments', 'section:/#recommendations');
+    expectTopResult('jmwii1981', 'profile:jan-michael-wallace-ii');
 
     const web3FormsResults = rankSearchRecords(records, 'Web3Forms').map(({ id }) => id);
     assert(web3FormsResults.includes('section:/terms/#information-used-by-this-site'));

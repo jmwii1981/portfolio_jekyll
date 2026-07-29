@@ -48,6 +48,10 @@
     z-index: 1;
 }
 
+.nav-container.is-indicator-initializing .nav-indicator {
+    transition: none;
+}
+
 .nav {
     align-items: center;
     display: flex;

@@ -1,0 +1,289 @@
+lionfinancial:
+  name: "LionFinancial Merchant Management System"
+  organization: "LionFinancial"
+  discipline: "Merchant operations"
+  headline: "A calmer operating system for merchant performance."
+  introduction: >-
+    LionFinancial Merchant Management System brings the information behind a large merchant network into one connected experience, so teams can focus on decisions instead of wrangling disconnected tools.
+  challenge_heading: "The challenge"
+  challenge: >-
+    The people responsible for merchant performance are often forced to make important decisions from scattered systems, disconnected reports, and partial information. Simple questions become stressful: Which merchants are healthy? Which need attention? Where are transactions slowing down? What needs to be approved, scheduled, reported, or fixed?
+  response_heading: "The design response"
+  response: >-
+    I designed LMMS to connect accounts, customers, transactions, approvals, scheduled payouts, and reporting in a clearer operating environment. The experience streamlines the work around the data, helping teams understand performance and act without reconstructing the story across multiple platforms.
+  cover: "/images/projects/lmms/750x500 Toptal Submission Frame.webp"
+  cover_small: "/images/projects/lmms/750x500 Toptal Submission Frame-375w.webp"
+  cover_alt: "LionFinancial merchant management dashboard displayed on a laptop"
+  keywords: "merchant management merchant operations fintech accounts transactions customers payouts reporting product design"
+  gallery:
+    - "/images/projects/lmms/LMMS – Accounts.webp"
+    - "/images/projects/lmms/LMMS – Accounts-1.webp"
+    - "/images/projects/lmms/LMMS – Customers.webp"
+    - "/images/projects/lmms/LMMS – Payout Scheduling.webp"
+    - "/images/projects/lmms/LMMS – Reports.webp"
+    - "/images/projects/lmms/LMMS – Transactions.webp"
+  highlights:
+    - title: "The merchant network as an operating view"
+      description: >-
+        Status, services, volume, recent activity, risk, approvals, onboarding, and network health come together so platform teams can identify which businesses are growing and which need intervention without opening every record.
+    - title: "Service configuration meets adoption"
+      description: >-
+        Configuration and adoption appear together, helping teams understand what is enabled, how many merchants use it, the volume and fees it drives, and where setup requests are waiting.
+    - title: "Customer behavior becomes a health signal"
+      description: >-
+        Active customers, repeat purchase rate, payment preferences, lifetime value, support issues, and health scores provide a stronger basis for merchant guidance than volume alone.
+    - title: "Predictable future money movement"
+      description: >-
+        Upcoming, successful, and failed activity remains visible alongside reusable payout templates, reducing uncertainty around financially consequential work.
+    - title: "Reporting without rebuilding the work"
+      description: >-
+        A report library, scheduled reports, saved views, ownership, dates, categories, and quick exports turn recurring analysis into reusable operational knowledge.
+    - title: "From audit trail to pattern recognition"
+      description: >-
+        Transaction views connect payments, refunds, disputes, payouts, settlement timing, fees, methods, and status to the patterns behind them.
+  previous_slug: "northstar"
+  previous_name: "Northstar"
+  next_slug: "vega"
+  next_name: "Vega"
+
+vega:
+  name: "Vega Enterprise Design System"
+  organization: "Global Payments"
+  discipline: "Enterprise design system"
+  headline: "A north star for product design across a global ecosystem."
+  introduction: >-
+    All roads intersect at Vega—a shared foundation for software product design across three continents, numerous countries, and distributed product, design, and engineering teams.
+  challenge_heading: "The opportunity"
+  challenge: >-
+    Our product ecosystem needed a stronger shared foundation—one that could make products more consistent, accessible, and thoughtfully designed without slowing teams down or preventing them from solving for their own product needs.
+  response_heading: "My leadership"
+  response: >-
+    As design system lead and product design manager, I kicked off and led Vega’s creation and evolution across reusable components, accessibility standards, design tokens, documentation, governance, and Figma-to-code alignment. I partnered closely with engineering to reduce rework and help teams build better software with greater speed and confidence.
+  cover: "/images/projects/vega/750x500 Toptal Submission Frame.webp"
+  cover_small: "/images/projects/vega/750x500 Toptal Submission Frame-375w.webp"
+  cover_alt: "Vega enterprise design system shown across product interfaces"
+  keywords: "enterprise design system design systems components design tokens accessibility documentation governance Figma code global product teams"
+  external_url: "https://vega.globalpayments.com/"
+  external_label: "Visit Vega"
+  gallery:
+    - "/images/projects/vega/Vega - 02.webp"
+    - "/images/projects/vega/Vega - 03.webp"
+    - "/images/projects/vega/Vega - 04.webp"
+    - "/images/projects/vega/Vega - 05.webp"
+    - "/images/projects/vega/Vega - 06.webp"
+    - "/images/projects/vega/Vega - 07.webp"
+  highlights:
+    - title: "A foundation teams can share"
+      description: >-
+        Common visual and interaction foundations help separate products feel like parts of one ecosystem without erasing their individual requirements.
+    - title: "Components with intent"
+      description: >-
+        Reusable components pair visual consistency with behavioral guidance, helping designers and engineers understand what to use, why, and when.
+    - title: "Patterns for real product work"
+      description: >-
+        The system moves beyond isolated interface pieces into repeatable patterns for common workflows and complex states.
+    - title: "Accessibility built into the decision"
+      description: >-
+        Standards and usage guidance bring accessibility into component selection and interaction design from the beginning rather than treating it as a final audit.
+    - title: "A durable bridge to code"
+      description: >-
+        Shared tokens and aligned naming reduce translation between Figma and engineering, protecting decisions as components move into production.
+    - title: "Documentation that supports adoption"
+      description: >-
+        Clear examples, governance, and contribution guidance make the system usable across distributed teams and give it room to evolve.
+  previous_slug: "lionfinancial"
+  previous_name: "LionFinancial"
+  next_slug: "avenapay"
+  next_name: "AvenaPay"
+
+avenapay:
+  name: "AvenaPay Disputes Analytics"
+  organization: "AvenaPay"
+  discipline: "Disputes management"
+  headline: "Turning dispute complexity into actionable clarity."
+  introduction: >-
+    A representative disputes analytics platform designed to help merchants manage high-volume chargebacks, understand what changed, identify what needs attention, and find the strongest recovery opportunities.
+  challenge_heading: "The challenge"
+  challenge: >-
+    Merchants struggled to understand which disputes were worth defending, why cases were being lost, and how to recover more funds without relying on manual reports from support or client services. Complex dispute data needed to become easier to understand, filter, and act on.
+  response_heading: "My approach"
+  response: >-
+    I designed the dashboard strategy, information architecture, dispute-health KPIs, probability scoring, filtered queue shortcuts, case detail views, alerts, custom reports, and natural-language analytics. The interface, branding, data, and identifying details were recreated to protect confidential work while preserving the product’s complexity and design strategy.
+  cover: "/images/projects/avena/750x500 Toptal Submission Frame.webp"
+  cover_small: "/images/projects/avena/750x500 Toptal Submission Frame-375w.webp"
+  cover_alt: "AvenaPay disputes management experience across desktop and mobile"
+  keywords: "disputes analytics chargebacks merchants recovery probability scoring natural language analytics fintech product design"
+  gallery:
+    - "/images/projects/avena/Dashboard - Outcomes.webp"
+    - "/images/projects/avena/Dashboard - Volume.webp"
+    - "/images/projects/avena/My Cases _ Case Details.webp"
+    - "/images/projects/avena/Alerts and Notifications.webp"
+    - "/images/projects/avena/Reports _ Q2 Exec Overview.webp"
+    - "/images/projects/avena/Ask AI.webp"
+  highlights:
+    - title: "Lead with outcomes"
+      description: >-
+        The primary dashboard reframes disputes around recovery, loss, and performance, clarifying what changed and where attention matters.
+    - title: "Volume with meaningful context"
+      description: >-
+        Trends and comparisons help teams distinguish routine fluctuations from signals that require investigation while keeping volume connected to business impact.
+    - title: "Evidence where decisions happen"
+      description: >-
+        Status, value, evidence, timing, and recommended action come together so merchants can move from analysis into resolution with confidence.
+    - title: "Attention, carefully directed"
+      description: >-
+        Alerts prioritize changes, deadlines, and high-value opportunities without turning every update into noise.
+    - title: "From operations to executive narrative"
+      description: >-
+        Custom reporting translates case activity into an outcome-oriented view of performance, risk, and recovery over time.
+    - title: "Natural-language analysis"
+      description: >-
+        A conversational layer lets users investigate dispute data in familiar language, shortening the path from an emerging question to a useful answer.
+  previous_slug: "vega"
+  previous_name: "Vega"
+  next_slug: "paladin"
+  next_name: "Paladin"
+
+paladin:
+  name: "Paladin Wireframing System"
+  organization: "Paladin"
+  discipline: "UX framing kit"
+  headline: "A shared language for solving complex product problems."
+  introduction: >-
+    A reusable wireframing system that helps teams explore structure, workflow, content priorities, accessibility, and edge cases before visual polish gets in the way.
+  challenge_heading: "Why it was needed"
+  challenge: >-
+    Early product work gets messy when teams jump into high-fidelity design before understanding user needs, information hierarchy, workflow logic, interaction states, and edge cases. Paladin was designed to let that confusion melt away and bring the UX problem into focus.
+  response_heading: "The system"
+  response: >-
+    I created reusable, accessibility-minded components, established patterns, and annotation-friendly layouts for complex tables, reporting, payment workflows, and data-heavy products. The kit helps teams align earlier, uncover challenges sooner, reduce rework, and move more confidently into detailed design.
+  cover: "/images/projects/paladin/750x500 Toptal Submission Frame.webp"
+  cover_small: "/images/projects/paladin/750x500 Toptal Submission Frame-375w.webp"
+  cover_alt: "Paladin wireframing kit showing reusable product patterns"
+  keywords: "wireframing system UX kit accessibility workflows tables payments reporting components product design"
+  gallery:
+    - "/images/projects/paladin/Wireframing Kit – General Dashboard and Data Visualization.webp"
+    - "/images/projects/paladin/Wireframing Kit –  Tables and Data.webp"
+    - "/images/projects/paladin/Wireframing Kit – Workflows and Payment Forms.webp"
+    - "/images/projects/paladin/Wireframing Kit – Reporting.webp"
+    - "/images/projects/paladin/Wireframing Kit – Buttons and Toggles.webp"
+    - "/images/projects/paladin/Wireframing Kit – eCommerce.webp"
+  highlights:
+    - title: "Structure before styling"
+      description: >-
+        Dashboard and visualization frames help teams establish hierarchy, comparison, and decision priority before brand details influence the conversation.
+    - title: "Dense data with a clear job"
+      description: >-
+        Table patterns account for scanning, filtering, bulk actions, pagination, status, and empty states so teams can solve the workflow around the data.
+    - title: "Make consequential flows discussable"
+      description: >-
+        Payment and workflow frames expose steps, validation, decision points, and recovery states while changing the experience is still inexpensive.
+    - title: "Reporting as a reusable pattern"
+      description: >-
+        Flexible structures help teams test what should be summarized, compared, saved, scheduled, and exported before committing to a final interface.
+    - title: "Small controls, explicit behavior"
+      description: >-
+        Foundational controls include interaction and state considerations so accessibility and behavioral consistency enter the discussion alongside layout.
+    - title: "Breadth without prescription"
+      description: >-
+        The kit adapts to distinct product domains while remaining neutral enough for teams to explore their own content and business rules.
+  previous_slug: "avenapay"
+  previous_name: "AvenaPay"
+  next_slug: "ledgerflow"
+  next_name: "LedgerFlow"
+
+ledgerflow:
+  name: "LedgerFlow Payments and Invoicing"
+  organization: "LedgerFlow"
+  discipline: "Payments and invoicing"
+  headline: "One understandable flow from invoice to payment."
+  introduction: >-
+    A modern fintech experience for businesses that need a clearer, calmer way to manage invoices, payments, customers, reminders, reporting, and mobile collection.
+  challenge_heading: "The goal"
+  challenge: >-
+    Getting paid should feel organized, trustworthy, and easy to act on—not scattered across disconnected tools or buried in confusing financial workflows. LedgerFlow needed to preserve the depth businesses rely on while making everyday financial work feel manageable.
+  response_heading: "My approach"
+  response: >-
+    I designed the core desktop and mobile flows, including the dashboard, reporting, invoice creation, payment links, customer billing, reminders, and payment collection. I focused on hierarchy, clarity, status visibility, and reusable patterns so users could quickly see what needed attention, what was handled, and where money was moving.
+  cover: "/images/projects/ledger/750x500 Toptal Submission Frame.webp"
+  cover_small: "/images/projects/ledger/750x500 Toptal Submission Frame-375w.webp"
+  cover_alt: "LedgerFlow invoicing, payment, and collections product overview"
+  keywords: "fintech invoicing payments customers reminders reporting mobile collection product design"
+  gallery:
+    - "/images/projects/ledger/LedgerFlow - 01.webp"
+    - "/images/projects/ledger/LedgerFlow - 2.webp"
+    - "/images/projects/ledger/LedgerFlow - 3.webp"
+    - "/images/projects/ledger/LedgerFlow - 4.webp"
+    - "/images/projects/ledger/LedgerFlow - 5.webp"
+    - "/images/projects/ledger/LedgerFlow - 6.webp"
+  highlights:
+    - title: "An actionable financial overview"
+      description: >-
+        The dashboard prioritizes status, movement, and exceptions so users can understand what needs attention before entering a detailed workflow.
+    - title: "Reporting connected to the work"
+      description: >-
+        Financial summaries remain close to the underlying activity, helping businesses understand performance without moving between disconnected reporting tools.
+    - title: "Invoices organized by state"
+      description: >-
+        Clear status, value, customer, and due-date signals distinguish what is moving normally from what needs a reminder or intervention.
+    - title: "Create with confidence"
+      description: >-
+        The invoice flow uses progressive structure and immediate context to make a detailed financial task feel guided without removing needed control.
+    - title: "Collections without the chaos"
+      description: >-
+        Payment links, reminders, and collection activity share a common language, clarifying the next action while preserving a complete record.
+    - title: "The same clarity on mobile"
+      description: >-
+        The mobile experience focuses on quick checks and high-value actions without forcing a desktop interface into a smaller frame.
+  previous_slug: "paladin"
+  previous_name: "Paladin"
+  next_slug: "northstar"
+  next_name: "Northstar"
+
+northstar:
+  name: "Northstar Commerce Conversion Strategy"
+  organization: "Northstar Commerce"
+  discipline: "Conversion strategy"
+  headline: "A clearer path from first impression to confident conversion."
+  introduction: >-
+    A conversion-focused commerce experience that helps small business owners understand the offer, compare payment products and rates, and choose the right setup for how they sell.
+  challenge_heading: "The opportunity"
+  challenge: >-
+    The page needed to feel more approachable than a typical fintech experience while still communicating legitimacy, trust, and business value. Product choices and competitive rates had to become easier to evaluate without making the experience feel pushy or overbuilt.
+  response_heading: "My approach"
+  response: >-
+    I designed the landing-page structure, visual direction, product presentation, CTA strategy, trust-building sections, responsive direction, and supporting brand elements. Color, spacing, and progressive information reduce cognitive load while guiding visitors through a clear conversion path.
+  cover: "/images/projects/northstar/750x500 Toptal Submission Frame.webp"
+  cover_small: "/images/projects/northstar/750x500 Toptal Submission Frame-375w.webp"
+  cover_alt: "Northstar Commerce landing page displayed on a transparent desktop screen"
+  keywords: "commerce conversion strategy landing page pricing comparison trust responsive payments product design"
+  gallery:
+    - "/images/projects/northstar/Landing Page – 01.webp"
+    - "/images/projects/northstar/Landing Page – 02.webp"
+    - "/images/projects/northstar/Landing Page – 03.webp"
+    - "/images/projects/northstar/Landing Page – 04.webp"
+    - "/images/projects/northstar/Landing Page – 05.webp"
+    - "/images/projects/northstar/Landing Page – 06.webp"
+  highlights:
+    - title: "Make the offer immediately legible"
+      description: >-
+        The opening establishes audience, value, and next action quickly, making a fintech decision feel less intimidating.
+    - title: "Translate features into business value"
+      description: >-
+        The narrative moves from the product promise into recognizable small-business needs so visitors can see how the platform fits how they sell.
+    - title: "Make comparison feel manageable"
+      description: >-
+        Product options are structured around meaningful differences so visitors can evaluate fit without decoding a dense matrix.
+    - title: "Use transparency to build trust"
+      description: >-
+        Pricing and rates are introduced with enough context to support evaluation while preserving the nuance required for different business models.
+    - title: "Reduce risk before asking for commitment"
+      description: >-
+        Support, proof, and trust signals answer the doubts that naturally appear late in consideration without relying on aggressive persuasion.
+    - title: "End with a clear next step"
+      description: >-
+        The final invitation resolves the story into a focused action while preserving the page’s approachable tone.
+  previous_slug: "ledgerflow"
+  previous_name: "LedgerFlow"
+  next_slug: "lionfinancial"
+  next_name: "LionFinancial"

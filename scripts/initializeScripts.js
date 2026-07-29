@@ -757,6 +757,7 @@
             let currentLink = activeLink || null;
             let focusedLink = null;
             let hoveredLink = null;
+            let hasPositionedIndicator = false;
             let updateFrame = 0;
 
             const rootFontSize = () => (
@@ -786,10 +787,21 @@
                     return;
                 }
 
+                if (!hasPositionedIndicator) {
+                    navContainer.classList.add('is-indicator-initializing');
+                }
+
                 indicator.style.setProperty('--nav-indicator-x', `${x}px`);
                 indicator.style.setProperty('--nav-indicator-y', `${y}px`);
                 indicator.style.setProperty('--nav-indicator-width', `${linkRect.width}px`);
                 navContainer.classList.add('is-indicator-ready');
+
+                if (!hasPositionedIndicator) {
+                    hasPositionedIndicator = true;
+                    window.requestAnimationFrame(() => {
+                        navContainer.classList.remove('is-indicator-initializing');
+                    });
+                }
             };
 
             const requestIndicatorUpdate = () => {
@@ -985,7 +997,7 @@
             }
         }
 
-        if (window.location.pathname.endsWith('/perspectives/')) {
+        if (window.location.pathname.endsWith('/perspectives/') && document.querySelector('[data-medium-runtime-feed]')) {
             try {
                 const { renderPost } = await import('./perspectives/renderPost.mjs');
                 const feedUrl = 'https://medium.com/feed/@jmwii1981';

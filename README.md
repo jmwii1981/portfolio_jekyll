@@ -2,7 +2,7 @@
 
 Personal portfolio site for [janmichael.io](https://janmichael.io), built with Jekyll and published from the `gh-pages` branch.
 
-The site presents selected work, perspectives, contact information, client/company logos, recommendations, and legal/privacy content. It is intentionally lightweight: authored Markdown, Jekyll includes/layouts, Sass partials, local fonts, SVG assets, and a small amount of JavaScript for progressive interactions.
+The site presents selected work, focused project pages, perspectives, contact information, client/company logos, recommendations, and legal/privacy content. It is intentionally lightweight: authored Markdown, Jekyll includes/layouts, Sass partials, local fonts, SVG assets, and a small amount of JavaScript for progressive interactions.
 
 The project’s durable design, accessibility, engineering, content, and release requirements are maintained in [PROJECT_REQUIREMENTS.md](PROJECT_REQUIREMENTS.md).
 
@@ -129,6 +129,10 @@ bundle exec jekyll build
 Add `data-search-section` to an anchored content container when it deserves a precise result. Optional `data-search-title`, `data-search-category`, `data-search-summary`, and `data-search-keywords` attributes improve presentation and ranking. The page-level record still makes unannotated meaningful content searchable.
 
 The Medium article body on Perspectives remains dynamic and is deliberately not copied into the static database.
+
+### Focused project pages
+
+The Work page remains the immersive portfolio overview. Each approved work item also has a focused URL under `/work/<project>/` with a unique title, description, representative image, breadcrumb trail, internal search record, sitemap entry, and `CreativeWork` structured data. Shared project summaries live in `_data/work_projects.yml`; these pages intentionally disclose no more project material than the approved Work narrative.
 
 ## Deployment
 

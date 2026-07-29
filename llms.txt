@@ -30,12 +30,12 @@
 
 ## Selected work summaries
 
-- LionFinancial: A representative merchant-management operating system connecting accounts, customers, transactions, approvals, payouts, and reporting.
-- Vega: An enterprise design system supporting distributed product, design, and engineering teams across a global ecosystem.
-- AvenaPay: A representative disputes analytics experience that helps merchants understand change, prioritize attention, and identify recovery opportunities.
-- Paladin: A wireframing system designed to help teams align early, test consequential workflows, and reduce avoidable rework.
-- LedgerFlow: A representative fintech experience connecting invoicing, payments, customers, reminders, reporting, and mobile collection.
-- Northstar Commerce: A representative conversion strategy helping small businesses compare payment products, understand rates, and choose an appropriate setup.
+- [LionFinancial Merchant Management System](https://janmichael.io/work/lionfinancial/): A representative merchant-management operating system connecting accounts, customers, transactions, approvals, payouts, and reporting.
+- [Vega Enterprise Design System](https://janmichael.io/work/vega/): An enterprise design system supporting distributed product, design, and engineering teams across a global ecosystem.
+- [AvenaPay Disputes Analytics](https://janmichael.io/work/avenapay/): A representative disputes analytics experience that helps merchants understand change, prioritize attention, and identify recovery opportunities.
+- [Paladin Wireframing System](https://janmichael.io/work/paladin/): A wireframing system designed to help teams align early, test consequential workflows, and reduce avoidable rework.
+- [LedgerFlow Payments and Invoicing](https://janmichael.io/work/ledgerflow/): A representative fintech experience connecting invoicing, payments, customers, reminders, reporting, and mobile collection.
+- [Northstar Commerce Conversion Strategy](https://janmichael.io/work/northstar/): A representative conversion strategy helping small businesses compare payment products, understand rates, and choose an appropriate setup.
 
 Full project files are not hosted on this website. Where an external artifact is available, follow the relevant Figma or project link provided on the Work page.
 

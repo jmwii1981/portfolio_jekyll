@@ -8,17 +8,17 @@ description: "Fractional product design leadership for growing companies navigat
     <section class="hero" id="about" aria-labelledby="about-title" data-search-section data-search-title="About Jan Michael Wallace II" data-search-category="About" data-search-summary="Fractional product design leadership for growing companies turning ambiguity into clear strategy, scalable systems, and durable shipped work." data-search-keywords="fractional product design leader portfolio product strategy leadership">
         <div class="content-wrapper">
             <div class="copy-wrapper">
-                <p class="p section-label hero-intro">Hi! I'm</p>
+                <p class="p section-label hero-intro">Hello, I'm</p>
                 <h1 class="h2" id="about-title">Jan Michael</h1>
                 <p class="h3">I’m a Fractional Product Design Leader.</p>
                 <p class="h4">I help growing companies turn product ambiguity into clear strategy, scalable systems, and shipped work that holds up as their businesses evolve.</p>
                 <div class="button-group">
                     <a
                     class="a button secondary"
-                    href="{{ '/work/' | relative_url }}"><span class="button-label">View selected work</span><span class="button-fill"></span></a>
+                    href="{{ '/work/' | relative_url }}"><span class="button-label">View selected work</span></a>
                     <a
                     class="a button primary"
-                    href="{{ '/contact/' | relative_url }}"><span class="button-label">Contact me</span><span class="button-fill"></span></a>
+                    href="{{ '/contact/' | relative_url }}"><span class="button-label">Contact me</span></a>
                 </div>
             </div>
             <div class="image-wrapper">
@@ -261,8 +261,8 @@ description: "Fractional product design leadership for growing companies navigat
                 <h2 class="h2">Have a problem worth untangling?</h2>
                 <p class="p about-me-invitation">I’m always glad to compare notes on a product, a team, or what might come next.</p>
                 <div class="button-group about-me-actions">
-                    <a class="a button secondary" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer"><span class="button-label">Connect on LinkedIn <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span><span class="button-fill"></span></a>
-                    <a class="a button primary" href="{{ '/contact/' | relative_url }}"><span class="button-label">Start a conversation</span><span class="button-fill"></span></a>
+                    <a class="a button secondary" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer"><span class="button-label">Connect on LinkedIn <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></a>
+                    <a class="a button primary" href="{{ '/contact/' | relative_url }}"><span class="button-label">Start a conversation</span></a>
                 </div>
             </div>
         </div>

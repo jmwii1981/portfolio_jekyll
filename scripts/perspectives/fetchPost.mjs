@@ -45,12 +45,18 @@ class PostFetcher {
                 const data = await response.json();
                 if (data.items && data.items.length > 0) {
                     const post = data.items[0];
+                    const recentArticles = data.items.map(item => ({
+                        title: item.title || '',
+                        link: item.link || '',
+                        pubDate: item.pubDate || ''
+                    }));
                     const result = {
                         title: post.title || this.defaultData.title,
                         pub: post.pubDate || this.defaultData.pub,
                         link: post.link || this.defaultData.link,
                         image: post.content || this.defaultData.image,
                         content: post.content || this.defaultData.content,
+                        recentArticles,
                         sourceFlag: "RSStoJSON"
                     };
                     this.log("info", "Successfully fetched data from RSStoJSON");
@@ -82,12 +88,18 @@ class PostFetcher {
                     const firstItem = rssDoc.querySelector("item");
 
                     if (firstItem) {
+                        const recentArticles = Array.from(rssDoc.querySelectorAll("item")).map(item => ({
+                            title: item.querySelector("title")?.textContent || '',
+                            link: item.querySelector("link")?.textContent || '',
+                            pubDate: item.querySelector("pubDate")?.textContent || ''
+                        }));
                         const result = {
                             title: firstItem.querySelector("title")?.textContent || this.defaultData.title,
                             pub: firstItem.querySelector("pubDate")?.textContent || this.defaultData.pub,
                             link: firstItem.querySelector("link")?.textContent || this.defaultData.link,
                             image: firstItem.getElementsByTagName("content:encoded")[0]?.textContent || this.defaultData.image,
                             content: firstItem.getElementsByTagName("content:encoded")[0]?.textContent || this.defaultData.content,
+                            recentArticles,
                             sourceFlag: "AllOrigins"
                         };
                         this.log("info", "Successfully fetched data from AllOrigins");

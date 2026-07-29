@@ -6,6 +6,7 @@
 
     {% assign site_name = "Jan Michael Wallace II" %}
     {% assign person_name = "Jan Michael Wallace II" %}
+    {% assign project = site.data.work_projects[page.project] %}
     {% assign page_title = site_name %}
     {% if page.url != '/' %}
         {% assign page_title = page.title | append: " — " | append: site_name %}
@@ -22,6 +23,10 @@
     {% assign social_image_type = page.social_image_type | default: 'image/png' %}
     {% assign canonical_url = page.url | absolute_url %}
     {% assign robots_directive = page.robots | default: 'index, follow, max-image-preview:large' %}
+    {% assign open_graph_type = page.open_graph_type | default: 'website' %}
+    {% if page.project %}
+        {% assign open_graph_type = 'article' %}
+    {% endif %}
     {% assign page_schema_type = 'WebPage' %}
     {% if page.url == '/' %}
         {% assign page_schema_type = 'ProfilePage' %}
@@ -43,7 +48,7 @@
 
     <!-- general social meta -->
     <meta property="og:locale" content="en_US">
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="{{ open_graph_type }}">
     <meta property="og:title" content="{{ page_title }}">
     <meta property="og:description" content="{{ meta_description }}">
     <meta property="og:url" content="{{ canonical_url }}">
@@ -89,6 +94,11 @@
                     "primaryImageOfPage": { "@id": {{ '/' | absolute_url | append: '#profile-image' | jsonify }} }
                     {% elsif page.url == '/work/' %},
                     "mainEntity": { "@id": {{ canonical_url | append: '#selected-work' | jsonify }} }
+                    {% elsif page.project %},
+                    "dateModified": {{ page.date_modified | default: '2026-07-20' | jsonify }},
+                    "breadcrumb": { "@id": {{ canonical_url | append: '#breadcrumb' | jsonify }} },
+                    "mainEntity": { "@id": {{ canonical_url | append: '#creative-work' | jsonify }} },
+                    "primaryImageOfPage": { "@id": {{ canonical_url | append: '#primary-image' | jsonify }} }
                     {% endif %}
                 },
                 {
@@ -145,13 +155,92 @@
                         "https://www.toptal.com/designers/resume/jan-michael-wallace-ii",
                         "https://medium.com/@jmwii1981/",
                         "https://github.com/jmwii1981/",
-                        "https://figma.com/@jmwii1981",
+                        "https://www.figma.com/@jmwii1981",
                         "https://dribbble.com/jmwii1981"
                     ],
                     "jobTitle": "Fractional Product Design Leader",
+                    {% comment %} Search-profile data belongs in search-index.json, not page-level JSON-LD. {% endcomment %}
+                    {% if false %}"skills": [
+                        { "@type": "DefinedTerm", "name": "Product Design", "alternateName": ["Product Design Leadership", "Enterprise Product Design", "B2B Product Design"] },
+                        { "@type": "DefinedTerm", "name": "UX Design", "alternateName": ["User Experience Design", "User Experience (UX)"] },
+                        { "@type": "DefinedTerm", "name": "UI Design", "alternateName": ["User Interface Design", "User Interface (UI)"] },
+                        { "@type": "DefinedTerm", "name": "UX Strategy", "alternateName": ["User Experience Strategy"] },
+                        { "@type": "DefinedTerm", "name": "Design Systems", "alternateName": ["Enterprise Design Systems", "Design System Design"] },
+                        { "@type": "DefinedTerm", "name": "DesignOps", "alternateName": ["Design Ops", "Design Operations"] },
+                        { "@type": "DefinedTerm", "name": "Accessibility", "alternateName": ["Web Accessibility", "Accessible Design"] },
+                        { "@type": "DefinedTerm", "name": "Inclusive Design" },
+                        { "@type": "DefinedTerm", "name": "WCAG 3", "alternateName": ["Web Content Accessibility Guidelines 3"] },
+                        { "@type": "DefinedTerm", "name": "Information Architecture", "alternateName": ["Information Architecture (IA)"] },
+                        { "@type": "DefinedTerm", "name": "Interaction Design", "alternateName": ["Interaction Design (IxD)"] },
+                        { "@type": "DefinedTerm", "name": "Workflow Design", "alternateName": ["Workflow Mapping", "Workflow Architecture"] },
+                        { "@type": "DefinedTerm", "name": "Discovery", "alternateName": ["Product Discovery", "Design Discovery"] },
+                        { "@type": "DefinedTerm", "name": "User Flows" },
+                        { "@type": "DefinedTerm", "name": "User Journey Mapping", "alternateName": ["Customer Journey Mapping"] },
+                        { "@type": "DefinedTerm", "name": "Personas" },
+                        { "@type": "DefinedTerm", "name": "Wireframing" },
+                        { "@type": "DefinedTerm", "name": "Rapid Prototyping", "alternateName": ["Low-fidelity Prototyping", "Low-fidelity Prototypes"] },
+                        { "@type": "DefinedTerm", "name": "Low-fidelity Mockups" },
+                        { "@type": "DefinedTerm", "name": "Framing Kit", "alternateName": ["UX Framing Kit"] },
+                        { "@type": "DefinedTerm", "name": "Component Libraries", "alternateName": ["UI Component Libraries"] },
+                        { "@type": "DefinedTerm", "name": "UI Pattern Definition", "alternateName": ["UI Pattern Design", "Pattern Design"] },
+                        { "@type": "DefinedTerm", "name": "Form Design", "alternateName": ["Forms"] },
+                        { "@type": "DefinedTerm", "name": "Data Visualization Design", "alternateName": ["Data Visualization"] },
+                        { "@type": "DefinedTerm", "name": "Dashboard Design", "alternateName": ["Dashboards", "Dashboard UX", "Dashboard UI"] },
+                        { "@type": "DefinedTerm", "name": "Financial Reporting Dashboards" },
+                        { "@type": "DefinedTerm", "name": "Business Intelligence", "alternateName": ["Business Intelligence (BI)"] },
+                        { "@type": "DefinedTerm", "name": "Reporting", "alternateName": ["Data Reporting"] },
+                        { "@type": "DefinedTerm", "name": "Analytics", "alternateName": ["Product Analytics", "Operational Analytics"] },
+                        { "@type": "DefinedTerm", "name": "AI Analytics", "alternateName": ["Artificial Intelligence Analytics"] },
+                        { "@type": "DefinedTerm", "name": "Natural Language Query", "alternateName": ["Natural Language Interface"] },
+                        { "@type": "DefinedTerm", "name": "Fintech", "alternateName": ["Financial Technology", "Fintech Design"] },
+                        { "@type": "DefinedTerm", "name": "Payments", "alternateName": ["Payment UX", "Digital Payments"] },
+                        { "@type": "DefinedTerm", "name": "Payment Processing" },
+                        { "@type": "DefinedTerm", "name": "Merchant Management" },
+                        { "@type": "DefinedTerm", "name": "Merchant Tools" },
+                        { "@type": "DefinedTerm", "name": "Dispute Resolution", "alternateName": ["Chargeback Management", "Chargebacks"] },
+                        { "@type": "DefinedTerm", "name": "Risk Analytics", "alternateName": ["Risk Monitoring"] },
+                        { "@type": "DefinedTerm", "name": "CRM", "alternateName": ["Customer Relationship Management", "Custom CRM Modules"] },
+                        { "@type": "DefinedTerm", "name": "Data Integration" },
+                        { "@type": "DefinedTerm", "name": "API Integration" },
+                        { "@type": "DefinedTerm", "name": "Platform Integration" },
+                        { "@type": "DefinedTerm", "name": "Enterprise SaaS", "alternateName": ["Enterprise Software", "B2B SaaS", "SaaS"] },
+                        { "@type": "DefinedTerm", "name": "SaaS Design" },
+                        { "@type": "DefinedTerm", "name": "Enterprise UX" },
+                        { "@type": "DefinedTerm", "name": "B2B Design", "alternateName": ["B2B"] },
+                        { "@type": "DefinedTerm", "name": "Customer Portals" },
+                        { "@type": "DefinedTerm", "name": "User Onboarding" },
+                        { "@type": "DefinedTerm", "name": "Mobile App UI", "alternateName": ["Mobile UI"] },
+                        { "@type": "DefinedTerm", "name": "Mobile UX Design", "alternateName": ["Mobile Design"] },
+                        { "@type": "DefinedTerm", "name": "Responsive Web Design", "alternateName": ["Responsive Web Design (RWD)", "Responsive Design"] },
+                        { "@type": "DefinedTerm", "name": "eCommerce UX", "alternateName": ["eCommerce Design"] },
+                        { "@type": "DefinedTerm", "name": "Checkout Flow", "alternateName": ["Checkout", "Checkout Flows", "Payment Flow"] },
+                        { "@type": "DefinedTerm", "name": "Invoicing" },
+                        { "@type": "DefinedTerm", "name": "Billing" },
+                        { "@type": "DefinedTerm", "name": "Scheduled Payments" },
+                        { "@type": "DefinedTerm", "name": "Payouts" },
+                        { "@type": "DefinedTerm", "name": "Small Business" },
+                        { "@type": "DefinedTerm", "name": "Landing Page Design", "alternateName": ["Landing Pages"] },
+                        { "@type": "DefinedTerm", "name": "Conversion Strategy", "alternateName": ["CTA Strategy", "Conversion Rate Optimization (CRO)"] },
+                        { "@type": "DefinedTerm", "name": "Visual Design" },
+                        { "@type": "DefinedTerm", "name": "Marketing Site", "alternateName": ["Marketing Sites"] },
+                        { "@type": "DefinedTerm", "name": "Product Marketing" },
+                        { "@type": "DefinedTerm", "name": "Service Marketing" },
+                        { "@type": "DefinedTerm", "name": "Trust Signals" },
+                        { "@type": "DefinedTerm", "name": "Customer Acquisition" },
+                        { "@type": "DefinedTerm", "name": "Figma" },
+                        { "@type": "DefinedTerm", "name": "Figma API" },
+                        { "@type": "DefinedTerm", "name": "Figma Libraries" },
+                        { "@type": "DefinedTerm", "name": "Photoshop", "alternateName": ["Adobe Photoshop"] },
+                        { "@type": "DefinedTerm", "name": "Adobe Creative Suite Design", "alternateName": ["Adobe Creative Suite"] },
+                        { "@type": "DefinedTerm", "name": "Front-end Web Development", "alternateName": ["Front-end Development"] },
+                        { "@type": "DefinedTerm", "name": "Cross-functional Collaboration" },
+                        { "@type": "DefinedTerm", "name": "Product Planning" },
+                        { "@type": "DefinedTerm", "name": "Stakeholder Engagement" },
+                        { "@type": "DefinedTerm", "name": "Systems Design" },
+                        { "@type": "DefinedTerm", "name": "Operations Management" }
+                    ],{% endif %}
                     "knowsAbout": [
                         "Product design leadership",
-                        "Product strategy",
                         "Design systems",
                         "Team alignment",
                         "User experience design",
@@ -169,8 +258,8 @@
                             "position": 1,
                             "item": {
                                 "@type": "CreativeWork",
-                                "@id": {{ canonical_url | append: '#project-lionfinancial' | jsonify }},
-                                "url": {{ canonical_url | append: '#project-lionfinancial' | jsonify }},
+                                "@id": {{ '/work/lionfinancial/' | absolute_url | append: '#creative-work' | jsonify }},
+                                "url": {{ '/work/lionfinancial/' | absolute_url | jsonify }},
                                 "name": "LionFinancial Merchant Management System",
                                 "headline": "A calmer operating system for merchant performance",
                                 "description": "A representative merchant-management operating system connecting accounts, customers, transactions, approvals, payouts, and reporting.",
@@ -182,8 +271,8 @@
                             "position": 2,
                             "item": {
                                 "@type": "CreativeWork",
-                                "@id": {{ canonical_url | append: '#project-vega' | jsonify }},
-                                "url": {{ canonical_url | append: '#project-vega' | jsonify }},
+                                "@id": {{ '/work/vega/' | absolute_url | append: '#creative-work' | jsonify }},
+                                "url": {{ '/work/vega/' | absolute_url | jsonify }},
                                 "name": "Vega Enterprise Design System",
                                 "headline": "A north star for product design across a global ecosystem",
                                 "description": "An enterprise design system supporting distributed product, design, and engineering teams across a global ecosystem.",
@@ -195,8 +284,8 @@
                             "position": 3,
                             "item": {
                                 "@type": "CreativeWork",
-                                "@id": {{ canonical_url | append: '#project-avenapay' | jsonify }},
-                                "url": {{ canonical_url | append: '#project-avenapay' | jsonify }},
+                                "@id": {{ '/work/avenapay/' | absolute_url | append: '#creative-work' | jsonify }},
+                                "url": {{ '/work/avenapay/' | absolute_url | jsonify }},
                                 "name": "AvenaPay Disputes Analytics",
                                 "headline": "Turning dispute complexity into actionable clarity",
                                 "description": "A representative disputes analytics experience helping merchants understand change, prioritize attention, and identify recovery opportunities.",
@@ -208,8 +297,8 @@
                             "position": 4,
                             "item": {
                                 "@type": "CreativeWork",
-                                "@id": {{ canonical_url | append: '#project-paladin' | jsonify }},
-                                "url": {{ canonical_url | append: '#project-paladin' | jsonify }},
+                                "@id": {{ '/work/paladin/' | absolute_url | append: '#creative-work' | jsonify }},
+                                "url": {{ '/work/paladin/' | absolute_url | jsonify }},
                                 "name": "Paladin Wireframing System",
                                 "headline": "A shared language for solving complex product problems",
                                 "description": "A wireframing system designed to help teams align early, test consequential workflows, and reduce avoidable rework.",
@@ -221,8 +310,8 @@
                             "position": 5,
                             "item": {
                                 "@type": "CreativeWork",
-                                "@id": {{ canonical_url | append: '#project-ledgerflow' | jsonify }},
-                                "url": {{ canonical_url | append: '#project-ledgerflow' | jsonify }},
+                                "@id": {{ '/work/ledgerflow/' | absolute_url | append: '#creative-work' | jsonify }},
+                                "url": {{ '/work/ledgerflow/' | absolute_url | jsonify }},
                                 "name": "LedgerFlow Payments and Invoicing",
                                 "headline": "One understandable flow from invoice to payment",
                                 "description": "A representative fintech experience connecting invoicing, payments, customers, reminders, reporting, and mobile collection.",
@@ -234,13 +323,64 @@
                             "position": 6,
                             "item": {
                                 "@type": "CreativeWork",
-                                "@id": {{ canonical_url | append: '#project-northstar' | jsonify }},
-                                "url": {{ canonical_url | append: '#project-northstar' | jsonify }},
+                                "@id": {{ '/work/northstar/' | absolute_url | append: '#creative-work' | jsonify }},
+                                "url": {{ '/work/northstar/' | absolute_url | jsonify }},
                                 "name": "Northstar Commerce Conversion Strategy",
                                 "headline": "A clearer path from first impression to confident conversion",
                                 "description": "A representative conversion strategy helping small businesses compare payment products, understand rates, and choose an appropriate setup.",
                                 "creator": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} }
                             }
+                        }
+                    ]
+                }
+                {% elsif page.project %},
+                {
+                    "@type": "ImageObject",
+                    "@id": {{ canonical_url | append: '#primary-image' | jsonify }},
+                    "url": {{ social_image | absolute_url | jsonify }},
+                    "contentUrl": {{ social_image | absolute_url | jsonify }},
+                    "name": {{ project.name | append: ' project image' | jsonify }},
+                    "caption": {{ social_image_alt | jsonify }},
+                    "width": {{ social_image_width }},
+                    "height": {{ social_image_height }},
+                    "representativeOfPage": true
+                },
+                {
+                    "@type": "CreativeWork",
+                    "@id": {{ canonical_url | append: '#creative-work' | jsonify }},
+                    "url": {{ canonical_url | jsonify }},
+                    "name": {{ project.name | jsonify }},
+                    "headline": {{ project.headline | jsonify }},
+                    "description": {{ meta_description | jsonify }},
+                    "abstract": {{ project.introduction | jsonify }},
+                    "genre": {{ project.discipline | jsonify }},
+                    "keywords": {{ project.keywords | jsonify }},
+                    "image": { "@id": {{ canonical_url | append: '#primary-image' | jsonify }} },
+                    "creator": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} },
+                    "mainEntityOfPage": { "@id": {{ canonical_url | append: '#webpage' | jsonify }} },
+                    "isPartOf": { "@id": {{ '/work/' | absolute_url | append: '#selected-work' | jsonify }} }
+                },
+                {
+                    "@type": "BreadcrumbList",
+                    "@id": {{ canonical_url | append: '#breadcrumb' | jsonify }},
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Jan Michael Wallace II",
+                            "item": {{ '/' | absolute_url | jsonify }}
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Selected Work",
+                            "item": {{ '/work/' | absolute_url | jsonify }}
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": {{ project.name | jsonify }},
+                            "item": {{ canonical_url | jsonify }}
                         }
                     ]
                 }
@@ -270,7 +410,7 @@
     <script type="module" src="{{ '/scripts/initializeScripts.js' | relative_url }}?v={{ site.asset_version }}"></script>
 
 </head>
-<body class="body{% if page.url == '/work/' %} body--work{% endif %}">
+<body class="body{% if page.url == '/work/' or page.layout == 'project' %} body--work{% endif %}">
 <a class="a skip-link" href="#main-content">Skip to main content</a>
 {% include header.html %}
 

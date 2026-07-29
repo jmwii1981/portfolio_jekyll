@@ -1,36 +1,23 @@
 .main.contact {
-    padding-left: var(--site-frame-gutter);
-    padding-right: var(--site-frame-gutter);
-    padding-top: clamp(7rem, 12vw, var(--site-page-padding-top));
+    align-items: stretch;
+    padding: 0 0 var(--site-section-padding-y);
 }
 
-.contact-section {
+.contact-hero .page-hero-title {
+    max-width: 11ch;
+}
+
+.contact-hero {
+    background: var(--color-background);
+}
+
+.main.contact > .contact-section {
     align-items: start;
     display: grid;
-    gap: var(--site-section-gap);
-    column-gap: clamp(4rem, 7vw, 8rem);
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 28rem), 1fr));
+    grid-template-columns: minmax(0, 46rem);
+    justify-content: start;
+    padding: clamp(3.5rem, 7vw, 6rem) var(--site-frame-gutter) 0;
     width: 100%;
-}
-
-.contact-intro {
-    width: 100%;
-}
-
-.contact-intro .h2 {
-    display: block;
-    margin: 0;
-    max-width: 12ch;
-}
-
-.contact-intro .p {
-    color: var(--color-text-soft);
-    display: block;
-    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
-    letter-spacing: var(--type-lead-letter-spacing);
-    line-height: var(--type-lead-line-height);
-    margin: clamp(1.5rem, 4vw, 2.5rem) 0 0;
-    max-width: 40rem;
 }
 
 .contact-form {
@@ -152,10 +139,6 @@
 
 .contact-submit:disabled:hover {
     color: var(--button-text);
-}
-
-.contact-submit:disabled .button-fill {
-    display: none;
 }
 
 .contact-form-status {

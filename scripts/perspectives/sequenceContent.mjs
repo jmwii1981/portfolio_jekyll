@@ -29,7 +29,8 @@ export async function sequenceContent(feedUrl) {
             date,
             time,
             content,
-            readingTime
+            readingTime,
+            recentArticles: fetchedData.recentArticles || []
         };
     } catch (error) {
         console.error('Error in sequenceContent:', error);

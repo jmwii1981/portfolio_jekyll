@@ -25,8 +25,9 @@ export function cleanImage(fetchedData) {
         cleanImage.className = 'img post-featured-img';
         cleanImage.src = imgTag.src;
         cleanImage.alt = altText.trim();
-        cleanImage.loading = 'lazy';
+        cleanImage.loading = 'eager';
         cleanImage.decoding = 'async';
+        cleanImage.fetchPriority = 'high';
 
         return cleanImage.outerHTML;
     } catch (error) {

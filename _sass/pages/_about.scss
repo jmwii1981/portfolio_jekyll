@@ -95,10 +95,12 @@
 .hero .hero-intro {
     animation: home-copy-reveal 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
     color: var(--color-text-muted);
+    letter-spacing: 0.055em;
+    text-transform: none;
 }
 
 .hero .h2 {
-    animation: home-title-reveal 1s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: home-copy-reveal 0.9s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
     font-size: clamp(2.75rem, 13.5vw, 3.6rem);
     font-kerning: normal;
     font-weight: 600;
@@ -178,7 +180,10 @@
     }
 
     .hero > .content-wrapper {
+        align-items: center;
         min-height: inherit;
+        padding-bottom: clamp(2.5rem, 6vw, 5rem);
+        padding-top: clamp(2.5rem, 6vw, 5rem);
     }
 
     .hero .h2 {
@@ -262,18 +267,6 @@
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-@keyframes home-title-reveal {
-    from {
-        opacity: 0;
-        transform: translateX(-3rem) rotate(-0.3deg);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0) rotate(0);
     }
 }
 

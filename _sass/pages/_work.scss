@@ -92,13 +92,6 @@
 .work-intro-eyebrow {
     animation: work-copy-reveal 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
     color: var(--color-text-muted-on-dark);
-    display: block;
-    font-size: var(--type-label-font-size);
-    font-weight: 700;
-    letter-spacing: var(--type-label-letter-spacing);
-    line-height: var(--type-label-line-height);
-    margin: 0 0 1.5rem;
-    text-transform: uppercase;
 }
 
 .work-intro-title {
@@ -172,12 +165,14 @@
     text-transform: uppercase;
 }
 
-.work-collection-title {
+.work-collection-description {
+    color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: clamp(2.5rem, 6vw, 5.5rem);
-    letter-spacing: var(--type-section-letter-spacing);
-    line-height: var(--type-section-line-height);
-    margin: 0;
+    font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+    letter-spacing: var(--type-lead-letter-spacing);
+    line-height: var(--type-lead-line-height);
+    margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
+    max-width: 42rem;
 }
 
 .work-project-index {
@@ -451,6 +446,69 @@
     gap: clamp(6rem, 9vw, 9rem);
 }
 
+.work-project-summaries {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(6rem, 11vw, 10rem);
+}
+
+.work-project-summary {
+    border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
+    display: grid;
+    gap: clamp(2.75rem, 7vw, 6rem);
+    padding-top: clamp(3rem, 6vw, 5rem);
+    scroll-margin-top: calc(var(--site-top-gutter) + var(--work-project-index-height) + 2rem);
+}
+
+.work-project-summary-copy {
+    align-self: center;
+    max-width: 42rem;
+}
+
+.work-project-summary-visual {
+    margin: 0;
+    overflow: hidden;
+}
+
+.work-project-summary-visual .a {
+    display: block;
+    position: relative;
+}
+
+.work-project-summary-visual .a::after {
+    border: 0.0625rem solid rgba(255, 255, 255, 0.14);
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.work-project-summary-visual img {
+    aspect-ratio: 4 / 3;
+    display: block;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 100%;
+}
+
+.work-project-summary-visual .a:hover::after,
+.work-project-summary-visual .a:focus-visible::after {
+    border-color: rgba(255, 255, 255, 0.42);
+    box-shadow: inset 0 0 3rem rgba(255, 255, 255, 0.05);
+}
+
+.work-project-summary-visual .a:hover img,
+.work-project-summary-visual .a:focus-visible img {
+    transform: scale(1.015);
+}
+
+.work-project-summary-visual .a:focus-visible {
+    outline: 0.125rem solid var(--color-focus-ring);
+    outline-offset: 0.25rem;
+}
+
 .project-story {
     border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
     padding-top: clamp(3rem, 6vw, 5rem);
@@ -485,6 +543,24 @@
     margin: 0;
 }
 
+.project-story-title-link {
+    color: inherit;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.12em;
+    transition: text-decoration-color 0.25s ease;
+}
+
+.project-story-title-link:hover,
+.project-story-title-link:focus-visible {
+    text-decoration-color: currentColor;
+}
+
+.project-story-title-link:focus-visible {
+    outline: 0.125rem solid var(--color-paper);
+    outline-offset: 0.35rem;
+}
+
 .project-story-title:focus:not(:focus-visible) {
     outline: none;
 }
@@ -504,8 +580,16 @@
     max-width: 40rem;
 }
 
+.project-story-actions {
+    margin-top: clamp(1.75rem, 3vw, 2.25rem);
+}
+
+.project-story-actions .button {
+    min-height: 3.25rem;
+}
+
 .project-story-link {
-    margin-top: 1.75rem;
+    margin-top: 0;
     text-decoration: none;
 }
 
@@ -892,85 +976,41 @@
 }
 
 .main.work .button.primary {
-    --button-active-fill: var(--color-text-muted-on-dark);
-    --button-background: rgba(255, 255, 255, 0.86);
-    --button-border: rgba(255, 255, 255, 0.74);
-    --button-fill: rgba(4, 4, 5, 0.86);
-    --button-hover-text: var(--color-paper);
+    --button-background: rgba(255, 255, 255, 0.82);
+    --button-background-active: rgba(255, 255, 255, 0.96);
+    --button-background-hover: rgba(255, 255, 255, 0.9);
+    --button-background-layer: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.62));
+    --button-border: rgba(255, 255, 255, 0.72);
+    --button-border-hover: rgba(255, 255, 255, 0.96);
+    --button-hover-text: var(--color-ink);
+    --button-sheen: linear-gradient(110deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.22) 50%, transparent 76%);
     --button-text: var(--color-ink);
     --control-glass-shadow: inset 0 0.0625rem rgba(255, 255, 255, 0.96),
         inset 0 -0.0625rem rgba(4, 4, 5, 0.12),
-        0 0.75rem 1.9rem rgba(0, 0, 0, 0.22);
+        0 0.5rem 1.35rem rgba(0, 0, 0, 0.16);
+    --button-hover-shadow: inset 0 0.0625rem rgba(255, 255, 255, 1),
+        inset 0 -0.0625rem rgba(4, 4, 5, 0.16),
+        0 0.55rem 1.45rem rgba(0, 0, 0, 0.2);
     --control-glass-sheen-opacity: 0.7;
 }
 
 .main.work .button.secondary {
-    --button-active-fill: var(--color-text-muted-on-dark);
-    --button-background: rgba(255, 255, 255, 0.07);
+    --button-background: rgba(255, 255, 255, 0.055);
+    --button-background-active: rgba(255, 255, 255, 0.14);
+    --button-background-hover: rgba(255, 255, 255, 0.1);
+    --button-background-layer: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.015));
     --button-border: rgba(255, 255, 255, 0.28);
-    --button-fill: rgba(255, 255, 255, 0.86);
-    --button-hover-text: var(--color-ink);
+    --button-border-hover: rgba(255, 255, 255, 0.48);
+    --button-hover-text: var(--color-paper);
+    --button-sheen: linear-gradient(110deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.035) 50%, transparent 76%);
     --button-text: var(--color-paper);
     --control-glass-shadow: inset 0 0.0625rem rgba(255, 255, 255, 0.22),
         inset 0 -0.0625rem rgba(0, 0, 0, 0.24),
-        0 0.75rem 1.9rem rgba(0, 0, 0, 0.18);
+        0 0.5rem 1.35rem rgba(0, 0, 0, 0.14);
+    --button-hover-shadow: inset 0 0.0625rem rgba(255, 255, 255, 0.3),
+        inset 0 -0.0625rem rgba(0, 0, 0, 0.28),
+        0 0.55rem 1.45rem rgba(0, 0, 0, 0.18);
     --control-glass-sheen-opacity: 0.4;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-        [data-reveal] {
-            animation-duration: 1ms;
-            animation-fill-mode: both;
-            animation-name: content-reveal-up;
-            animation-timeline: view();
-            animation-range: entry 0% entry 32%;
-        }
-
-        [data-reveal="left"] {
-            animation-name: content-reveal-left;
-        }
-
-        [data-reveal="right"] {
-            animation-name: content-reveal-right;
-        }
-    }
-}
-
-@keyframes content-reveal-up {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 2.5rem, 0);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-@keyframes content-reveal-left {
-    from {
-        opacity: 0;
-        transform: translate3d(-5rem, 1.5rem, 0) rotate(-0.6deg);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) rotate(0);
-    }
-}
-
-@keyframes content-reveal-right {
-    from {
-        opacity: 0;
-        transform: translate3d(5rem, 1.5rem, 0) rotate(0.6deg);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) rotate(0);
-    }
 }
 
 .project-gallery-copy-item.is-entering {
@@ -1062,6 +1102,26 @@
 }
 
 @media screen and (min-width: 60.0625rem) {
+    .work-project-summary {
+        align-items: center;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    }
+
+    .work-project-summary:nth-child(even) {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    }
+
+    .work-project-summary:nth-child(even) .work-project-summary-copy {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+    }
+
+    .work-project-summary:nth-child(even) .work-project-summary-visual {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
     .project-story-overview {
         align-items: start;
         gap: clamp(3rem, 6vw, 7rem);
@@ -1124,6 +1184,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .work-project-summary-visual img,
+    .work-project-summary-visual .a::after {
+        transition: none;
+    }
+
     .work-project-index,
     .work-project-index::after,
     .work-project-index-list::before,
@@ -1149,5 +1214,9 @@
 
     .project-gallery-copy-item.is-entering {
         animation: none;
+    }
+
+    .project-story-title-link {
+        transition: none;
     }
 }
