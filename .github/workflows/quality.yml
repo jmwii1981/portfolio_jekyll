@@ -20,7 +20,7 @@ jobs:
       - name: Build site
         run: bundle exec jekyll build
       - name: Verify static search database
-        run: ruby scripts/build-search-index.rb --check
+        run: bundle exec ruby scripts/build-search-index.rb --check
       - name: Check JavaScript syntax
         run: |
           node --check scripts/initializeScripts.js
@@ -28,4 +28,4 @@ jobs:
           for file in scripts/search/*.mjs; do node --check "$file"; done
           node scripts/search/searchIndex.test.cjs
       - name: Audit generated HTML
-        run: ruby scripts/audit-site.rb
+        run: bundle exec ruby scripts/audit-site.rb
