@@ -310,9 +310,6 @@ PLATFORMS
 DEPENDENCIES
   faraday-retry
   github-pages
-  jekyll-feed
-  jekyll-seo-tag
-  jekyll-sitemap
 
 BUNDLED WITH
    2.5.23
