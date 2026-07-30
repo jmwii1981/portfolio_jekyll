@@ -9,6 +9,20 @@ require "uri"
 source_root = Pathname.new(__dir__).join("..").expand_path
 site_root = source_root.join("_site")
 failures = []
+legacy_redirects = {
+  "about/index.html" => {
+    target: "/#about",
+    canonical: "https://janmichael.io/"
+  },
+  "endorsements/index.html" => {
+    target: "/#recommendations",
+    canonical: "https://janmichael.io/"
+  },
+  "experience/index.html" => {
+    target: "/work/",
+    canonical: "https://janmichael.io/work/"
+  }
+}.freeze
 
 def valid_structured_data_datetime?(value)
   return false unless value.is_a?(String) && value.match?(/\A\d{4}-\d{2}-\d{2}T/)
@@ -25,8 +39,10 @@ unless site_root.directory?
 end
 
 site_root.glob("**/*.html").each do |file|
-  html = file.read
   relative = file.relative_path_from(site_root)
+  next if legacy_redirects.key?(relative.to_s)
+
+  html = file.read
   ids = html.scan(/\bid=(['"])(.*?)\1/i).map(&:last)
   h1_count = html.scan(/<h1\b/i).length
   main_html = html[/<main\b.*?<\/main>/mi]
@@ -306,6 +322,23 @@ project_pages.each do |slug, image_folder|
   failures << "#{relative}: WebPage schema needs an ISO 8601 dateModified timestamp" unless valid_structured_data_datetime?(web_page&.fetch("dateModified", nil))
   failures << "#{relative}: WebPage does not identify the CreativeWork as its main entity" unless web_page&.dig("mainEntity", "@id") == "#{canonical}#creative-work"
   failures << "#{relative}: CreativeWork is not linked to Jan Michael Wallace II" unless creative_work&.dig("creator", "@id") == "https://janmichael.io/#person"
+end
+
+legacy_redirects.each do |relative, redirect|
+  file = site_root.join(relative)
+
+  unless file.file?
+    failures << "#{relative}: legacy redirect page is missing"
+    next
+  end
+
+  html = file.read
+  target = redirect.fetch(:target)
+  canonical = redirect.fetch(:canonical)
+  failures << "#{relative}: redirect target is incorrect" unless html.include?("content=\"0; url=#{target}\"")
+  failures << "#{relative}: JavaScript redirect fallback is incorrect" unless html.include?("window.location.replace(#{target.to_json})")
+  failures << "#{relative}: canonical target is incorrect" unless html.include?("rel=\"canonical\" href=\"#{canonical}\"")
+  failures << "#{relative}: accessible redirect link is missing" unless html.include?("href=\"#{target}\"")
 end
 
 if failures.any?
