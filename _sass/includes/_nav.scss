@@ -160,11 +160,14 @@
         justify-content: center;
         padding: 0.625rem;
         position: relative;
+        transition:
+            background-color 0.2s ease,
+            border-color 0.2s ease;
         width: 3rem;
         z-index: 4;
 
         &:hover {
-            background: transparent;
+            background: rgba(4, 4, 5, 0.07);
             border-color: transparent;
         }
 
@@ -452,6 +455,7 @@
     .nav,
     .nav-indicator,
     .nav-toggle-line,
+    .nav-toggle,
     .tab,
     .tab::after {
         transition: none;

@@ -597,8 +597,7 @@
         text-decoration: none;
         transition:
             color 0.2s ease,
-            opacity 0.2s ease,
-            transform 0.15s ease;
+            opacity 0.2s ease;
         width: 2.75rem;
     }
     .logo-carousel-toggle:hover {
@@ -612,9 +611,6 @@
         opacity: 1;
         outline: none;
         text-decoration: none;
-    }
-    .logo-carousel-toggle:active {
-        transform: scale(0.98);
     }
     .logo-carousel-toggle-icon {
         border: 0;
@@ -639,54 +635,28 @@
         width: 0.95rem;
     }
     .logo-carousel-toggle-surface {
-        -webkit-backdrop-filter: blur(1rem) saturate(1.25);
         align-items: center;
-        backdrop-filter: blur(1rem) saturate(1.25);
-        background: rgba(255, 255, 255, 0.54);
-        border: 0.0625rem solid rgba(4, 4, 5, 0.14);
+        background: var(--color-paper);
+        border: 0.0625rem solid rgba(4, 4, 5, 0.2);
         border-radius: 50%;
-        box-shadow:
-            inset 0 0.0625rem rgba(255, 255, 255, 0.82),
-            inset 0 -0.0625rem rgba(4, 4, 5, 0.06),
-            0 0.25rem 0.8rem rgba(4, 4, 5, 0.05);
         display: flex;
         height: 2rem;
         justify-content: center;
         left: 50%;
-        overflow: hidden;
         position: absolute;
         top: 50%;
         transform: translate(-50%, -50%);
         transition:
             background-color 0.2s ease,
             border-color 0.2s ease,
-            box-shadow 0.2s ease,
-            transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+            color 0.2s ease;
         width: 2rem;
-    }
-    .logo-carousel-toggle-surface::after {
-        background: linear-gradient(
-            128deg,
-            rgba(255, 255, 255, 0.5) 8%,
-            rgba(255, 255, 255, 0.04) 45%,
-            rgba(255, 255, 255, 0) 70%
-        );
-        border-radius: inherit;
-        content: "";
-        inset: 0;
-        opacity: 0.62;
-        pointer-events: none;
-        position: absolute;
     }
     .logo-carousel-toggle:hover .logo-carousel-toggle-surface,
     .logo-carousel-toggle:focus-visible .logo-carousel-toggle-surface {
-        background: rgba(255, 255, 255, 0.78);
-        border-color: rgba(4, 4, 5, 0.24);
-        box-shadow:
-            inset 0 0.0625rem rgba(255, 255, 255, 0.92),
-            inset 0 -0.0625rem rgba(4, 4, 5, 0.08),
-            0 0.4rem 1rem rgba(4, 4, 5, 0.08);
-        transform: translate(-50%, -50%) scale(1.04);
+        background: var(--color-ink);
+        border-color: var(--color-ink);
+        color: var(--color-paper);
     }
     .logo-carousel-toggle-label {
         clip: rect(0 0 0 0);
@@ -1029,17 +999,10 @@
         display: none;
     }
     .recommendation-next {
-        @include glass-control;
-
-        --control-glass-shadow: inset 0 0.0625rem rgba(255, 255, 255, 0.86),
-            inset 0 -0.0625rem rgba(4, 4, 5, 0.08),
-            0 0.65rem 1.65rem rgba(4, 4, 5, 0.09);
-        --control-glass-sheen-opacity: 0.72;
-
         align-items: center;
         align-self: center;
-        background: rgba(255, 255, 255, 0.52);
-        border: 0.0625rem solid rgba(4, 4, 5, 0.16);
+        background: var(--color-paper);
+        border: 0.0625rem solid rgba(4, 4, 5, 0.24);
         border-radius: 100px;
         color: var(--color-link);
         display: inline-flex;
@@ -1054,7 +1017,8 @@
             background-color 0.2s ease,
             border-color 0.2s ease,
             color 0.2s ease,
-            transform 0.15s ease;
+            box-shadow 0.2s ease,
+            transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
         width: 3rem;
     }
     .recommendation-next-icon {
@@ -1068,22 +1032,24 @@
         width: 1.1rem;
     }
     .recommendation-next:hover {
-        background: rgba(255, 255, 255, 0.76);
-        border-color: rgba(4, 4, 5, 0.26);
-        color: var(--color-link);
+        background: var(--color-ink);
+        border-color: var(--color-ink);
+        box-shadow: var(--shadow-control-on-light);
+        color: var(--color-paper);
         transform: translateY(-0.0625rem);
     }
     .recommendation-next:focus-visible {
         box-shadow:
             0 0 0 0.2rem var(--color-focus-ring),
-            var(--control-glass-shadow);
+            0 0 0 0 transparent;
         outline: none;
     }
     .recommendation-next:active {
-        background: rgba(255, 255, 255, 0.88);
-        border-color: rgba(4, 4, 5, 0.34);
-        color: var(--color-link);
-        transform: scale(0.96);
+        background: var(--color-control-dark-hover);
+        border-color: var(--color-control-dark-hover);
+        box-shadow: none;
+        color: var(--color-paper);
+        transform: translateY(0);
     }
     .recommendation-quote {
         color: var(--color-text-soft);
@@ -1286,9 +1252,7 @@
     .logo-carousel-toggle-surface,
     .logo-carousel-toggle-tooltip,
     .recommendation-next,
-    .recommendation-next-icon,
-    .logo-carousel-toggle::after,
-    .recommendation-next::after {
+    .recommendation-next-icon {
         transition: none;
     }
 

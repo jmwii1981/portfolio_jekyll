@@ -42,18 +42,13 @@
 }
 
 .body--work .nav-toggle {
-    --control-glass-shadow: inset 0 0.0625rem rgba(255, 255, 255, 0.16),
-        inset 0 -0.0625rem rgba(0, 0, 0, 0.22),
-        0 0.4rem 1.2rem rgba(0, 0, 0, 0.16);
-    --control-glass-sheen-opacity: 0.34;
-
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 255, 255, 0.14);
+    background: transparent;
+    border-color: transparent;
 }
 
 .body--work .nav-toggle:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.09);
+    border-color: transparent;
 }
 
 .body--work .footer,
@@ -284,16 +279,9 @@
 }
 
 .work-project-index-scroll-button {
-    @include glass-control(absolute, visible);
-
-    --control-glass-shadow: inset 0 0.0625rem rgba(255, 255, 255, 0.92),
-        inset 0 -0.0625rem rgba(4, 4, 5, 0.1),
-        0 0.55rem 1.45rem rgba(0, 0, 0, 0.2);
-    --control-glass-sheen-opacity: 0.48;
-
     align-items: center;
-    border: 0;
     background: var(--color-paper);
+    border: 0.0625rem solid var(--color-paper);
     border-radius: 100px;
     color: var(--color-ink);
     cursor: pointer;
@@ -306,6 +294,9 @@
     top: 50%;
     transform: translateY(-50%);
     transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
         opacity 0.2s ease;
     width: 2rem;
     z-index: 3;
@@ -363,7 +354,8 @@
 
 .work-project-index-scroll-button:hover,
 .work-project-index-scroll-button:focus-visible {
-    background: var(--color-paper);
+    background: var(--color-control-light-hover);
+    border-color: var(--color-control-light-hover);
     color: var(--color-ink);
     opacity: 1;
 }
@@ -711,16 +703,9 @@
 }
 
 .project-gallery-button {
-    @include glass-control;
-
-    --control-glass-shadow: inset 0 0.0625rem rgba(255, 255, 255, 0.22),
-        inset 0 -0.0625rem rgba(0, 0, 0, 0.22),
-        0 0.7rem 1.6rem rgba(0, 0, 0, 0.2);
-    --control-glass-sheen-opacity: 0.42;
-
     align-items: center;
-    background: rgba(255, 255, 255, 0.08);
-    border: 0.0625rem solid rgba(255, 255, 255, 0.16);
+    background: transparent;
+    border: 0.0625rem solid rgba(255, 255, 255, 0.34);
     border-radius: 100px;
     color: var(--color-paper);
     cursor: pointer;
@@ -732,16 +717,22 @@
     transition:
         background-color 0.2s ease,
         border-color 0.2s ease,
+        box-shadow 0.2s ease,
         color 0.2s ease,
-        transform 0.15s ease;
+        transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
     width: 3rem;
 }
 
 .project-gallery-button:hover,
 .project-gallery-button:focus-visible {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.28);
-    color: var(--color-paper);
+    background-color: var(--color-paper);
+    border-color: var(--color-paper);
+    color: var(--color-ink);
+}
+
+.project-gallery-button:hover {
+    box-shadow: var(--shadow-control-on-dark);
+    transform: translateY(-0.0625rem);
 }
 
 .project-gallery-button:focus-visible {
@@ -750,9 +741,10 @@
 }
 
 .project-gallery-button:active {
-    background-color: rgba(255, 255, 255, 0.22);
-    border-color: rgba(255, 255, 255, 0.34);
-    transform: scale(0.96);
+    background-color: var(--color-control-light-hover);
+    border-color: var(--color-control-light-hover);
+    box-shadow: none;
+    transform: translateY(0);
 }
 
 .project-gallery-button:disabled {
@@ -976,41 +968,25 @@
 }
 
 .main.work .button.primary {
-    --button-background: rgba(255, 255, 255, 0.82);
-    --button-background-active: rgba(255, 255, 255, 0.96);
-    --button-background-hover: rgba(255, 255, 255, 0.9);
-    --button-background-layer: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.62));
-    --button-border: rgba(255, 255, 255, 0.72);
-    --button-border-hover: rgba(255, 255, 255, 0.96);
+    --button-background: var(--color-paper);
+    --button-background-active: var(--color-control-light-hover);
+    --button-background-hover: var(--color-paper);
+    --button-border: var(--color-paper);
+    --button-border-hover: var(--color-paper);
     --button-hover-text: var(--color-ink);
-    --button-sheen: linear-gradient(110deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.22) 50%, transparent 76%);
+    --button-hover-shadow: var(--shadow-control-edge-on-dark);
     --button-text: var(--color-ink);
-    --control-glass-shadow: inset 0 0.0625rem rgba(255, 255, 255, 0.96),
-        inset 0 -0.0625rem rgba(4, 4, 5, 0.12),
-        0 0.5rem 1.35rem rgba(0, 0, 0, 0.16);
-    --button-hover-shadow: inset 0 0.0625rem rgba(255, 255, 255, 1),
-        inset 0 -0.0625rem rgba(4, 4, 5, 0.16),
-        0 0.55rem 1.45rem rgba(0, 0, 0, 0.2);
-    --control-glass-sheen-opacity: 0.7;
 }
 
 .main.work .button.secondary {
-    --button-background: rgba(255, 255, 255, 0.055);
-    --button-background-active: rgba(255, 255, 255, 0.14);
+    --button-background: transparent;
+    --button-background-active: rgba(255, 255, 255, 0.16);
     --button-background-hover: rgba(255, 255, 255, 0.1);
-    --button-background-layer: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.015));
-    --button-border: rgba(255, 255, 255, 0.28);
-    --button-border-hover: rgba(255, 255, 255, 0.48);
+    --button-border: rgba(255, 255, 255, 0.42);
+    --button-border-hover: var(--color-paper);
+    --button-hover-shadow: var(--shadow-control-edge-on-dark);
     --button-hover-text: var(--color-paper);
-    --button-sheen: linear-gradient(110deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.035) 50%, transparent 76%);
     --button-text: var(--color-paper);
-    --control-glass-shadow: inset 0 0.0625rem rgba(255, 255, 255, 0.22),
-        inset 0 -0.0625rem rgba(0, 0, 0, 0.24),
-        0 0.5rem 1.35rem rgba(0, 0, 0, 0.14);
-    --button-hover-shadow: inset 0 0.0625rem rgba(255, 255, 255, 0.3),
-        inset 0 -0.0625rem rgba(0, 0, 0, 0.28),
-        0 0.55rem 1.45rem rgba(0, 0, 0, 0.18);
-    --control-glass-sheen-opacity: 0.4;
 }
 
 .project-gallery-copy-item.is-entering {
@@ -1193,15 +1169,13 @@
     .work-project-index::after,
     .work-project-index-list::before,
     .work-project-index-scroll-button,
-    .work-project-index-scroll-button::after,
     .work-project-index-list .a,
     .work-project-index-list .a span {
         animation: none;
         transition: none;
     }
 
-    .project-gallery-button,
-    .project-gallery-button::after {
+    .project-gallery-button {
         transition: none;
     }
 

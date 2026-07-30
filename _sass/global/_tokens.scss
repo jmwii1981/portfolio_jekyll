@@ -55,26 +55,20 @@
     --color-error: #B42318;
     --color-focus-ring: #007C9C;
     --color-selection: rgba(43, 132, 157, 0.1);
+    --color-control-dark-hover: #18191B;
+    --color-control-light-hover: #DFE1E4;
 
     // Glass and overlays
     --color-consent-background: rgba(255, 255, 255, 0.82);
     --color-glass: rgba(255, 255, 255, 0.3);
     --color-glass-border: rgba(255, 255, 255, 0.35);
     --color-glass-clear: rgba(255, 255, 255, 0);
-    --control-glass-blur: 1rem;
-    --control-glass-saturation: 155%;
-    --control-glass-sheen: linear-gradient(
-        145deg,
-        rgba(255, 255, 255, 0.72) 0%,
-        rgba(255, 255, 255, 0.24) 24%,
-        rgba(255, 255, 255, 0.06) 44%,
-        rgba(255, 255, 255, 0) 66%
-    );
-    --control-glass-shadow: inset 0 0.0625rem 0 rgba(255, 255, 255, 0.72),
-        inset 0 -0.0625rem 0 rgba(4, 4, 5, 0.08),
-        0 0.55rem 1.5rem rgba(4, 4, 5, 0.08);
 
     // Shadows
+    --shadow-control-edge-on-dark: 0.25rem 0.25rem 0 rgba(255, 255, 255, 0.34);
+    --shadow-control-edge-on-light: 0.25rem 0.25rem 0 rgba(4, 4, 5, 0.3);
+    --shadow-control-on-dark: 0 0.55rem 1.2rem rgba(0, 0, 0, 0.22);
+    --shadow-control-on-light: 0 0.55rem 1.2rem rgba(4, 4, 5, 0.14);
     --shadow-consent: 0 1rem 3rem rgba(0, 0, 0, 0.08);
     --shadow-glass: 0 0.5rem 2rem rgba(0, 0, 0, 0.02);
     --shadow-none: 0 0.5rem 2rem rgba(0, 0, 0, 0);
