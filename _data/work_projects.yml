@@ -49,6 +49,7 @@ lionfinancial:
 vega:
   name: "Vega Enterprise Design System"
   organization: "Global Payments"
+  index_label: "Vega"
   discipline: "Enterprise design system"
   headline: "A north star for product design across a global ecosystem."
   introduction: >-

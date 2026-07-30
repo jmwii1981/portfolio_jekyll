@@ -30,7 +30,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 {% for project_entry in site.data.work_projects %}
                 {% assign project_slug = project_entry[0] %}
                 {% assign project = project_entry[1] %}
-                <li><a class="a" href="#project-{{ project_slug }}"><span aria-hidden="true">0{{ forloop.index }}</span> {{ project.organization }}</a></li>
+                <li><a class="a" href="#project-{{ project_slug }}"><span aria-hidden="true">0{{ forloop.index }}</span> {{ project.index_label | default: project.organization }}</a></li>
                 {% endfor %}
             </ul>
             <button class="work-project-index-scroll-button work-project-index-scroll-button--next" type="button" data-project-index-next aria-controls="work-project-index-list" aria-label="Show more projects" hidden><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></button>

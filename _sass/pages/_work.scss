@@ -296,8 +296,10 @@
     transition:
         background-color 0.2s ease,
         border-color 0.2s ease,
+        box-shadow 0.2s ease,
         color 0.2s ease,
-        opacity 0.2s ease;
+        opacity 0.2s ease,
+        transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
     width: 2rem;
     z-index: 3;
 }
@@ -363,6 +365,16 @@
 .work-project-index-scroll-button:focus-visible {
     outline: 0.125rem solid var(--color-focus-ring);
     outline-offset: -0.1875rem;
+}
+
+.work-project-index-scroll-button:hover {
+    box-shadow: var(--shadow-control-edge-on-dark);
+    transform: translate(-0.125rem, calc(-50% - 0.125rem));
+}
+
+.work-project-index-scroll-button:active {
+    box-shadow: none;
+    transform: translateY(-50%);
 }
 
 .work-project-index-scroll-button svg {
@@ -731,8 +743,8 @@
 }
 
 .project-gallery-button:hover {
-    box-shadow: var(--shadow-control-on-dark);
-    transform: translateY(-0.0625rem);
+    box-shadow: var(--shadow-control-edge-on-dark);
+    transform: translate(-0.125rem, -0.125rem);
 }
 
 .project-gallery-button:focus-visible {
