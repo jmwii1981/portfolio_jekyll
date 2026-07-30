@@ -3,11 +3,21 @@
 require "json"
 require "pathname"
 require "rexml/document"
+require "time"
 require "uri"
 
 source_root = Pathname.new(__dir__).join("..").expand_path
 site_root = source_root.join("_site")
 failures = []
+
+def valid_structured_data_datetime?(value)
+  return false unless value.is_a?(String) && value.match?(/\A\d{4}-\d{2}-\d{2}T/)
+
+  Time.iso8601(value)
+  true
+rescue ArgumentError
+  false
+end
 
 unless site_root.directory?
   warn "Build output not found. Run `bundle exec jekyll build` first."
@@ -251,7 +261,7 @@ if home.file?
   failures << "index.html: Person schema is missing the Toptal profile" unless person&.fetch("sameAs", [])&.include?("https://www.toptal.com/designers/resume/jan-michael-wallace-ii")
   failures << "index.html: Person schema is missing the Figma profile" unless person&.fetch("sameAs", [])&.include?("https://www.figma.com/@jmwii1981")
   failures << "index.html: Person schema is not linked back to the ProfilePage" unless person&.dig("mainEntityOfPage", "@id") == "https://janmichael.io/#webpage"
-  failures << "index.html: ProfilePage schema is missing dateModified" unless profile_page&.fetch("dateModified", nil) == "2026-07-20"
+  failures << "index.html: ProfilePage schema needs an ISO 8601 dateModified timestamp" unless valid_structured_data_datetime?(profile_page&.fetch("dateModified", nil))
   failures << "index.html: ProfilePage schema does not declare the preferred portrait" unless profile_page&.dig("primaryImageOfPage", "@id") == "https://janmichael.io/#profile-image"
 else
   failures << "index.html: missing from build output"
@@ -293,6 +303,7 @@ project_pages.each do |slug, image_folder|
   breadcrumb = graph.find { |node| node["@type"] == "BreadcrumbList" }
   failures << "#{relative}: CreativeWork structured data is missing" unless creative_work
   failures << "#{relative}: breadcrumb structured data is missing" unless breadcrumb
+  failures << "#{relative}: WebPage schema needs an ISO 8601 dateModified timestamp" unless valid_structured_data_datetime?(web_page&.fetch("dateModified", nil))
   failures << "#{relative}: WebPage does not identify the CreativeWork as its main entity" unless web_page&.dig("mainEntity", "@id") == "#{canonical}#creative-work"
   failures << "#{relative}: CreativeWork is not linked to Jan Michael Wallace II" unless creative_work&.dig("creator", "@id") == "https://janmichael.io/#person"
 end

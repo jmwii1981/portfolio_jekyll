@@ -22,6 +22,7 @@
     {% assign social_image_height = page.social_image_height | default: 1266 %}
     {% assign social_image_type = page.social_image_type | default: 'image/png' %}
     {% assign canonical_url = page.url | absolute_url %}
+    {% assign structured_data_date_modified = page.date_modified | default: site.structured_data_date_modified %}
     {% assign robots_directive = page.robots | default: 'index, follow, max-image-preview:large' %}
     {% assign open_graph_type = page.open_graph_type | default: 'website' %}
     {% if page.project %}
@@ -89,13 +90,13 @@
                     "description": {{ meta_description | jsonify }},
                     "isPartOf": { "@id": {{ '/' | absolute_url | append: '#website' | jsonify }} },
                     "about": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} }{% if page.url == '/' %},
-                    "dateModified": "2026-07-20",
+                    "dateModified": {{ structured_data_date_modified | jsonify }},
                     "mainEntity": { "@id": {{ '/' | absolute_url | append: '#person' | jsonify }} },
                     "primaryImageOfPage": { "@id": {{ '/' | absolute_url | append: '#profile-image' | jsonify }} }
                     {% elsif page.url == '/work/' %},
                     "mainEntity": { "@id": {{ canonical_url | append: '#selected-work' | jsonify }} }
                     {% elsif page.project %},
-                    "dateModified": {{ page.date_modified | default: '2026-07-20' | jsonify }},
+                    "dateModified": {{ structured_data_date_modified | jsonify }},
                     "breadcrumb": { "@id": {{ canonical_url | append: '#breadcrumb' | jsonify }} },
                     "mainEntity": { "@id": {{ canonical_url | append: '#creative-work' | jsonify }} },
                     "primaryImageOfPage": { "@id": {{ canonical_url | append: '#primary-image' | jsonify }} }

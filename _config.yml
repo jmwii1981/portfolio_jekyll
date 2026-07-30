@@ -4,6 +4,7 @@ description: "Jan Michael Wallace II is a fractional product design leader helpi
 baseurl: ""
 url: "https://janmichael.io"
 asset_version: "2026.07.20.61"
+structured_data_date_modified: "2026-07-29T20:41:47-04:00"
 github_username: jmwii1981
 sass:
   sass_dir: _sass
