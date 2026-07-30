@@ -9,8 +9,7 @@ description: "Perspectives from Jan Michael Wallace II on product design leaders
         <div class="perspectives-layout">
             <article class="medium-latest-article post-content-wrapper" id="latest-medium-article" data-search-section data-search-title="Latest Perspectives" data-search-category="Perspectives" data-search-keywords="articles writing Medium product design leadership">
                 <header class="medium-article-header">
-                    <p class="p section-label page-intro-eyebrow perspectives-article-eyebrow">Latest perspective</p>
-                    <h1 class="h1 post-title" id="perspectives-page-title">Perspectives</h1>
+                    <h1 class="p section-label page-intro-eyebrow perspectives-article-eyebrow" id="perspectives-page-title">Latest perspective</h1>
                     <div class="perspectives-feed-fallback" data-feed-fallback>
                         <p class="p medium-article-standfirst">Thoughts on design, leadership, team alignment, and building products that last.</p>
                         <p class="p perspectives-feed-note">My latest writing is published on Medium and appears here when the live feed is available.</p>

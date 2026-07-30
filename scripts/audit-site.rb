@@ -123,6 +123,8 @@ main_script = source_root.join("scripts", "initializeScripts.js").read
 search_script = source_root.join("scripts", "search", "initializeSiteSearch.mjs").read
 nav_styles = source_root.join("_sass", "includes", "_nav.scss").read
 search_styles = source_root.join("_sass", "components", "_site-search.scss").read
+logo_styles = source_root.join("_sass", "components", "_logo.scss").read
+header_source = source_root.join("_includes", "header.html").read
 
 failures << "page layout: no-js state must not be removed by an inline head script" if layout_source.match?(/classList\.replace\([^\n]*no-js/i)
 failures << "initializeScripts.js: module must confirm JavaScript execution before enhancing" unless main_script.match?(/classList\.replace\((['"])no-js\1,\s*(['"])js\2\)/)
@@ -131,6 +133,11 @@ failures << "initializeScripts.js: project gallery controls are missing their pe
 failures << "initializeScripts.js: one failed enhancement can prevent unrelated initialization" unless main_script.include?("const safelyInitialize =")
 failures << "initializeScripts.js: purely visual Web Animations API usage must remain in CSS" if main_script.include?(".animate(")
 failures << "initializeScripts.js: obsolete scripted visual initializer remains" if main_script.match?(/initialize(?:LogoAnimation|ScrollReveals)/)
+failures << "logo: limited-support CSS path geometry animation must not be used" if logo_styles.match?(/\bd:\s*path\(/)
+failures << "logo: cross-browser transform animation is missing" unless logo_styles.match?(/@keyframes\s+home-logo-col-1\s*\{.*?transform:\s*matrix\(/m)
+failures << "logo: transformed strokes must retain a consistent width" unless logo_styles.include?("vector-effect: non-scaling-stroke")
+failures << "logo: non-scaling stroke must preserve the original visual weight" unless logo_styles.include?("stroke-width: 0.4557rem")
+failures << "logo: opening sequence must use true circle geometry" unless header_source.scan(/<circle\b[^>]*\bclass=(['"])[^'"]*\banim-dot\b[^'"]*\1/i).length == 4
 failures << "navigation: optional indicator initializer is missing" unless main_script.include?("const initializeNavIndicator =")
 failures << "navigation: enhanced indicator is not readiness-gated" unless main_script.include?("classList.add('is-indicator-ready')")
 failures << "navigation: indicator markup is missing" unless source_root.join("_includes", "nav.html").read.match?(/class=(['"])nav-indicator\1[^>]*aria-hidden=(['"])true\2/)
