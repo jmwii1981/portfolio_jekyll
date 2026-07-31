@@ -6,12 +6,12 @@ description: "Fractional product design leadership for growing companies navigat
 
 <main class="main about" id="main-content" tabindex="-1">
     <section class="hero" id="about" aria-labelledby="about-title" data-search-section data-search-title="About Jan Michael Wallace II" data-search-category="About" data-search-summary="Fractional product design leadership for growing companies turning ambiguity into clear strategy, scalable systems, and durable shipped work." data-search-keywords="fractional product design leader portfolio product strategy leadership">
-        <div class="content-wrapper">
+        <div class="content-wrapper page-intro-frame">
             <div class="copy-wrapper">
-                <p class="p section-label hero-intro">Hello, I'm</p>
-                <h1 class="h2" id="about-title">Jan Michael</h1>
+                <p class="p section-label page-intro-eyebrow hero-intro">Hello, I'm</p>
+                <h1 class="h1 page-hero-title" id="about-title">Jan Michael</h1>
                 <p class="h3">I’m a Fractional Product Design Leader.</p>
-                <p class="h4">I help growing companies turn product ambiguity into clear strategy, scalable systems, and shipped work that holds up as their businesses evolve.</p>
+                <p class="h4 page-intro-support">I help growing companies turn product ambiguity into clear strategy, scalable systems, and shipped work that holds up as their businesses evolve.</p>
                 <div class="button-group">
                     <a
                     class="a button secondary"
@@ -249,12 +249,12 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
         </div>
     </section>
-    <section class="about-me" id="beyond-the-work" data-search-section data-search-title="Beyond the Work" data-search-category="About" data-search-summary="More than 20 years of making, exploring, giving back, raising four kids, and searching for a great cup of coffee." data-search-keywords="personal interests connect linkedin conversation">
+    <section class="about-me" id="beyond-the-work" data-search-section data-search-title="Beyond the Work" data-search-category="About" data-search-summary="More than 20 years of making, exploring, giving back, raising four kids, and sitting down over coffee with interesting people to talk about what could come next." data-search-keywords="personal interests connect linkedin conversation">
         <div class="about-me-inner" data-reveal="up">
             <div class="about-me-copy">
                 <p class="p about-me-eyebrow">Beyond the work</p>
                 <h2 class="h2 about-me-title">I’m usually making something—or going somewhere.</h2>
-                <p class="p about-me-statement">Curiosity has kept me building for more than 20 years. Away from product work, that same instinct has me exploring new places, giving back, raising four kids, and searching for a great cup of coffee.</p>
+                <p class="p about-me-statement">Curiosity has kept me building for more than 20 years. Away from product work, that same instinct has me exploring new places, giving back, raising four kids, and sitting down over coffee with interesting people to talk about what could come next.</p>
             </div>
             <div class="about-me-next">
                 <p class="p about-me-eyebrow">Get in touch</p>

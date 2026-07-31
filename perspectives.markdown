@@ -5,7 +5,7 @@ permalink: /perspectives/
 description: "Perspectives from Jan Michael Wallace II on product design leadership, team alignment, design systems, and building products that last."
 ---
 <main class="main perspectives" id="main-content" tabindex="-1">
-    <section class="perspectives-page" id="latest-perspectives" aria-labelledby="perspectives-page-title" data-medium-runtime-feed>
+    <section class="perspectives-page page-intro-frame" id="latest-perspectives" aria-labelledby="perspectives-page-title" data-medium-runtime-feed>
         <div class="perspectives-layout">
             <article class="medium-latest-article post-content-wrapper" id="latest-medium-article" data-search-section data-search-title="Latest Perspectives" data-search-category="Perspectives" data-search-keywords="articles writing Medium product design leadership">
                 <header class="medium-article-header">

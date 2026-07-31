@@ -5,11 +5,11 @@ permalink: /work/
 description: "Selected product design leadership work spanning merchant operations, enterprise design systems, fintech workflows, and scalable product foundations."
 ---
 <main class="main work" id="main-content" tabindex="-1">
-    <section class="work-intro" id="selected-work" aria-labelledby="work-intro-title" data-search-section data-search-title="Selected Work" data-search-category="Work" data-search-summary="Product design leadership work that brings clarity to complexity and turns innovation into products that can scale." data-search-keywords="portfolio case studies product design systems teams">
+    <section class="work-intro page-intro-frame" id="selected-work" aria-labelledby="work-intro-title" data-search-section data-search-title="Selected Work" data-search-category="Work" data-search-summary="Product design leadership work that brings clarity to complexity and turns innovation into products that can scale." data-search-keywords="portfolio case studies product design systems teams">
         <div class="work-intro-copy">
             <p class="p section-label page-intro-eyebrow work-intro-eyebrow">Selected work</p>
-            <h1 class="h1 work-intro-title" id="work-intro-title">Clarity for what comes next.</h1>
-            <p class="p work-intro-statement">I help teams navigate unfamiliar product challenges—bringing clarity to complexity, aligning people around a direction, and turning innovation into products that can scale.</p>
+            <h1 class="h1 page-hero-title work-intro-title" id="work-intro-title">Clarity for what comes next.</h1>
+            <p class="p page-intro-support work-intro-statement">I help teams navigate unfamiliar product challenges—bringing clarity to complexity, aligning people around a direction, and turning innovation into products that can scale.</p>
         </div>
         <div class="work-intro-transition" aria-hidden="true">
             <span class="work-intro-transition-line"></span>

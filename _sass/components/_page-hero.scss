@@ -7,8 +7,27 @@
     width: 100%;
 }
 
+.page-intro-frame {
+    box-sizing: border-box;
+    padding-left: var(--site-frame-gutter);
+    padding-right: var(--site-frame-gutter);
+    padding-top: clamp(5rem, 10vw, 8rem);
+    width: 100%;
+}
+
+main.main > section.page-hero,
+main.main > .page-intro-frame {
+    padding-left: var(--site-frame-gutter);
+    padding-right: var(--site-frame-gutter);
+    padding-top: clamp(5rem, 10vw, 8rem);
+}
+
 main.main > section.page-hero {
-    padding: clamp(5rem, 10vw, 8rem) var(--site-frame-gutter);
+    padding-bottom: clamp(5rem, 10vw, 8rem);
+}
+
+.page-hero.page-intro-frame {
+    align-items: flex-start;
 }
 
 .page-hero-content {
@@ -31,13 +50,17 @@ main.main > section.page-hero {
     animation: page-hero-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.page-intro-support {
+    display: block;
+    font-size: clamp(1.125rem, 1.5vw, 1.4rem);
+    font-weight: 500;
+    letter-spacing: -0.012em;
+    line-height: 1.5;
+}
+
 .page-hero-lead {
     animation: page-hero-reveal 0.9s 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
     color: var(--color-text-soft);
-    display: block;
-    font-size: clamp(1.15rem, 2.1vw, 1.75rem);
-    letter-spacing: -0.015em;
-    line-height: 1.45;
     margin: clamp(2rem, 5vw, 4rem) 0 0;
     max-width: 39rem;
 }
@@ -59,9 +82,14 @@ main.main > section.page-hero {
         min-height: 0;
     }
 
+    .page-intro-frame,
+    main.main > section.page-hero,
+    main.main > .page-intro-frame {
+        padding-top: clamp(4.5rem, 16vw, 6rem);
+    }
+
     main.main > section.page-hero {
         padding-bottom: clamp(4.5rem, 16vw, 6rem);
-        padding-top: clamp(4.5rem, 16vw, 6rem);
     }
 
     .page-hero-title {

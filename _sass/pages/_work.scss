@@ -71,11 +71,11 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: calc(100vh - var(--site-top-gutter));
     min-height: calc(100svh - var(--site-top-gutter));
     overflow: hidden;
-    padding: clamp(5rem, 12vh, 9rem) var(--site-frame-gutter) 3rem;
+    padding-bottom: 3rem;
     position: relative;
     width: 100%;
 }
@@ -91,23 +91,11 @@
 
 .work-intro-title {
     animation: work-copy-reveal 0.9s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
-    display: block;
-    font-size: clamp(3.5rem, 11vw, 9.5rem);
-    font-kerning: normal;
-    font-weight: 600;
-    letter-spacing: var(--type-display-letter-spacing);
-    line-height: var(--type-display-line-height);
-    margin: 0;
-    max-width: 10ch;
 }
 
 .work-intro-statement {
     animation: work-copy-reveal 0.9s 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
     color: var(--color-text-muted-on-dark);
-    display: block;
-    font-size: clamp(1.15rem, 2.1vw, 1.75rem);
-    letter-spacing: -0.015em;
-    line-height: 1.45;
     margin: clamp(2rem, 5vw, 4rem) 0 0;
     max-width: 39rem;
 }

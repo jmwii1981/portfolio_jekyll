@@ -1,11 +1,19 @@
 .main.about {
     padding: 0;
-    row-gap: clamp(6rem, 10vw, 10rem);
+    row-gap: 0;
 }
 
 .main.about > section {
     padding-left: 0;
     padding-right: 0;
+}
+
+.main.about > section + section {
+    margin-top: clamp(6rem, 10vw, 10rem);
+}
+
+.main.about > .hero + .help {
+    margin-top: clamp(0.6rem, 1vw, 1rem);
 }
 
 .main.about > section.help,
@@ -41,6 +49,7 @@
 
 .hero {
     align-items: stretch;
+    background: var(--color-paper);
     display: flex;
     isolation: isolate;
     min-height: 0;
@@ -51,7 +60,7 @@
 }
 
 .hero::before {
-    background: var(--color-surface-subtle);
+    background: var(--color-paper);
     content: "";
     height: calc(100% + 6rem);
     left: 0;
@@ -62,18 +71,18 @@
 }
 
 .hero > .content-wrapper {
-    align-self: flex-end;
+    align-items: flex-start;
+    align-self: flex-start;
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
-    min-height: 0;
-    padding: clamp(1.5rem, calc(33.755vw - 7.846rem), 6.5rem) var(--site-frame-gutter) clamp(1.5rem, 4vw, 3rem);
+    padding-bottom: clamp(1.5rem, 4vw, 3rem);
     position: relative;
     width: 100%;
 }
 
 .hero .copy-wrapper {
-    align-self: center;
+    align-self: flex-start;
     display: flex;
     flex: 0 1 100%;
     flex-direction: column;
@@ -84,11 +93,15 @@
 }
 
 .hero .hero-intro,
-.hero .h2,
 .hero .h3,
 .hero .h4 {
     box-sizing: border-box;
     max-width: none;
+    width: 100%;
+}
+
+.hero .page-hero-title {
+    box-sizing: border-box;
     width: 100%;
 }
 
@@ -99,14 +112,8 @@
     text-transform: none;
 }
 
-.hero .h2 {
+.hero .page-hero-title {
     animation: home-copy-reveal 0.9s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
-    font-size: clamp(2.75rem, 13.5vw, 3.6rem);
-    font-kerning: normal;
-    font-weight: 600;
-    letter-spacing: var(--type-display-letter-spacing);
-    line-height: var(--type-display-line-height);
-    margin: 0;
     white-space: normal;
 }
 
@@ -123,10 +130,6 @@
 .hero .h4 {
     animation: home-copy-reveal 0.9s 0.46s cubic-bezier(0.22, 1, 0.36, 1) both;
     color: var(--color-text-soft);
-    font-size: 1rem;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: var(--type-reading-line-height);
     margin: 0 0 2.25rem;
 }
 
@@ -156,38 +159,18 @@
     width: 100%;
 }
 
-@media (max-width: 42.5rem) {
-    .hero::before {
-        background: linear-gradient(
-            to bottom,
-            var(--color-surface-subtle) 0%,
-            var(--color-surface-subtle) 58%,
-            var(--color-paper) 100%
-        );
-    }
-}
-
-@media (min-width: 27.75rem) {
-    .hero .h2 {
-        font-size: clamp(3.6rem, calc(6.751vw + 1.73rem), 4.6rem);
-        white-space: nowrap;
-    }
-}
-
 @media (min-width: 42.5625rem) {
+    .main.about > .hero + .help {
+        margin-top: clamp(2rem, 3.6vw, 3rem);
+    }
+
     .hero {
-        min-height: clamp(27rem, 64vw, 49rem);
+        min-height: 0;
     }
 
     .hero > .content-wrapper {
-        align-items: center;
-        min-height: inherit;
+        align-items: flex-start;
         padding-bottom: clamp(2.5rem, 6vw, 5rem);
-        padding-top: clamp(2.5rem, 6vw, 5rem);
-    }
-
-    .hero .h2 {
-        font-size: clamp(4.6rem, calc(8.8vw + 0.85rem), 5.8rem);
     }
 
     .hero .h3 {
@@ -202,10 +185,6 @@
         max-width: 34rem;
     }
 
-    .hero .h2 {
-        font-size: clamp(5.8rem, calc(5vw + 2.97rem), 6.9rem);
-    }
-
     .hero .h3 {
         font-size: clamp(1.4rem, calc(1.15vw + 0.75rem), 1.65rem);
         margin-bottom: 1.8rem;
@@ -218,21 +197,22 @@
 }
 
 @media (min-width: 65rem) {
-    .hero::before {
-        background: var(--color-surface-subtle);
-    }
-
     .hero .image-wrapper {
+        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 50%, #000000 82%);
+        --hero-image-vertical-mask: linear-gradient(to bottom, #000000 38%, transparent 100%);
+
         animation: home-image-reveal 1.2s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
         bottom: 0;
         display: block;
         height: min(42rem, calc(100% - 1.5rem));
-        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 50%, #000000 82%);
+        mask-composite: intersect;
+        mask-image: var(--hero-image-horizontal-mask), var(--hero-image-vertical-mask);
         margin: 0;
         position: absolute;
         right: 0;
         width: clamp(26rem, 46vw, 42.5rem);
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 50%, #000000 82%);
+        -webkit-mask-composite: source-in;
+        -webkit-mask-image: var(--hero-image-horizontal-mask), var(--hero-image-vertical-mask);
         z-index: 1;
     }
 
@@ -253,8 +233,7 @@
 
 @media (min-width: 65rem) {
     .hero .image-wrapper {
-        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 42%, #000000 72%);
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 42%, #000000 72%);
+        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 42%, #000000 72%);
     }
 }
 
@@ -284,22 +263,19 @@
 
 @media (min-width: 75rem) {
     .hero .image-wrapper {
-        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.55) 32%, #000000 64%);
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.55) 32%, #000000 64%);
+        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.55) 32%, #000000 64%);
     }
 }
 
 @media (min-width: 81rem) {
     .hero .image-wrapper {
-        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.75) 24%, #000000 48%);
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.75) 24%, #000000 48%);
+        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.75) 24%, #000000 48%);
     }
 }
 
 @media (min-width: 87rem) {
     .hero .image-wrapper {
-        mask-image: none;
-        -webkit-mask-image: none;
+        --hero-image-horizontal-mask: linear-gradient(to right, #000000 0%, #000000 100%);
     }
 }
 
@@ -307,10 +283,6 @@
     .hero .copy-wrapper {
         flex-basis: 39rem;
         max-width: 39rem;
-    }
-
-    .hero .h2 {
-        font-size: 6.9rem;
     }
 
     .hero .h3 {
@@ -322,8 +294,6 @@
     }
 
     .hero .h4 {
-        font-size: 1.08rem;
-        line-height: 1.75;
         max-width: 34rem;
     }
 }
@@ -331,12 +301,6 @@
 @media (min-width: 42.5625rem) and (max-height: 48rem) {
     .hero {
         min-height: 0;
-    }
-
-    .hero > .content-wrapper {
-        min-height: 0;
-        padding-bottom: clamp(2.5rem, 10vh, 4rem);
-        padding-top: clamp(3rem, 12vh, 5rem);
     }
 
     .hero .image-wrapper {
@@ -502,7 +466,11 @@
         grid-row: 1;
         height: 100%;
         justify-content: flex-end;
+        opacity: 1;
         position: relative;
+        transition:
+            opacity 0.24s ease,
+            visibility 0s linear;
         z-index: 3;
     }
     .logo-carousel-toolbar:has(.logo-carousel-toggle[hidden]) {
@@ -878,8 +846,16 @@
         .logo-carousel-dots {
             display: none;
         }
+        .logo-carousel-viewport {
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: none;
+        }
+        .logo-carousel-viewport::-webkit-scrollbar {
+            display: none;
+        }
         .logo-carousel-track {
-            animation: logo-carousel-scroll 140s linear infinite;
             transition: none;
             width: max-content;
         }
@@ -948,8 +924,13 @@
         .testimony-item:has(.company-logo[src$="humana.svg"]) {
             flex-basis: 7.6rem;
         }
-        &.is-paused .logo-carousel-track {
-            animation-play-state: paused;
+        &.is-pointer-paused .logo-carousel-toolbar {
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
+            transition:
+                opacity 0.24s ease,
+                visibility 0s linear 0.24s;
         }
     }
     .recommendations {
@@ -1073,15 +1054,6 @@
     .recommendation-role {
         font-weight: 300;
     }
-    @keyframes logo-carousel-scroll {
-        from {
-            transform: translateX(0);
-        }
-        to {
-            transform: translateX(-50%);
-        }
-    }
-
 }
 
 @keyframes recommendation-enter {
@@ -1286,7 +1258,7 @@
     }
 
     .hero .button-group,
-    .hero .h2,
+    .hero .page-hero-title,
     .hero .h3,
     .hero .h4,
     .hero .hero-intro,

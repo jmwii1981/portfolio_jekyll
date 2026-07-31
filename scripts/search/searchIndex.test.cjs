@@ -79,7 +79,7 @@ const { join } = require('path');
     expectTopResult('invoice creation', 'page:/work/ledgerflow/');
     expectTopResult('wireframing accessibility', 'page:/work/paladin/');
     expectTopResult('payment products rates', 'page:/work/northstar/');
-    expectTopResult('great cup coffee', 'section:/#beyond-the-work');
+    expectTopResult('coffee interesting people', 'section:/#beyond-the-work');
     expectTopResult('Global Payments', 'section:/#recommendations');
     expectTopResult('jmwii1981', 'profile:jan-michael-wallace-ii');
 

@@ -3,7 +3,7 @@ email: hello@janmichael.io
 description: "Jan Michael Wallace II is a fractional product design leader helping growing companies turn product ambiguity into clear strategy, scalable systems, and durable shipped work."
 baseurl: ""
 url: "https://janmichael.io"
-asset_version: "2026.07.30.3"
+asset_version: "2026.07.30.18"
 structured_data_date_modified: "2026-07-30T09:59:36-04:00"
 github_username: jmwii1981
 sass:
@@ -17,6 +17,7 @@ include:
   - scripts
 exclude:
   - vendor
+  - lawn-service-site
   - README.md
   - PROJECT_REQUIREMENTS.md
   - LICENSE

@@ -873,13 +873,14 @@
 
             if (!carousel) return;
 
+            const viewport = carousel.querySelector('.logo-carousel-viewport');
             const track = carousel.querySelector('.logo-carousel-track');
             const items = Array.from(carousel.querySelectorAll('.testimony-item'));
             const toggle = carousel.querySelector('[data-logo-carousel-toggle]');
             const toggleLabel = carousel.querySelector('[data-logo-carousel-toggle-label]');
             const toggleTooltip = carousel.querySelector('[data-logo-carousel-toggle-tooltip]');
 
-            if (!track || items.length < 2 || !toggle || !toggleLabel || !toggleTooltip) return;
+            if (!viewport || !track || items.length < 2 || !toggle || !toggleLabel || !toggleTooltip) return;
 
             const createSequence = (isDuplicate = false) => {
                 const sequence = document.createElement('ul');
@@ -897,11 +898,46 @@
                 return sequence;
             };
 
-            track.replaceChildren(createSequence(), createSequence(true));
+            const leadingSequence = createSequence(true);
+            const primarySequence = createSequence();
+            const trailingSequence = createSequence(true);
+
+            track.replaceChildren(leadingSequence, primarySequence, trailingSequence);
             carousel.classList.add('is-continuous');
 
+            const desktopQuery = window.matchMedia('(min-width: 42.5625rem)');
+            const hoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
             const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+            const loopDuration = 140000;
             let isUserPaused = false;
+            let isPointerPaused = false;
+            let lastFrameTime = null;
+            let sequenceWidth = 0;
+
+            const measureSequence = () => {
+                sequenceWidth = primarySequence.getBoundingClientRect().width;
+
+                if (desktopQuery.matches && sequenceWidth > 0) {
+                    viewport.scrollLeft = sequenceWidth;
+                } else {
+                    viewport.scrollLeft = 0;
+                }
+            };
+
+            const normalizeScrollPosition = () => {
+                if (!desktopQuery.matches || sequenceWidth <= 0) return;
+
+                if (viewport.scrollLeft < sequenceWidth * 0.25) {
+                    viewport.scrollLeft += sequenceWidth;
+                } else if (viewport.scrollLeft > sequenceWidth * 1.75) {
+                    viewport.scrollLeft -= sequenceWidth;
+                }
+            };
+
+            const setPointerPaused = (isPaused) => {
+                isPointerPaused = isPaused && desktopQuery.matches && hoverQuery.matches;
+                carousel.classList.toggle('is-pointer-paused', isPointerPaused);
+            };
 
             const setPaused = (isPaused) => {
                 carousel.classList.toggle('is-paused', isPaused);
@@ -916,17 +952,71 @@
                 setPaused(shouldReduceMotion || isUserPaused);
             };
 
+            const advanceCarousel = (frameTime) => {
+                if (lastFrameTime === null) {
+                    lastFrameTime = frameTime;
+                }
+
+                const elapsed = Math.min(frameTime - lastFrameTime, 50);
+                const shouldAdvance = desktopQuery.matches
+                    && sequenceWidth > 0
+                    && !reducedMotionQuery.matches
+                    && !isUserPaused
+                    && !isPointerPaused;
+
+                if (shouldAdvance) {
+                    viewport.scrollLeft += (sequenceWidth / loopDuration) * elapsed;
+                    normalizeScrollPosition();
+                }
+
+                lastFrameTime = frameTime;
+                window.requestAnimationFrame(advanceCarousel);
+            };
+
             toggle.addEventListener('click', () => {
                 isUserPaused = !isUserPaused;
                 setPaused(isUserPaused);
             });
 
+            viewport.addEventListener('pointerenter', (event) => {
+                if (event.pointerType === 'mouse') setPointerPaused(true);
+            });
+            viewport.addEventListener('pointerleave', () => setPointerPaused(false));
+            viewport.addEventListener('scroll', normalizeScrollPosition, { passive: true });
+            document.addEventListener('visibilitychange', () => {
+                lastFrameTime = null;
+            });
+
+            const syncResponsiveMode = () => {
+                setPointerPaused(false);
+                window.requestAnimationFrame(measureSequence);
+            };
+
             syncMotionPreference();
+            window.requestAnimationFrame(() => {
+                measureSequence();
+                window.requestAnimationFrame(advanceCarousel);
+            });
 
             if (typeof reducedMotionQuery.addEventListener === 'function') {
                 reducedMotionQuery.addEventListener('change', syncMotionPreference);
             } else if (typeof reducedMotionQuery.addListener === 'function') {
                 reducedMotionQuery.addListener(syncMotionPreference);
+            }
+
+            if (typeof desktopQuery.addEventListener === 'function') {
+                desktopQuery.addEventListener('change', syncResponsiveMode);
+            } else if (typeof desktopQuery.addListener === 'function') {
+                desktopQuery.addListener(syncResponsiveMode);
+            }
+
+            if (typeof window.ResizeObserver === 'function') {
+                const resizeObserver = new ResizeObserver(() => {
+                    if (desktopQuery.matches) measureSequence();
+                });
+                resizeObserver.observe(viewport);
+            } else {
+                window.addEventListener('resize', syncResponsiveMode, { passive: true });
             }
         };
 

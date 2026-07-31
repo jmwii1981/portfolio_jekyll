@@ -3,12 +3,12 @@
     padding: 0 0 var(--site-section-padding-y);
 }
 
-.contact-hero .page-hero-title {
-    max-width: 11ch;
-}
-
 .contact-hero {
     background: var(--color-background);
+}
+
+.contact-hero .page-hero-title {
+    font-size: 3rem;
 }
 
 .main.contact > .contact-section {
@@ -32,7 +32,7 @@
 }
 
 .contact-required-note {
-    color: var(--color-text-muted);
+    color: var(--color-error);
     display: block;
     font-size: 0.875rem;
     line-height: 1.55;
@@ -178,5 +178,15 @@
 
     .contact-submit {
         width: auto;
+    }
+}
+
+@media (min-width: 42.5625rem) {
+    .main.contact > .contact-hero {
+        padding-bottom: clamp(1.667rem, 3.333vw, 2.667rem);
+    }
+
+    .main.contact > .contact-section {
+        padding-top: clamp(1.167rem, 2.333vw, 2rem);
     }
 }

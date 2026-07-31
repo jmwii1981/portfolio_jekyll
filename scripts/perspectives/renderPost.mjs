@@ -152,7 +152,7 @@ export async function renderPost(feedUrl) {
         if (skeletonTitles.length > 0) {
             skeletonTitles.forEach((el, idx) => {
                 if (idx === 0) {
-                    el.outerHTML = postData.title || '<h2 class="h2 post-title">No Title</h2>';
+                    el.outerHTML = postData.title || '<h2 class="h2 page-hero-title post-title">No Title</h2>';
                 } else {
                     el.remove();
                 }

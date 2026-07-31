@@ -5,11 +5,11 @@ permalink: /contact/
 description: "Contact Jan Michael Wallace II about fractional product design leadership, product strategy, design systems, or team development."
 ---
 <main class="main contact" id="main-content" tabindex="-1">
-    <section class="page-hero contact-hero" id="contact-jan" aria-labelledby="contact-heading" data-search-section data-search-title="Contact Jan Michael Wallace II" data-search-category="Contact" data-search-keywords="email phone cell message leadership opportunity conversation collaboration">
+    <section class="page-hero page-intro-frame contact-hero" id="contact-jan" aria-labelledby="contact-heading" data-search-section data-search-title="Contact Jan Michael Wallace II" data-search-category="Contact" data-search-keywords="email phone cell message leadership opportunity conversation collaboration">
         <div class="content-wrapper page-hero-content">
             <p class="p section-label page-intro-eyebrow">Contact me</p>
             <h1 class="h1 page-hero-title" id="contact-heading">Let’s create a clear path forward.</h1>
-            <p class="p page-hero-lead">I’m open to leadership opportunities and conversations with teams navigating unfamiliar product territory, scaling design practice, or aligning around what comes next.</p>
+            <p class="p page-intro-support page-hero-lead">I’m open to leadership opportunities and conversations with teams navigating unfamiliar product territory, scaling design practice, or aligning around what comes next.</p>
         </div>
     </section>
 

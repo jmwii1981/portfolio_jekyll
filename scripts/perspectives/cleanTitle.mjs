@@ -11,7 +11,7 @@ export function cleanTitle(fetchedData) {
 
         const rawTitle = fetchedData.title || 'Untitled';
         const title = document.createElement('h2');
-        title.className = 'h2 post-title';
+        title.className = 'h2 page-hero-title post-title';
         title.textContent = rawTitle.replace(/<[^>]+>/g, '');
 
         return title.outerHTML;
