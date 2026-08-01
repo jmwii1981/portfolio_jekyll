@@ -5,10 +5,7 @@
 
 .contact-hero {
     background: var(--color-background);
-}
-
-.contact-hero .page-hero-title {
-    font-size: 3rem;
+    min-height: 0;
 }
 
 .main.contact > .contact-section {
@@ -37,11 +34,17 @@
     font-size: 0.875rem;
     line-height: 1.55;
     margin: 0;
+    order: 2;
 }
 
 .contact-name-fields {
     display: grid;
     gap: 1.5rem;
+}
+
+.contact-form > .contact-name-fields,
+.contact-form > .contact-field {
+    order: 1;
 }
 
 .contact-field {
@@ -122,6 +125,7 @@
     flex-direction: column;
     gap: 0;
     margin-top: 0.25rem;
+    order: 3;
 }
 
 .contact-submit {
@@ -165,6 +169,10 @@
     font-size: 0.875rem;
     line-height: 1.55;
     margin: clamp(1.5rem, 4vw, 2rem) 0 0;
+
+    a {
+        white-space: nowrap;
+    }
 }
 
 @media (min-width: 38rem) {
@@ -210,7 +218,11 @@
     }
 
     .main.contact > .contact-section {
-        margin-top: calc(8.09rem + clamp(2rem, 5vw, 4rem));
+        margin-top: calc(
+            2.69rem +
+            clamp(9.45rem, 21.6vw, 20.25rem) +
+            clamp(2rem, 5vw, 4rem)
+        );
         padding: 0;
     }
 

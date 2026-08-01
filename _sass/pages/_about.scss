@@ -199,8 +199,10 @@
 
 @media (min-width: 65rem) {
     .hero .image-wrapper {
-        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 50%, #000000 82%);
-        --hero-image-vertical-mask: linear-gradient(to bottom, #000000 38%, transparent 100%);
+        // Finish both fades before they reach the portrait's face. The lower
+        // body still blends into the page without washing out the subject.
+        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 18%, #000000 38%);
+        --hero-image-vertical-mask: linear-gradient(to bottom, #000000 52%, transparent 100%);
 
         animation: home-image-reveal 1.2s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
         bottom: 0;
@@ -234,7 +236,7 @@
 
 @media (min-width: 65rem) {
     .hero .image-wrapper {
-        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 42%, #000000 72%);
+        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 16%, #000000 36%);
     }
 }
 
@@ -264,13 +266,13 @@
 
 @media (min-width: 75rem) {
     .hero .image-wrapper {
-        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.55) 32%, #000000 64%);
+        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.55) 12%, #000000 32%);
     }
 }
 
 @media (min-width: 81rem) {
     .hero .image-wrapper {
-        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.75) 24%, #000000 48%);
+        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.75) 8%, #000000 28%);
     }
 }
 
@@ -830,9 +832,13 @@
         transition: background-color 0.2s ease;
         width: 0.65rem;
     }
-    .logo-carousel-dots label:hover,
-    .logo-carousel-dots label:focus-visible {
+    .logo-carousel-dots label:hover {
         background: var(--color-carousel-dot-hover);
+    }
+    .logo-carousel-dots label:focus-visible {
+        background: var(--color-focus-ring);
+        outline: 0.125rem solid var(--color-focus-ring);
+        outline-offset: 0.125rem;
     }
     #logos-page-1:checked ~ .logo-carousel-dots label[for="logos-page-1"],
     #logos-page-2:checked ~ .logo-carousel-dots label[for="logos-page-2"],

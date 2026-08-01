@@ -542,14 +542,16 @@
     transition: text-decoration-color 0.25s ease;
 }
 
-.project-story-title-link:hover,
-.project-story-title-link:focus-visible {
+.project-story-title-link:hover {
     text-decoration-color: currentColor;
 }
 
 .project-story-title-link:focus-visible {
-    outline: 0.125rem solid var(--color-paper);
-    outline-offset: 0.35rem;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    text-decoration-color: var(--color-focus-ring);
+    text-decoration-thickness: 0.12em;
 }
 
 .project-story-title:focus:not(:focus-visible) {
@@ -557,7 +559,7 @@
 }
 
 .project-story-title:focus-visible {
-    outline: 0.125rem solid var(--color-paper);
+    outline: 0.125rem solid var(--color-focus-ring);
     outline-offset: 0.5rem;
 }
 

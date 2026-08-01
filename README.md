@@ -1,177 +1,191 @@
-# Jan Michael Wallace Portfolio
+# janmichael.io
 
-Personal portfolio site for [janmichael.io](https://janmichael.io), built with Jekyll and published from the `gh-pages` branch.
+Source for [janmichael.io](https://janmichael.io), the personal portfolio of Jan Michael Wallace II. The site presents selected product-design work, professional experience, perspectives, recommendations, and contact information.
 
-The site presents selected work, focused project pages, perspectives, contact information, client/company logos, recommendations, and legal/privacy content. It is intentionally lightweight: authored Markdown, Jekyll includes/layouts, Sass partials, local fonts, SVG assets, and a small amount of JavaScript for progressive interactions.
+The site is static, lightweight, and progressively enhanced. Its content and navigation remain available without JavaScript; scripts add search, form feedback, consent handling, navigation behavior, and other optional interactions.
 
-The project’s durable design, accessibility, engineering, content, and release requirements are maintained in [PROJECT_REQUIREMENTS.md](PROJECT_REQUIREMENTS.md).
+Durable design, accessibility, content, engineering, privacy, and release standards live in [PROJECT_REQUIREMENTS.md](PROJECT_REQUIREMENTS.md).
 
-## Tech Stack
+## Architecture
 
-- **Jekyll / GitHub Pages** for static site generation
-- **Sass** via `master.scss` and `_sass/`
-- **Vanilla JavaScript** in `scripts/`
-- **Local fonts** in `fonts/`
-- **SVG assets** for icons, logos, and favicons
+- **Jekyll and GitHub Pages** generate and host the site.
+- **Markdown and Liquid** provide authored pages and reusable templates.
+- **Sass** compiles the design system from `master.scss` and `_sass/`.
+- **Vanilla JavaScript** provides progressive enhancements from `scripts/`.
+- **YAML data** in `_data/work_projects.yml` supplies shared project summaries.
+- **Local fonts and optimized media** avoid unnecessary runtime dependencies.
+- **GitHub Actions** builds and audits every pull request and push to `gh-pages`.
 
-## Getting Started
+There is no application server, database, JavaScript framework, npm build, or client-side router.
 
-Install Ruby dependencies:
+## Requirements
+
+- Ruby 3.3.5, matching the GitHub Actions environment
+- Bundler
+- Node.js for JavaScript syntax and search tests
+
+Install the Ruby dependencies:
 
 ```bash
 bundle install
 ```
 
-Run the site locally with live reload:
+No npm installation is required.
+
+## Local Development
+
+Run the site with live reload:
 
 ```bash
 bundle exec jekyll serve --livereload
 ```
 
-Build the production site:
+Jekyll serves the site at `http://127.0.0.1:4000/` by default. Generated output is written to `_site/` and must not be committed.
+
+### Production build
+
+Content changes require a two-pass build because the committed search database is generated from rendered pages:
 
 ```bash
 bundle exec jekyll build
-ruby scripts/build-search-index.rb
+bundle exec ruby scripts/build-search-index.rb
 bundle exec jekyll build
 ```
 
-The generated site is written to `_site/`.
+The first build renders the current content, the generator refreshes `search-index.json`, and the second build includes the refreshed index in `_site/`.
 
 ## Project Structure
 
 ```text
 .
-├── _config.yml              # Jekyll site settings
+├── .github/workflows/       # Continuous quality checks
+├── _config.yml              # Jekyll and site metadata
+├── _data/work_projects.yml  # Shared public project summaries
 ├── _includes/               # Reusable Liquid includes
-├── _layouts/                # Page templates
-├── _posts/                  # Blog/post content
-├── _sass/                   # Sass architecture
-├── assets/                  # Static asset folder
-├── favicons/                # Browser/device icons
+├── _layouts/                # Page and redirect templates
+├── _sass/                   # Design tokens, components, layouts, and pages
+├── favicons/                # Browser and device icons
 ├── fonts/                   # Local web fonts
-├── images/                  # Image and logo assets
-├── scripts/                 # Site JavaScript
-├── index.markdown           # About/home page
-├── work.markdown            # Work page
-├── perspectives.markdown    # Perspectives page
-├── contact.markdown         # Contact page
-└── terms.markdown           # Terms and privacy page
+├── images/                  # Headshots, project media, and company logos
+├── scripts/                 # Progressive enhancements and quality tooling
+├── work/                    # Focused project pages
+├── index.markdown           # Home and about content
+├── work.markdown            # Portfolio overview
+├── perspectives.markdown    # Writing and Medium integration
+├── contact.markdown         # Contact form and direct contact options
+├── terms.markdown           # Terms of use and privacy policy
+├── master.scss              # Sass entry point
+├── search-index.json        # Generated, committed search database
+├── sitemap.xml              # Authored canonical sitemap
+└── llms.txt                 # Public machine-readable site summary
 ```
 
-## Sass Organization
+More detail about the Sass and script architecture is available in [_sass/README.md](_sass/README.md) and [scripts/README.md](scripts/README.md).
 
-Styles live in `_sass/` and are organized by responsibility:
+## Content Sources
 
-- `global/`: tokens, base styles, typography
-- `layouts/`: page-level structure
-- `components/`: reusable UI pieces
-- `includes/`: header, nav, footer, and other include-specific styles
-- `pages/`: page and section-specific styles
-- `fonts/`: font declarations
-- `resets/`: browser normalization
+| Content | Source of truth |
+| --- | --- |
+| Home and professional narrative | `index.markdown` |
+| Portfolio overview | `work.markdown` |
+| Shared project summaries | `_data/work_projects.yml` |
+| Focused project pages | `work/*.markdown` |
+| Perspectives fallback and framing | `perspectives.markdown` |
+| Contact information and form fields | `contact.markdown` |
+| Terms, privacy, attribution, and confidentiality | `terms.markdown` |
+| Enduring implementation requirements | `PROJECT_REQUIREMENTS.md` |
 
-Before adding a new style, use the narrowest durable home. Shared primitives belong in `global/`; one-off page sections belong in `pages/`.
+Focused project pages intentionally reuse the approved public narrative. They must not expand confidential project scope or imply that complete client work is hosted locally.
 
-## Assets
+## Styling and Assets
 
-Company logo SVGs live in:
+Styles belong in the narrowest durable Sass layer:
 
-```text
-images/company-logos/
-```
+- `global/` for tokens, base rules, and typography
+- `layouts/` for shared page structure
+- `components/` for reusable interface patterns
+- `includes/` for header, navigation, and footer styles
+- `pages/` for page-specific presentation
 
-Most SVG logo and icon fills use:
+Use `--site-frame-gutter` for the shared visible page edge and `--site-max-width` for the primary container. Update `_config.yml`’s `asset_version` when changed CSS or JavaScript must bypass deployed caches.
 
-```css
-var(--color-icon-muted, #7F8490)
-```
+Company logos live in `images/company-logos/`. Their presence is for identification and portfolio context; ownership remains with the respective rights holders.
 
-This keeps brand/logo treatments visually consistent with the site palette while still providing a fallback color if CSS variables are unavailable.
+## JavaScript and Progressive Enhancement
 
-## JavaScript
+The main entry point is `scripts/initializeScripts.js`. It initializes each enhancement independently so one failure does not disable unrelated behavior.
 
-The main entry point is:
+The baseline HTML must remain usable without JavaScript. Script-dependent controls stay hidden until their behavior, focus management, keyboard support, and accessible state have initialized successfully. Visual layout and motion remain in CSS whenever CSS can express them reliably.
 
-```text
-scripts/initializeScripts.js
-```
+The Perspectives page retrieves recent Medium content at runtime. Its authored fallback remains visible when the request or JavaScript fails, and remote markup is sanitized before rendering.
 
-Current behaviors include the static site search, progressive contact-form validation and submission, an optional sliding desktop-navigation indicator, user-controlled carousels and recommendations, consent handling, and related page interactions. The site remains readable and navigable without JavaScript.
+## Static Search
 
-### Progressive-enhancement standard
+`search-index.json` is a generated, committed database of meaningful public content. It excludes navigation, controls, decorative media, hidden interface text, and the dynamically retrieved Medium article body. The browser requests the database only when search is opened.
 
-Native HTML and CSS are the default implementation layer for this project. JavaScript is added only when a behavior cannot be delivered reliably and accessibly with those layers alone.
+Add `data-search-section` to an anchored container when it deserves a focused result. Optional `data-search-title`, `data-search-category`, `data-search-summary`, and `data-search-keywords` attributes can improve presentation and ranking.
 
-- Authored content, navigation, links, contact details, and form submission must remain available without JavaScript.
-- Authored HTML—not JavaScript—must provide the baseline semantics, hierarchy, labels, relationships, and reading order.
-- Layout, responsive presentation, visual states, transitions, and animations belong in CSS whenever CSS can express them.
-- Interactive enhancements must begin from a usable static state. A script-dependent control remains hidden until its own enhancement has initialized successfully; a generic `js` class is not enough.
-- Newer CSS features must retain a readable fallback through source order, fallback declarations, or `@supports` rules.
-- Motion must respect `prefers-reduced-motion`, and forced-color modes must retain visible controls and focus states.
-- JavaScript may manage data retrieval, generated search results, persisted consent, carousel state, focus movement, `inert`, live regions, and synchronization of a working enhancement’s dynamic ARIA state. It must never be the sole source of essential semantics or operability.
-- CSS-only state techniques must not replace native or scripted controls when doing so would weaken keyboard behavior, focus management, semantics, or assistive-technology support.
+After changing searchable content, run the production build sequence above and commit the resulting `search-index.json` update.
 
-For example, the mobile navigation remains an ordinary list of links unless its accessible overlay enhancement initializes. Its line motion and menu transitions are CSS; its script synchronizes open/closed state, scroll locking, focus containment, background inertness, and ARIA state. On desktop, each link always has CSS active, hover, and focus underlines; after successful measurement, JavaScript may replace them with one continuous sliding indicator whose interpolation remains in CSS. Search remains hidden until its modal, index, keyboard behavior, and result announcements are ready.
+## External Services and Privacy
 
-### Static search database
+| Service | Purpose | Boundary |
+| --- | --- | --- |
+| GitHub Pages | Static hosting | Publishes the `gh-pages` branch at the custom domain in `CNAME` |
+| Web3Forms | Contact-form delivery | Receives submitted form data; direct email and phone links remain available |
+| Google Tag Manager | Optional analytics | Loads only after the visitor accepts analytics |
+| Medium | Published perspectives | Remains the source of dynamically retrieved article content |
+| RSS2JSON / AllOrigins | Medium-feed retrieval | Used as primary and fallback feed services |
 
-`search-index.json` is a generated, committed data file used by the navigation search. It includes the meaningful rendered text and useful image descriptions from the site’s public pages while excluding navigation, controls, decorative SVGs, hidden content, and loading placeholders. The browser downloads it only when search is opened.
+Browser-visible service identifiers are not secrets. Private keys, credentials, restricted source material, and personal or client data must never be committed.
 
-When authored content changes, rebuild the database before committing:
+Material changes to data handling, third-party services, attribution, confidentiality language, or portfolio disclosure require a corresponding review of `terms.markdown`, its effective date and `date_modified`, and the generated search index.
+
+## Quality Checks
+
+Run the same release checks used by GitHub Actions:
 
 ```bash
 bundle exec jekyll build
-ruby scripts/build-search-index.rb
-bundle exec jekyll build
-```
-
-Add `data-search-section` to an anchored content container when it deserves a precise result. Optional `data-search-title`, `data-search-category`, `data-search-summary`, and `data-search-keywords` attributes improve presentation and ranking. The page-level record still makes unannotated meaningful content searchable.
-
-The Medium article body on Perspectives remains dynamic and is deliberately not copied into the static database.
-
-### Focused project pages
-
-The Work page remains the immersive portfolio overview. Each approved work item also has a focused URL under `/work/<project>/` with a unique title, description, representative image, breadcrumb trail, internal search record, sitemap entry, and `CreativeWork` structured data. Shared project summaries live in `_data/work_projects.yml`; these pages intentionally disclose no more project material than the approved Work narrative.
-
-## Deployment
-
-This project is deployed through GitHub Pages from the `gh-pages` branch.
-
-Typical release flow:
-
-```bash
-git status
-bundle exec jekyll build
-git add <changed-files>
-git commit -m "Describe the change"
-git push origin gh-pages
-```
-
-Pushing to `gh-pages` also runs the site-quality workflow. It builds the site, checks JavaScript syntax, and verifies page structure, ARIA references, responsive image delivery, contact fallbacks, metadata, external-link safety, JSON-LD/XML validity, and sitemap hygiene.
-
-Run the same checks locally before committing:
-
-```bash
-bundle exec jekyll build
-ruby scripts/build-search-index.rb --check
+bundle exec ruby scripts/build-search-index.rb --check
 node --check scripts/initializeScripts.js
 for file in scripts/perspectives/*.mjs; do node --check "$file"; done
 for file in scripts/search/*.mjs; do node --check "$file"; done
 node scripts/search/searchIndex.test.cjs
-ruby scripts/audit-site.rb
+bundle exec ruby scripts/audit-site.rb
+git diff --check
 ```
 
-Avoid committing generated or local system files such as `.DS_Store`, temporary PDFs, or `_site/` output unless intentionally required.
+The audit covers progressive enhancement, page structure, ARIA references, image delivery, contact fallbacks, metadata, static search, external-link safety, structured data, XML, sitemap integrity, and the required legal sections.
 
-## Maintenance Notes
+Responsive changes should also be reviewed at narrow, transitional, and wide viewport sizes, with attention to keyboard use, reduced motion, forced colors, zoom, JavaScript-disabled behavior, and content overlap.
 
-- Keep spacing and width decisions tied to existing site tokens where possible.
-- Use `--site-frame-gutter` for the visible page edge shared by the header, hero, content sections, and footer.
-- Use `--site-max-width` for the overall site container.
-- Keep nav/header styles consolidated in `_sass/includes/`.
-- Keep authored page content in Markdown files unless a reusable include is warranted.
+## Deployment
+
+GitHub Pages publishes from the `gh-pages` branch. A typical release is:
+
+```bash
+bundle exec jekyll build
+bundle exec ruby scripts/build-search-index.rb
+bundle exec jekyll build
+bundle exec ruby scripts/build-search-index.rb --check
+node scripts/search/searchIndex.test.cjs
+bundle exec ruby scripts/audit-site.rb
+git diff --check
+git status --short
+git add <reviewed-files>
+git commit -m "Describe the change"
+git push origin gh-pages
+```
+
+Review the staged diff before committing. Do not commit `_site/`, `.jekyll-cache/`, `.DS_Store`, temporary exports, local environment files, or credentials. `search-index.json` is the intentional generated-file exception.
+
+## Legal and Confidentiality
+
+Portfolio material must identify Jan Michael’s role without claiming sole ownership of work created with clients, employers, or collaborators. Company names, logos, trademarks, interfaces, testimonials, and other third-party material remain subject to their owners’ rights. Nothing in this repository or on the site supersedes an NDA, confidentiality obligation, employment agreement, intellectual-property agreement, or other binding obligation.
+
+See the public [Terms of Use and Privacy Policy](https://janmichael.io/terms/) for the site’s attribution, confidentiality, privacy, and rights-request provisions.
 
 ## License
 
-See [LICENSE](LICENSE).
+Original site materials are © 2026 Jan Michael Wallace II. Third-party materials and open-source components are excluded and remain governed by their respective owners and licenses. See [LICENSE](LICENSE) for the repository’s complete rights notice.

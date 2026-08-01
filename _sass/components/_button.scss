@@ -82,9 +82,9 @@
     }
 
     &:focus-visible {
-        box-shadow:
-            0 0 0 0.2rem var(--color-focus-ring),
-            var(--button-shadow, none);
+        box-shadow: var(--button-shadow, none);
+        outline: 0.1875rem solid var(--color-focus-ring);
+        outline-offset: 0.1875rem;
     }
 
     &:active {

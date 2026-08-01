@@ -157,13 +157,14 @@
 }
 
 .site-search-surface:focus-within {
-    border-color: #3569a6;
+    border-color: var(--color-focus-ring);
     outline: 0.125rem solid var(--color-focus-ring);
     outline-offset: 0.125rem;
 }
 
 .site-search-field {
     align-items: center;
+    background: #fff;
     cursor: text;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
@@ -241,7 +242,7 @@
 
 .site-search-close:focus-visible {
     background: rgba(255, 255, 255, 0.82);
-    border-color: #3569a6;
+    border-color: var(--color-focus-ring);
     clip: auto;
     clip-path: none;
     color: var(--search-field-foreground);

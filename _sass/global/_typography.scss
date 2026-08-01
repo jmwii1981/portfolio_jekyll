@@ -1,12 +1,4 @@
-.svg::selection,
-.img::selection,
-.h1::selection,
-.h2::selection,
-.h3::selection,
-.h4::selection,
-.p::selection,
-.a::selection,
-.span::selection {
+::selection {
     background-color: var(--color-selection);
     color: var(--color-text);
 }

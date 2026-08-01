@@ -411,7 +411,9 @@
     }
 
     .tab-container:last-child {
-        padding-right: 0;
+        // Mirror the logo artwork's built-in optical inset at the other edge
+        // of the desktop header so the navigation feels evenly framed.
+        padding-right: 0.5rem;
     }
 
     .tab,

@@ -168,6 +168,32 @@ else
   failures << "contact/index.html: missing from build output"
 end
 
+terms = site_root.join("terms", "index.html")
+if terms.file?
+  html = terms.read
+  required_legal_sections = {
+    "ownership-of-site-materials" => "Ownership of Site Materials",
+    "professional-work-and-contributions" => "Professional Work and Contributions",
+    "third-party-names-marks-and-materials" => "Third-Party Names, Marks, and Materials",
+    "portfolio-confidentiality-and-representative-material" => "Portfolio Confidentiality and Representative Material",
+    "testimonials-and-professional-statements" => "Testimonials and Professional Statements",
+    "rights-and-confidentiality-requests" => "Rights and Confidentiality Requests"
+  }
+
+  required_legal_sections.each do |id, heading|
+    failures << "terms/index.html: missing legal section ##{id}" unless html.match?(/<section\b[^>]*\bid=(['"])#{Regexp.escape(id)}\1/i)
+    failures << "terms/index.html: missing legal heading #{heading.inspect}" unless html.include?(">#{heading}</h3>")
+  end
+
+  failures << "terms/index.html: third-party ownership attribution is missing" unless html.include?("property of their respective owners")
+  failures << "terms/index.html: endorsement and current-affiliation disclaimer is missing" unless html.include?("does not imply sponsorship, endorsement, approval, partnership, or current affiliation")
+  failures << "terms/index.html: project-role attribution boundary is missing" unless html.include?("do not claim sole authorship, ownership, or responsibility")
+  failures << "terms/index.html: explicit NDA preservation language is missing" unless html.include?("non-disclosure agreement (NDA)") && html.include?("the agreement controls")
+  failures << "terms/index.html: rights and confidentiality contact is missing" unless html.match?(/<section\b[^>]*\bid=(['"])rights-and-confidentiality-requests\1.*?mailto:hello@janmichael\.io.*?<\/section>/mi)
+else
+  failures << "terms/index.html: missing from build output"
+end
+
 not_found = site_root.join("404.html")
 if not_found.file?
   failures << "404.html: missing noindex robots directive" unless not_found.read.match?(/<meta\b[^>]*name=(['"])robots\1[^>]*content=(['"])[^'"]*noindex[^'"]*\2/i)

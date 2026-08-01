@@ -57,7 +57,7 @@
 
 .post-title {
   animation: page-hero-reveal 0.9s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
-  font-size: 3rem;
+  font-size: 3.5rem;
   margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
   margin-top: 0;
   width: 100%;
@@ -242,8 +242,8 @@
 .medium-author-bio {
   color: var(--color-text);
   display: block;
-  font-size: clamp(1.05rem, 1.3vw, 1.15rem);
-  font-weight: 500;
+  font-size: clamp(1.2rem, 1.5vw, 1.3rem);
+  font-weight: 600;
   letter-spacing: -0.012em;
   line-height: 1.55;
   margin: 0;
@@ -286,6 +286,16 @@
 .medium-article-link:hover {
   text-decoration: underline;
   text-decoration-thickness: 0.0625rem;
+  text-underline-offset: 0.18em;
+}
+
+.medium-article-link:focus-visible {
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  text-decoration: underline;
+  text-decoration-color: var(--color-focus-ring);
+  text-decoration-thickness: 0.12em;
   text-underline-offset: 0.18em;
 }
 
