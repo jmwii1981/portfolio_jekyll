@@ -8,7 +8,6 @@ _site/
 .sass-cache
 
 # Ruby / Bundler files
-Gemfile.lock
 vendor/
 
 # Node modules (if using npm or yarn for assets)
@@ -16,4 +15,3 @@ node_modules/
 
 # Local environment variables (optional, if you’re storing sensitive info locally)
 local_env.yml
-

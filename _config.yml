@@ -17,7 +17,6 @@ include:
   - scripts
 exclude:
   - vendor
-  - lawn-service-site
   - Gemfile
   - Gemfile.lock
   - README.md
@@ -27,6 +26,3 @@ exclude:
   - scripts/audit-site.rb
   - scripts/build-search-index.rb
   - scripts/search/searchIndex.test.cjs
-  - scripts/allorigins.xml
-  - scripts/rsstojson.json
-  - scripts/working as of 11-19-2024 at 1119 PM.zip
