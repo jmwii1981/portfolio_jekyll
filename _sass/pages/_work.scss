@@ -267,41 +267,26 @@
 
 .work-project-index-scroll-button {
     align-items: center;
-    background: rgba(4, 4, 5, 0.94);
-    border: 0.0625rem solid rgba(255, 255, 255, 0.2);
-    border-radius: 100px;
+    background: rgba(4, 4, 5, 0.78);
+    border: 0;
+    border-radius: 0;
     color: var(--color-text-muted-on-dark);
     cursor: pointer;
     display: flex;
-    height: 1.75rem;
+    height: var(--work-project-index-height);
     isolation: isolate;
     justify-content: center;
     padding: 0;
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0;
     transition:
         background-color 0.2s ease,
         border-color 0.2s ease,
         box-shadow 0.2s ease,
         color 0.2s ease,
-        opacity 0.2s ease,
-        transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
-    width: 1.75rem;
-    z-index: 3;
-}
-
-.work-project-index-scroll-button::before {
-    background: var(--color-ink);
-    content: "";
-    height: calc(100% + 1.25rem);
-    left: 50%;
-    pointer-events: none;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
+        opacity 0.2s ease;
     width: 2.75rem;
-    z-index: -1;
+    z-index: 3;
 }
 
 .work-project-index-scroll-button[hidden] {
@@ -309,11 +294,13 @@
 }
 
 .work-project-index-scroll-button--previous {
-    left: 0.5rem;
+    border-right: 0.0625rem solid rgba(255, 255, 255, 0.08);
+    left: 0;
 }
 
 .work-project-index-scroll-button--next {
-    right: 0.5rem;
+    border-left: 0.0625rem solid rgba(255, 255, 255, 0.08);
+    right: 0;
 }
 
 .work-project-index-scroll-button:hover,
@@ -331,13 +318,11 @@
 
 .work-project-index-scroll-button:hover {
     box-shadow: none;
-    transform: translateY(-50%);
 }
 
 .work-project-index-scroll-button:active {
     background: rgba(255, 255, 255, 0.18);
     box-shadow: none;
-    transform: translateY(-50%);
 }
 
 .work-project-index-scroll-button svg {
@@ -1002,11 +987,6 @@
     .work-project-index-list .a {
         padding-bottom: 0.25rem;
         padding-top: 0.25rem;
-    }
-
-    .work-project-index-scroll-button {
-        height: 1.375rem;
-        width: 1.375rem;
     }
 
     .project-gallery-copy-item--overview,
