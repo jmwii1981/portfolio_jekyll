@@ -190,3 +190,55 @@
         padding-top: clamp(1.167rem, 2.333vw, 2rem);
     }
 }
+
+@media (min-width: 64rem) {
+    .main.contact {
+        align-items: start;
+        column-gap: clamp(3rem, 6vw, 6rem);
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        padding-top: clamp(5rem, 10vw, 8rem);
+    }
+
+    .main.contact > .contact-hero {
+        min-height: 0;
+        padding: 0;
+    }
+
+    .contact-hero .page-hero-content {
+        max-width: 36rem;
+    }
+
+    .main.contact > .contact-section {
+        margin-top: calc(8.09rem + clamp(2rem, 5vw, 4rem));
+        padding: 0;
+    }
+
+    .contact-form {
+        gap: 1rem;
+        justify-self: end;
+        max-width: 34rem;
+    }
+
+    .contact-field {
+        gap: 0.45rem;
+    }
+
+    .contact-input {
+        padding: 0.125rem 0.75rem;
+    }
+
+    .contact-input:not(.contact-textarea) {
+        padding-bottom: 0.28125rem;
+        padding-top: 0.28125rem;
+    }
+
+    .contact-textarea {
+        height: 5.75rem;
+        min-height: 5.75rem;
+    }
+
+    .contact-direct-email {
+        margin-top: 1.25rem;
+    }
+}

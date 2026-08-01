@@ -244,6 +244,7 @@ ledgerflow:
 northstar:
   name: "Northstar Commerce Conversion Strategy"
   organization: "Northstar Commerce"
+  index_label: "Northstar"
   discipline: "Conversion strategy"
   headline: "A clearer path from first impression to confident conversion."
   introduction: >-

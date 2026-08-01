@@ -58,7 +58,7 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
                     <span class="button-label">Send message</span>
                 </button>
                 <p class="p contact-form-status" id="contact-form-status" data-contact-status role="status" aria-live="polite" aria-atomic="true"></p>
-                <p class="p contact-direct-email" id="contact-direct-email">If you’re having trouble with the form or prefer to reach out directly, please feel free to email me at <a class="a" href="mailto:hello@janmichael.io">hello@janmichael.io</a> or call or text my personal cell at <a class="a" href="tel:+15027974993">+1 (502) 797-4993</a>.</p>
+                <p class="p contact-direct-email" id="contact-direct-email">If you’re having trouble with the form or prefer to reach out directly, please feel free to email me at <a class="a" href="mailto:hello@janmichael.io">hello@janmichael.io</a> or call or text my personal cell at <a class="a" href="tel:+15026270291">(502) 627-0291</a>.</p>
             </div>
         </form>
     </section>

@@ -6,7 +6,6 @@
     --work-glass-shadow: inset 0 0.0625rem rgba(255, 255, 255, 0.08), 0 0.75rem 2.75rem rgba(0, 0, 0, 0.18);
 
     background-color: var(--color-ink);
-    overflow: clip;
 }
 
 .body--work .header {
@@ -58,7 +57,7 @@
 }
 
 .main.work {
-    --work-project-index-height: 3.375rem;
+    --work-project-index-height: 3.25rem;
 
     align-items: flex-start;
     flex-direction: column;
@@ -397,7 +396,7 @@
     font-weight: 700;
     gap: 0.75rem;
     letter-spacing: 0.06em;
-    min-height: 3.25rem;
+    min-height: var(--work-project-index-height);
     min-width: 0;
     overflow: hidden;
     padding: 0.75rem clamp(0.75rem, 1.25vw, 1.25rem);
@@ -1018,6 +1017,20 @@
 }
 
 @media screen and (min-width: 42.0625rem) {
+    .main.work {
+        --work-project-index-height: 1.625rem;
+    }
+
+    .work-project-index-list .a {
+        padding-bottom: 0.25rem;
+        padding-top: 0.25rem;
+    }
+
+    .work-project-index-scroll-button {
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+
     .project-gallery-copy-item--overview,
     .project-story-details:not(.project-story-copy-panel) {
         display: grid;
