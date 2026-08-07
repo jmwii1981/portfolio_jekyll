@@ -415,11 +415,15 @@
 </head>
 <body class="body{% if page.url == '/work/' or page.layout == 'project' %} body--work{% endif %}">
 <a class="a skip-link" href="#main-content">Skip to main content</a>
+{% unless page.url == '/links/' %}
 {% include header.html %}
+{% endunless %}
 
 {{ content }}
 
 {% include consent-banner.html %}
+{% unless page.url == '/links/' %}
 {% include footer.html %}
+{% endunless %}
 </body>
 </html>

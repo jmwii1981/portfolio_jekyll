@@ -46,6 +46,7 @@ site_root.glob("**/*.html").each do |file|
   ids = html.scan(/\bid=(['"])(.*?)\1/i).map(&:last)
   h1_count = html.scan(/<h1\b/i).length
   main_html = html[/<main\b.*?<\/main>/mi]
+  standalone_links_page = relative.to_s == "links/index.html"
 
   failures << "#{relative}: root element must begin in the resilient no-js state" unless html.match?(/<html\b[^>]*\bclass=(['"])[^'"]*\bno-js\b[^'"]*\1/i)
   failures << "#{relative}: expected exactly one h1, found #{h1_count}" unless h1_count == 1
@@ -53,7 +54,13 @@ site_root.glob("**/*.html").each do |file|
   failures << "#{relative}: expected exactly one main landmark" unless html.scan(/<main\b/i).length == 1
   failures << "#{relative}: missing the keyboard-focusable main-content target" unless html.match?(/<main\b[^>]*\bid=(['"])main-content\1[^>]*\btabindex=(['"])-1\2/i)
   failures << "#{relative}: missing the skip link to main content" unless html.match?(/<a\b[^>]*\bclass=(['"])[^'"]*skip-link[^'"]*\1[^>]*\bhref=(['"])#main-content\2/i)
-  failures << "#{relative}: labeled home logo must hide its decorative SVG" unless html.match?(/<a\b[^>]*\bclass=(['"])[^'"]*logo-container[^'"]*\1[^>]*\baria-label=(['"])Jan Michael Wallace II, home\2[^>]*>\s*<svg\b[^>]*\baria-hidden=(['"])true\3[^>]*\bfocusable=(['"])false\4/i)
+  if standalone_links_page
+    failures << "#{relative}: standalone links page must not render the site header" if html.match?(/<header\b[^>]*\bclass=(['"])[^'"]*\bheader\b[^'"]*\1/i)
+    failures << "#{relative}: standalone links page must not render the site footer" if html.match?(/<footer\b[^>]*\bclass=(['"])[^'"]*\bfooter\b[^'"]*\1/i)
+  else
+    failures << "#{relative}: labeled home logo must hide its decorative SVG" unless html.match?(/<a\b[^>]*\bclass=(['"])[^'"]*logo-container[^'"]*\1[^>]*\baria-label=(['"])Jan Michael Wallace II, home\2[^>]*>\s*<svg\b[^>]*\baria-hidden=(['"])true\3[^>]*\bfocusable=(['"])false\4/i)
+    failures << "#{relative}: missing the site footer" unless html.match?(/<footer\b[^>]*\bclass=(['"])[^'"]*\bfooter\b[^'"]*\1/i)
+  end
 
   ids.tally.each do |id, count|
     failures << "#{relative}: duplicate id #{id.inspect}" if count > 1
