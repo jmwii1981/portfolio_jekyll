@@ -11,8 +11,8 @@ lionfinancial:
   response_heading: "The design response"
   response: >-
     I designed LMMS to connect accounts, customers, transactions, approvals, scheduled payouts, and reporting in a clearer operating environment. The experience streamlines the work around the data, helping teams understand performance and act without reconstructing the story across multiple platforms.
-  cover: "/images/projects/lmms/750x500 Toptal Submission Frame.webp"
-  cover_small: "/images/projects/lmms/750x500 Toptal Submission Frame-375w.webp"
+  cover: "/images/projects/lmms/750x500 Project Cover.webp"
+  cover_small: "/images/projects/lmms/750x500 Project Cover-375w.webp"
   cover_alt: "LionFinancial merchant management dashboard displayed on a laptop"
   keywords: "merchant management merchant operations fintech accounts transactions customers payouts reporting product design"
   gallery:
@@ -60,8 +60,8 @@ vega:
   response_heading: "My leadership"
   response: >-
     As design system lead and product design manager, I kicked off and led Vega’s creation and evolution across reusable components, accessibility standards, design tokens, documentation, governance, and Figma-to-code alignment. I partnered closely with engineering to reduce rework and help teams build better software with greater speed and confidence.
-  cover: "/images/projects/vega/750x500 Toptal Submission Frame.webp"
-  cover_small: "/images/projects/vega/750x500 Toptal Submission Frame-375w.webp"
+  cover: "/images/projects/vega/750x500 Project Cover.webp"
+  cover_small: "/images/projects/vega/750x500 Project Cover-375w.webp"
   cover_alt: "Vega enterprise design system shown across product interfaces"
   keywords: "enterprise design system design systems components design tokens accessibility documentation governance Figma code global product teams"
   external_url: "https://vega.globalpayments.com/"
@@ -110,8 +110,8 @@ avenapay:
   response_heading: "My approach"
   response: >-
     I designed the dashboard strategy, information architecture, dispute-health KPIs, probability scoring, filtered queue shortcuts, case detail views, alerts, custom reports, and natural-language analytics. The interface, branding, data, and identifying details were recreated to protect confidential work while preserving the product’s complexity and design strategy.
-  cover: "/images/projects/avena/750x500 Toptal Submission Frame.webp"
-  cover_small: "/images/projects/avena/750x500 Toptal Submission Frame-375w.webp"
+  cover: "/images/projects/avena/750x500 Project Cover.webp"
+  cover_small: "/images/projects/avena/750x500 Project Cover-375w.webp"
   cover_alt: "AvenaPay disputes management experience across desktop and mobile"
   keywords: "disputes analytics chargebacks merchants recovery probability scoring natural language analytics fintech product design"
   gallery:
@@ -158,8 +158,8 @@ paladin:
   response_heading: "The system"
   response: >-
     I created reusable, accessibility-minded components, established patterns, and annotation-friendly layouts for complex tables, reporting, payment workflows, and data-heavy products. The kit helps teams align earlier, uncover challenges sooner, reduce rework, and move more confidently into detailed design.
-  cover: "/images/projects/paladin/750x500 Toptal Submission Frame.webp"
-  cover_small: "/images/projects/paladin/750x500 Toptal Submission Frame-375w.webp"
+  cover: "/images/projects/paladin/750x500 Project Cover.webp"
+  cover_small: "/images/projects/paladin/750x500 Project Cover-375w.webp"
   cover_alt: "Paladin wireframing kit showing reusable product patterns"
   keywords: "wireframing system UX kit accessibility workflows tables payments reporting components product design"
   gallery:
@@ -206,8 +206,8 @@ ledgerflow:
   response_heading: "My approach"
   response: >-
     I designed the core desktop and mobile flows, including the dashboard, reporting, invoice creation, payment links, customer billing, reminders, and payment collection. I focused on hierarchy, clarity, status visibility, and reusable patterns so users could quickly see what needed attention, what was handled, and where money was moving.
-  cover: "/images/projects/ledger/750x500 Toptal Submission Frame.webp"
-  cover_small: "/images/projects/ledger/750x500 Toptal Submission Frame-375w.webp"
+  cover: "/images/projects/ledger/750x500 Project Cover.webp"
+  cover_small: "/images/projects/ledger/750x500 Project Cover-375w.webp"
   cover_alt: "LedgerFlow invoicing, payment, and collections product overview"
   keywords: "fintech invoicing payments customers reminders reporting mobile collection product design"
   gallery:
@@ -255,8 +255,8 @@ northstar:
   response_heading: "My approach"
   response: >-
     I designed the landing-page structure, visual direction, product presentation, CTA strategy, trust-building sections, responsive direction, and supporting brand elements. Color, spacing, and progressive information reduce cognitive load while guiding visitors through a clear conversion path.
-  cover: "/images/projects/northstar/750x500 Toptal Submission Frame.webp"
-  cover_small: "/images/projects/northstar/750x500 Toptal Submission Frame-375w.webp"
+  cover: "/images/projects/northstar/750x500 Project Cover.webp"
+  cover_small: "/images/projects/northstar/750x500 Project Cover-375w.webp"
   cover_alt: "Northstar Commerce landing page displayed on a transparent desktop screen"
   keywords: "commerce conversion strategy landing page pricing comparison trust responsive payments product design"
   gallery:

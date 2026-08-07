@@ -51,7 +51,6 @@ SEARCH_PROFILE = {
   "description" => "Jan is a product design leader specializing in UX strategy, accessibility, enterprise product design, and design systems. With experience leading complex fintech and SaaS initiatives, he transforms fragmented workflows into scalable, intuitive experiences that improve usability and business outcomes. Combining design leadership with front-end development expertise, Jan bridges product, engineering, and business teams to deliver polished, user-centered solutions.",
   "sameAs" => [
     "https://www.linkedin.com/in/jmwii1981/",
-    "https://www.toptal.com/designers/resume/jan-michael-wallace-ii",
     "https://medium.com/@jmwii1981/",
     "https://github.com/jmwii1981/",
     "https://www.figma.com/@jmwii1981",

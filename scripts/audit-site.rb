@@ -307,7 +307,6 @@ if home.file?
   failures << "index.html: Person schema is missing the stable identity handle" unless person&.dig("identifier") == "jmwii1981"
   failures << "index.html: Person schema must not expose search-profile data" if person&.key?("skills") || person&.key?("birthDate") || person&.key?("telephone") || person&.key?("homeLocation")
   failures << "index.html: Person schema is missing the Dribbble profile" unless person&.fetch("sameAs", [])&.include?("https://dribbble.com/jmwii1981")
-  failures << "index.html: Person schema is missing the Toptal profile" unless person&.fetch("sameAs", [])&.include?("https://www.toptal.com/designers/resume/jan-michael-wallace-ii")
   failures << "index.html: Person schema is missing the Figma profile" unless person&.fetch("sameAs", [])&.include?("https://www.figma.com/@jmwii1981")
   failures << "index.html: Person schema is not linked back to the ProfilePage" unless person&.dig("mainEntityOfPage", "@id") == "https://janmichael.io/#webpage"
   failures << "index.html: ProfilePage schema needs an ISO 8601 dateModified timestamp" unless valid_structured_data_datetime?(profile_page&.fetch("dateModified", nil))
