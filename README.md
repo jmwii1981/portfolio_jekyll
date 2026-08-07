@@ -164,6 +164,19 @@ The audit covers progressive enhancement, page structure, ARIA references, image
 
 Responsive changes should also be reviewed at narrow, transitional, and wide viewport sizes, with attention to keyboard use, reduced motion, forced colors, zoom, JavaScript-disabled behavior, and content overlap.
 
+## Release Versioning
+
+Milestone releases use [Semantic Versioning](https://semver.org/). `VERSION`
+contains the current release number without the `v` prefix, `CHANGELOG.md`
+records notable changes, and Git tags and GitHub Releases use the matching
+`vMAJOR.MINOR.PATCH` form. Routine pushes to `gh-pages` still deploy
+automatically; a release is created when the deployed state represents a
+meaningful portfolio milestone.
+
+For a release, move the relevant entries from `Unreleased` into a dated version
+section, update `VERSION`, run the quality checks, commit and push the release
+state, and then create the matching annotated tag and GitHub Release.
+
 ## Deployment
 
 GitHub Pages publishes from the `gh-pages` branch. A typical release is:
@@ -181,6 +194,9 @@ git status --short
 git add <reviewed-files>
 git commit -m "Describe the change"
 git push origin gh-pages
+git tag -a vX.Y.Z -m "Release vX.Y.Z"
+git push origin vX.Y.Z
+gh release create vX.Y.Z --title "vX.Y.Z" --generate-notes
 ```
 
 Review the staged diff before committing. Do not commit `_site/`, `.jekyll-cache/`, `.DS_Store`, temporary exports, local environment files, or credentials. `search-index.json` is the intentional generated-file exception.

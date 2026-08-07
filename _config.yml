@@ -18,6 +18,8 @@ exclude:
   - vendor
   - Gemfile
   - Gemfile.lock
+  - CHANGELOG.md
+  - VERSION
   - README.md
   - PROJECT_REQUIREMENTS.md
   - LICENSE
