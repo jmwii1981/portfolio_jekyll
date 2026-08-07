@@ -65,10 +65,6 @@
     animation-fill-mode: both;
     animation-iteration-count: 1;
     animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1);
-    stroke-width: 0.4557rem;
-    transform-box: view-box;
-    transform-origin: 0 0;
-    vector-effect: non-scaling-stroke;
 }
 
 .logo-container--subpage.logo-container.large .logo.large .anim-col-1 {
@@ -92,39 +88,39 @@
 }
 
 @keyframes dancing-col-1 {
-    0% { transform: matrix(1, 0, 0, 1, 0, 0); }
-    22% { transform: matrix(1, 0, 0, 1.090909, 0, -28.3636); }
-    48% { transform: matrix(1, 0, 0, 1.151515, 0, -47.9394); }
-    72% { transform: matrix(1, 0, 0, 1.090909, 0, -24.3636); }
-    88% { transform: matrix(1, 0, 0, 1.030303, 0, -6.7879); }
-    100% { transform: matrix(1, 0, 0, 1, 0, 0); }
+    0% { d: path("M33 92L33 125"); }
+    22% { d: path("M33 72L33 108"); }
+    48% { d: path("M33 58L33 96"); }
+    72% { d: path("M33 76L33 112"); }
+    88% { d: path("M33 88L33 122"); }
+    100% { d: path("M33 92L33 125"); }
 }
 
 @keyframes dancing-col-2 {
-    0% { transform: matrix(1, 0, 0, 1, 0, 0); }
-    22% { transform: matrix(1, 0, 0, 0.706522, 0, 23.6848); }
-    48% { transform: matrix(1, 0, 0, 1.130435, 0, -11.3043); }
-    72% { transform: matrix(1, 0, 0, 0.826087, 0, 14.7391); }
-    88% { transform: matrix(1, 0, 0, 0.967391, 0, 3.0761); }
-    100% { transform: matrix(1, 0, 0, 1, 0, 0); }
+    0% { d: path("M64 33L64 125"); }
+    22% { d: path("M64 47L64 112"); }
+    48% { d: path("M64 26L64 130"); }
+    72% { d: path("M64 42L64 118"); }
+    88% { d: path("M64 35L64 124"); }
+    100% { d: path("M64 33L64 125"); }
 }
 
 @keyframes dancing-col-3 {
-    0% { transform: matrix(1, 0, 0, 1, 0, 0); }
-    22% { transform: matrix(1, 0, 0, 0.608696, 0, 31.913); }
-    48% { transform: matrix(1, 0, 0, 0.826087, 0, 12.7391); }
-    72% { transform: matrix(1, 0, 0, 1.173913, 0, -16.7391); }
-    88% { transform: matrix(1, 0, 0, 1.032609, 0, -3.0761); }
-    100% { transform: matrix(1, 0, 0, 1, 0, 0); }
+    0% { d: path("M95 33L95 125"); }
+    22% { d: path("M95 52L95 108"); }
+    48% { d: path("M95 40L95 116"); }
+    72% { d: path("M95 22L95 130"); }
+    88% { d: path("M95 31L95 126"); }
+    100% { d: path("M95 33L95 125"); }
 }
 
 @keyframes dancing-col-4 {
-    0% { transform: matrix(1, 0, 0, 1, 0, 0); }
-    22% { transform: matrix(1, 0, 0, 0.413043, 0, 46.3696); }
-    48% { transform: matrix(1, 0, 0, 0.695652, 0, 25.0435); }
-    72% { transform: matrix(1, 0, 0, 1.119565, 0, -9.9457); }
-    88% { transform: matrix(1, 0, 0, 0.956522, 0, 3.4348); }
-    100% { transform: matrix(1, 0, 0, 1, 0, 0); }
+    0% { d: path("M126 33L126 125"); }
+    22% { d: path("M126 60L126 98"); }
+    48% { d: path("M126 48L126 112"); }
+    72% { d: path("M126 27L126 130"); }
+    88% { d: path("M126 35L126 123"); }
+    100% { d: path("M126 33L126 125"); }
 }
 
 .logo-container--home.logo-container.large .logo.large .anim-col-1,
@@ -135,10 +131,6 @@
     animation-fill-mode: both;
     animation-iteration-count: 1;
     animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
-    stroke-width: 0.4557rem;
-    transform-box: view-box;
-    transform-origin: 0 0;
-    vector-effect: non-scaling-stroke;
 }
 
 .logo-container--home.logo-container.large .logo.large .anim-col-1 {
@@ -157,101 +149,49 @@
     animation-name: home-logo-col-4;
 }
 
-.logo .anim-dot {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.logo-container--home.logo-container.large .logo.large .anim-dot {
-    animation-duration: 3.6s;
-    animation-fill-mode: both;
-    animation-iteration-count: 1;
-    animation-timing-function: linear;
-}
-
-.logo-container--home.logo-container.large .logo.large .anim-dot-1 {
-    animation-name: home-logo-dot-1;
-}
-
-.logo-container--home.logo-container.large .logo.large .anim-dot-2 {
-    animation-name: home-logo-dot-2;
-}
-
-.logo-container--home.logo-container.large .logo.large .anim-dot-3 {
-    animation-name: home-logo-dot-3;
-}
-
-.logo-container--home.logo-container.large .logo.large .anim-dot-4 {
-    animation-name: home-logo-dot-4;
-}
-
-@keyframes home-logo-dot-1 {
-    0%, 23% { opacity: 1; }
-    23.1%, 100% { opacity: 0; }
-}
-
-@keyframes home-logo-dot-2 {
-    0%, 5.5% { opacity: 0; }
-    5.6%, 23% { opacity: 1; }
-    23.1%, 100% { opacity: 0; }
-}
-
-@keyframes home-logo-dot-3 {
-    0%, 11% { opacity: 0; }
-    11.1%, 23% { opacity: 1; }
-    23.1%, 100% { opacity: 0; }
-}
-
-@keyframes home-logo-dot-4 {
-    0%, 16.5% { opacity: 0; }
-    16.6%, 23% { opacity: 1; }
-    23.1%, 100% { opacity: 0; }
-}
-
-// Matrix transforms preserve the home sequence across browsers:
-// . → .. → ... → .... → J → M → W → II → final mark.
+// Home sequence: . → .. → ... → .... → J → M → W → II → final mark.
 @keyframes home-logo-col-1 {
-    0%, 23% { transform: matrix(1, 0, 0, 0.00303, 0, 114.6212); opacity: 0; }
-    23.1% { transform: matrix(1, 0, 0, 0.00303, 0, 114.6212); opacity: 1; }
-    31%, 39% { transform: matrix(1, 0, 0, 0.909091, 31, 11.3636); opacity: 1; }
-    47%, 71% { transform: matrix(1, 0, 0, 2.484848, 15.5, -185.6061); opacity: 1; }
-    79%, 87% { transform: matrix(1, 0, 0, 0.00303, 0, 114.6212); opacity: 0; }
-    100% { transform: matrix(1, 0, 0, 1, 0, 0); opacity: 1; }
+    0%, 23% { d: path("M33 114.9L33 115"); opacity: 1; }
+    31%, 39% { d: path("M64 95L64 125"); opacity: 1; }
+    47%, 55% { d: path("M48.5 43L48.5 125"); opacity: 1; }
+    63%, 71% { d: path("M48.5 43L48.5 125"); opacity: 1; }
+    79%, 87% { d: path("M33 114.9L33 115"); opacity: 0; }
+    100% { d: path("M33 92L33 125"); opacity: 1; }
 }
 
 @keyframes home-logo-col-2 {
-    0%, 23% { transform: matrix(1, 0, 0, 0.001087, 0, 114.8641); opacity: 0; }
-    23.1% { transform: matrix(1, 0, 0, 0.001087, 0, 114.8641); opacity: 1; }
-    31%, 39% { transform: matrix(1, 0, 0, 0.891304, 31, 13.587); opacity: 1; }
-    47%, 55% { transform: matrix(1, 0, 0, 0.413043, 15.5, 40.3696); opacity: 1; }
-    63%, 71% { transform: matrix(1, 0, 0, 0.304348, 15.5, 72.9565); opacity: 1; }
-    79%, 87% { transform: matrix(1, 0, 0, 0.001087, 0, 114.8641); opacity: 0; }
-    100% { transform: matrix(1, 0, 0, 1, 0, 0); opacity: 1; }
+    0%, 5.5% { d: path("M64 114.9L64 115"); opacity: 0; }
+    5.6%, 23% { d: path("M64 114.9L64 115"); opacity: 1; }
+    31%, 39% { d: path("M95 43L95 125"); opacity: 1; }
+    47%, 55% { d: path("M79.5 54L79.5 92"); opacity: 1; }
+    63%, 71% { d: path("M79.5 83L79.5 111"); opacity: 1; }
+    79%, 87% { d: path("M64 114.9L64 115"); opacity: 0; }
+    100% { d: path("M64 33L64 125"); opacity: 1; }
 }
 
 @keyframes home-logo-col-3 {
-    0%, 23% { transform: matrix(1, 0, 0, 0.001087, 0, 114.8641); opacity: 0; }
-    23.1% { transform: matrix(1, 0, 0, 0.001087, 0, 114.8641); opacity: 1; }
-    31%, 39% { transform: matrix(1, 0, 0, 0.001087, 0, 114.8641); opacity: 0; }
-    47%, 71% { transform: matrix(1, 0, 0, 0.891304, 15.5, 13.587); opacity: 1; }
-    79%, 87% { transform: matrix(1, 0, 0, 0.891304, -31, 13.587); opacity: 1; }
-    100% { transform: matrix(1, 0, 0, 1, 0, 0); opacity: 1; }
+    0%, 11% { d: path("M95 114.9L95 115"); opacity: 0; }
+    11.1%, 23% { d: path("M95 114.9L95 115"); opacity: 1; }
+    31%, 39% { d: path("M95 114.9L95 115"); opacity: 0; }
+    47%, 55% { d: path("M110.5 43L110.5 125"); opacity: 1; }
+    63%, 71% { d: path("M110.5 43L110.5 125"); opacity: 1; }
+    79%, 87% { d: path("M64 43L64 125"); opacity: 1; }
+    100% { d: path("M95 33L95 125"); opacity: 1; }
 }
 
 @keyframes home-logo-col-4 {
-    0%, 23% { transform: matrix(1, 0, 0, 0.001087, 0, 114.8641); opacity: 0; }
-    23.1% { transform: matrix(1, 0, 0, 0.001087, 0, 114.8641); opacity: 1; }
-    31%, 71% { transform: matrix(1, 0, 0, 0.001087, 0, 114.8641); opacity: 0; }
-    79%, 87% { transform: matrix(1, 0, 0, 0.891304, -31, 13.587); opacity: 1; }
-    100% { transform: matrix(1, 0, 0, 1, 0, 0); opacity: 1; }
+    0%, 16.5% { d: path("M126 114.9L126 115"); opacity: 0; }
+    16.6%, 23% { d: path("M126 114.9L126 115"); opacity: 1; }
+    31%, 71% { d: path("M126 114.9L126 115"); opacity: 0; }
+    79%, 87% { d: path("M95 43L95 125"); opacity: 1; }
+    100% { d: path("M126 33L126 125"); opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .logo-container.large .logo.large .anim-col-1,
     .logo-container.large .logo.large .anim-col-2,
     .logo-container.large .logo.large .anim-col-3,
-    .logo-container.large .logo.large .anim-col-4,
-    .logo-container.large .logo.large .anim-dot {
+    .logo-container.large .logo.large .anim-col-4 {
         animation: none;
     }
 }
