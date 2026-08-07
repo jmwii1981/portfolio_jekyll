@@ -1,8 +1,18 @@
-<footer class="footer">
+<footer class="footer{% if page.url == '/links/' %} footer--without-social{% endif %}">
     <div class="site-signature">
         <a class="a site-link" href="{{ '/' | relative_url }}">janmichael.io</a>
     </div>
     <div class="copyright">
         <p class="p">&copy; 2026 <a class="a" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">Jan Michael Wallace II</a>. All rights reserved. | <a class="a" href="{{ '/terms/' | relative_url }}">Terms of Use and Privacy Policy</a>.</p>
     </div>
+    {% unless page.url == '/links/' %}
+    <div class="social">
+        <div class="social-links-container">
+            <a class="social-icon" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="Jan Michael Wallace II on LinkedIn">{% include icon.html name="linked-in" %}</a>
+            <a class="social-icon" href="https://medium.com/@jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="Jan Michael Wallace II on Medium">{% include icon.html name="medium" %}</a>
+            <a class="social-icon" href="https://github.com/jmwii1981?tab=repositories" target="_blank" rel="noopener noreferrer" aria-label="Jan Michael Wallace II on GitHub">{% include icon.html name="github" %}</a>
+            <a class="social-icon" href="https://figma.com/@jmwii1981" target="_blank" rel="noopener noreferrer" aria-label="Jan Michael Wallace II on Figma">{% include icon.html name="figma" %}</a>
+        </div>
+    </div>
+    {% endunless %}
 </footer>

@@ -13,7 +13,15 @@
         min-width: 0;
     }
 
-    .a {
+    .a,
+    .social-icon,
+    .social-icon rect,
+    .social-icon circle,
+    .social-icon ellipse,
+    .social-icon line,
+    .social-icon polyline,
+    .social-icon polygon,
+    .social-icon path {
         transition: none;
     }
 
@@ -47,7 +55,7 @@
         align-self: start;
         display: block;
         grid-column: 1;
-        grid-row: 2;
+        grid-row: 3;
         margin-bottom: 0;
 
         .a {
@@ -81,6 +89,84 @@
         }
     }
 
+    .social {
+        align-self: start;
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .social-links-container {
+        align-items: center;
+        align-self: center;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: flex-start;
+        margin: 0;
+        padding: 0;
+
+        .social-icon {
+            align-items: center;
+            color: var(--color-link);
+            display: inline-flex;
+            height: 2.75rem;
+            justify-content: center;
+            transform: none;
+            width: 2.75rem;
+
+            svg {
+                display: block;
+                height: 100%;
+                width: 100%;
+            }
+        }
+
+        .social-icon:hover,
+        .social-icon:focus,
+        .social-icon:active {
+            color: var(--color-link);
+        }
+
+        .social-icon rect,
+        .social-icon circle,
+        .social-icon ellipse,
+        .social-icon line,
+        .social-icon polyline,
+        .social-icon polygon,
+        .social-icon path {
+            fill: var(--color-link);
+        }
+
+        .social-icon:hover rect,
+        .social-icon:hover circle,
+        .social-icon:hover ellipse,
+        .social-icon:hover line,
+        .social-icon:hover polyline,
+        .social-icon:hover polygon,
+        .social-icon:hover path,
+        .social-icon:focus rect,
+        .social-icon:focus circle,
+        .social-icon:focus ellipse,
+        .social-icon:focus line,
+        .social-icon:focus polyline,
+        .social-icon:focus polygon,
+        .social-icon:focus path,
+        .social-icon:active rect,
+        .social-icon:active circle,
+        .social-icon:active ellipse,
+        .social-icon:active line,
+        .social-icon:active polyline,
+        .social-icon:active polygon,
+        .social-icon:active path {
+            fill: var(--color-link);
+        }
+    }
+
+}
+
+.footer.footer--without-social .site-signature {
+    grid-row: 2;
 }
 
 @media (min-width: 50rem) {
@@ -90,7 +176,7 @@
 
         .site-signature {
             grid-column: 1;
-            grid-row: 1;
+            grid-row: 2;
             width: max-content;
         }
 
@@ -103,5 +189,19 @@
             }
         }
 
+        .social {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .social-links-container {
+            justify-content: flex-end;
+            margin-left: auto;
+        }
+
+    }
+
+    .footer.footer--without-social .site-signature {
+        grid-row: 1;
     }
 }
