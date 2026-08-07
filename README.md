@@ -4,7 +4,7 @@ Source for [janmichael.io](https://janmichael.io), the personal portfolio of Jan
 
 The site is static, lightweight, and progressively enhanced. Its content and navigation remain available without JavaScript; scripts add search, form feedback, consent handling, navigation behavior, and other optional interactions.
 
-Durable design, accessibility, content, engineering, privacy, and release standards live in [PROJECT_REQUIREMENTS.md](PROJECT_REQUIREMENTS.md).
+Durable design, accessibility, content, engineering, privacy, and release standards are maintained privately outside the published repository.
 
 ## Architecture
 
@@ -95,7 +95,6 @@ More detail about the Sass and script architecture is available in [_sass/README
 | Link directory and professional profiles | `links.markdown` |
 | Contact information and form fields | `contact.markdown` |
 | Terms, privacy, attribution, and confidentiality | `terms.markdown` |
-| Enduring implementation requirements | `PROJECT_REQUIREMENTS.md` |
 
 Focused project pages intentionally reuse the approved public narrative. They must not expand confidential project scope or imply that complete client work is hosted locally.
 
