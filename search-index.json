@@ -212,6 +212,16 @@
       "priority": 50
     },
     {
+      "id": "section:/links/#around-the-web",
+      "title": "Around the Web",
+      "url": "/links/#around-the-web",
+      "category": "Links",
+      "summary": "Jan Michael Wallace II’s professional and creative profiles across LinkedIn, Toptal, Medium, GitHub, Figma, and Dribbble.",
+      "content": "Around the web LinkedIn Professional experience and connections Toptal Independent product design profile Medium Long-form writing and design perspectives GitHub Code, experiments, and repositories Figma Design work and community files Dribbble Selected visual design archive",
+      "keywords": "social profiles LinkedIn Toptal Medium GitHub Figma Dribbble",
+      "priority": 50
+    },
+    {
       "id": "section:/work/#project-avenapay",
       "title": "AvenaPay Disputes Analytics",
       "url": "/work/#project-avenapay",
@@ -299,6 +309,16 @@
       "summary": "This site uses a small amount of browser-based functionality to make the experience work as intended.",
       "content": "Information Used by This Site This site uses a small amount of browser-based functionality to make the experience work as intended. When you submit the contact form, your first name, last name, email address, subject, message, and related request information are transmitted to Web3Forms. Web3Forms processes the submission and forwards it to my email inbox. The email address you provide is used as the reply-to address for that message. If you respond to the consent banner, your analytics choice is stored locally in your browser as janmichaelConsentPreference. This prevents the site from asking for the same choice on every visit. This site also uses JavaScript to adjust the header while scrolling and to load recent article content for the Perspectives page. Those features are used to display the site and its content properly.",
       "keywords": "",
+      "priority": 50
+    },
+    {
+      "id": "section:/links/#links",
+      "title": "Jan Michael Wallace II’s Links",
+      "url": "/links/#links",
+      "category": "Links",
+      "summary": "Portfolio, product design work, writing, professional profiles, and contact links for Jan Michael Wallace II.",
+      "content": "Jan Michael Wallace II Everything, one place. Product design leadership, selected work, writing, and the places I share what I’m making. Portrait of Jan Michael Wallace II",
+      "keywords": "links link in bio portfolio profiles product design leadership",
       "priority": 50
     },
     {
@@ -472,6 +492,16 @@
       "priority": 50
     },
     {
+      "id": "section:/links/#start-here",
+      "title": "Start Here",
+      "url": "/links/#start-here",
+      "category": "Links",
+      "summary": "Explore Jan Michael Wallace II’s portfolio, selected work, perspectives, or get in touch.",
+      "content": "Start here Portfolio My work, approach, and experience Selected work Product strategy, systems, and shipped experiences Perspectives Notes on design, leadership, and systems Contact me Start a conversation or send a message Around the web LinkedIn Professional experience and connections Toptal Independent product design profile Medium Long-form writing and design perspectives GitHub Code, experiments, and repositories Figma Design work and community files Dribbble Selected visual design archive Prefer email? Write to hello@janmichael.io.",
+      "keywords": "portfolio work case studies writing contact email",
+      "priority": 50
+    },
+    {
       "id": "section:/terms/#testimonials-and-professional-statements",
       "title": "Testimonials and Professional Statements",
       "url": "/terms/#testimonials-and-professional-statements",
@@ -540,6 +570,16 @@
       "content": "Contact me Let’s create a clear path forward. I’m open to leadership opportunities and conversations with teams navigating unfamiliar product territory, scaling design practice, or aligning around what comes next. Fields marked with an asterisk are required. First Name Last Name Email Subject Message If you’re having trouble with the form or prefer to reach out directly, please feel free to email me at hello@janmichael.io or call or text my personal cell at (502) 627-0291.",
       "keywords": "",
       "priority": 24
+    },
+    {
+      "id": "page:/links/",
+      "title": "Links",
+      "url": "/links/",
+      "category": "Links",
+      "summary": "Find Jan Michael Wallace II’s portfolio, selected product design work, writing, professional profiles, and contact links in one place.",
+      "content": "Jan Michael Wallace II Everything, one place. Product design leadership, selected work, writing, and the places I share what I’m making. Start here Portfolio My work, approach, and experience Selected work Product strategy, systems, and shipped experiences Perspectives Notes on design, leadership, and systems Contact me Start a conversation or send a message Around the web LinkedIn Professional experience and connections Toptal Independent product design profile Medium Long-form writing and design perspectives GitHub Code, experiments, and repositories Figma Design work and community files Dribbble Selected visual design archive Prefer email? Write to hello@janmichael.io. Portrait of Jan Michael Wallace II",
+      "keywords": "Jan Michael Wallace II links portfolio LinkedIn Toptal Medium GitHub Figma Dribbble contact",
+      "priority": 23
     },
     {
       "id": "page:/perspectives/",

@@ -1,5 +1,6 @@
 .footer {
     align-items: center;
+    box-sizing: border-box;
     color: var(--color-link);
     display: grid;
     grid-template-columns: minmax(0, 1fr);

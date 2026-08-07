@@ -1,0 +1,281 @@
+.main.links-page {
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.links-hero {
+    justify-content: center;
+    text-align: center;
+}
+
+.links-hero-content {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    max-width: 48rem;
+}
+
+.links-portrait {
+    border: 0.0625rem solid rgba(4, 4, 5, 0.16);
+    border-radius: 50%;
+    box-shadow: 0 0.75rem 2rem rgba(4, 4, 5, 0.12);
+    display: block;
+    height: 6rem;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    width: 6rem;
+}
+
+.links-portrait img {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.links-title {
+    max-width: 11ch;
+}
+
+.links-lead {
+    margin-top: clamp(1.5rem, 4vw, 2.5rem);
+    max-width: 37rem;
+}
+
+.links-directory {
+    box-sizing: border-box;
+    padding-bottom: clamp(5rem, 10vw, 8rem);
+    padding-top: clamp(4rem, 8vw, 7rem);
+}
+
+.links-directory-inner {
+    max-width: 48rem;
+}
+
+.links-group + .links-group {
+    margin-top: clamp(3.5rem, 7vw, 5rem);
+}
+
+.links-group-heading {
+    display: block;
+    margin: 0 0 1rem;
+}
+
+.link-tree-list {
+    display: grid;
+    gap: 0.75rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.link-tree-item {
+    margin: 0;
+    padding: 0;
+}
+
+.link-card {
+    align-items: center;
+    background: var(--color-paper);
+    border: 0.0625rem solid var(--color-border-subtle);
+    box-sizing: border-box;
+    color: var(--color-ink);
+    column-gap: clamp(0.85rem, 3vw, 1.25rem);
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr) 1.5rem;
+    min-height: 5.5rem;
+    padding: 0.75rem clamp(0.85rem, 3vw, 1.25rem) 0.75rem 0.75rem;
+    transform: translateY(0);
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 100%;
+}
+
+.link-card:hover,
+.link-card:focus,
+.link-card:active {
+    color: var(--color-ink);
+}
+
+.link-card:hover {
+    border-color: var(--color-ink);
+    box-shadow: var(--shadow-control-edge-on-light);
+    transform: translate(-0.125rem, -0.125rem);
+}
+
+.link-card:focus-visible {
+    border-radius: 0;
+    box-shadow: none;
+    outline: 0.1875rem solid var(--color-focus-ring);
+    outline-offset: 0.1875rem;
+}
+
+.link-card:active {
+    background: var(--color-surface-muted);
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+.link-card--primary {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+}
+
+.link-card--primary:hover,
+.link-card--primary:focus,
+.link-card--primary:active {
+    color: var(--color-paper);
+}
+
+.link-card--primary:hover {
+    background: var(--color-control-dark-hover);
+    box-shadow: var(--shadow-control-edge-on-light);
+}
+
+.link-card--primary:active {
+    background: var(--color-control-dark-hover);
+    box-shadow: none;
+}
+
+.link-card-mark {
+    align-items: center;
+    align-self: stretch;
+    background: var(--color-surface-subtle);
+    border: 0.0625rem solid var(--color-border-subtle);
+    color: var(--color-ink);
+    display: flex;
+    font-size: 0.75rem;
+    font-weight: 700;
+    justify-content: center;
+    letter-spacing: 0.08em;
+    min-height: 3rem;
+    text-transform: uppercase;
+    width: 3rem;
+}
+
+.link-card--primary .link-card-mark {
+    background: var(--color-paper);
+    border-color: var(--color-paper);
+}
+
+.link-card-mark--initials {
+    letter-spacing: -0.02em;
+}
+
+.link-card-mark--word {
+    font-size: 1.1rem;
+    letter-spacing: -0.03em;
+}
+
+.link-card-mark--brand {
+    --color-text-muted: var(--color-ink);
+}
+
+.link-card-mark--brand svg {
+    display: block;
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+.link-card-copy {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.link-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+}
+
+.link-card-description {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-top: 0.15rem;
+}
+
+.link-card--primary .link-card-description {
+    color: var(--color-text-muted-on-dark);
+}
+
+.link-card-arrow {
+    display: block;
+    height: 1.5rem;
+    justify-self: end;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.65;
+    width: 1.5rem;
+}
+
+.links-email {
+    color: var(--color-text-soft);
+    display: block;
+    margin: clamp(2.5rem, 6vw, 4rem) 0 0;
+    text-align: center;
+}
+
+.links-email .a {
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+}
+
+@media (max-width: 30rem) {
+    .link-card {
+        grid-template-columns: 2.75rem minmax(0, 1fr) 1.25rem;
+        min-height: 5rem;
+        padding-left: 0.625rem;
+        padding-right: 0.75rem;
+    }
+
+    .link-card-mark {
+        min-height: 2.75rem;
+        width: 2.75rem;
+    }
+
+    .link-card-mark--brand svg {
+        height: 2.25rem;
+        width: 2.25rem;
+    }
+
+    .link-card-description {
+        font-size: 0.8125rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .link-card {
+        transition: none;
+    }
+}
+
+@media (forced-colors: active) {
+    .link-card,
+    .link-card--primary,
+    .link-card-mark,
+    .link-card--primary .link-card-mark {
+        background: Canvas;
+        border-color: CanvasText;
+        color: CanvasText;
+    }
+
+    .link-card-description,
+    .link-card--primary .link-card-description {
+        color: CanvasText;
+    }
+
+    .link-card:focus-visible {
+        outline-color: Highlight;
+    }
+}

@@ -72,6 +72,7 @@ The first build renders the current content, the generator refreshes `search-ind
 ├── index.markdown           # Home and about content
 ├── work.markdown            # Portfolio overview
 ├── perspectives.markdown    # Writing and Medium integration
+├── links.markdown           # Link-in-bio directory
 ├── contact.markdown         # Contact form and direct contact options
 ├── terms.markdown           # Terms of use and privacy policy
 ├── master.scss              # Sass entry point
@@ -91,6 +92,7 @@ More detail about the Sass and script architecture is available in [_sass/README
 | Shared project summaries | `_data/work_projects.yml` |
 | Focused project pages | `work/*.markdown` |
 | Perspectives fallback and framing | `perspectives.markdown` |
+| Link directory and professional profiles | `links.markdown` |
 | Contact information and form fields | `contact.markdown` |
 | Terms, privacy, attribution, and confidentiality | `terms.markdown` |
 | Enduring implementation requirements | `PROJECT_REQUIREMENTS.md` |

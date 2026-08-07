@@ -7,6 +7,7 @@
 - [About](https://janmichael.io/): Professional focus, leadership approach, capabilities, recommendations, and biography.
 - [Selected work](https://janmichael.io/work/): Detailed product and design-system case studies across fintech, merchant operations, and enterprise products.
 - [Perspectives](https://janmichael.io/perspectives/): Writing about product design, leadership, systems, and team alignment.
+- [Links](https://janmichael.io/links/): Portfolio, writing, professional profiles, and contact links in one place.
 - [Contact](https://janmichael.io/contact/): How to contact Jan Michael Wallace II.
 - [Terms and privacy](https://janmichael.io/terms/): Site terms, privacy practices, analytics, and external-service disclosures.
 

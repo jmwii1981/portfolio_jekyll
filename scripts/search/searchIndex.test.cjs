@@ -18,6 +18,7 @@ const { join } = require('path');
         'page:/work/ledgerflow/',
         'page:/work/northstar/',
         'page:/perspectives/',
+        'page:/links/',
         'page:/contact/',
         'page:/terms/',
         'section:/#about',
@@ -34,6 +35,9 @@ const { join } = require('path');
         'section:/work/#design-leadership-principles',
         'section:/perspectives/#latest-medium-article',
         'section:/perspectives/#read-more-on-medium',
+        'section:/links/#links',
+        'section:/links/#start-here',
+        'section:/links/#around-the-web',
         'section:/contact/#contact-jan',
         'section:/contact/#send-a-message',
         'section:/terms/#effective-date',
@@ -87,6 +91,7 @@ const { join } = require('path');
     expectTopResult('coffee interesting people', 'section:/#beyond-the-work');
     expectTopResult('Global Payments', 'section:/#recommendations');
     expectTopResult('jmwii1981', 'profile:jan-michael-wallace-ii');
+    expectTopResult('all my links', 'page:/links/');
 
     const web3FormsResults = rankSearchRecords(records, 'Web3Forms').map(({ id }) => id);
     assert(web3FormsResults.includes('section:/terms/#information-used-by-this-site'));
@@ -94,7 +99,7 @@ const { join } = require('path');
 
     assert.equal(rankSearchRecords(records, 'zzzznomatch').length, 0);
 
-    console.log(`Search index tests passed: ${records.length} records and 10 representative queries.`);
+    console.log(`Search index tests passed: ${records.length} records and 11 representative queries.`);
 })().catch((error) => {
     console.error(error);
     process.exitCode = 1;

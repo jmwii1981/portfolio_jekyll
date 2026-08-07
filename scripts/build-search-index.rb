@@ -16,6 +16,7 @@ PUBLIC_PAGES = [
   "work/ledgerflow/index.html",
   "work/northstar/index.html",
   "perspectives/index.html",
+  "links/index.html",
   "contact/index.html",
   "terms/index.html"
 ].freeze
@@ -30,6 +31,7 @@ PAGE_METADATA = {
   "work/ledgerflow/index.html" => { title: "LedgerFlow Payments and Invoicing", category: "Case Study", priority: 64 },
   "work/northstar/index.html" => { title: "Northstar Commerce Conversion Strategy", category: "Case Study", priority: 64 },
   "perspectives/index.html" => { title: "Perspectives", category: "Perspectives", priority: 22 },
+  "links/index.html" => { title: "Links", category: "Links", priority: 23 },
   "contact/index.html" => { title: "Contact Jan Michael", category: "Contact", priority: 24 },
   "terms/index.html" => { title: "Terms of Use and Privacy Policy", category: "Terms & Privacy", priority: 12 }
 }.freeze
