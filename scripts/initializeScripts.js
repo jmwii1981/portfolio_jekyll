@@ -4,6 +4,11 @@
  */
 
 (async () => {
+    const fetchJsonWithTimeout = async (...arguments_) => {
+        const { fetchJsonWithTimeout: requestJson } = await import('./network.mjs');
+        return requestJson(...arguments_);
+    };
+
     document.documentElement.classList.replace('no-js', 'js');
 
     try {
@@ -126,14 +131,13 @@
                 setStatus('Sending your message…', 'pending');
 
                 try {
-                    const response = await fetch(form.action, {
+                    const { data, response } = await fetchJsonWithTimeout(form.action, {
                         method: 'POST',
                         headers: {
                             Accept: 'application/json'
                         },
                         body: new FormData(form)
-                    });
-                    const data = await response.json();
+                    }, { timeoutMs: 15000 });
 
                     if (!response.ok || data?.success !== true) {
                         const responseMessage = [data?.message, data?.body?.message, data?.error]
@@ -155,7 +159,9 @@
 
                     const message = error?.name === 'ContactSubmissionError'
                         ? error.message
-                        : 'Something went wrong. Please try again or use the direct email link below.';
+                        : error?.name === 'RequestTimeoutError'
+                            ? 'The request took too long. Please try again or use the direct email link below.'
+                            : 'Something went wrong. Please try again or use the direct email link below.';
 
                     setStatus(message, 'error');
                 } finally {

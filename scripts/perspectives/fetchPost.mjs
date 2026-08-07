@@ -1,4 +1,6 @@
 
+import { fetchJsonWithTimeout } from '../network.mjs';
+
 /**
  * Class to handle fetching and processing post data from Medium feeds.
  * RSStoJSON is the primary source, with AllOrigins as the fallback.
@@ -40,9 +42,12 @@ class PostFetcher {
     async fetchFromRSStoJSON() {
         try {
             this.log("info", `Fetching from RSStoJSON: ${this.rsstojsonUrl}`);
-            const response = await fetch(this.rsstojsonUrl);
+            const { data, response } = await fetchJsonWithTimeout(
+                this.rsstojsonUrl,
+                {},
+                { timeoutMs: 6000 }
+            );
             if (response.ok) {
-                const data = await response.json();
                 if (data.items && data.items.length > 0) {
                     const post = data.items[0];
                     const recentArticles = data.items.map(item => ({
@@ -79,9 +84,12 @@ class PostFetcher {
             this.log("info", "Fetching from AllOrigins...");
             const encodedUrl = encodeURIComponent(this.feedUrl);
             const fetchUrl = `${this.allOriginsBaseUrl}${encodedUrl}`;
-            const response = await fetch(fetchUrl);
+            const { data, response } = await fetchJsonWithTimeout(
+                fetchUrl,
+                {},
+                { timeoutMs: 6000 }
+            );
             if (response.ok) {
-                const data = await response.json();
                 if (data && data.contents) {
                     const parser = new DOMParser();
                     const rssDoc = parser.parseFromString(data.contents, "text/xml");

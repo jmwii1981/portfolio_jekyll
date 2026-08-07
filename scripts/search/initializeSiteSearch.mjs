@@ -1,3 +1,5 @@
+import { createRetryableRequest, fetchJsonWithTimeout } from '../network.mjs';
+
 const MAX_RESULTS = 7;
 
 const normalizeText = (value = '') => value
@@ -86,35 +88,32 @@ export const initializeSiteSearch = () => {
     const dropdown = search.querySelector('[data-search-dropdown]');
     const resultsList = search.querySelector('[data-search-results]');
     const emptyState = search.querySelector('[data-search-empty]');
+    const emptyStateTitle = emptyState?.querySelector('.site-search-empty-title');
     const status = search.querySelector('[data-search-status]');
     const navToggle = navContainer?.querySelector('.nav-toggle');
     const indexUrl = search.dataset.searchIndexUrl;
 
     const supportsModalDialog = typeof panel?.showModal === 'function' && typeof panel?.close === 'function';
 
-    if (!navContainer || !toggle || !panel || !field || !input || !closeButton || !dropdown || !resultsList || !emptyState || !status || !indexUrl || !supportsModalDialog) return;
+    if (!navContainer || !toggle || !panel || !field || !input || !closeButton || !dropdown || !resultsList || !emptyState || !emptyStateTitle || !status || !indexUrl || !supportsModalDialog) return;
 
     let records = [];
-    let indexRequest;
     let activeIndex = -1;
     let visibleResults = [];
     let isOpen = false;
 
-    const loadIndex = () => {
-        if (!indexRequest) {
-            indexRequest = fetch(indexUrl, { credentials: 'same-origin' })
-                .then((response) => {
-                    if (!response.ok) throw new Error(`Search index request failed with ${response.status}`);
-                    return response.json();
-                })
-                .then((data) => {
-                    records = Array.isArray(data?.records) ? data.records : [];
-                    return records;
-                });
-        }
+    const loadIndex = createRetryableRequest(async () => {
+        const { data, response } = await fetchJsonWithTimeout(
+            indexUrl,
+            { credentials: 'same-origin' },
+            { timeoutMs: 8000 }
+        );
 
-        return indexRequest;
-    };
+        if (!response.ok) throw new Error(`Search index request failed with ${response.status}`);
+
+        records = Array.isArray(data?.records) ? data.records : [];
+        return records;
+    });
 
     const setExpanded = (expanded) => {
         input.setAttribute('aria-expanded', String(expanded));
@@ -128,6 +127,7 @@ export const initializeSiteSearch = () => {
         input.removeAttribute('aria-activedescendant');
         dropdown.hidden = true;
         emptyState.hidden = true;
+        emptyStateTitle.textContent = 'No matching content';
         status.textContent = '';
         setExpanded(false);
     };
@@ -167,7 +167,7 @@ export const initializeSiteSearch = () => {
             console.error('Site search could not load:', error);
             dropdown.hidden = false;
             emptyState.hidden = false;
-            emptyState.querySelector('.site-search-empty-title').textContent = 'Search is temporarily unavailable';
+            emptyStateTitle.textContent = 'Search is temporarily unavailable';
             status.textContent = 'Search is temporarily unavailable.';
         }
     };

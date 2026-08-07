@@ -154,6 +154,7 @@ bundle exec ruby scripts/build-search-index.rb --check
 node --check scripts/initializeScripts.js
 for file in scripts/perspectives/*.mjs; do node --check "$file"; done
 for file in scripts/search/*.mjs; do node --check "$file"; done
+node scripts/network.test.mjs
 node scripts/search/searchIndex.test.cjs
 bundle exec ruby scripts/audit-site.rb
 git diff --check
@@ -172,6 +173,7 @@ bundle exec jekyll build
 bundle exec ruby scripts/build-search-index.rb
 bundle exec jekyll build
 bundle exec ruby scripts/build-search-index.rb --check
+node scripts/network.test.mjs
 node scripts/search/searchIndex.test.cjs
 bundle exec ruby scripts/audit-site.rb
 git diff --check

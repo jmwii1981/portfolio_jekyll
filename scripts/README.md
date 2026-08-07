@@ -1,6 +1,8 @@
 # Site scripts
 
-`initializeScripts.js` is the browser entry point. It progressively enhances static site search, contact-form validation and submission, consent and analytics loading, the fixed header, mobile navigation, reveal effects, project galleries, logo motion, the company-logo carousel, recommendations, and the Perspectives feed.
+`initializeScripts.js` is the browser entry point. It progressively enhances static site search, contact-form validation and submission, consent and analytics loading, the fixed header, mobile navigation, project galleries, the company-logo carousel, recommendations, and the Perspectives feed.
+
+`network.mjs` provides bounded fetch requests and retryable request caching for network-dependent enhancements. `network.test.mjs` verifies timeout, response-body, retry, and in-flight request behavior without adding an npm dependency.
 
 `build-search-index.rb` reads the rendered public pages in `_site/` and generates the committed `search-index.json` database. It indexes meaningful page text and non-empty image alternatives, creates precise records for anchored `data-search-section` containers, and removes interface/decorative content before indexing. The Medium article body remains a dynamic browser enhancement and is not copied into this static database.
 
@@ -14,6 +16,7 @@ ruby scripts/build-search-index.rb --check
 node --check scripts/initializeScripts.js
 for file in scripts/perspectives/*.mjs; do node --check "$file"; done
 for file in scripts/search/*.mjs; do node --check "$file"; done
+node scripts/network.test.mjs
 node scripts/search/searchIndex.test.cjs
 ruby scripts/audit-site.rb
 ```

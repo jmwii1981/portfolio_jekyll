@@ -5,9 +5,11 @@ require "pathname"
 require "rexml/document"
 require "time"
 require "uri"
+require "yaml"
 
 source_root = Pathname.new(__dir__).join("..").expand_path
 site_root = source_root.join("_site")
+work_projects = YAML.safe_load_file(source_root.join("_data", "work_projects.yml"))
 failures = []
 legacy_redirects = {
   "about/index.html" => {
@@ -127,9 +129,13 @@ end
 
 layout_source = source_root.join("_layouts", "page.html").read
 main_script = source_root.join("scripts", "initializeScripts.js").read
+network_script = source_root.join("scripts", "network.mjs").read
 search_script = source_root.join("scripts", "search", "initializeSiteSearch.mjs").read
+perspectives_fetch_script = source_root.join("scripts", "perspectives", "fetchPost.mjs").read
+quality_workflow = source_root.join(".github", "workflows", "quality.yml").read
 nav_styles = source_root.join("_sass", "includes", "_nav.scss").read
 search_styles = source_root.join("_sass", "components", "_site-search.scss").read
+logo_styles = source_root.join("_sass", "components", "_logo.scss").read
 
 failures << "page layout: no-js state must not be removed by an inline head script" if layout_source.match?(/classList\.replace\([^\n]*no-js/i)
 failures << "initializeScripts.js: module must confirm JavaScript execution before enhancing" unless main_script.match?(/classList\.replace\((['"])no-js\1,\s*(['"])js\2\)/)
@@ -138,6 +144,12 @@ failures << "initializeScripts.js: project gallery controls are missing their pe
 failures << "initializeScripts.js: one failed enhancement can prevent unrelated initialization" unless main_script.include?("const safelyInitialize =")
 failures << "initializeScripts.js: purely visual Web Animations API usage must remain in CSS" if main_script.include?(".animate(")
 failures << "initializeScripts.js: obsolete scripted visual initializer remains" if main_script.match?(/initialize(?:LogoAnimation|ScrollReveals)/)
+failures << "network: bounded request helper is missing" unless network_script.include?("controller.abort(timeoutError)")
+failures << "contact form: submission does not use the bounded JSON request helper" unless main_script.include?("fetchJsonWithTimeout(form.action")
+failures << "search: index request does not retry after transient failure" unless search_script.include?("createRetryableRequest(async")
+failures << "Perspectives: feed requests do not use the bounded JSON request helper" unless perspectives_fetch_script.scan(/fetchJsonWithTimeout\(/).length >= 2
+failures << "quality workflow: network regression tests are missing" unless quality_workflow.include?("node scripts/network.test.mjs")
+failures << "logo: CSS path animation must be feature-gated behind @supports" unless logo_styles.match?(/@supports\s*\(d:\s*path\(/)
 failures << "navigation: optional indicator initializer is missing" unless main_script.include?("const initializeNavIndicator =")
 failures << "navigation: enhanced indicator is not readiness-gated" unless main_script.include?("classList.add('is-indicator-ready')")
 failures << "navigation: indicator markup is missing" unless source_root.join("_includes", "nav.html").read.match?(/class=(['"])nav-indicator\1[^>]*aria-hidden=(['"])true\2/)
@@ -315,16 +327,34 @@ else
   failures << "index.html: missing from build output"
 end
 
-project_pages = {
-  "lionfinancial" => "lmms",
-  "vega" => "vega",
-  "avenapay" => "avena",
-  "paladin" => "paladin",
-  "ledgerflow" => "ledger",
-  "northstar" => "northstar"
-}
+project_pages = work_projects.to_h do |slug, project|
+  [slug, Pathname.new(project.fetch("cover")).dirname.basename.to_s]
+end
 work_page_html = site_root.join("work", "index.html").read
 sitemap_html = site_root.join("sitemap.xml").read
+work_structured_data = work_page_html.scan(/<script\b[^>]*type=(['"])application\/ld\+json\1[^>]*>(.*?)<\/script>/mi).map { |(_, json)| JSON.parse(json) }
+work_graph = work_structured_data.flat_map { |document| document.fetch("@graph", []) }
+project_item_list = work_graph.find { |node| node["@type"] == "ItemList" && node["@id"] == "https://janmichael.io/work/#selected-work" }
+actual_project_items = Array(project_item_list&.fetch("itemListElement", nil)).map do |entry|
+  item = entry.fetch("item", {})
+  {
+    "position" => entry["position"],
+    "url" => item["url"],
+    "name" => item["name"],
+    "headline" => item["headline"],
+    "description" => item["description"]
+  }
+end
+expected_project_items = work_projects.map.with_index do |(slug, project), index|
+  {
+    "position" => index + 1,
+    "url" => "https://janmichael.io/work/#{slug}/",
+    "name" => project.fetch("name"),
+    "headline" => project.fetch("headline"),
+    "description" => project.fetch("introduction")
+  }
+end
+failures << "work/index.html: project ItemList does not match _data/work_projects.yml" unless actual_project_items == expected_project_items
 
 project_pages.each do |slug, image_folder|
   relative = "work/#{slug}/index.html"

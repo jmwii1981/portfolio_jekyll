@@ -57,6 +57,8 @@
     }
 }
 
+// Browsers without CSS path-geometry animation retain the authored static SVG mark.
+@supports (d: path("M0 0L0 1")) {
 .logo-container--subpage.logo-container.large .logo.large .anim-col-1,
 .logo-container--subpage.logo-container.large .logo.large .anim-col-2,
 .logo-container--subpage.logo-container.large .logo.large .anim-col-3,
@@ -185,6 +187,7 @@
     31%, 71% { d: path("M126 114.9L126 115"); opacity: 0; }
     79%, 87% { d: path("M95 43L95 125"); opacity: 1; }
     100% { d: path("M126 33L126 125"); opacity: 1; }
+}
 }
 
 @media (prefers-reduced-motion: reduce) {

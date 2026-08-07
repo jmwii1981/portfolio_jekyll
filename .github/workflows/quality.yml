@@ -26,6 +26,7 @@ jobs:
           node --check scripts/initializeScripts.js
           for file in scripts/perspectives/*.mjs; do node --check "$file"; done
           for file in scripts/search/*.mjs; do node --check "$file"; done
+          node scripts/network.test.mjs
           node scripts/search/searchIndex.test.cjs
       - name: Audit generated HTML
         run: bundle exec ruby scripts/audit-site.rb
