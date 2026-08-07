@@ -91,7 +91,7 @@ const { join } = require('path');
     expectTopResult('coffee interesting people', 'section:/#beyond-the-work');
     expectTopResult('Global Payments', 'section:/#recommendations');
     expectTopResult('jmwii1981', 'profile:jan-michael-wallace-ii');
-    expectTopResult('all my links', 'page:/links/');
+    expectTopResult('link in bio', 'section:/links/#links');
 
     const web3FormsResults = rankSearchRecords(records, 'Web3Forms').map(({ id }) => id);
     assert(web3FormsResults.includes('section:/terms/#information-used-by-this-site'));

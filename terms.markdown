@@ -3,14 +3,14 @@ layout: page
 title: Terms of Use and Privacy Policy
 permalink: /terms/
 description: "Terms of use and privacy information for janmichael.io, including portfolio attribution, third-party marks, confidentiality, analytics, external services, and contact details."
-date_modified: "2026-08-01T03:50:08-04:00"
+date_modified: "2026-08-07T12:30:00-04:00"
 ---
 <main class="main terms" id="main-content" tabindex="-1">
     <h1 class="h2 massive">Terms of Use and Privacy Policy</h1>
 
     <section id="effective-date" data-search-section data-search-category="Terms & Privacy">
         <h3 class="h3">Effective Date</h3>
-        <p class="p">These Terms of Use and this Privacy Policy are effective as of August 1, 2026.</p>
+        <p class="p">These Terms of Use and this Privacy Policy are effective as of August 7, 2026.</p>
     </section>
 
     <section id="purpose-of-this-site" data-search-section data-search-category="Terms & Privacy">
@@ -23,6 +23,7 @@ date_modified: "2026-08-01T03:50:08-04:00"
         <p class="p">This site uses a small amount of browser-based functionality to make the experience work as intended.</p>
         <p class="p">When you submit the contact form, your first name, last name, email address, subject, message, and related request information are transmitted to Web3Forms. Web3Forms processes the submission and forwards it to my email inbox. The email address you provide is used as the reply-to address for that message.</p>
         <p class="p">If you respond to the consent banner, your analytics choice is stored locally in your browser as <span class="span">janmichaelConsentPreference</span>. This prevents the site from asking for the same choice on every visit.</p>
+        <p class="p">Some links shared outside this site use the branded <span class="span">go.janmichael.io</span> domain. Those links are redirects provided by Short.io and are handled by Short.io before you arrive at janmichael.io or another destination.</p>
         <p class="p">This site also uses JavaScript to adjust the header while scrolling and to load recent article content for the Perspectives page. Those features are used to display the site and its content properly.</p>
     </section>
 
@@ -30,6 +31,7 @@ date_modified: "2026-08-01T03:50:08-04:00"
         <h3 class="h3">Analytics and Third-Party Services</h3>
         <p class="p">This site can load Google Tag Manager and related Google services to understand general site activity and improve the website. Google Tag Manager is only loaded after you accept analytics in the consent banner.</p>
         <p class="p">Web3Forms provides the contact-form processing service and processes submitted information and related technical data according to the <a class="a" href="https://web3forms.com/privacy">Web3Forms Privacy Policy</a>. Web3Forms or its service providers may use infrastructure and spam-prevention systems to deliver and protect that service.</p>
+        <p class="p">Short.io provides branded redirects and click measurement for links using <span class="span">go.janmichael.io</span>. When you follow one of those links, Short.io may process the short link and destination, date and time, redirect status, referrer, IP address or IP-derived location, browser, device, operating system, user-agent information, and related click statistics. Short.io controls that processing under the <a class="a" href="https://short.io/privacy/">Short.io Privacy Policy</a>. Short.io redirect processing occurs before the destination loads and is not controlled by the analytics choice presented on janmichael.io.</p>
         <p class="p">Third-party services may process technical information such as browser details, device information, IP address, referring pages, pages visited, or interaction events according to their own policies. This site does not control those third-party services.</p>
         <p class="p">The Perspectives page may request article feed data through third-party feed or proxy services so recent writing can be displayed.</p>
     </section>
@@ -37,6 +39,7 @@ date_modified: "2026-08-01T03:50:08-04:00"
     <section id="how-information-is-used" data-search-section data-search-category="Terms & Privacy">
         <h3 class="h3">How Information Is Used</h3>
         <p class="p">I use information received through this site only for its intended purpose: operating the website, displaying content, improving the site experience, and responding to messages you choose to send.</p>
+        <p class="p">I may review Short.io click statistics to understand whether a branded link is working and where shared links are being used. I do not use those statistics to identify or contact individual visitors.</p>
         <p class="p">I will not sell your personal information. I will not use inquiry information for unrelated marketing, profiling, or any purpose unrelated to responding to your inquiry or maintaining this website.</p>
         <p class="p">Inquiry information may be retained for as long as reasonably necessary to respond, maintain appropriate correspondence or business records, resolve a request, or satisfy applicable legal obligations. Analytics-choice data remains in your browser until you clear it or replace your choice.</p>
     </section>
@@ -45,6 +48,7 @@ date_modified: "2026-08-01T03:50:08-04:00"
         <h3 class="h3">Your Choices</h3>
         <p class="p">You can choose not to submit the contact form and can email me directly instead. You can also clear this site's local browser storage through your browser settings if you want to remove your saved analytics preference.</p>
         <p class="p">You may use browser settings, privacy tools, or extensions to limit cookies, local storage, JavaScript, analytics, or third-party requests. Blocking Web3Forms or other required services may prevent the contact form from submitting.</p>
+        <p class="p">When a direct janmichael.io address is available, you may use it instead of a <span class="span">go.janmichael.io</span> redirect. The analytics preference saved on janmichael.io does not prevent Short.io from handling a branded redirect that you choose to follow.</p>
         <p class="p">You may ask about, correct, or request deletion of personal information you submitted through this site by emailing <a class="a" href="mailto:hello@janmichael.io">hello@janmichael.io</a>. Requests will be considered in light of the information available, applicable law, and any legitimate need to retain a limited record.</p>
     </section>
 
@@ -86,7 +90,7 @@ date_modified: "2026-08-01T03:50:08-04:00"
 
     <section id="external-links" data-search-section data-search-category="Terms & Privacy">
         <h3 class="h3">External Links</h3>
-        <p class="p">This site links to external websites and services, including social platforms, portfolio platforms, article platforms, and email providers. Those websites are governed by their own terms and privacy practices.</p>
+        <p class="p">This site and its related branded links connect to external websites and services, including social platforms, portfolio platforms, article platforms, email providers, and Short.io redirects. Those websites and services are governed by their own terms and privacy practices.</p>
     </section>
 
     <section id="no-warranty" data-search-section data-search-category="Terms & Privacy">

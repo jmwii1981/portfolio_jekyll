@@ -2,65 +2,51 @@
 layout: page
 title: Links
 permalink: /links/
-description: "Find Jan Michael Wallace II’s portfolio, selected product design work, writing, professional profiles, and contact links in one place."
-date_modified: "2026-08-07T09:00:00-04:00"
+description: "Follow Jan Michael Wallace II for product design leadership, selected work, writing, professional profiles, and ways to connect."
+date_modified: "2026-08-07T12:30:00-04:00"
 ---
 
 <main class="main links-page" id="main-content" tabindex="-1" data-search-keywords="Jan Michael Wallace II links portfolio LinkedIn Toptal Medium GitHub Figma Dribbble contact">
-    <section class="page-hero page-intro-frame links-hero" id="links" aria-labelledby="links-heading" data-search-section data-search-title="Jan Michael Wallace II’s Links" data-search-category="Links" data-search-summary="Portfolio, product design work, writing, professional profiles, and contact links for Jan Michael Wallace II." data-search-keywords="links link in bio portfolio profiles product design leadership">
-        <div class="content-wrapper page-hero-content links-hero-content">
+    <section class="links-profile" id="links" aria-labelledby="links-heading" data-search-section data-search-title="Jan Michael Wallace II’s Links" data-search-category="Links" data-search-summary="Follow Jan Michael Wallace II for product design leadership, selected work, writing, professional profiles, and ways to connect." data-search-keywords="links link in bio portfolio profiles product design leadership contact email phone">
+        <div class="content-wrapper links-profile-content">
             <picture class="links-portrait">
                 <source type="image/avif" srcset="{{ '/images/headshots/bio-pic-96.avif' | relative_url }}?v={{ site.asset_version }}">
                 <source type="image/webp" srcset="{{ '/images/headshots/bio-pic-96.webp' | relative_url }}?v={{ site.asset_version }}">
                 <img src="{{ '/images/headshots/bio-pic-96.png' | relative_url }}?v={{ site.asset_version }}" width="96" height="96" alt="Portrait of Jan Michael Wallace II" decoding="async" fetchpriority="high">
             </picture>
-            <p class="p section-label page-intro-eyebrow">Jan Michael Wallace II</p>
-            <h1 class="h1 page-hero-title links-title" id="links-heading">Everything, one place.</h1>
-            <p class="p page-intro-support page-hero-lead links-lead">Product design leadership, selected work, writing, and the places I share what I’m making.</p>
+            <h1 class="h1 links-name" id="links-heading">Jan Michael Wallace II</h1>
+            <p class="p links-intro">Follow me for more on product design leadership, selected work, writing, and the places I share what I’m making.</p>
+            <ul class="links-contact-list" aria-label="Contact Jan Michael Wallace II">
+                <li class="links-contact-item">
+                    <a class="a links-contact-link" href="mailto:hello@janmichael.io">
+                        <svg class="links-contact-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none"><path d="m21 3-8.5 18-2.2-7.3L3 11.5 21 3Z" /><path d="m10.3 13.7 4.8-4.8" /></svg>
+                        <span>hello@janmichael.io</span>
+                    </a>
+                </li>
+                <li class="links-contact-separator" aria-hidden="true">|</li>
+                <li class="links-contact-item">
+                    <a class="a links-contact-link" href="tel:+15026270291">
+                        <svg class="links-contact-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none"><path d="M8.4 3H5.2A2.2 2.2 0 0 0 3 5.2C3 13.9 10.1 21 18.8 21a2.2 2.2 0 0 0 2.2-2.2v-3.1l-4.2-1-1.1 2.2a13.1 13.1 0 0 1-8.6-8.6l2.2-1.1L8.4 3Z" /></svg>
+                        <span>(502) 627-0291</span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </section>
 
-    <section class="links-directory" id="start-here" aria-labelledby="start-here-heading" data-search-section data-search-title="Start Here" data-search-category="Links" data-search-summary="Explore Jan Michael Wallace II’s portfolio, selected work, perspectives, or get in touch." data-search-keywords="portfolio work case studies writing contact email">
+    <section class="links-directory" aria-label="Links">
         <div class="content-wrapper links-directory-inner">
-            <div class="links-group">
+            <div class="links-group" id="start-here" aria-labelledby="start-here-heading" data-search-section data-search-title="Start Here" data-search-category="Links" data-search-summary="Visit janmichael.io, the portfolio of product design leader Jan Michael Wallace II." data-search-keywords="janmichael.io portfolio homepage product design leadership">
                 <h2 class="h2 section-label links-group-heading" id="start-here-heading">Start here</h2>
                 <ul class="link-tree-list">
                     <li class="link-tree-item">
                         <a class="a link-card link-card--primary" href="{{ '/' | relative_url }}">
-                            <span class="link-card-mark link-card-mark--initials" aria-hidden="true">JM</span>
-                            <span class="link-card-copy">
-                                <span class="link-card-title">Portfolio</span>
-                                <span class="link-card-description">My work, approach, and experience</span>
+                            <span class="link-card-mark link-card-mark--line-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none"><path d="M3 6.5h6l2 2h10v10.5H3V6.5Z" /></svg>
                             </span>
-                            <svg class="link-card-arrow" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M14 7l5 5-5 5" /></svg>
-                        </a>
-                    </li>
-                    <li class="link-tree-item">
-                        <a class="a link-card" href="{{ '/work/' | relative_url }}">
-                            <span class="link-card-mark" aria-hidden="true">01</span>
                             <span class="link-card-copy">
-                                <span class="link-card-title">Selected work</span>
-                                <span class="link-card-description">Product strategy, systems, and shipped experiences</span>
-                            </span>
-                            <svg class="link-card-arrow" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M14 7l5 5-5 5" /></svg>
-                        </a>
-                    </li>
-                    <li class="link-tree-item">
-                        <a class="a link-card" href="{{ '/perspectives/' | relative_url }}">
-                            <span class="link-card-mark" aria-hidden="true">02</span>
-                            <span class="link-card-copy">
-                                <span class="link-card-title">Perspectives</span>
-                                <span class="link-card-description">Notes on design, leadership, and systems</span>
-                            </span>
-                            <svg class="link-card-arrow" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M14 7l5 5-5 5" /></svg>
-                        </a>
-                    </li>
-                    <li class="link-tree-item">
-                        <a class="a link-card" href="{{ '/contact/' | relative_url }}">
-                            <span class="link-card-mark" aria-hidden="true">03</span>
-                            <span class="link-card-copy">
-                                <span class="link-card-title">Contact me</span>
-                                <span class="link-card-description">Start a conversation or send a message</span>
+                                <span class="link-card-title">janmichael.io</span>
+                                <span class="link-card-description">Portfolio home</span>
                             </span>
                             <svg class="link-card-arrow" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M14 7l5 5-5 5" /></svg>
                         </a>
@@ -133,8 +119,6 @@ date_modified: "2026-08-07T09:00:00-04:00"
                     </li>
                 </ul>
             </div>
-
-            <p class="p links-email">Prefer email? Write to <a class="a" href="mailto:hello@janmichael.io">hello@janmichael.io</a>.</p>
         </div>
     </section>
 </main>

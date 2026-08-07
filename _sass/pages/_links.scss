@@ -3,12 +3,14 @@
     justify-content: flex-start;
 }
 
-.links-hero {
-    justify-content: center;
+.links-profile {
+    box-sizing: border-box;
+    padding-bottom: clamp(2.5rem, 6vw, 4rem);
+    padding-top: clamp(5rem, 10vw, 8rem);
     text-align: center;
 }
 
-.links-hero-content {
+.links-profile-content {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -21,7 +23,7 @@
     box-shadow: 0 0.75rem 2rem rgba(4, 4, 5, 0.12);
     display: block;
     height: 6rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     overflow: hidden;
     width: 6rem;
 }
@@ -33,19 +35,75 @@
     width: 100%;
 }
 
-.links-title {
-    max-width: 11ch;
+.links-name {
+    display: block;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.3;
+    margin: 0;
+    text-transform: uppercase;
 }
 
-.links-lead {
-    margin-top: clamp(1.5rem, 4vw, 2.5rem);
-    max-width: 37rem;
+.links-intro {
+    color: var(--color-text-soft);
+    display: block;
+    font-size: clamp(1.125rem, 2.4vw, 1.35rem);
+    font-weight: 500;
+    letter-spacing: -0.012em;
+    line-height: 1.55;
+    margin: clamp(1.25rem, 3vw, 1.75rem) 0 0;
+    max-width: 39rem;
+}
+
+.links-contact-list {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+    justify-content: center;
+    list-style: none;
+    margin: clamp(1.5rem, 4vw, 2.25rem) 0 0;
+    padding: 0;
+}
+
+.links-contact-item,
+.links-contact-separator {
+    margin: 0;
+    padding: 0;
+}
+
+.links-contact-separator {
+    color: var(--color-border-control);
+    font-weight: 300;
+}
+
+.links-contact-link {
+    align-items: center;
+    display: inline-flex;
+    font-size: 0.925rem;
+    gap: 0.45rem;
+    min-height: 2.75rem;
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+}
+
+.links-contact-icon {
+    display: block;
+    flex: 0 0 auto;
+    height: 1.125rem;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.6;
+    width: 1.125rem;
 }
 
 .links-directory {
     box-sizing: border-box;
     padding-bottom: clamp(5rem, 10vw, 8rem);
-    padding-top: clamp(4rem, 8vw, 7rem);
+    padding-top: clamp(2rem, 5vw, 3.5rem);
 }
 
 .links-directory-inner {
@@ -182,6 +240,16 @@
     width: 2.5rem;
 }
 
+.link-card-mark--line-icon svg {
+    display: block;
+    height: 1.35rem;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.6;
+    width: 1.35rem;
+}
+
 .link-card-copy {
     display: flex;
     flex-direction: column;
@@ -218,17 +286,20 @@
     width: 1.5rem;
 }
 
-.links-email {
-    color: var(--color-text-soft);
-    display: block;
-    margin: clamp(2.5rem, 6vw, 4rem) 0 0;
-    text-align: center;
-}
+@media (max-width: 22rem) {
+    .links-contact-list {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 0.125rem;
+    }
 
-.links-email .a {
-    text-decoration: underline;
-    text-decoration-thickness: 0.08em;
-    text-underline-offset: 0.18em;
+    .links-contact-separator {
+        display: none;
+    }
+
+    .links-contact-link {
+        justify-content: center;
+    }
 }
 
 @media (max-width: 30rem) {

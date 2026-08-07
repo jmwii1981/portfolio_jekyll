@@ -136,6 +136,7 @@ After changing searchable content, run the production build sequence above and c
 | GitHub Pages | Static hosting | Publishes the `gh-pages` branch at the custom domain in `CNAME` |
 | Web3Forms | Contact-form delivery | Receives submitted form data; direct email and phone links remain available |
 | Google Tag Manager | Optional analytics | Loads only after the visitor accepts analytics |
+| Short.io | Branded redirects and click measurement for `go.janmichael.io` | Processes a redirect before the destination loads; governed by Short.io’s privacy policy |
 | Medium | Published perspectives | Remains the source of dynamically retrieved article content |
 | RSS2JSON / AllOrigins | Medium-feed retrieval | Used as primary and fallback feed services |
 
