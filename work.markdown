@@ -40,7 +40,7 @@ description: "Selected product design leadership work spanning merchant operatio
             {% for project_entry in site.data.work_projects %}
             {% assign project_slug = project_entry[0] %}
             {% assign project = project_entry[1] %}
-            {% assign project_preview = project.gallery | first %}
+            {% assign project_preview = project.work_cover | default: project.cover %}
             {% assign project_highlight = project.highlights | first %}
             <article class="work-project-summary" id="project-{{ project_slug }}" aria-labelledby="{{ project_slug }}-title" data-search-section data-search-title="{{ project.name }}" data-search-category="Selected Work" data-search-summary="{{ project.introduction }}" data-search-keywords="{{ project.keywords }}">
                 <header class="work-project-summary-copy" data-reveal="up">
@@ -56,7 +56,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 </header>
                 <figure class="work-project-summary-visual" data-reveal="{% cycle 'right', 'left' %}">
                     <a class="a" href="{{ '/work/' | append: project_slug | append: '/' | relative_url }}" aria-label="Explore the {{ project.name }} project">
-                        <img width="1600" height="1200" src="{{ project_preview | relative_url }}" alt="{{ project.organization }} — {{ project_highlight.title }}" loading="lazy" decoding="async">
+                        <img width="1448" height="1086" src="{{ project_preview | relative_url }}" alt="{{ project.organization }} — {{ project_highlight.title }}" loading="lazy" decoding="async">
                     </a>
                 </figure>
             </article>
