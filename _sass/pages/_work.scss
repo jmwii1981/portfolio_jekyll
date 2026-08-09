@@ -1000,7 +1000,12 @@
 }
 
 @media screen and (min-width: 48.0625rem) {
+    .project-story-header--right {
+        margin-left: auto;
+    }
+}
 
+@media screen and (min-width: 53.5625rem) {
     .work-project-index-scroll-button--previous {
         left: -2.75rem;
     }
@@ -1008,11 +1013,6 @@
     .work-project-index-scroll-button--next {
         right: -2.75rem;
     }
-
-    .project-story-header--right {
-        margin-left: auto;
-    }
-
 }
 
 @media screen and (min-width: 56.0625rem) {
