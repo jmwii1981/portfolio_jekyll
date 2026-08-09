@@ -90,6 +90,11 @@
 
 .work-intro-title {
     animation: work-copy-reveal 0.9s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+    background: linear-gradient(135deg, #EEF0FF 0%, #FFFFFF 100%);
+    background-clip: text;
+    color: #EEF0FF;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .work-intro-statement {
