@@ -56,7 +56,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 </header>
                 <figure class="work-project-summary-visual" data-reveal="{% cycle 'right', 'left' %}">
                     <a class="a" href="{{ '/work/' | append: project_slug | append: '/' | relative_url }}" aria-label="Explore the {{ project.name }} project">
-                        <img width="1448" height="1086" src="{{ project_preview | relative_url }}" alt="{{ project.organization }} — {{ project_highlight.title }}" loading="lazy" decoding="async">
+                        <img width="1448" height="1086" src="{{ project_preview | relative_url }}?v={{ site.asset_version }}" alt="{{ project.organization }} — {{ project_highlight.title }}" loading="lazy" decoding="async">
                     </a>
                 </figure>
             </article>
