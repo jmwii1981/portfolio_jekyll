@@ -7,7 +7,7 @@
         inset 0 0.0625rem rgba(255, 255, 255, 0.58),
         inset 0 -0.0625rem rgba(4, 4, 5, 0.055),
         0 0.75rem 2rem rgba(4, 4, 5, 0.065);
-    --header-control-padding: clamp(0rem, calc(4rem - 13.333vw), 1rem);
+    --header-control-padding: var(--site-frame-gutter);
     --header-content-gutter: clamp(0rem, calc(var(--site-outer-gutter) - 50vw + 50.75rem), var(--site-outer-gutter));
 
     background: transparent;
