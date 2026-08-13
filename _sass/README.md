@@ -20,3 +20,8 @@ When adding styles, start with the narrowest durable home:
 
 Write responsive styles mobile-first: place the smallest-screen behavior in the
 base rule, then add enhancements with `min-width` media or container queries.
+
+Use component-scoped custom properties for values that coordinate a reusable
+component’s states or geometry. Page variants should override those properties
+instead of repeating the component’s interaction rules. Reserve global tokens
+for values intentionally shared by unrelated components.

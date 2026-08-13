@@ -53,8 +53,8 @@
     --color-carousel-dot-active: #222E85;
     --color-carousel-dot-hover: #868CB8;
     --color-error: #B42318;
-    --color-focus-ring: #C28600;
-    --color-selection: rgba(194, 134, 0, 0.18);
+    --color-focus-ring: var(--color-ink);
+    --color-selection: rgba(255, 210, 0, 0.38);
     --color-control-dark-hover: #18191B;
     --color-control-light-hover: #DFE1E4;
 

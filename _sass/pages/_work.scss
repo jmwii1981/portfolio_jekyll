@@ -1,28 +1,27 @@
 .body--work {
-    --work-glass-background: rgba(22, 24, 28, 0.56);
+    --work-glass-background: rgba(12, 13, 16, 0.28);
     --work-glass-border: rgba(255, 255, 255, 0.13);
-    --work-glass-highlight: rgba(255, 255, 255, 0.1);
-    --work-glass-highlight-strong: rgba(255, 255, 255, 0.18);
-    --work-glass-shadow: inset 0 0.0625rem rgba(255, 255, 255, 0.08), 0 0.75rem 2.75rem rgba(0, 0, 0, 0.18);
+    --work-project-index-glass-filter: blur(1.5rem) saturate(150%) brightness(1.04);
 
     background-color: var(--color-ink);
 }
 
 .body--work .header {
+    --header-glass-background:
+        linear-gradient(180deg, rgba(30, 32, 38, 0.25), rgba(7, 8, 10, 0.18));
+    --header-glass-border: rgba(255, 255, 255, 0.1);
+    --header-glass-filter: blur(1.5rem) saturate(150%) brightness(1.02);
+    --header-glass-shadow:
+        inset 0 0.0625rem rgba(255, 255, 255, 0.11),
+        inset 0 -0.0625rem rgba(255, 255, 255, 0.035),
+        0 0.75rem 2rem rgba(0, 0, 0, 0.16);
+
     --color-link: var(--color-paper);
     --color-text: var(--color-paper);
     border-left: 0;
     border-right: 0;
 
     &::before {
-        border-left: 0;
-        border-right: 0;
-    }
-
-    &.is-scrolled,
-    &.is-scrolled::before {
-        background: rgba(4, 4, 5, 0.28);
-        border-color: rgba(255, 255, 255, 0.08);
         border-left: 0;
         border-right: 0;
     }
@@ -64,6 +63,7 @@
     gap: 0;
     justify-content: flex-start;
     padding: 0;
+    z-index: auto;
 }
 
 .work-intro {
@@ -90,9 +90,9 @@
 
 .work-intro-title {
     animation: work-copy-reveal 0.9s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
-    background: linear-gradient(135deg, #EEF0FF 0%, #FFFFFF 100%);
+    background: linear-gradient(135deg, #D2D8FF 0%, #FFFFFF 100%);
     background-clip: text;
-    color: #EEF0FF;
+    color: #D2D8FF;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -167,13 +167,13 @@
     backdrop-filter: blur(0) saturate(100%);
     margin-bottom: 0;
     position: sticky;
-    top: calc(var(--site-top-gutter) - 0.125rem);
+    top: calc(var(--site-top-gutter) - 0.1875rem);
     transition:
         background-color 0.35s ease,
         backdrop-filter 0.35s ease,
         box-shadow 0.35s ease;
     -webkit-backdrop-filter: blur(0) saturate(100%);
-    z-index: 1;
+    z-index: 2;
 }
 
 .work-project-index::before,
@@ -200,16 +200,36 @@
 
 .work-project-index.is-stuck {
     background: var(--work-glass-background);
-    backdrop-filter: blur(1.5rem) saturate(190%) brightness(1.12);
+    backdrop-filter: var(--work-project-index-glass-filter);
     box-shadow:
-        inset 0 0 2.75rem rgba(255, 255, 255, 0.045),
-        0 0.75rem 2.75rem rgba(0, 0, 0, 0.18);
-    -webkit-backdrop-filter: blur(1.5rem) saturate(190%) brightness(1.12);
+        inset 0 0.0625rem rgba(255, 255, 255, 0.1),
+        inset 0 -0.0625rem rgba(255, 255, 255, 0.045),
+        0 0.75rem 2.75rem rgba(0, 0, 0, 0.14);
+    -webkit-backdrop-filter: var(--work-project-index-glass-filter);
 }
 
-.work-project-index.is-stuck::before,
+.work-project-index.is-stuck::before {
+    background: rgba(255, 255, 255, 0.11);
+}
+
 .work-project-index.is-stuck::after {
-    transform: scaleX(0);
+    background: rgba(255, 255, 255, 0.055);
+}
+
+@media screen and (min-width: 26rem) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .work-project-index.is-stuck.is-liquid-glass-loading .site-liquid-glass-lens--work,
+    .work-project-index.is-stuck.has-liquid-glass .site-liquid-glass-lens--work {
+        display: block;
+    }
+
+    .work-project-index.is-stuck.has-liquid-glass {
+        box-shadow: none;
+    }
+
+    .work-project-index.is-stuck.has-liquid-glass::before,
+    .work-project-index.is-stuck.has-liquid-glass::after {
+        background: transparent;
+    }
 }
 
 .work-project-index-list {
@@ -226,6 +246,7 @@
     position: relative;
     scroll-snap-type: x proximity;
     scrollbar-width: none;
+    z-index: 2;
 }
 
 .work-project-index-list::before {
@@ -430,22 +451,12 @@
     overflow: hidden;
 }
 
-.work-project-summary-visual .a {
-    display: block;
-    position: relative;
-}
-
 .work-project-summary-visual img {
     aspect-ratio: 4 / 3;
     display: block;
     height: auto;
     object-fit: cover;
     width: 100%;
-}
-
-.work-project-summary-visual .a:focus-visible {
-    outline: 0.125rem solid var(--color-focus-ring);
-    outline-offset: 0.25rem;
 }
 
 .project-story {
@@ -918,22 +929,39 @@
 
 .main.work .button.primary {
     --button-background: var(--color-paper);
-    --button-background-active: var(--color-control-light-hover);
-    --button-background-hover: var(--color-paper);
-    --button-border: var(--color-paper);
-    --button-border-hover: var(--color-paper);
-    --button-hover-text: var(--color-ink);
-    --button-hover-shadow: var(--shadow-control-edge-on-dark);
+    --button-background-active: rgba(4, 4, 5, 0.78);
+    --button-background-hover: rgba(4, 4, 5, 0.68);
+    --button-border: rgba(255, 255, 255, 0.42);
+    --button-border-hover: rgba(255, 255, 255, 0.42);
+    --button-hover-text: var(--color-paper);
+    --button-hover-filter:
+        drop-shadow(
+            var(--button-hover-projection-x)
+            var(--button-hover-projection-y)
+            var(--button-hover-projection-blur)
+            rgba(255, 255, 255, 0.2)
+        );
+    --button-hover-label-shadow:
+        var(--button-hover-projection-x)
+        var(--button-hover-projection-y)
+        var(--button-hover-projection-blur)
+        rgba(255, 255, 255, 0.14);
     --button-text: var(--color-ink);
 }
 
 .main.work .button.secondary {
     --button-background: transparent;
-    --button-background-active: rgba(255, 255, 255, 0.16);
-    --button-background-hover: rgba(255, 255, 255, 0.1);
+    --button-background-active: rgba(4, 4, 5, 0.22);
+    --button-background-hover: rgba(4, 4, 5, 0.14);
     --button-border: rgba(255, 255, 255, 0.42);
-    --button-border-hover: var(--color-paper);
-    --button-hover-shadow: var(--shadow-control-edge-on-dark);
+    --button-border-hover: rgba(255, 255, 255, 0.42);
+    --button-hover-filter:
+        drop-shadow(
+            var(--button-hover-projection-x)
+            var(--button-hover-projection-y)
+            var(--button-hover-projection-blur)
+            rgba(255, 255, 255, 0.22)
+        );
     --button-hover-text: var(--color-paper);
     --button-text: var(--color-paper);
 }

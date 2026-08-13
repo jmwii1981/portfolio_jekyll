@@ -133,12 +133,16 @@ network_script = source_root.join("scripts", "network.mjs").read
 search_script = source_root.join("scripts", "search", "initializeSiteSearch.mjs").read
 perspectives_fetch_script = source_root.join("scripts", "perspectives", "fetchPost.mjs").read
 quality_workflow = source_root.join(".github", "workflows", "quality.yml").read
+liquid_gl_license = source_root.join("scripts", "third-party", "liquidGL.LICENSE.txt")
+deployed_liquid_gl_license = site_root.join("scripts", "third-party", "liquidGL.LICENSE.txt")
 nav_styles = source_root.join("_sass", "includes", "_nav.scss").read
 search_styles = source_root.join("_sass", "components", "_site-search.scss").read
 logo_styles = source_root.join("_sass", "components", "_logo.scss").read
 
 failures << "page layout: no-js state must not be removed by an inline head script" if layout_source.match?(/classList\.replace\([^\n]*no-js/i)
+failures << "page layout: browser entry module is missing its stable discovery marker" unless layout_source.match?(/<script\b[^>]*\bdata-site-entry\b/i)
 failures << "initializeScripts.js: module must confirm JavaScript execution before enhancing" unless main_script.match?(/classList\.replace\((['"])no-js\1,\s*(['"])js\2\)/)
+failures << "initializeScripts.js: asset version is not derived from the marked browser entry module" unless main_script.include?("document.querySelector('[data-site-entry]')")
 failures << "initializeScripts.js: mobile navigation is missing its successful-initialization gate" unless main_script.include?("classList.add('navigation-ready')")
 failures << "initializeScripts.js: project gallery controls are missing their per-instance readiness gate" unless main_script.include?("classList.add('is-gallery-ready')")
 failures << "initializeScripts.js: one failed enhancement can prevent unrelated initialization" unless main_script.include?("const safelyInitialize =")
@@ -149,6 +153,10 @@ failures << "contact form: submission does not use the bounded JSON request help
 failures << "search: index request does not retry after transient failure" unless search_script.include?("createRetryableRequest(async")
 failures << "Perspectives: feed requests do not use the bounded JSON request helper" unless perspectives_fetch_script.scan(/fetchJsonWithTimeout\(/).length >= 2
 failures << "quality workflow: network regression tests are missing" unless quality_workflow.include?("node scripts/network.test.mjs")
+failures << "quality workflow: Liquid Glass module syntax check is missing" unless quality_workflow.include?('for file in scripts/glass/*.mjs; do node --check "$file"; done')
+failures << "quality workflow: vendored Liquid Glass syntax check is missing" unless quality_workflow.include?("node --input-type=module --check < scripts/third-party/liquidGL.js")
+failures << "vendored Liquid Glass license is missing" unless liquid_gl_license.file? && liquid_gl_license.read.start_with?("MIT License")
+failures << "generated site: vendored Liquid Glass license is missing" unless deployed_liquid_gl_license.file? && deployed_liquid_gl_license.read.start_with?("MIT License")
 failures << "logo: CSS path animation must be feature-gated behind @supports" unless logo_styles.match?(/@supports\s*\(d:\s*path\(/)
 failures << "navigation: optional indicator initializer is missing" unless main_script.include?("const initializeNavIndicator =")
 failures << "navigation: enhanced indicator is not readiness-gated" unless main_script.include?("classList.add('is-indicator-ready')")

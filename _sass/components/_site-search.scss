@@ -1,12 +1,14 @@
 .site-search {
+    --search-backdrop-filter: blur(1.5rem) saturate(105%);
     --search-border: rgba(4, 4, 5, 0.14);
-    --search-border-strong: rgba(4, 4, 5, 0.24);
+    --search-dropdown-filter: blur(1.5rem) saturate(135%);
     --search-field-foreground: #202124;
+    --search-field-filter: blur(1.5rem) saturate(145%);
     --search-field-muted: #5c6067;
     --search-foreground: var(--color-ink);
-    --search-muted: var(--color-text-muted);
-    --search-surface: rgba(247, 248, 250, 0.7);
-    --search-surface-hover: rgba(255, 255, 255, 0.54);
+    --search-surface-edge-filter:
+        blur(2.75rem) saturate(185%) brightness(1.12);
+    --search-surface-filter: blur(1.5rem) saturate(145%) brightness(1.08);
 
     align-items: center;
     display: none;
@@ -118,27 +120,30 @@
 }
 
 .site-search-panel::backdrop {
-    -webkit-backdrop-filter: blur(0.55rem) saturate(85%);
+    -webkit-backdrop-filter: var(--search-backdrop-filter);
     animation: site-search-backdrop-enter 0.32s ease-out both;
-    backdrop-filter: blur(0.55rem) saturate(85%);
-    background: rgba(4, 4, 5, 0.52);
+    backdrop-filter: var(--search-backdrop-filter);
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .site-search-surface {
-    -webkit-backdrop-filter: blur(2.25rem) saturate(125%) brightness(1.08);
-    backdrop-filter: blur(2.25rem) saturate(125%) brightness(1.08);
+    -webkit-backdrop-filter: var(--search-surface-filter);
+    backdrop-filter: var(--search-surface-filter);
     background: linear-gradient(
         180deg,
-        rgba(255, 255, 255, 0.78) 0%,
-        rgba(255, 255, 255, 0.58) 100%
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(245, 247, 251, 0.16) 100%
     );
-    border: 0.0625rem solid rgba(255, 255, 255, 0.84);
+    border: 0.0625rem solid rgba(255, 255, 255, 0.5);
     border-radius: 100px;
     box-shadow:
-        inset 0 0.1rem rgba(255, 255, 255, 0.96),
-        inset 0 -0.0625rem rgba(4, 4, 5, 0.09),
-        0 0 0 0.0625rem rgba(4, 4, 5, 0.16),
-        0 1rem 3.25rem rgba(4, 4, 5, 0.2);
+        inset 0 0.125rem 0.125rem rgba(255, 255, 255, 0.82),
+        inset 0 -0.1rem 0.14rem rgba(4, 4, 5, 0.12),
+        inset 0.1rem 0 0.18rem rgba(255, 255, 255, 0.38),
+        inset -0.1rem 0 0.18rem rgba(4, 4, 5, 0.08),
+        0 0 0 0.0625rem rgba(4, 4, 5, 0.14),
+        0 1.25rem 3.75rem rgba(4, 4, 5, 0.22);
+    isolation: isolate;
     overflow: hidden;
     position: relative;
     transition:
@@ -147,11 +152,53 @@
         box-shadow 0.34s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.site-search-surface::before {
+    -webkit-backdrop-filter: var(--search-surface-edge-filter);
+    backdrop-filter: var(--search-surface-edge-filter);
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.92) 0%,
+        rgba(255, 255, 255, 0.28) 30%,
+        rgba(255, 255, 255, 0.08) 54%,
+        rgba(255, 255, 255, 0.62) 76%,
+        rgba(4, 4, 5, 0.16) 100%
+    );
+    border-radius: inherit;
+    content: "";
+    inset: 0;
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    padding: 0.16rem;
+    pointer-events: none;
+    position: absolute;
+    z-index: 3;
+}
+
+.site-search-surface::after {
+    border-radius: inherit;
+    box-shadow:
+        inset 0 0.0625rem rgba(255, 255, 255, 0.94),
+        inset 0 -0.0625rem rgba(4, 4, 5, 0.16),
+        inset 0.0625rem 0 rgba(255, 255, 255, 0.45),
+        inset -0.0625rem 0 rgba(4, 4, 5, 0.08);
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 4;
+}
+
 .site-search-surface:has(.site-search-dropdown:not([hidden])) {
     border-radius: 2.15rem;
     box-shadow:
-        inset 0 0.1rem rgba(255, 255, 255, 0.96),
-        inset 0 -0.0625rem rgba(4, 4, 5, 0.08),
+        inset 0 0.125rem 0.125rem rgba(255, 255, 255, 0.82),
+        inset 0 -0.1rem 0.14rem rgba(4, 4, 5, 0.1),
         0 0 0 0.0625rem rgba(4, 4, 5, 0.14),
         0 1.4rem 4rem rgba(4, 4, 5, 0.24);
 }
@@ -164,13 +211,16 @@
 
 .site-search-field {
     align-items: center;
-    background: #fff;
+    -webkit-backdrop-filter: var(--search-field-filter);
+    backdrop-filter: var(--search-field-filter);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.12));
     cursor: text;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     min-height: 4.25rem;
     padding: 0.25rem 0.5rem;
     position: relative;
+    z-index: 1;
 }
 
 .site-search-field-icon {
@@ -258,7 +308,9 @@
 
 .site-search-dropdown {
     animation: site-search-dropdown-enter 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
-    background: rgba(255, 255, 255, 0.08);
+    -webkit-backdrop-filter: var(--search-dropdown-filter);
+    backdrop-filter: var(--search-dropdown-filter);
+    background: rgba(255, 255, 255, 0.1);
     border-top: 0.0625rem solid rgba(4, 4, 5, 0.12);
     color: var(--search-field-foreground);
     margin: 0;
@@ -269,6 +321,7 @@
     padding: 0.5rem 0.75rem 0.85rem;
     position: relative;
     width: 100%;
+    z-index: 1;
 }
 
 .site-search-status {
@@ -362,13 +415,10 @@
 }
 
 .site-search-option mark {
-    background: transparent;
+    background: var(--color-selection);
     color: inherit;
     font-weight: 750;
-    text-decoration: underline;
-    text-decoration-color: rgba(0, 124, 156, 0.48);
-    text-decoration-thickness: 0.1em;
-    text-underline-offset: 0.14em;
+    text-decoration: none;
 }
 
 .site-search-empty {
@@ -438,6 +488,25 @@
         // Match the optical 2rem gap created by adjacent navigation item padding.
         margin-right: 1.25rem;
         transform: translateY(-0.25rem);
+    }
+
+    .site-search-panel {
+        width: min(42rem, calc(100vw - 3rem));
+    }
+
+    .site-search-field {
+        min-height: 3.75rem;
+    }
+
+    .site-search-field-icon {
+        height: 1.6rem;
+        width: 1.6rem;
+    }
+
+    .site-search-input {
+        font-size: 1.25rem;
+        height: 3rem;
+        padding-block: 0.45rem;
     }
 }
 

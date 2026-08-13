@@ -4,8 +4,11 @@
  */
 
 (async () => {
+    const entryScriptUrl = document.querySelector('[data-site-entry]')?.src;
+    const moduleVersion = entryScriptUrl ? new URL(entryScriptUrl).search : '';
+
     const fetchJsonWithTimeout = async (...arguments_) => {
-        const { fetchJsonWithTimeout: requestJson } = await import('./network.mjs');
+        const { fetchJsonWithTimeout: requestJson } = await import(`./network.mjs${moduleVersion}`);
         return requestJson(...arguments_);
     };
 
@@ -257,29 +260,6 @@
                 setStoredPreference(rejectedValue);
                 hideBanner();
             });
-        };
-
-        const initializeScrollHeader = () => {
-            const header = document.querySelector('.header');
-
-            if (!header) return;
-
-            let isTicking = false;
-
-            const updateHeaderState = () => {
-                header.classList.toggle('is-scrolled', window.scrollY > 0);
-                isTicking = false;
-            };
-
-            const requestHeaderUpdate = () => {
-                if (isTicking) return;
-
-                window.requestAnimationFrame(updateHeaderState);
-                isTicking = true;
-            };
-
-            updateHeaderState();
-            window.addEventListener('scroll', requestHeaderUpdate, { passive: true });
         };
 
         const initializeWorkProjectIndex = () => {
@@ -1076,7 +1056,6 @@
 
         safelyInitialize('contact form enhancement', initializeContactForm);
         safelyInitialize('privacy preferences', initializeConsentBanner);
-        safelyInitialize('scrolling header', initializeScrollHeader);
         safelyInitialize('work project index', initializeWorkProjectIndex);
         safelyInitialize('mobile navigation', initializeMobileNavigation);
         safelyInitialize('desktop navigation indicator', initializeNavIndicator);
@@ -1084,9 +1063,18 @@
         safelyInitialize('company logo carousel', initializeCompanyLogoCarousel);
         safelyInitialize('recommendation carousel', initializeRecommendationCarousel);
 
+        if (document.querySelector('[data-header-liquid-glass-lens], [data-work-liquid-glass-lens]')) {
+            try {
+                const { initializeLiquidGlassNavigation } = await import(`./glass/initializeLiquidGlassNavigation.mjs${moduleVersion}`);
+                initializeLiquidGlassNavigation();
+            } catch (error) {
+                console.warn('Unable to initialize liquid glass navigation; using the CSS fallback:', error);
+            }
+        }
+
         if (document.querySelector('[data-site-search]')) {
             try {
-                const { initializeSiteSearch } = await import('./search/initializeSiteSearch.mjs');
+                const { initializeSiteSearch } = await import(`./search/initializeSiteSearch.mjs${moduleVersion}`);
                 initializeSiteSearch();
             } catch (error) {
                 console.error('Unable to initialize site search:', error);
@@ -1095,7 +1083,7 @@
 
         if (window.location.pathname.endsWith('/perspectives/') && document.querySelector('[data-medium-runtime-feed]')) {
             try {
-                const { renderPost } = await import('./perspectives/renderPost.mjs');
+                const { renderPost } = await import(`./perspectives/renderPost.mjs${moduleVersion}`);
                 const feedUrl = 'https://medium.com/feed/@jmwii1981';
                 await renderPost(feedUrl);
             } catch (error) {

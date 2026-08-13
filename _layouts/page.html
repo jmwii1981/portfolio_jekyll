@@ -349,7 +349,7 @@
     <link rel="stylesheet" href="{{ '/master.css' | relative_url }}?v={{ site.asset_version }}">
     
     <!-- SCRIPTS -->
-    <script type="module" src="{{ '/scripts/initializeScripts.js' | relative_url }}?v={{ site.asset_version }}"></script>
+    <script type="module" src="{{ '/scripts/initializeScripts.js' | relative_url }}?v={{ site.asset_version }}" data-site-entry></script>
 
 </head>
 <body class="body{% if page.url == '/work/' or page.layout == 'project' %} body--work{% endif %}">
