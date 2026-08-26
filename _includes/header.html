@@ -3,13 +3,7 @@
     <span class="site-liquid-glass-lens site-liquid-glass-lens--header" data-header-liquid-glass-lens aria-hidden="true"></span>
     <div class="site-identity">
     <a class="a img logo-container large{% if page.url == '/' %} logo-container--home{% else %} logo-container--subpage{% endif %}" href="{{ '/' | relative_url }}" aria-label="Jan Michael Wallace II, home">
-        <svg class="logo large" aria-hidden="true" focusable="false" width="158" height="159" viewBox="0 0 158 159" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Interior columns -->
-            <path class="anim-col-1" d="M33 92L33 125" stroke="var(--color-ink)" stroke-width="20.57" stroke-linecap="round" />
-            <path class="anim-col-2" d="M64 33L64 125" stroke="var(--color-ink)" stroke-width="20.57" stroke-linecap="round" />
-            <path class="anim-col-3" d="M95 33L95 125" stroke="var(--color-ink)" stroke-width="20.57" stroke-linecap="round" />
-            <path class="anim-col-4" d="M126 33L126 125" stroke="var(--color-ink)" stroke-width="20.57" stroke-linecap="round" />
-        </svg> 
+        {% include site-logo.svg class="logo large" %}
     </a>
     </div>
     {% include nav.html %}
