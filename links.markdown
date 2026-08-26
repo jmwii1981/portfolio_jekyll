@@ -7,7 +7,7 @@ date_modified: "2026-08-26T14:49:46-04:00"
 ---
 
 <main class="main links-page" id="main-content" tabindex="-1" data-search-keywords="Jan Michael Wallace II links portfolio LinkedIn Medium GitHub Figma Dribbble contact">
-    <section class="links-profile" id="links" aria-labelledby="links-heading" data-search-section data-search-title="Jan Michael Wallace II’s Links" data-search-category="Links" data-search-summary="Explore my selected work at janmichael.io, follow along for thoughts on product design and leadership, and see what I’m making next." data-search-keywords="links link in bio portfolio profiles product design leadership contact email phone">
+    <section class="links-profile" id="links" aria-labelledby="links-heading" data-search-section data-search-title="Jan Michael Wallace II’s Links" data-search-category="Links" data-search-summary="Explore my selected work at janmichael.io, follow along for thoughts on product design and leadership, and check out what I’m making next." data-search-keywords="links link in bio portfolio profiles product design leadership contact email phone">
         <div class="content-wrapper links-profile-content">
             <picture class="links-portrait">
                 <source type="image/avif" srcset="{{ '/images/headshots/bio-pic-256.avif' | relative_url }}?v={{ site.asset_version }}">
@@ -15,7 +15,7 @@ date_modified: "2026-08-26T14:49:46-04:00"
                 <img src="{{ '/images/headshots/bio-pic-256.png' | relative_url }}?v={{ site.asset_version }}" width="256" height="256" alt="Portrait of Jan Michael Wallace II" decoding="async" fetchpriority="high">
             </picture>
             <h1 class="h1 links-name" id="links-heading">Jan Michael Wallace II</h1>
-            <p class="p links-intro">Explore my selected work at janmichael.io, follow along for thoughts on product design and leadership, and see what I’m making next.</p>
+            <p class="p links-intro">Explore my selected work at janmichael.io, follow along for thoughts on product design and leadership, and check out what I’m making&nbsp;next.</p>
             <div class="links-contact-list" role="group" aria-label="Contact Jan Michael Wallace II">
                 <a class="a links-contact-item links-contact-link" href="mailto:hello@janmichael.io">hello@janmichael.io</a>
                 <a class="a links-contact-item links-contact-link" href="tel:+14155069867">+1.415.506.9867</a>
