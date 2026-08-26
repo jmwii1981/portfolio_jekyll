@@ -3,7 +3,7 @@ layout: page
 title: Links
 permalink: /links/
 description: "Follow Jan Michael Wallace II for product design leadership, selected work, writing, professional profiles, and ways to connect."
-date_modified: "2026-08-07T12:30:00-04:00"
+date_modified: "2026-08-26T10:01:52-04:00"
 ---
 
 <main class="main links-page" id="main-content" tabindex="-1" data-search-keywords="Jan Michael Wallace II links portfolio LinkedIn Medium GitHub Figma Dribbble contact">
@@ -25,9 +25,9 @@ date_modified: "2026-08-07T12:30:00-04:00"
                 </li>
                 <li class="links-contact-separator" aria-hidden="true">|</li>
                 <li class="links-contact-item">
-                    <a class="a links-contact-link" href="tel:+15026270291">
+                    <a class="a links-contact-link" href="tel:+14155069867">
                         <svg class="links-contact-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none"><path d="M8.4 3H5.2A2.2 2.2 0 0 0 3 5.2C3 13.9 10.1 21 18.8 21a2.2 2.2 0 0 0 2.2-2.2v-3.1l-4.2-1-1.1 2.2a13.1 13.1 0 0 1-8.6-8.6l2.2-1.1L8.4 3Z" /></svg>
-                        <span>(502) 627-0291</span>
+                        <span>415.506.9867</span>
                     </a>
                 </li>
             </ul>
