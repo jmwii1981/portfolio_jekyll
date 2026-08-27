@@ -919,43 +919,28 @@
     }
 }
 
+.main.work .button {
+    --button-hover-shadow: var(--shadow-control-edge-on-dark);
+}
+
 .main.work .button.primary {
     --button-background: var(--color-paper);
-    --button-background-active: rgba(4, 4, 5, 0.78);
-    --button-background-hover: rgba(4, 4, 5, 0.68);
-    --button-border: rgba(255, 255, 255, 0.42);
-    --button-border-hover: rgba(255, 255, 255, 0.42);
-    --button-hover-text: var(--color-paper);
-    --button-hover-filter:
-        drop-shadow(
-            var(--button-hover-projection-x)
-            var(--button-hover-projection-y)
-            var(--button-hover-projection-blur)
-            rgba(255, 255, 255, 0.2)
-        );
-    --button-hover-label-shadow:
-        var(--button-hover-projection-x)
-        var(--button-hover-projection-y)
-        var(--button-hover-projection-blur)
-        rgba(255, 255, 255, 0.14);
+    --button-background-active: var(--color-control-light-hover);
+    --button-background-hover: var(--color-control-light-hover);
+    --button-border: var(--color-paper);
+    --button-border-hover: var(--color-paper);
     --button-text: var(--color-ink);
+    --button-text-hover: var(--color-ink);
 }
 
 .main.work .button.secondary {
-    --button-background: transparent;
-    --button-background-active: rgba(4, 4, 5, 0.22);
-    --button-background-hover: rgba(4, 4, 5, 0.14);
+    --button-background: var(--color-ink);
+    --button-background-active: var(--color-control-dark-hover);
+    --button-background-hover: var(--color-control-dark-hover);
     --button-border: rgba(255, 255, 255, 0.42);
-    --button-border-hover: rgba(255, 255, 255, 0.42);
-    --button-hover-filter:
-        drop-shadow(
-            var(--button-hover-projection-x)
-            var(--button-hover-projection-y)
-            var(--button-hover-projection-blur)
-            rgba(255, 255, 255, 0.22)
-        );
-    --button-hover-text: var(--color-paper);
+    --button-border-hover: var(--color-paper);
     --button-text: var(--color-paper);
+    --button-text-hover: var(--color-paper);
 }
 
 .project-gallery-copy-item.is-entering {
@@ -983,6 +968,21 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media screen and (max-width: 42rem) {
+    .work-project-index {
+        --work-project-index-mobile-bleed:
+            calc(var(--site-frame-gutter) + var(--site-outer-gutter));
+
+        margin-left: calc(0rem - var(--work-project-index-mobile-bleed));
+        margin-right: calc(0rem - var(--work-project-index-mobile-bleed));
+        width: calc(
+            100%
+            + var(--work-project-index-mobile-bleed)
+            + var(--work-project-index-mobile-bleed)
+        );
     }
 }
 
