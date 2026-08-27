@@ -10,9 +10,9 @@ date_modified: "2026-08-26T14:49:46-04:00"
     <section class="links-profile" id="links" aria-labelledby="links-heading" data-search-section data-search-title="Jan Michael Wallace II’s Links" data-search-category="Links" data-search-summary="Explore my selected work at janmichael.io, follow along for thoughts on product design and leadership, and check out what I’m making next." data-search-keywords="links link in bio portfolio profiles product design leadership contact email phone">
         <div class="content-wrapper links-profile-content">
             <picture class="links-portrait">
-                <source type="image/avif" srcset="{{ '/images/headshots/bio-pic-256.avif' | relative_url }}?v={{ site.asset_version }}">
-                <source type="image/webp" srcset="{{ '/images/headshots/bio-pic-256.webp' | relative_url }}?v={{ site.asset_version }}">
-                <img src="{{ '/images/headshots/bio-pic-256.png' | relative_url }}?v={{ site.asset_version }}" width="256" height="256" alt="Portrait of Jan Michael Wallace II" decoding="async" fetchpriority="high">
+                <source type="image/avif" srcset="{{ '/images/headshots/bio-pic-512.avif' | relative_url }}?v={{ site.asset_version }}">
+                <source type="image/webp" srcset="{{ '/images/headshots/bio-pic-512.webp' | relative_url }}?v={{ site.asset_version }}">
+                <img src="{{ '/images/headshots/bio-pic-512.png' | relative_url }}?v={{ site.asset_version }}" width="512" height="512" alt="Portrait of Jan Michael Wallace II" decoding="async" fetchpriority="high">
             </picture>
             <h1 class="h1 links-name" id="links-heading">Jan Michael Wallace II</h1>
             <p class="p links-intro">Explore my selected work at janmichael.io, follow along for thoughts on product design and leadership, and check out what I’m making&nbsp;next.</p>
