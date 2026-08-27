@@ -94,6 +94,7 @@
 .links-contact-link::before {
     content: "";
     inset: calc(var(--links-contact-pill-touch-buffer-block) * -1) 0;
+    pointer-events: none;
     position: absolute;
 }
 
@@ -255,7 +256,7 @@
 .link-card-title {
     font-size: 1rem;
     font-weight: 600;
-    letter-spacing: -0.015em;
+    letter-spacing: var(--type-card-letter-spacing);
     line-height: 1.25;
 }
 

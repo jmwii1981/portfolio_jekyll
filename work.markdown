@@ -25,7 +25,6 @@ description: "Selected product design leadership work spanning merchant operatio
         </header>
 
         <nav class="work-project-index" aria-label="Jump to a selected project" data-reveal="up" data-liquid-ignore>
-            <span class="site-liquid-glass-lens site-liquid-glass-lens--work" data-work-liquid-glass-lens aria-hidden="true"></span>
             <button class="work-project-index-scroll-button work-project-index-scroll-button--previous" type="button" data-project-index-previous aria-controls="work-project-index-list" aria-label="Show previous projects" hidden><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M16 10H4M9 5l-5 5 5 5" /></svg></button>
             <ul class="work-project-index-list" id="work-project-index-list">
                 {% for project_entry in site.data.work_projects %}

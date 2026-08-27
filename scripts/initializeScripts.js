@@ -1063,7 +1063,7 @@
         safelyInitialize('company logo carousel', initializeCompanyLogoCarousel);
         safelyInitialize('recommendation carousel', initializeRecommendationCarousel);
 
-        if (document.querySelector('[data-header-liquid-glass-lens], [data-work-liquid-glass-lens]')) {
+        if (document.querySelector('[data-header-liquid-glass-lens]')) {
             try {
                 const { initializeLiquidGlassNavigation } = await import(`./glass/initializeLiquidGlassNavigation.mjs${moduleVersion}`);
                 initializeLiquidGlassNavigation();

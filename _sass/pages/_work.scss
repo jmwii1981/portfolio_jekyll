@@ -1,7 +1,15 @@
 .body--work {
-    --work-glass-background: rgba(12, 13, 16, 0.28);
+    --work-project-index-glass-background:
+        linear-gradient(
+            110deg,
+            rgba(24, 26, 31, 0.66) 0%,
+            rgba(10, 11, 14, 0.52) 48%,
+            rgba(19, 21, 25, 0.62) 100%
+        );
     --work-glass-border: rgba(255, 255, 255, 0.13);
-    --work-project-index-glass-filter: blur(1.5rem) saturate(150%) brightness(1.04);
+    --work-project-index-glass-filter: blur(1.5rem) saturate(125%) brightness(1.02);
+    --work-project-index-glass-highlight-top: rgba(255, 255, 255, 0.12);
+    --work-project-index-glass-highlight-bottom: rgba(255, 255, 255, 0.045);
 
     background-color: var(--color-ink);
 }
@@ -167,7 +175,7 @@
     backdrop-filter: blur(0) saturate(100%);
     margin-bottom: 0;
     position: sticky;
-    top: calc(var(--site-top-gutter) - 0.1875rem);
+    top: calc(var(--site-top-gutter) - 0.25rem);
     transition:
         background-color 0.35s ease,
         backdrop-filter 0.35s ease,
@@ -199,37 +207,21 @@
 }
 
 .work-project-index.is-stuck {
-    background: var(--work-glass-background);
+    background: var(--work-project-index-glass-background);
     backdrop-filter: var(--work-project-index-glass-filter);
     box-shadow:
-        inset 0 0.0625rem rgba(255, 255, 255, 0.1),
-        inset 0 -0.0625rem rgba(255, 255, 255, 0.045),
-        0 0.75rem 2.75rem rgba(0, 0, 0, 0.14);
+        inset 0 0.0625rem var(--work-project-index-glass-highlight-top),
+        inset 0 -0.0625rem var(--work-project-index-glass-highlight-bottom),
+        0 0.625rem 1.75rem rgba(0, 0, 0, 0.12);
     -webkit-backdrop-filter: var(--work-project-index-glass-filter);
 }
 
 .work-project-index.is-stuck::before {
-    background: rgba(255, 255, 255, 0.11);
+    background: var(--work-project-index-glass-highlight-top);
 }
 
 .work-project-index.is-stuck::after {
-    background: rgba(255, 255, 255, 0.055);
-}
-
-@media screen and (min-width: 26rem) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    .work-project-index.is-stuck.is-liquid-glass-loading .site-liquid-glass-lens--work,
-    .work-project-index.is-stuck.has-liquid-glass .site-liquid-glass-lens--work {
-        display: block;
-    }
-
-    .work-project-index.is-stuck.has-liquid-glass {
-        box-shadow: none;
-    }
-
-    .work-project-index.is-stuck.has-liquid-glass::before,
-    .work-project-index.is-stuck.has-liquid-glass::after {
-        background: transparent;
-    }
+    background: var(--work-project-index-glass-highlight-bottom);
 }
 
 .work-project-index-list {
@@ -788,7 +780,7 @@
 .project-screen-caption .h4 {
     display: block;
     font-size: clamp(1.2rem, 2vw, 1.6rem);
-    letter-spacing: -0.02em;
+    letter-spacing: var(--type-card-letter-spacing);
     line-height: 1.25;
     margin: 0;
 }
@@ -911,7 +903,7 @@
 .work-summary-next .h3 {
     display: block;
     font-size: clamp(2rem, 3.5vw, 3.25rem);
-    letter-spacing: -0.04em;
+    letter-spacing: var(--type-section-letter-spacing);
     line-height: 1.05;
     margin: 0;
     max-width: 22ch;

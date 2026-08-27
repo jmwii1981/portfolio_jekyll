@@ -66,7 +66,7 @@ const loadLiquidGL = async () => {
     }
 };
 
-const initializeLensWhenActive = ({ container, targetSelector, activeClass, label }) => {
+const initializeLens = ({ container, targetSelector, label }) => {
     const target = container?.querySelector(targetSelector);
 
     if (!container || !target) return;
@@ -74,23 +74,16 @@ const initializeLensWhenActive = ({ container, targetSelector, activeClass, labe
     let initialized = false;
     let initializing = false;
 
-    const observer = new MutationObserver(() => {
-        void initialize();
-    });
-
     const showCssFallback = (error) => {
         initialized = true;
         initializing = false;
-        observer.disconnect();
         container.classList.remove('is-liquid-glass-loading', 'has-liquid-glass');
         container.classList.add('is-liquid-glass-unavailable');
         console.warn(`Unable to initialize liquid glass for the ${label}; using the CSS fallback:`, error);
     };
 
     const initialize = async () => {
-        const isActive = !activeClass || container.classList.contains(activeClass);
-
-        if (initialized || initializing || !isActive) return;
+        if (initialized || initializing) return;
 
         initializing = true;
         container.classList.add('is-liquid-glass-loading');
@@ -111,7 +104,6 @@ const initializeLensWhenActive = ({ container, targetSelector, activeClass, labe
                         instance.renderer.canvas.style.opacity = opacity || '0.65';
                         initialized = true;
                         initializing = false;
-                        observer.disconnect();
                         container.classList.remove('is-liquid-glass-loading');
                         container.classList.add('has-liquid-glass');
                     }
@@ -126,25 +118,15 @@ const initializeLensWhenActive = ({ container, targetSelector, activeClass, labe
         }
     };
 
-    if (activeClass) {
-        observer.observe(container, { attributes: true, attributeFilter: ['class'] });
-    }
     void initialize();
 };
 
 export const initializeLiquidGlassNavigation = () => {
     if (!canEnhanceNavigation()) return;
 
-    initializeLensWhenActive({
+    initializeLens({
         container: document.querySelector('.header'),
         targetSelector: '.site-liquid-glass-lens--header',
         label: 'site header'
-    });
-
-    initializeLensWhenActive({
-        container: document.querySelector('.work-project-index'),
-        targetSelector: '.site-liquid-glass-lens--work',
-        activeClass: 'is-stuck',
-        label: 'Work project index'
     });
 };

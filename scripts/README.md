@@ -3,7 +3,9 @@
 `initializeScripts.js` is the browser entry point. It progressively enhances static site search, contact-form validation and submission, consent and analytics loading, the fixed header, mobile navigation, project galleries, the company-logo carousel, recommendations, and the Perspectives feed.
 
 `glass/initializeLiquidGlassNavigation.mjs` progressively enhances the fixed
-header and sticky Work project index with the vendored liquidGL 2.0.1 renderer.
+header with the vendored liquidGL 2.0.1 renderer. The sticky Work project index
+uses a stable CSS-only glass treatment so scrolling content cannot introduce
+refraction artifacts along its shallow rectangular edges.
 The vendored renderer includes a local `edgeOnly` option that confines WebGL
 refraction, frost, and specular light to its existing bevel band. The
 enhancement runs only on supported desktop browsers with a fine pointer, motion

@@ -390,7 +390,7 @@
 .site-search-result-title {
     font-size: 0.98rem;
     font-weight: 650;
-    letter-spacing: -0.015em;
+    letter-spacing: var(--type-card-letter-spacing);
     line-height: 1.25;
 }
 
