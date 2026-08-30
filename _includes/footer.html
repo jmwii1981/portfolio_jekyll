@@ -1,11 +1,32 @@
 <footer class="footer{% if page.url == '/links/' %} footer--without-social{% endif %}">
+    {% if page.url == '/links/' %}
+    <div class="copyright">
+        <p class="p">
+            <span class="links-footer-line">&copy; {{ site.time | date: '%Y' }} Jan Michael Wallace II. All rights reserved.</span>
+            <span class="links-footer-line links-footer-secondary">
+                <a class="a links-footer-link" href="{{ '/terms/' | relative_url }}">Terms of Use and Privacy Policy</a>
+                <span class="links-footer-separator" aria-hidden="true">|</span>
+                <a class="a links-footer-link" href="{{ '/' | relative_url }}">janmichael.io</a>
+            </span>
+        </p>
+    </div>
+    {% else %}
     <div class="site-signature">
         <a class="a site-link" href="{{ '/' | relative_url }}">janmichael.io</a>
     </div>
     <div class="copyright">
-        <p class="p">&copy; 2026 <a class="a" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">Jan Michael Wallace II</a>. All rights reserved. | <a class="a" href="{{ '/terms/' | relative_url }}">Terms of Use and Privacy Policy</a>.</p>
+        <p class="p">&copy; {{ site.time | date: '%Y' }} <a class="a" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">Jan Michael Wallace II</a>. All rights reserved. | <a class="a" href="{{ '/terms/' | relative_url }}">Terms of Use and Privacy Policy</a>.</p>
     </div>
-    {% unless page.url == '/links/' %}
+    <div class="footer-compact-content">
+        <p class="p">
+            <span class="footer-compact-line">&copy; {{ site.time | date: '%Y' }} Jan Michael Wallace II. All rights reserved.</span>
+            <span class="footer-compact-line footer-compact-secondary">
+                <a class="a footer-compact-link" href="{{ '/terms/' | relative_url }}">Terms of Use and Privacy Policy</a>
+                <span class="footer-compact-separator" aria-hidden="true">|</span>
+                <a class="a footer-compact-link" href="{{ '/' | relative_url }}">janmichael.io</a>
+            </span>
+        </p>
+    </div>
     <div class="social">
         <div class="social-links-container">
             <a class="social-icon" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="Jan Michael Wallace II on LinkedIn">{% include icon.html name="linked-in" %}</a>
@@ -14,5 +35,5 @@
             <a class="social-icon" href="https://figma.com/@jmwii1981" target="_blank" rel="noopener noreferrer" aria-label="Jan Michael Wallace II on Figma">{% include icon.html name="figma" %}</a>
         </div>
     </div>
-    {% endunless %}
+    {% endif %}
 </footer>

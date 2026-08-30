@@ -7,9 +7,44 @@
 
 .links-profile {
     box-sizing: border-box;
+    isolation: isolate;
+    overflow: hidden;
     padding-bottom: clamp(2.5rem, 6vw, 4rem);
     padding-top: clamp(2.5rem, 6vw, 4rem);
+    position: relative;
     text-align: center;
+}
+
+.links-profile::after {
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.28) 14%,
+        rgba(255, 255, 255, 0.62) 27%,
+        var(--color-paper) 40%
+    );
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 0;
+}
+
+.links-profile-art {
+    display: block;
+    inset: -3.125rem 50% auto auto;
+    pointer-events: none;
+    position: absolute;
+    transform: translateX(50%);
+    width: 40.625rem;
+    z-index: 0;
+}
+
+.links-profile-art img {
+    display: block;
+    filter: blur(0.125rem);
+    height: auto;
+    width: 100%;
 }
 
 .links-profile-content {
@@ -17,15 +52,19 @@
     display: flex;
     flex-direction: column;
     max-width: 27.5rem;
+    position: relative;
+    z-index: 1;
 }
 
 .links-portrait {
-    border: 0.0625rem solid rgba(4, 4, 5, 0.16);
+    border: 0.625rem solid var(--color-paper);
     border-radius: 50%;
     box-shadow: 0 0.75rem 2rem rgba(4, 4, 5, 0.12);
     display: block;
     height: 8rem;
     margin-bottom: 1.25rem;
+    outline: 0.0625rem solid #D4D4D4;
+    outline-offset: 0;
     overflow: hidden;
     width: 8rem;
 }
@@ -325,6 +364,11 @@
 }
 
 @media (forced-colors: active) {
+    .links-profile::after,
+    .links-profile-art {
+        display: none;
+    }
+
     .links-contact-item {
         border: 0.0625rem solid CanvasText;
     }

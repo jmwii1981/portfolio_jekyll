@@ -1168,7 +1168,8 @@
     text-transform: uppercase;
 }
 
-.about-me-title {
+.about-me-title,
+.about-me-next .h2 {
     display: block;
     font-size: clamp(2.25rem, 5vw, 4.75rem);
     letter-spacing: var(--type-section-letter-spacing);
@@ -1189,18 +1190,11 @@
 
 .about-me-next {
     align-items: start;
+    border-top: 0.0625rem solid var(--color-border-subtle);
     container-type: inline-size;
     display: flex;
     flex-direction: column;
-}
-
-.about-me-next .h2 {
-    display: block;
-    font-size: clamp(1.75rem, 3vw, 2.75rem);
-    letter-spacing: var(--type-card-letter-spacing);
-    line-height: var(--type-card-line-height);
-    margin: 0;
-    max-width: 16ch;
+    padding-top: clamp(3rem, 6vw, 5rem);
 }
 
 .about-me-invitation {
@@ -1242,7 +1236,16 @@
 
     .about-me-next {
         border-left: 0.0625rem solid var(--color-border-subtle);
+        border-top: 0;
         padding-left: clamp(2rem, 4vw, 4rem);
+        padding-top: 0;
+    }
+
+    .about-me-next .h2 {
+        font-size: clamp(1.75rem, 3vw, 2.75rem);
+        letter-spacing: var(--type-card-letter-spacing);
+        line-height: var(--type-card-line-height);
+        max-width: 16ch;
     }
 }
 

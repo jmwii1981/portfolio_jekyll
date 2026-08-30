@@ -3,11 +3,16 @@ layout: page
 title: Links
 permalink: /links/
 description: "Follow Jan Michael Wallace II for product design leadership, selected work, writing, professional profiles, and ways to connect."
-date_modified: "2026-08-26T14:49:46-04:00"
+date_modified: "2026-08-30T10:01:40-04:00"
 ---
 
 <main class="main links-page" id="main-content" tabindex="-1" data-search-keywords="Jan Michael Wallace II links portfolio LinkedIn Medium GitHub Figma Dribbble contact">
     <section class="links-profile" id="links" aria-labelledby="links-heading" data-search-section data-search-title="Jan Michael Wallace II’s Links" data-search-category="Links" data-search-summary="Explore my selected work at janmichael.io, follow along for thoughts on product design and leadership, and check out what I’m making next." data-search-keywords="links link in bio portfolio profiles product design leadership contact email phone">
+        <picture class="links-profile-art" aria-hidden="true">
+            <source type="image/avif" srcset="{{ '/images/links/links-profile-swirls-to-white.avif' | relative_url }}?v={{ site.asset_version }}">
+            <source type="image/webp" srcset="{{ '/images/links/links-profile-swirls-to-white.webp' | relative_url }}?v={{ site.asset_version }}">
+            <img src="{{ '/images/links/links-profile-swirls-to-white.jpg' | relative_url }}?v={{ site.asset_version }}" width="1291" height="722" alt="" decoding="async">
+        </picture>
         <div class="content-wrapper links-profile-content">
             <picture class="links-portrait">
                 <source type="image/avif" srcset="{{ '/images/headshots/bio-pic-512.avif' | relative_url }}?v={{ site.asset_version }}">

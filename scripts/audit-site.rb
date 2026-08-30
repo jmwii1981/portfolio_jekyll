@@ -58,7 +58,13 @@ site_root.glob("**/*.html").each do |file|
   failures << "#{relative}: missing the skip link to main content" unless html.match?(/<a\b[^>]*\bclass=(['"])[^'"]*skip-link[^'"]*\1[^>]*\bhref=(['"])#main-content\2/i)
   if standalone_links_page
     failures << "#{relative}: standalone links page must not render the site header" if html.match?(/<header\b[^>]*\bclass=(['"])[^'"]*\bheader\b[^'"]*\1/i)
-    failures << "#{relative}: standalone links page must not render the site footer" if html.match?(/<footer\b[^>]*\bclass=(['"])[^'"]*\bfooter\b[^'"]*\1/i)
+    footer_html = html[/<footer\b.*?<\/footer>/mi]
+    failures << "#{relative}: standalone links page is missing the site footer" unless footer_html
+    failures << "#{relative}: standalone links page footer must use the without-social treatment" unless footer_html&.match?(/\bclass=(['"])[^'"]*\bfooter--without-social\b[^'"]*\1/i)
+    failures << "#{relative}: standalone links page footer must not render social icon links" if footer_html&.match?(/\bclass=(['"])[^'"]*\bsocial-icon\b[^'"]*\1/i)
+    failures << "#{relative}: standalone links page footer must not link to social profiles" if footer_html&.match?(%r{https://(?:www\.)?(?:linkedin\.com|medium\.com|github\.com|figma\.com|dribbble\.com)/}i)
+    failures << "#{relative}: standalone links page footer is missing its two-line legal and home link group" unless footer_html&.match?(/\bclass=(['"])[^'"]*\blinks-footer-secondary\b[^'"]*\1/i)
+    failures << "#{relative}: standalone links page footer is missing its home link" unless footer_html&.match?(/<a\b[^>]*\bhref=(['"])\/\1[^>]*>janmichael\.io<\/a>/i)
   else
     failures << "#{relative}: labeled home logo must hide its decorative SVG" unless html.match?(/<a\b[^>]*\bclass=(['"])[^'"]*logo-container[^'"]*\1[^>]*\baria-label=(['"])Jan Michael Wallace II, home\2[^>]*>\s*<svg\b[^>]*\baria-hidden=(['"])true\3[^>]*\bfocusable=(['"])false\4/i)
     failures << "#{relative}: missing the site footer" unless html.match?(/<footer\b[^>]*\bclass=(['"])[^'"]*\bfooter\b[^'"]*\1/i)
