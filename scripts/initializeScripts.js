@@ -973,103 +973,6 @@
             }
         };
 
-        const initializeNonBreakingHeadingEnds = () => {
-            const headingSelector = 'h1, h2, h3, h4, h5, h6, .home-section-title';
-            const wordPattern = /[\p{L}\p{N}]+(?:[’'&.-][\p{L}\p{N}]+)*/gu;
-
-            const keepHeadingEndTogether = (heading) => {
-                const textNodes = [];
-                const walker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT, {
-                    acceptNode: (node) => {
-                        const parent = node.parentElement;
-                        const isExcluded = parent?.closest('script, style, svg, [aria-hidden="true"]');
-
-                        return node.nodeValue && !isExcluded
-                            ? NodeFilter.FILTER_ACCEPT
-                            : NodeFilter.FILTER_REJECT;
-                    }
-                });
-                let text = '';
-                let currentNode;
-
-                while ((currentNode = walker.nextNode())) {
-                    const value = currentNode.nodeValue;
-
-                    textNodes.push({ end: text.length + value.length, node: currentNode, start: text.length, value });
-                    text += value;
-                }
-
-                const words = Array.from(text.matchAll(wordPattern));
-
-                if (words.length <= 2) return;
-
-                const finalWordStart = words.at(-1).index;
-                let whitespaceStart = finalWordStart;
-
-                while (whitespaceStart > 0 && /\s/u.test(text[whitespaceStart - 1])) {
-                    whitespaceStart -= 1;
-                }
-
-                const whitespace = text.slice(whitespaceStart, finalWordStart);
-
-                if (!whitespace || whitespace === '\u00A0') return;
-
-                const finalWordRecord = textNodes.find(({ end, start }) => (
-                    start <= finalWordStart && finalWordStart < end
-                ));
-
-                textNodes.forEach((record) => {
-                    const overlapStart = Math.max(whitespaceStart, record.start);
-                    const overlapEnd = Math.min(finalWordStart, record.end);
-
-                    if (overlapStart >= overlapEnd) return;
-
-                    const localStart = overlapStart - record.start;
-                    const localEnd = overlapEnd - record.start;
-
-                    record.node.nodeValue = record.value.slice(0, localStart) + record.value.slice(localEnd);
-                });
-
-                if (!finalWordRecord) return;
-
-                const removedFromFinalNode = Math.max(
-                    0,
-                    Math.min(finalWordStart, finalWordRecord.end) - Math.max(whitespaceStart, finalWordRecord.start)
-                );
-                const insertionIndex = finalWordStart - finalWordRecord.start - removedFromFinalNode;
-                const updatedValue = finalWordRecord.node.nodeValue;
-
-                finalWordRecord.node.nodeValue = `${updatedValue.slice(0, insertionIndex)}\u00A0${updatedValue.slice(insertionIndex)}`;
-            };
-
-            const applyWithin = (root) => {
-                if (root.nodeType !== Node.ELEMENT_NODE) return;
-
-                if (root.matches(headingSelector)) keepHeadingEndTogether(root);
-                root.querySelectorAll(headingSelector).forEach(keepHeadingEndTogether);
-            };
-
-            applyWithin(document.body);
-
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    if (mutation.type === 'characterData') {
-                        const heading = mutation.target.parentElement?.closest(headingSelector);
-
-                        if (heading) keepHeadingEndTogether(heading);
-                    }
-
-                    mutation.addedNodes.forEach(applyWithin);
-                });
-            });
-
-            observer.observe(document.body, {
-                characterData: true,
-                childList: true,
-                subtree: true
-            });
-        };
-
         const safelyInitialize = (name, initializer) => {
             try {
                 initializer();
@@ -1078,7 +981,6 @@
             }
         };
 
-        safelyInitialize('heading end spacing', initializeNonBreakingHeadingEnds);
         safelyInitialize('contact form enhancement', initializeContactForm);
         safelyInitialize('privacy preferences', initializeConsentBanner);
         safelyInitialize('work project index', initializeWorkProjectIndex);

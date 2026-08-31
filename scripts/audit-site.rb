@@ -153,8 +153,6 @@ failures << "initializeScripts.js: asset version is not derived from the marked 
 failures << "initializeScripts.js: mobile navigation is missing its successful-initialization gate" unless main_script.include?("classList.add('navigation-ready')")
 failures << "initializeScripts.js: project gallery controls are missing their per-instance readiness gate" unless main_script.include?("classList.add('is-gallery-ready')")
 failures << "initializeScripts.js: one failed enhancement can prevent unrelated initialization" unless main_script.include?("const safelyInitialize =")
-failures << "initializeScripts.js: site-wide heading end spacing is missing" unless main_script.include?("const initializeNonBreakingHeadingEnds =")
-failures << "initializeScripts.js: dynamic headings are not observed for end spacing" unless main_script.include?("observer.observe(document.body")
 failures << "initializeScripts.js: purely visual Web Animations API usage must remain in CSS" if main_script.include?(".animate(")
 failures << "initializeScripts.js: obsolete scripted visual initializer remains" if main_script.match?(/initialize(?:LogoAnimation|ScrollReveals)/)
 failures << "network: bounded request helper is missing" unless network_script.include?("controller.abort(timeoutError)")

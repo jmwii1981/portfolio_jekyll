@@ -242,7 +242,7 @@ description: "Fractional product design leadership for growing companies navigat
                 <h2 class="h2">Have a problem worth untangling?</h2>
                 <p class="p about-me-invitation">I’m always glad to compare notes on a product, a team, or a challenge worth solving.</p>
                 <div class="button-group about-me-actions">
-                    <a class="a button secondary" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer"><span class="button-label"><span class="about-me-linkedin-icon" aria-hidden="true">{% include icon.html name="linked-in" %}</span>Let’s connect <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></a>
+                    <a class="a button secondary about-me-linkedin-button" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer"><span class="button-label"><span class="about-me-linkedin-icon" aria-hidden="true">{% include icon.html name="linked-in" %}</span>Let’s connect <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></a>
                     <a class="a button primary" href="{{ '/contact/' | relative_url }}"><span class="button-label">Let’s talk</span></a>
                 </div>
             </div>

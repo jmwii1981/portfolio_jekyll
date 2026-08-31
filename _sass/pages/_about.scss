@@ -970,16 +970,22 @@
     width: 100%;
 }
 
+.about-me-actions .about-me-linkedin-button {
+    padding-bottom: 0.626rem;
+    padding-top: 0.626rem;
+}
+
 .about-me-linkedin-icon {
     align-items: center;
     aspect-ratio: 1;
     background: var(--color-ink);
-    border-radius: 0.1875rem;
+    border-radius: 0.125rem;
     color: var(--color-paper);
     display: inline-flex;
     flex: 0 0 1.25rem;
     height: 1.25rem;
     justify-content: center;
+    line-height: 1;
     overflow: hidden;
     width: 1.25rem;
 }
