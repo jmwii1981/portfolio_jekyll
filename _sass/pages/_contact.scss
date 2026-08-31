@@ -6,6 +6,19 @@
 .contact-hero {
     background: var(--color-background);
     min-height: 0;
+    padding-bottom: 0;
+}
+
+.contact-section > .page-hero-lead {
+    color: var(--color-text-muted-light);
+    margin: 0 0 clamp(2rem, 4vw, 3rem);
+    max-width: 39rem;
+}
+
+@media (max-width: 42.5rem) {
+    .contact-hero .page-hero-title {
+        font-size: clamp(2rem, 10vw, 4.5rem);
+    }
 }
 
 .main.contact > .contact-section {
@@ -218,11 +231,7 @@
     }
 
     .main.contact > .contact-section {
-        margin-top: calc(
-            2.69rem +
-            clamp(9.45rem, 21.6vw, 20.25rem) +
-            clamp(2rem, 5vw, 4rem)
-        );
+        margin-top: calc(1.19rem + 1.5rem);
         padding: 0;
     }
 

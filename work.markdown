@@ -5,38 +5,27 @@ permalink: /work/
 description: "Selected product design leadership work spanning merchant operations, enterprise design systems, fintech workflows, and scalable product foundations."
 ---
 <main class="main work" id="main-content" tabindex="-1">
-    <section class="work-intro page-intro-frame" id="selected-work" aria-labelledby="work-intro-title" data-search-section data-search-title="Selected Work" data-search-category="Work" data-search-summary="Product design leadership work that brings clarity to complexity and turns innovation into products that can scale." data-search-keywords="portfolio case studies product design systems teams">
+    <section class="work-intro page-intro-frame" id="selected-work" aria-labelledby="work-intro-title" data-search-section data-search-title="Selected Projects" data-search-category="Work" data-search-summary="Products and systems I’ve moved forward through complete project narratives and product walkthroughs." data-search-keywords="portfolio case studies product design systems teams">
         <div class="work-intro-copy">
-            <p class="p section-label page-intro-eyebrow work-intro-eyebrow">Selected work</p>
-            <h1 class="h1 page-hero-title work-intro-title" id="work-intro-title">Clarity for what comes next.</h1>
-            <p class="p page-intro-support work-intro-statement">I help teams navigate unfamiliar product challenges—bringing clarity to complexity, aligning people around a direction, and turning innovation into products that can scale.</p>
-        </div>
-        <div class="work-intro-transition" aria-hidden="true">
-            <span class="work-intro-transition-line"></span>
-            <p class="p">Scroll to explore</p>
+            <p class="p section-label page-intro-eyebrow work-intro-eyebrow">Selected projects</p>
+            <h1 class="h1 page-hero-title work-intro-title" id="work-intro-title">Products and systems I’ve moved forward.</h1>
         </div>
     </section>
 
-    <section class="work-collection" aria-labelledby="work-collection-title">
-        <header class="work-collection-header">
-            <p class="p work-collection-eyebrow">Selected projects</p>
-            <h2 class="h2 page-section-title work-collection-title" id="work-collection-title">Products, systems, and teams I’ve helped move forward.</h2>
-            <p class="p work-collection-description">Each introduction pairs the project story with one representative screen. Explore a project for its complete narrative and product walkthrough.</p>
-        </header>
-
-        <nav class="work-project-index" aria-label="Jump to a selected project" data-reveal="up" data-liquid-ignore>
-            <button class="work-project-index-scroll-button work-project-index-scroll-button--previous" type="button" data-project-index-previous aria-controls="work-project-index-list" aria-label="Show previous projects" hidden><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M16 10H4M9 5l-5 5 5 5" /></svg></button>
-            <ul class="work-project-index-list" id="work-project-index-list">
-                {% for project_entry in site.data.work_projects %}
-                {% assign project_slug = project_entry[0] %}
-                {% assign project = project_entry[1] %}
-                <li><a class="a" href="#project-{{ project_slug }}"><span aria-hidden="true">0{{ forloop.index }}</span> {{ project.index_label | default: project.organization }}</a></li>
-                {% endfor %}
-            </ul>
-            <button class="work-project-index-scroll-button work-project-index-scroll-button--next" type="button" data-project-index-next aria-controls="work-project-index-list" aria-label="Show more projects" hidden><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></button>
-        </nav>
-
+    <section class="work-collection" aria-label="Selected projects">
         <div class="work-project-summaries">
+            <nav class="work-project-index" aria-label="Jump to a selected project" data-liquid-ignore>
+                <button class="work-project-index-scroll-button work-project-index-scroll-button--previous" type="button" data-project-index-previous aria-controls="work-project-index-list" aria-label="Show previous projects" hidden><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M16 10H4M9 5l-5 5 5 5" /></svg></button>
+                <ul class="work-project-index-list" id="work-project-index-list">
+                    {% for project_entry in site.data.work_projects %}
+                    {% assign project_slug = project_entry[0] %}
+                    {% assign project = project_entry[1] %}
+                    <li><a class="a" href="#project-{{ project_slug }}"><span aria-hidden="true">0{{ forloop.index }}</span> {{ project.index_label | default: project.organization }}</a></li>
+                    {% endfor %}
+                </ul>
+                <button class="work-project-index-scroll-button work-project-index-scroll-button--next" type="button" data-project-index-next aria-controls="work-project-index-list" aria-label="Show more projects" hidden><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></button>
+            </nav>
+
             {% for project_entry in site.data.work_projects %}
             {% assign project_slug = project_entry[0] %}
             {% assign project = project_entry[1] %}

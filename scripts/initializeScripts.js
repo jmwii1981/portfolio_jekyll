@@ -265,6 +265,7 @@
         const initializeWorkProjectIndex = () => {
             const projectIndex = document.querySelector('.work-project-index');
             const projectList = projectIndex?.querySelector('.work-project-index-list');
+            const projectSummaries = projectIndex?.closest('.work-project-summaries');
             const previousProjectButton = projectIndex?.querySelector('[data-project-index-previous]');
             const nextProjectButton = projectIndex?.querySelector('[data-project-index-next]');
             const projectLinks = Array.from(projectIndex?.querySelectorAll('a[href^="#project-"]') || []);
@@ -277,10 +278,12 @@
                 return project && heading && item ? { heading, item, link, project, projectId } : null;
             }).filter(Boolean);
 
-            if (!projectIndex || !projectList || !projectEntries.length) return;
+            if (!projectIndex || !projectList || !projectSummaries || !projectEntries.length) return;
 
+            const desktopDockingQuery = window.matchMedia('(min-width: 42.0625rem)');
             const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             let activeProjectId = null;
+            let isBottomDocked = false;
             let navigationFrameId = null;
             let isTicking = false;
             let navigationToken = 0;
@@ -415,11 +418,29 @@
                 navigationFrameId = window.requestAnimationFrame(animateProjectScroll);
             };
 
+            const updateProjectIndexDocking = () => {
+                const summariesStyle = window.getComputedStyle(projectSummaries);
+                const summariesRect = projectSummaries.getBoundingClientRect();
+                const summariesTop = summariesRect.top;
+                const summariesPaddingTop = Number.parseFloat(summariesStyle.paddingTop) || 0;
+                const anchorTop = summariesTop + summariesPaddingTop;
+                const bottomDockTop = window.innerHeight - projectIndex.offsetHeight;
+                const shouldBottomDock = desktopDockingQuery.matches && anchorTop > bottomDockTop + 0.5;
+
+                projectIndex.style.setProperty('--work-project-index-fixed-left', `${summariesRect.left}px`);
+                projectIndex.style.setProperty('--work-project-index-fixed-width', `${summariesRect.width}px`);
+                projectIndex.classList.toggle('is-bottom-docked', shouldBottomDock);
+                projectSummaries.classList.toggle('has-bottom-docked-index', shouldBottomDock);
+                isBottomDocked = shouldBottomDock;
+            };
+
             const updateProjectIndexState = () => {
+                updateProjectIndexDocking();
+
                 const stickyTop = Number.parseFloat(window.getComputedStyle(projectIndex).top) || 0;
                 const projectIndexRect = projectIndex.getBoundingClientRect();
                 const currentTop = projectIndexRect.top;
-                const isStuck = Math.abs(currentTop - stickyTop) < 1.5;
+                const isStuck = !isBottomDocked && Math.abs(currentTop - stickyTop) < 1.5;
 
                 projectIndex.classList.toggle('is-stuck', isStuck);
 
@@ -859,14 +880,10 @@
 
             if (!carousel) return;
 
-            const viewport = carousel.querySelector('.logo-carousel-viewport');
             const track = carousel.querySelector('.logo-carousel-track');
             const items = Array.from(carousel.querySelectorAll('.testimony-item'));
-            const toggle = carousel.querySelector('[data-logo-carousel-toggle]');
-            const toggleLabel = carousel.querySelector('[data-logo-carousel-toggle-label]');
-            const toggleTooltip = carousel.querySelector('[data-logo-carousel-toggle-tooltip]');
 
-            if (!viewport || !track || items.length < 2 || !toggle || !toggleLabel || !toggleTooltip) return;
+            if (!track || items.length < 2) return;
 
             const createSequence = (isDuplicate = false) => {
                 const sequence = document.createElement('ul');
@@ -884,137 +901,20 @@
                 return sequence;
             };
 
-            const leadingSequence = createSequence(true);
-            const primarySequence = createSequence();
-            const trailingSequence = createSequence(true);
-
-            track.replaceChildren(leadingSequence, primarySequence, trailingSequence);
+            track.replaceChildren(createSequence(), createSequence(true));
             carousel.classList.add('is-continuous');
-
-            const desktopQuery = window.matchMedia('(min-width: 42.5625rem)');
-            const hoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
-            const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-            const loopDuration = 140000;
-            let isUserPaused = false;
-            let isPointerPaused = false;
-            let lastFrameTime = null;
-            let sequenceWidth = 0;
-
-            const measureSequence = () => {
-                sequenceWidth = primarySequence.getBoundingClientRect().width;
-
-                if (desktopQuery.matches && sequenceWidth > 0) {
-                    viewport.scrollLeft = sequenceWidth;
-                } else {
-                    viewport.scrollLeft = 0;
-                }
-            };
-
-            const normalizeScrollPosition = () => {
-                if (!desktopQuery.matches || sequenceWidth <= 0) return;
-
-                if (viewport.scrollLeft < sequenceWidth * 0.25) {
-                    viewport.scrollLeft += sequenceWidth;
-                } else if (viewport.scrollLeft > sequenceWidth * 1.75) {
-                    viewport.scrollLeft -= sequenceWidth;
-                }
-            };
-
-            const setPointerPaused = (isPaused) => {
-                isPointerPaused = isPaused && desktopQuery.matches && hoverQuery.matches;
-                carousel.classList.toggle('is-pointer-paused', isPointerPaused);
-            };
-
-            const setPaused = (isPaused) => {
-                carousel.classList.toggle('is-paused', isPaused);
-                toggleLabel.textContent = isPaused ? 'Resume logo movement' : 'Pause logo movement';
-                toggleTooltip.textContent = isPaused ? 'Resume motion' : 'Pause motion';
-            };
-
-            const syncMotionPreference = () => {
-                const shouldReduceMotion = reducedMotionQuery.matches;
-
-                toggle.hidden = shouldReduceMotion;
-                setPaused(shouldReduceMotion || isUserPaused);
-            };
-
-            const advanceCarousel = (frameTime) => {
-                if (lastFrameTime === null) {
-                    lastFrameTime = frameTime;
-                }
-
-                const elapsed = Math.min(frameTime - lastFrameTime, 50);
-                const shouldAdvance = desktopQuery.matches
-                    && sequenceWidth > 0
-                    && !reducedMotionQuery.matches
-                    && !isUserPaused
-                    && !isPointerPaused;
-
-                if (shouldAdvance) {
-                    viewport.scrollLeft += (sequenceWidth / loopDuration) * elapsed;
-                    normalizeScrollPosition();
-                }
-
-                lastFrameTime = frameTime;
-                window.requestAnimationFrame(advanceCarousel);
-            };
-
-            toggle.addEventListener('click', () => {
-                isUserPaused = !isUserPaused;
-                setPaused(isUserPaused);
-            });
-
-            viewport.addEventListener('pointerenter', (event) => {
-                if (event.pointerType === 'mouse') setPointerPaused(true);
-            });
-            viewport.addEventListener('pointerleave', () => setPointerPaused(false));
-            viewport.addEventListener('scroll', normalizeScrollPosition, { passive: true });
-            document.addEventListener('visibilitychange', () => {
-                lastFrameTime = null;
-            });
-
-            const syncResponsiveMode = () => {
-                setPointerPaused(false);
-                window.requestAnimationFrame(measureSequence);
-            };
-
-            syncMotionPreference();
-            window.requestAnimationFrame(() => {
-                measureSequence();
-                window.requestAnimationFrame(advanceCarousel);
-            });
-
-            if (typeof reducedMotionQuery.addEventListener === 'function') {
-                reducedMotionQuery.addEventListener('change', syncMotionPreference);
-            } else if (typeof reducedMotionQuery.addListener === 'function') {
-                reducedMotionQuery.addListener(syncMotionPreference);
-            }
-
-            if (typeof desktopQuery.addEventListener === 'function') {
-                desktopQuery.addEventListener('change', syncResponsiveMode);
-            } else if (typeof desktopQuery.addListener === 'function') {
-                desktopQuery.addListener(syncResponsiveMode);
-            }
-
-            if (typeof window.ResizeObserver === 'function') {
-                const resizeObserver = new ResizeObserver(() => {
-                    if (desktopQuery.matches) measureSequence();
-                });
-                resizeObserver.observe(viewport);
-            } else {
-                window.addEventListener('resize', syncResponsiveMode, { passive: true });
-            }
         };
 
         const initializeRecommendationCarousel = () => {
             const carousel = document.querySelector('.recommendation-list');
-            const nextButton = document.querySelector('[data-recommendation-next]');
 
-            if (!carousel || !nextButton) return;
+            if (!carousel) return;
 
             const items = Array.from(carousel.querySelectorAll('.recommendation-item'));
             const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+            const intervalMs = 10000;
             let currentIndex = 0;
+            let timerId = null;
 
             if (items.length < 2) return;
 
@@ -1036,14 +936,138 @@
                 }
             };
 
+            const queueNextItem = () => {
+                window.clearTimeout(timerId);
+                timerId = null;
+
+                if (document.hidden || reducedMotionQuery.matches) return;
+
+                timerId = window.setTimeout(showNextItem, intervalMs);
+            };
+
             const showNextItem = () => {
                 activateItem((currentIndex + 1) % items.length, true);
+                queueNextItem();
+            };
+
+            const syncAutomaticAdvance = () => {
+                if (document.hidden || reducedMotionQuery.matches) {
+                    window.clearTimeout(timerId);
+                    timerId = null;
+                    return;
+                }
+
+                queueNextItem();
             };
 
             carousel.classList.add('is-controlled');
             activateItem(currentIndex);
-            nextButton.addEventListener('click', showNextItem);
-            nextButton.hidden = false;
+            queueNextItem();
+
+            document.addEventListener('visibilitychange', syncAutomaticAdvance);
+
+            if (typeof reducedMotionQuery.addEventListener === 'function') {
+                reducedMotionQuery.addEventListener('change', syncAutomaticAdvance);
+            } else if (typeof reducedMotionQuery.addListener === 'function') {
+                reducedMotionQuery.addListener(syncAutomaticAdvance);
+            }
+        };
+
+        const initializeNonBreakingHeadingEnds = () => {
+            const headingSelector = 'h1, h2, h3, h4, h5, h6, .home-section-title';
+            const wordPattern = /[\p{L}\p{N}]+(?:[’'&.-][\p{L}\p{N}]+)*/gu;
+
+            const keepHeadingEndTogether = (heading) => {
+                const textNodes = [];
+                const walker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT, {
+                    acceptNode: (node) => {
+                        const parent = node.parentElement;
+                        const isExcluded = parent?.closest('script, style, svg, [aria-hidden="true"]');
+
+                        return node.nodeValue && !isExcluded
+                            ? NodeFilter.FILTER_ACCEPT
+                            : NodeFilter.FILTER_REJECT;
+                    }
+                });
+                let text = '';
+                let currentNode;
+
+                while ((currentNode = walker.nextNode())) {
+                    const value = currentNode.nodeValue;
+
+                    textNodes.push({ end: text.length + value.length, node: currentNode, start: text.length, value });
+                    text += value;
+                }
+
+                const words = Array.from(text.matchAll(wordPattern));
+
+                if (words.length <= 2) return;
+
+                const finalWordStart = words.at(-1).index;
+                let whitespaceStart = finalWordStart;
+
+                while (whitespaceStart > 0 && /\s/u.test(text[whitespaceStart - 1])) {
+                    whitespaceStart -= 1;
+                }
+
+                const whitespace = text.slice(whitespaceStart, finalWordStart);
+
+                if (!whitespace || whitespace === '\u00A0') return;
+
+                const finalWordRecord = textNodes.find(({ end, start }) => (
+                    start <= finalWordStart && finalWordStart < end
+                ));
+
+                textNodes.forEach((record) => {
+                    const overlapStart = Math.max(whitespaceStart, record.start);
+                    const overlapEnd = Math.min(finalWordStart, record.end);
+
+                    if (overlapStart >= overlapEnd) return;
+
+                    const localStart = overlapStart - record.start;
+                    const localEnd = overlapEnd - record.start;
+
+                    record.node.nodeValue = record.value.slice(0, localStart) + record.value.slice(localEnd);
+                });
+
+                if (!finalWordRecord) return;
+
+                const removedFromFinalNode = Math.max(
+                    0,
+                    Math.min(finalWordStart, finalWordRecord.end) - Math.max(whitespaceStart, finalWordRecord.start)
+                );
+                const insertionIndex = finalWordStart - finalWordRecord.start - removedFromFinalNode;
+                const updatedValue = finalWordRecord.node.nodeValue;
+
+                finalWordRecord.node.nodeValue = `${updatedValue.slice(0, insertionIndex)}\u00A0${updatedValue.slice(insertionIndex)}`;
+            };
+
+            const applyWithin = (root) => {
+                if (root.nodeType !== Node.ELEMENT_NODE) return;
+
+                if (root.matches(headingSelector)) keepHeadingEndTogether(root);
+                root.querySelectorAll(headingSelector).forEach(keepHeadingEndTogether);
+            };
+
+            applyWithin(document.body);
+
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'characterData') {
+                        const heading = mutation.target.parentElement?.closest(headingSelector);
+
+                        if (heading) keepHeadingEndTogether(heading);
+                    }
+
+                    mutation.addedNodes.forEach(applyWithin);
+                });
+            });
+
+            observer.observe(document.body, {
+                characterData: true,
+                childList: true,
+                subtree: true
+            });
         };
 
         const safelyInitialize = (name, initializer) => {
@@ -1054,6 +1078,7 @@
             }
         };
 
+        safelyInitialize('heading end spacing', initializeNonBreakingHeadingEnds);
         safelyInitialize('contact form enhancement', initializeContactForm);
         safelyInitialize('privacy preferences', initializeConsentBanner);
         safelyInitialize('work project index', initializeWorkProjectIndex);

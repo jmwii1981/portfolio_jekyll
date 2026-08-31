@@ -57,7 +57,7 @@
 
 .post-title {
   animation: page-hero-reveal 0.9s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
-  font-size: 3.5rem;
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
   margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
   margin-top: 0;
   width: 100%;
@@ -240,13 +240,8 @@
 }
 
 .medium-author-bio {
-  color: var(--color-text);
-  display: block;
-  font-size: clamp(1.2rem, 1.5vw, 1.3rem);
-  font-weight: 600;
-  letter-spacing: -0.012em;
-  line-height: 1.55;
-  margin: 0;
+  color: var(--color-text-muted-light);
+  margin: 2rem 0 0;
   max-width: 24ch;
 }
 
@@ -319,12 +314,6 @@
   line-height: 1.4;
   margin: 0.45rem 0 0;
   text-transform: uppercase;
-}
-
-.medium-articles-empty {
-  color: var(--color-text-muted);
-  display: block;
-  margin: 2rem 0 0;
 }
 
 .medium-profile-link {

@@ -43,14 +43,13 @@ description: "Perspectives from Jan Michael Wallace II on product design leaders
                 <section class="medium-author-card" aria-labelledby="medium-author-label" data-reveal="left">
                     <div class="medium-author-copy">
                         <p class="p section-label medium-sidebar-label" id="medium-author-label">About Jan Michael</p>
-                        <p class="p medium-author-bio">{{ site.description }}</p>
+                        <p class="p about-me-statement medium-author-bio">Jan Michael Wallace II is a fractional product design leader helping teams turn product ambiguity into clear strategy, scalable systems, and durable shipped work.</p>
                     </div>
                 </section>
 
                 <section class="medium-recent-articles" aria-labelledby="recent-articles-label" data-reveal="left">
                     <p class="p section-label medium-sidebar-label" id="recent-articles-label">Other recent articles</p>
                     <ul class="medium-article-list" data-medium-article-list hidden></ul>
-                    <p class="p medium-articles-empty" data-medium-articles-empty>Recent article links appear when the live feed is available.</p>
                     <a class="a medium-profile-link" href="https://medium.com/@jmwii1981" target="_blank" rel="noopener noreferrer"><span>Read more on Medium</span><svg class="medium-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></a>
                 </section>
             </aside>

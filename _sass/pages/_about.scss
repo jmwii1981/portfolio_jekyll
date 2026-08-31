@@ -44,7 +44,7 @@
     letter-spacing: var(--type-section-letter-spacing);
     line-height: var(--type-section-line-height);
     margin: 0;
-    max-width: 12ch;
+    max-width: min(100%, calc(12ch + 6.25rem));
 }
 
 .hero {
@@ -95,7 +95,7 @@
 
 .hero .hero-intro,
 .hero .h3,
-.hero .h4 {
+.hero .about-me-statement {
     box-sizing: border-box;
     max-width: none;
     width: 100%;
@@ -128,10 +128,10 @@
     white-space: normal;
 }
 
-.hero .h4 {
+.hero .about-me-statement {
     animation: home-copy-reveal 0.9s 0.46s cubic-bezier(0.22, 1, 0.36, 1) both;
-    color: var(--color-text-soft);
-    margin: 0 0 2.25rem;
+    color: var(--color-text-muted-light);
+    margin: 2rem 0 2.25rem;
 }
 
 .hero .button-group {
@@ -192,7 +192,7 @@
         margin-top: 1.4rem;
     }
 
-    .hero .h4 {
+    .hero .about-me-statement {
         max-width: 32rem;
     }
 }
@@ -296,7 +296,7 @@
         white-space: nowrap;
     }
 
-    .hero .h4 {
+    .hero .about-me-statement {
         max-width: 34rem;
     }
 }
@@ -313,7 +313,7 @@
 
 @media (min-width: 42.0625rem) {
     .home-section-title {
-        font-size: clamp(3rem, 6vw, 5.5rem);
+        font-size: clamp(3rem, 7vw, 7.25rem);
     }
 }
 
@@ -375,6 +375,10 @@
         }
     }
 
+    .help-item:first-child {
+        border-top: 0;
+    }
+
     .help-number {
         color: var(--color-text-muted);
         display: block;
@@ -398,29 +402,15 @@
             border-left: 0;
             padding-left: 0;
         }
-    }
 
-    @container (min-width: 52.0625rem) {
-        .help-list {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            row-gap: 2.5rem;
-        }
-
-        .help-list .help-item {
-            border-left: 0.0625rem solid var(--color-border-subtle);
-            padding-left: 1.6rem;
-        }
-
-        .help-list .help-item:first-child,
-        .help-list .help-item:nth-child(4) {
-            border-left: 0;
-            padding-left: 0;
+        .help-item:nth-child(-n + 2) {
+            border-top: 0;
         }
     }
 
     @container (min-width: 78.0625rem) {
         .help-list {
-            grid-template-columns: repeat(5, minmax(0, 1fr));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             row-gap: 0;
         }
 
@@ -432,6 +422,10 @@
         .help-list .help-item:first-child {
             border-left: 0;
             padding-left: 0;
+        }
+
+        .help-list .help-item:nth-child(-n + 4) {
+            border-top: 0;
         }
     }
 }
@@ -455,33 +449,9 @@
         margin: 0;
     }
     .logo-carousel {
-        align-items: center;
-        display: grid;
-        gap: 0.25rem;
-        grid-template-columns: minmax(0, 1fr) 2.75rem;
+        display: block;
         position: relative;
         width: 100%;
-    }
-    .logo-carousel-toolbar {
-        align-items: center;
-        display: flex;
-        grid-column: 2;
-        grid-row: 1;
-        height: 100%;
-        justify-content: flex-end;
-        opacity: 1;
-        position: relative;
-        transition:
-            opacity 0.24s ease,
-            visibility 0s linear;
-        z-index: 3;
-    }
-    .logo-carousel-toolbar:has(.logo-carousel-toggle[hidden]) {
-        display: none;
-    }
-    .logo-carousel:has(.logo-carousel-toggle[hidden]) {
-        gap: 0;
-        grid-template-columns: minmax(0, 1fr);
     }
     .logo-carousel-control {
         height: 0.0625rem;
@@ -505,8 +475,6 @@
             #000 calc(100% - 8rem),
             transparent 100%
         );
-        grid-column: 1;
-        grid-row: 1;
         overflow: hidden;
         width: 100%;
     }
@@ -514,170 +482,6 @@
         display: flex;
         transition: transform 0.45s ease;
         width: 100%;
-    }
-    .logo-carousel-toggle,
-    .recommendation-next {
-        align-items: center;
-        background: transparent;
-        border: 0;
-        border-radius: 0.2rem;
-        box-shadow: 0 0 0 0 var(--color-focus-ring);
-        color: var(--color-link);
-        cursor: pointer;
-        display: inline-flex;
-        font-family: inherit;
-        font-size: 0.78rem;
-        font-weight: 700;
-        gap: 0.5rem;
-        justify-content: center;
-        letter-spacing: 0.08em;
-        min-height: 2.75rem;
-        padding: 0.5rem;
-        text-decoration: underline;
-        text-decoration-thickness: 0.0625rem;
-        text-transform: uppercase;
-        text-underline-offset: 0.25rem;
-    }
-    .logo-carousel-toggle:hover,
-    .recommendation-next:hover {
-        text-decoration-thickness: 0.125rem;
-    }
-    .logo-carousel-toggle:focus-visible,
-    .recommendation-next:focus-visible {
-        box-shadow: 0 0 0 0.2rem var(--color-focus-ring);
-        outline: none;
-    }
-    .logo-carousel-toggle[hidden],
-    .recommendation-next[hidden] {
-        display: none;
-    }
-    .logo-carousel-toggle {
-        align-self: auto;
-        background: transparent;
-        border: 0;
-        border-radius: 50%;
-        box-shadow: 0 0 0 0 var(--color-focus-ring);
-        color: var(--color-text-muted);
-        gap: 0;
-        height: 2.75rem;
-        min-height: 2.75rem;
-        opacity: 0.72;
-        overflow: visible;
-        padding: 0;
-        position: relative;
-        text-decoration: none;
-        transition:
-            color 0.2s ease,
-            opacity 0.2s ease;
-        width: 2.75rem;
-    }
-    .logo-carousel-toggle:hover {
-        color: var(--color-link);
-        opacity: 1;
-        text-decoration: none;
-    }
-    .logo-carousel-toggle:focus-visible {
-        box-shadow: 0 0 0 0.2rem var(--color-focus-ring);
-        color: var(--color-link);
-        opacity: 1;
-        outline: none;
-        text-decoration: none;
-    }
-    .logo-carousel-toggle-icon {
-        border: 0;
-        border-radius: 0;
-        box-sizing: border-box;
-        display: block;
-        height: 0.95rem;
-        left: 50%;
-        opacity: 1;
-        padding: 0;
-        pointer-events: none;
-        position: absolute;
-        stroke: currentColor;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-width: 1.8;
-        top: 50%;
-        transform: translate(-50%, -50%) scale(1);
-        transition:
-            opacity 0.18s ease,
-            transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
-        width: 0.95rem;
-    }
-    .logo-carousel-toggle-surface {
-        align-items: center;
-        background: var(--color-paper);
-        border: 0.0625rem solid rgba(4, 4, 5, 0.2);
-        border-radius: 50%;
-        display: flex;
-        height: 2rem;
-        justify-content: center;
-        left: 50%;
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        transition:
-            background-color 0.2s ease,
-            border-color 0.2s ease,
-            color 0.2s ease;
-        width: 2rem;
-    }
-    .logo-carousel-toggle:hover .logo-carousel-toggle-surface,
-    .logo-carousel-toggle:focus-visible .logo-carousel-toggle-surface {
-        background: var(--color-ink);
-        border-color: var(--color-ink);
-        color: var(--color-paper);
-    }
-    .logo-carousel-toggle-label {
-        clip: rect(0 0 0 0);
-        clip-path: inset(50%);
-        height: 0.0625rem;
-        overflow: hidden;
-        position: absolute;
-        white-space: nowrap;
-        width: 0.0625rem;
-    }
-    .logo-carousel-toggle-tooltip {
-        background: rgba(4, 4, 5, 0.88);
-        border: 0.0625rem solid rgba(255, 255, 255, 0.18);
-        border-radius: 0.3rem;
-        box-shadow: 0 0.4rem 1rem rgba(4, 4, 5, 0.14);
-        color: var(--color-paper);
-        font-size: 0.68rem;
-        font-weight: 600;
-        letter-spacing: 0.045em;
-        line-height: 1;
-        opacity: 0;
-        padding: 0.45rem 0.55rem;
-        pointer-events: none;
-        position: absolute;
-        right: calc(100% + 0.35rem);
-        text-transform: none;
-        top: 50%;
-        transform: translate(0.2rem, -50%);
-        transition:
-            opacity 0.16s ease,
-            transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
-        white-space: nowrap;
-        z-index: 4;
-    }
-    .logo-carousel-toggle:hover .logo-carousel-toggle-tooltip,
-    .logo-carousel-toggle:focus-visible .logo-carousel-toggle-tooltip {
-        opacity: 1;
-        transform: translate(0, -50%);
-    }
-    .logo-carousel-toggle-icon--play {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.72);
-    }
-    .logo-carousel.is-paused .logo-carousel-toggle-icon--pause {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.72);
-    }
-    .logo-carousel.is-paused .logo-carousel-toggle-icon--play {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
     }
     #logos-page-1:checked ~ .logo-carousel-viewport .logo-carousel-track {
         transform: translateX(0);
@@ -847,22 +651,15 @@
         background: var(--color-carousel-dot-active);
     }
     .logo-carousel.is-continuous {
-        gap: 0.75rem;
-
         .logo-carousel-control,
         .logo-carousel-dots {
             display: none;
         }
         .logo-carousel-viewport {
-            overflow-x: auto;
-            overflow-y: hidden;
-            overscroll-behavior-x: contain;
-            scrollbar-width: none;
-        }
-        .logo-carousel-viewport::-webkit-scrollbar {
-            display: none;
+            overflow: hidden;
         }
         .logo-carousel-track {
+            animation: logo-carousel-scroll 140s linear infinite;
             transition: none;
             width: max-content;
         }
@@ -931,20 +728,9 @@
         .testimony-item:has(.company-logo[src$="humana.svg"]) {
             flex-basis: 7.6rem;
         }
-        &.is-pointer-paused .logo-carousel-toolbar {
-            opacity: 0;
-            pointer-events: none;
-            visibility: hidden;
-            transition:
-                opacity 0.24s ease,
-                visibility 0s linear 0.24s;
-        }
     }
     .recommendations {
-        align-items: center;
-        display: grid;
-        gap: clamp(0.75rem, 2vw, 1.5rem);
-        grid-template-columns: minmax(0, 1fr) 3rem;
+        display: block;
         justify-content: center;
         margin-top: -2rem;
         padding: 1rem 0 0;
@@ -986,61 +772,8 @@
     .recommendation-list .recommendation-item[hidden] {
         display: none;
     }
-    .recommendation-next {
-        align-items: center;
-        align-self: center;
-        background: var(--color-paper);
-        border: 0.0625rem solid rgba(4, 4, 5, 0.24);
-        border-radius: 100px;
-        color: var(--color-link);
-        display: inline-flex;
-        grid-column: 2;
-        grid-row: 1;
-        height: 3rem;
-        justify-content: center;
-        margin: 0;
-        padding: 0;
-        text-decoration: none;
-        transition:
-            background-color 0.2s ease,
-            border-color 0.2s ease,
-            color 0.2s ease,
-            box-shadow 0.2s ease,
-            transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
-        width: 3rem;
-    }
-    .recommendation-next-icon {
-        display: block;
-        height: 1.1rem;
-        pointer-events: none;
-        stroke: currentColor;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-width: 1.75;
-        width: 1.1rem;
-    }
-    .recommendation-next:hover {
-        background: var(--color-ink);
-        border-color: var(--color-ink);
-        box-shadow: var(--shadow-control-edge-on-light);
-        color: var(--color-paper);
-        transform: translate(-0.125rem, -0.125rem);
-    }
-    .recommendation-next:focus-visible {
-        box-shadow:
-            0 0 0 0.2rem var(--color-focus-ring),
-            0 0 0 0 transparent;
-        outline: none;
-    }
-    .recommendation-next:active {
-        background: var(--color-control-dark-hover);
-        border-color: var(--color-control-dark-hover);
-        box-shadow: none;
-        color: var(--color-paper);
-        transform: translateY(0);
-    }
     .recommendation-quote {
-        color: var(--color-text-soft);
+        color: var(--color-text-muted-light);
         font-size: 1.35rem;
         font-style: italic;
         font-weight: 400;
@@ -1060,6 +793,16 @@
     .recommendation-mark,
     .recommendation-role {
         font-weight: 300;
+    }
+}
+
+@keyframes logo-carousel-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
     }
 }
 
@@ -1091,10 +834,6 @@
         margin-top: 0;
         order: 2;
         padding-top: 0;
-    }
-
-    .testimonials .logo-carousel.is-continuous .logo-carousel-toolbar {
-        display: none;
     }
 
     .testimonials .logo-carousel.is-continuous .logo-carousel-viewport {
@@ -1171,11 +910,22 @@
 .about-me-title,
 .about-me-next .h2 {
     display: block;
-    font-size: clamp(2.25rem, 5vw, 4.75rem);
+    font-size: clamp(2rem, 9vw, 3rem);
     letter-spacing: var(--type-section-letter-spacing);
     line-height: var(--type-section-line-height);
     margin: 0;
-    max-width: 12ch;
+    max-width: min(100%, calc(12ch + 6.25rem));
+}
+
+@media (min-width: 42.0625rem) {
+    .about-me-title,
+    .about-me-next .h2 {
+        font-size: clamp(3rem, 7vw, 7.25rem);
+    }
+}
+
+.about-me-title-separator {
+    font-weight: 200;
 }
 
 .about-me-statement {
@@ -1188,6 +938,10 @@
     max-width: 44rem;
 }
 
+.about-me-copy .about-me-statement {
+    color: var(--color-text-muted-light);
+}
+
 .about-me-next {
     align-items: start;
     border-top: 0.0625rem solid var(--color-border-subtle);
@@ -1198,7 +952,7 @@
 }
 
 .about-me-invitation {
-    color: var(--color-text-soft);
+    color: var(--color-text-muted-light);
     display: block;
     line-height: var(--type-body-line-height);
     margin: 1.25rem 0 0;
@@ -1216,6 +970,31 @@
     width: 100%;
 }
 
+.about-me-linkedin-icon {
+    align-items: center;
+    aspect-ratio: 1;
+    background: var(--color-ink);
+    border-radius: 0.1875rem;
+    color: var(--color-paper);
+    display: inline-flex;
+    flex: 0 0 1.25rem;
+    height: 1.25rem;
+    justify-content: center;
+    overflow: hidden;
+    width: 1.25rem;
+}
+
+.about-me-linkedin-icon svg {
+    display: block;
+    height: 0.8rem;
+    transform: scale(1.75);
+    width: 0.8rem;
+}
+
+.about-me-linkedin-icon path {
+    fill: currentColor;
+}
+
 @container (min-width: 29rem) {
     .about-me-actions {
         align-items: center;
@@ -1231,7 +1010,12 @@
 @media screen and (min-width: 70rem) {
     .about-me-inner {
         gap: clamp(3rem, 7vw, 8rem);
-        grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+        grid-template-columns: minmax(0, 1.0625fr) minmax(18rem, 0.9375fr);
+    }
+
+    .about-me-title {
+        font-size: clamp(1.75rem, 3vw, 2.75rem);
+        max-width: min(100%, calc(16ch + 6.25rem));
     }
 
     .about-me-next {
@@ -1245,22 +1029,23 @@
         font-size: clamp(1.75rem, 3vw, 2.75rem);
         letter-spacing: var(--type-card-letter-spacing);
         line-height: var(--type-card-line-height);
-        max-width: 16ch;
+        max-width: min(100%, calc(16ch + 6.25rem));
+    }
+
+    .about-me-actions {
+        align-items: center;
+        flex-direction: row;
+        width: auto;
+    }
+
+    .about-me-actions .button {
+        width: auto;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .logo-carousel.is-continuous .logo-carousel-track {
         animation-play-state: paused;
-    }
-
-    .logo-carousel-toggle,
-    .logo-carousel-toggle-icon,
-    .logo-carousel-toggle-surface,
-    .logo-carousel-toggle-tooltip,
-    .recommendation-next,
-    .recommendation-next-icon {
-        transition: none;
     }
 
     .recommendation-item.is-entering {
@@ -1270,7 +1055,7 @@
     .hero .button-group,
     .hero .page-hero-title,
     .hero .h3,
-    .hero .h4,
+    .hero .about-me-statement,
     .hero .hero-intro,
     .hero .image-wrapper {
         animation: none;

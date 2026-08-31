@@ -62,7 +62,8 @@ site_root.glob("**/*.html").each do |file|
     failures << "#{relative}: standalone links page is missing the site footer" unless footer_html
     failures << "#{relative}: standalone links page footer must use the without-social treatment" unless footer_html&.match?(/\bclass=(['"])[^'"]*\bfooter--without-social\b[^'"]*\1/i)
     failures << "#{relative}: standalone links page footer must not render social icon links" if footer_html&.match?(/\bclass=(['"])[^'"]*\bsocial-icon\b[^'"]*\1/i)
-    failures << "#{relative}: standalone links page footer must not link to social profiles" if footer_html&.match?(%r{https://(?:www\.)?(?:linkedin\.com|medium\.com|github\.com|figma\.com|dribbble\.com)/}i)
+    failures << "#{relative}: standalone links page footer must not link to additional social profiles" if footer_html&.match?(%r{https://(?:www\.)?(?:medium\.com|github\.com|figma\.com|dribbble\.com)/}i)
+    failures << "#{relative}: standalone links page footer must link the owner name to LinkedIn" unless footer_html&.match?(%r{<a\b[^>]*\bhref=(['"])https://www\.linkedin\.com/in/jmwii1981/\1[^>]*>Jan Michael Wallace II</a>}i)
     failures << "#{relative}: standalone links page footer is missing its two-line legal and home link group" unless footer_html&.match?(/\bclass=(['"])[^'"]*\blinks-footer-secondary\b[^'"]*\1/i)
     failures << "#{relative}: standalone links page footer is missing its home link" unless footer_html&.match?(/<a\b[^>]*\bhref=(['"])\/\1[^>]*>janmichael\.io<\/a>/i)
   else
@@ -152,6 +153,8 @@ failures << "initializeScripts.js: asset version is not derived from the marked 
 failures << "initializeScripts.js: mobile navigation is missing its successful-initialization gate" unless main_script.include?("classList.add('navigation-ready')")
 failures << "initializeScripts.js: project gallery controls are missing their per-instance readiness gate" unless main_script.include?("classList.add('is-gallery-ready')")
 failures << "initializeScripts.js: one failed enhancement can prevent unrelated initialization" unless main_script.include?("const safelyInitialize =")
+failures << "initializeScripts.js: site-wide heading end spacing is missing" unless main_script.include?("const initializeNonBreakingHeadingEnds =")
+failures << "initializeScripts.js: dynamic headings are not observed for end spacing" unless main_script.include?("observer.observe(document.body")
 failures << "initializeScripts.js: purely visual Web Animations API usage must remain in CSS" if main_script.include?(".animate(")
 failures << "initializeScripts.js: obsolete scripted visual initializer remains" if main_script.match?(/initialize(?:LogoAnimation|ScrollReveals)/)
 failures << "network: bounded request helper is missing" unless network_script.include?("controller.abort(timeoutError)")

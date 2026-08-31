@@ -9,7 +9,6 @@ import { sequenceContent } from './sequenceContent.mjs';
 
 function renderRecentArticles(articles) {
     const list = document.querySelector('[data-medium-article-list]');
-    const emptyState = document.querySelector('[data-medium-articles-empty]');
     if (!list) return;
 
     const recentArticles = articles.slice(1, 11).filter(article => {
@@ -65,7 +64,6 @@ function renderRecentArticles(articles) {
     });
 
     list.hidden = recentArticles.length === 0;
-    if (emptyState) emptyState.hidden = recentArticles.length > 0;
 }
 
 export async function renderPost(feedUrl) {

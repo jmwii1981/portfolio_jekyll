@@ -10,8 +10,7 @@ description: "Fractional product design leadership for growing companies navigat
             <div class="copy-wrapper">
                 <p class="p section-label page-intro-eyebrow hero-intro">Hello, I'm</p>
                 <h1 class="h1 page-hero-title" id="about-title">Jan Michael</h1>
-                <p class="h3">I’m a Fractional Product Design Leader.</p>
-                <p class="h4 page-intro-support">I help growing companies turn product ambiguity into clear strategy, scalable systems, and shipped work that holds up as their businesses evolve.</p>
+                <p class="p about-me-statement">I help teams turn product ambiguity into clear strategy, scalable systems, and shipped work that holds up as their businesses evolve.</p>
                 <div class="button-group">
                     <a
                     class="a button secondary"
@@ -31,26 +30,21 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
         </div>
     </section>
-    <section class="help" id="how-i-help" data-search-section data-search-title="How I Help" data-search-category="Services" data-search-keywords="lead shape align scale guide coaching strategy design systems team leadership">
+    <section class="help" id="how-i-help" data-search-section data-search-title="How I Help" data-search-category="Services" data-search-keywords="clarify collaborate scale lead coaching strategy design systems team leadership">
         <div class="content-wrapper">
             <header class="home-section-header" data-reveal="right">
                 <h2 class="h2 section-label">How I help</h2>
-                <p class="p home-section-title">Leadership that turns ambiguity into forward motion.</p>
+                <p class="p home-section-title">Leadership that turns ambiguity into clarity.</p>
             </header>
             <ul class="help-list">
-                <li class="help-item" data-reveal="right">
-                    <p class="p help-number" aria-hidden="true">01</p>
-                    <h3>Lead</h3>
-                    <p class="p">Build focused teams with clear direction, shared ownership, and strong design standards.</p>
-                </li>
                 <li class="help-item" data-reveal="up">
                     <p class="p help-number" aria-hidden="true">02</p>
-                    <h3>Shape</h3>
+                    <h3>Clarify</h3>
                     <p class="p">Turn ambiguity into product strategy, design systems, and practical execution plans.</p>
                 </li>
                 <li class="help-item" data-reveal="left">
                     <p class="p help-number" aria-hidden="true">03</p>
-                    <h3>Align</h3>
+                    <h3>Collaborate</h3>
                     <p class="p">Bring stakeholders, designers, and engineers around the decisions that move work forward.</p>
                 </li>
                 <li class="help-item" data-reveal="right">
@@ -60,7 +54,7 @@ description: "Fractional product design leadership for growing companies navigat
                 </li>
                 <li class="help-item" data-reveal="left">
                     <p class="p help-number" aria-hidden="true">05</p>
-                    <h3>Guide</h3>
+                    <h3>Lead</h3>
                     <p class="p">Coach people through critique, growth, and the habits that make excellent work sustainable.</p>
                 </li>
             </ul>
@@ -70,19 +64,9 @@ description: "Fractional product design leadership for growing companies navigat
         <div class="content-wrapper">
             <header class="home-section-header" data-reveal="left">
                 <h2 class="h2 section-label">Trusted across the globe</h2>
-                <p class="p home-section-title">The strongest work is built with people.</p>
+                <p class="p home-section-title">The strongest work is built together.</p>
             </header>
             <div class="logo-carousel" data-reveal="up">
-                <div class="logo-carousel-toolbar">
-                    <button class="logo-carousel-toggle" type="button" data-logo-carousel-toggle aria-controls="company-logo-track" hidden>
-                        <span class="logo-carousel-toggle-surface" aria-hidden="true">
-                            <svg class="logo-carousel-toggle-icon logo-carousel-toggle-icon--pause" viewBox="0 0 20 20" fill="none"><path d="M7 5v10M13 5v10" /></svg>
-                            <svg class="logo-carousel-toggle-icon logo-carousel-toggle-icon--play" viewBox="0 0 20 20" fill="none"><path d="m7 5 7 5-7 5V5Z" /></svg>
-                        </span>
-                        <span class="logo-carousel-toggle-label" data-logo-carousel-toggle-label>Pause logo movement</span>
-                        <span class="logo-carousel-toggle-tooltip" data-logo-carousel-toggle-tooltip aria-hidden="true">Pause motion</span>
-                    </button>
-                </div>
                 <div class="logo-carousel-viewport">
                     <div class="logo-carousel-track" id="company-logo-track">
                         <ul class="testimony-list">
@@ -243,26 +227,23 @@ description: "Fractional product design leadership for growing companies navigat
                         <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Brittany Robinson, <span class="recommendation-role">Sr. Designer</span></p>
                     </li>
                 </ul>
-                <button class="recommendation-next" type="button" data-recommendation-next aria-controls="recommendation-list" aria-label="Next recommendation" hidden>
-                    <svg class="recommendation-next-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg>
-                </button>
             </div>
         </div>
     </section>
-    <section class="about-me" id="beyond-the-work" data-search-section data-search-title="Beyond the Work" data-search-category="About" data-search-summary="More than 20 years of making, exploring, giving back, raising four kids, and sitting down over coffee with interesting people to talk about what could come next." data-search-keywords="personal interests connect linkedin conversation">
+    <section class="about-me" id="beyond-the-work" data-search-section data-search-title="Beyond the Work" data-search-category="About" data-search-summary="More than 20 years of making, exploring, giving back, raising four kids, and sitting down over coffee with interesting people to talk about big ideas." data-search-keywords="personal interests connect linkedin conversation">
         <div class="about-me-inner" data-reveal="up">
             <div class="about-me-copy">
                 <p class="p about-me-eyebrow">Beyond the work</p>
-                <h2 class="h2 about-me-title">I’m usually making something—or going somewhere.</h2>
-                <p class="p about-me-statement">Curiosity has kept me building for more than 20 years. Away from product work, that same instinct has me exploring new places, giving back, raising four kids, and sitting down over coffee with interesting people to talk about what could come next.</p>
+                <h2 class="h2 about-me-title">I’m usually making something<span class="about-me-title-separator">—</span>or going somewhere.</h2>
+                <p class="p about-me-statement">Curiosity has kept me building for more than 20 years, but life is about more than work. When I’m away from product design, I’m exploring new places, giving back, raising four kids, and sitting down over coffee with interesting people to talk about big ideas.</p>
             </div>
             <div class="about-me-next">
                 <p class="p about-me-eyebrow">Get in touch</p>
                 <h2 class="h2">Have a problem worth untangling?</h2>
-                <p class="p about-me-invitation">I’m always glad to compare notes on a product, a team, or what might come next.</p>
+                <p class="p about-me-invitation">I’m always glad to compare notes on a product, a team, or a challenge worth solving.</p>
                 <div class="button-group about-me-actions">
-                    <a class="a button secondary" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer"><span class="button-label">Connect on LinkedIn <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></a>
-                    <a class="a button primary" href="{{ '/contact/' | relative_url }}"><span class="button-label">Start a conversation</span></a>
+                    <a class="a button secondary" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer"><span class="button-label"><span class="about-me-linkedin-icon" aria-hidden="true">{% include icon.html name="linked-in" %}</span>Let’s connect <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></a>
+                    <a class="a button primary" href="{{ '/contact/' | relative_url }}"><span class="button-label">Let’s talk</span></a>
                 </div>
             </div>
         </div>
