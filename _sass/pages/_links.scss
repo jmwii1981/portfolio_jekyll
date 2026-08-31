@@ -82,6 +82,8 @@
     display: block;
     height: 100%;
     object-fit: cover;
+    transform: scale(1.09) translateY(-2.4%);
+    transform-origin: center;
     width: 100%;
 }
 
