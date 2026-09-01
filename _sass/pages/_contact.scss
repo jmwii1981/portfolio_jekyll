@@ -15,12 +15,6 @@
     max-width: 39rem;
 }
 
-@media (max-width: 42.5rem) {
-    .contact-hero .page-hero-title {
-        font-size: clamp(2rem, 10vw, 4.5rem);
-    }
-}
-
 .main.contact > .contact-section {
     align-items: start;
     display: grid;
