@@ -10,7 +10,7 @@ description: "Fractional product design leadership for growing companies navigat
             <div class="copy-wrapper">
                 <p class="p section-label page-intro-eyebrow hero-intro">Hello, I'm</p>
                 <h1 class="h1 page-hero-title" id="about-title">Jan Michael</h1>
-                <p class="p about-me-statement">I help teams turn product ambiguity into clear strategy, scalable systems, and shipped work that holds up as their businesses evolve.</p>
+                <p class="p about-me-statement">I shape how people, processes, products, and strategies work together to create happier teams, sustainable systems, and lasting value.</p>
                 <div class="button-group">
                     <a
                     class="a button secondary"

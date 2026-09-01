@@ -41,13 +41,13 @@
     pointer-events: none;
 
     &.large {
-        border-radius: 1rem;
-        height: 3.5rem;
+        border-radius: 0.6rem;
+        height: 2.1rem;
         left: 50%;
         position: absolute;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: 3.5rem;
+        width: 2.1rem;
         z-index: 1;
     }
 
