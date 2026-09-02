@@ -13,7 +13,6 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
     </section>
 
     <section class="contact-section" id="send-a-message" aria-label="Send a message" data-search-section data-search-title="Send Jan Michael Wallace II a message" data-search-category="Contact" data-search-keywords="contact form email phone cell message">
-        <p class="p about-me-statement page-hero-lead">I’m open to leadership opportunities and conversations with teams navigating unfamiliar product territory, scaling design practice, or aligning around what comes next.</p>
         <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" data-contact-form aria-label="Email contact form" aria-describedby="contact-required-note contact-form-status">
             <input type="hidden" name="access_key" value="8b2e7fb6-b67b-4e97-8bd9-b4786d165afc">
             <input type="hidden" name="from_name" value="janmichael.io Contact Form">

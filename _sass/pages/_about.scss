@@ -14,6 +14,8 @@
 
 .main.about > .hero + .help {
     margin-top: clamp(0.6rem, 1vw, 1rem);
+    position: relative;
+    z-index: 2;
 }
 
 .main.about > section.help,
@@ -379,16 +381,16 @@
         min-width: 0;
     }
     .help-artwork {
-        aspect-ratio: 1.65 / 1;
+        aspect-ratio: auto;
         display: block;
         min-width: 0;
-        overflow: hidden;
+        overflow: visible;
         width: 100%;
     }
     .help-artwork-image {
         display: block;
-        height: 100%;
-        object-fit: cover;
+        height: auto;
+        object-fit: contain;
         object-position: center center;
         width: 100%;
     }
@@ -501,7 +503,7 @@
     box-sizing: border-box;
     display: flex;
     justify-content: center;
-    overflow: hidden;
+    overflow: visible;
     padding-left: var(--site-frame-gutter);
     padding-right: var(--site-frame-gutter);
     width: 100%;
@@ -528,7 +530,7 @@
         min-width: 0;
     }
     .testimonials-artwork {
-        aspect-ratio: 1.55 / 1;
+        aspect-ratio: auto;
         display: block;
         min-width: 0;
         overflow: visible;
@@ -536,11 +538,10 @@
     }
     .testimonials-artwork-image {
         display: block;
-        height: 100%;
-        object-fit: cover;
+        height: auto;
+        object-fit: contain;
         object-position: center center;
-        transform: scale(1.2);
-        transform-origin: center center;
+        transform: none;
         width: 100%;
     }
     .logo-carousel {
@@ -925,10 +926,6 @@
         display: flex;
         flex-direction: column;
         gap: 2rem;
-    }
-
-    .testimonials .testimonials-artwork {
-        aspect-ratio: 1.55 / 1;
     }
 
     .testimonials .logo-carousel.is-continuous {

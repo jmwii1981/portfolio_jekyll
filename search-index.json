@@ -485,8 +485,8 @@
       "title": "Send Jan Michael Wallace II a message",
       "url": "/contact/#send-a-message",
       "category": "Contact",
-      "summary": "I’m open to leadership opportunities and conversations with teams navigating unfamiliar product territory, scaling design practice, or aligning around what comes next.",
-      "content": "I’m open to leadership opportunities and conversations with teams navigating unfamiliar product territory, scaling design practice, or aligning around what comes next. Fields marked with an asterisk are required. First Name Last Name Email Subject Message If you’re having trouble with the form or prefer to reach out directly, please feel free to email me at hello@janmichael.io or call or text my personal cell at 415.506.9867.",
+      "summary": "Fields marked with an asterisk are required.",
+      "content": "Fields marked with an asterisk are required. First Name Last Name Email Subject Message If you’re having trouble with the form or prefer to reach out directly, please feel free to email me at hello@janmichael.io or call or text my personal cell at 415.506.9867.",
       "keywords": "contact form email phone cell message",
       "priority": 50
     },
@@ -566,7 +566,7 @@
       "url": "/contact/",
       "category": "Contact",
       "summary": "Contact Jan Michael Wallace II about fractional product design leadership, product strategy, design systems, or team development.",
-      "content": "Contact me Let’s create a clear path forward, together. I’m open to leadership opportunities and conversations with teams navigating unfamiliar product territory, scaling design practice, or aligning around what comes next. Fields marked with an asterisk are required. First Name Last Name Email Subject Message If you’re having trouble with the form or prefer to reach out directly, please feel free to email me at hello@janmichael.io or call or text my personal cell at 415.506.9867.",
+      "content": "Contact me Let’s create a clear path forward, together. Fields marked with an asterisk are required. First Name Last Name Email Subject Message If you’re having trouble with the form or prefer to reach out directly, please feel free to email me at hello@janmichael.io or call or text my personal cell at 415.506.9867.",
       "keywords": "",
       "priority": 24
     },

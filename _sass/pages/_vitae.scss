@@ -12,6 +12,7 @@
     --vitae-project-index-glass-highlight-bottom: rgba(255, 255, 255, 0.045);
 
     background-color: var(--color-ink);
+    overflow-x: clip;
 }
 
 .body--vitae .header {
@@ -89,6 +90,60 @@
 
 .vitae-intro-copy {
     max-width: 74rem;
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.vitae-intro-artwork {
+    align-self: stretch;
+    animation: vitae-image-fade 0.9s 0.15s ease-out both;
+    display: block;
+    margin-top: clamp(2.5rem, 8vw, 4rem);
+    min-width: 0;
+    overflow: visible;
+    position: relative;
+    width: 100%;
+    z-index: 0;
+}
+
+.vitae-intro-artwork-image {
+    display: block;
+    height: auto;
+    object-fit: contain;
+    transform: translateY(100px) scale(1.5);
+    transform-origin: center center;
+    width: 100%;
+}
+
+@media (min-width: 42.5625rem) {
+    .vitae-intro {
+        align-content: start;
+        align-items: start;
+        display: grid;
+        gap: clamp(2rem, 5vw, 6rem);
+        grid-template-columns: minmax(0, 1.15fr) minmax(14rem, 0.85fr);
+    }
+
+    .vitae-intro-artwork {
+        justify-self: end;
+        margin-top: 0;
+        width: 120%;
+    }
+
+    .vitae-intro-artwork-image {
+        transform-origin: right center;
+    }
+}
+
+@media (min-width: 60rem) {
+    .vitae-intro {
+        overflow: visible;
+    }
+
+    .vitae-intro-artwork-image {
+        transform: translate(200px, 100px) scale(1.5);
+    }
 }
 
 .vitae-intro-eyebrow {
@@ -933,6 +988,16 @@
     }
 }
 
+@keyframes vitae-image-fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 @media screen and (max-width: 42rem) {
     .vitae-project-index {
         --vitae-project-index-mobile-bleed:
@@ -1130,6 +1195,7 @@
     }
 
     .vitae-intro-eyebrow,
+    .vitae-intro-artwork,
     .vitae-intro-statement,
     .vitae-intro-title {
         animation: none;

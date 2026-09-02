@@ -10,6 +10,11 @@ description: "Selected product design leadership work spanning merchant operatio
             <p class="p section-label page-intro-eyebrow vitae-intro-eyebrow">Selected projects</p>
             <h1 class="h1 page-hero-title vitae-intro-title" id="vitae-intro-title">Products and systems I’ve moved forward.</h1>
         </div>
+        <picture class="vitae-intro-artwork" aria-hidden="true">
+            <source type="image/avif" srcset="{{ '/images/vitae/hero-geometry.avif' | relative_url }}?v={{ site.asset_version }}">
+            <source type="image/webp" srcset="{{ '/images/vitae/hero-geometry.webp' | relative_url }}?v={{ site.asset_version }}">
+            <img class="vitae-intro-artwork-image" src="{{ '/images/vitae/hero-geometry.png' | relative_url }}?v={{ site.asset_version }}" width="1448" height="1086" alt="" decoding="async" fetchpriority="high">
+        </picture>
     </section>
 
     <section class="vitae-collection" aria-label="Selected projects">
