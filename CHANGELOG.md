@@ -9,9 +9,9 @@ Notable changes to janmichael.io are recorded here. The project uses
 
 ### Highlights
 
-- Pages include `/`, `/work/`, `/work/lionfinancial/`, `/work/vega/`,
-  `/work/avenapay/`, `/work/paladin/`, `/work/ledgerflow/`,
-  `/work/northstar/`, `/perspectives/`, `/contact/`, `/links/`, and `/terms/`.
+- Pages include `/`, `/vitae/`, `/vitae/lionfinancial/`, `/vitae/vega/`,
+  `/vitae/avenapay/`, `/vitae/paladin/`, `/vitae/ledgerflow/`,
+  `/vitae/northstar/`, `/perspectives/`, `/contact/`, `/links/`, and `/terms/`.
 - Professional background, selected work, perspectives, contact, and links
   pages published live.
 - Responsive design system implemented.

@@ -53,8 +53,7 @@
     display: flex;
     isolation: isolate;
     min-height: 0;
-    overflow: clip;
-    overflow-clip-margin: 0.5rem;
+    overflow: visible;
     position: relative;
     width: 100%;
     z-index: 1;
@@ -75,9 +74,12 @@
     align-items: flex-start;
     align-self: flex-start;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     margin: 0 auto;
+    overflow: visible;
     padding-bottom: clamp(1.5rem, 4vw, 3rem);
+    padding-top: 0;
     position: relative;
     width: 100%;
 }
@@ -87,6 +89,7 @@
     display: flex;
     flex: 0 1 100%;
     flex-direction: column;
+    margin-top: clamp(2.75rem, 9vw, 4rem);
     max-width: none;
     position: relative;
     width: 100%;
@@ -143,14 +146,20 @@
 }
 
 .hero .image-wrapper {
-    display: none;
+    animation: home-image-fade 0.9s 0.15s ease-out both;
+    display: block;
+    height: clamp(18rem, 82vw, 22rem);
+    margin-left: calc(var(--site-frame-gutter) * -1);
+    overflow: visible;
+    width: calc(100% + (var(--site-frame-gutter) * 2));
 }
 
 .hero .image-wrapper .image {
     display: block;
     height: 100%;
     object-fit: contain;
-    object-position: bottom center;
+    object-position: center center;
+    transform: scale(1.08);
     width: 100%;
 }
 
@@ -162,16 +171,11 @@
 
 @media (min-width: 42.5625rem) {
     .main.about > .hero + .help {
-        margin-top: clamp(2rem, 3.6vw, 3rem);
+        margin-top: 0;
     }
 
     .hero {
         min-height: 0;
-    }
-
-    .hero > .content-wrapper {
-        align-items: flex-start;
-        padding-bottom: clamp(2.5rem, 6vw, 5rem);
     }
 
     .hero .h3 {
@@ -180,9 +184,52 @@
 
 }
 
+@media (min-width: 42.5625rem) and (max-width: 59.9999rem) {
+    .hero > .content-wrapper {
+        align-items: stretch;
+        flex-direction: row;
+        gap: clamp(2rem, 4.5vw, 2.75rem);
+        min-height: clamp(32rem, 78vw, 36rem);
+        padding-bottom: clamp(3rem, 6vw, 4rem);
+        padding-top: clamp(3.25rem, 7vw, 4rem);
+    }
+
+    .hero .copy-wrapper {
+        flex: 1 1 auto;
+        margin-top: clamp(1.25rem, 3.5vw, 2rem);
+        max-width: none;
+        min-width: 0;
+        width: auto;
+    }
+
+    .hero .image-wrapper {
+        align-self: stretch;
+        flex: 0 0 clamp(14.5rem, 36vw, 20rem);
+        height: auto;
+        margin-left: 0;
+        width: auto;
+    }
+
+    .hero .image-wrapper .image {
+        object-fit: cover;
+        object-position: center center;
+        transform: scale(1.1);
+    }
+
+    .hero .page-hero-title {
+        font-size: clamp(3.25rem, 7.5vw, 4.5rem);
+    }
+
+    .hero .about-me-statement {
+        font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+        margin-bottom: 2rem;
+        margin-top: 2rem;
+    }
+}
+
 @media (min-width: 56.0625rem) {
     .hero .copy-wrapper {
-        flex-basis: 34rem;
+        flex-basis: auto;
         max-width: 34rem;
     }
 
@@ -197,46 +244,57 @@
     }
 }
 
-@media (min-width: 65rem) {
-    .hero .image-wrapper {
-        // Finish both fades before they reach the portrait's face. The lower
-        // body still blends into the page without washing out the subject.
-        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 18%, #000000 38%);
-        --hero-image-vertical-mask: linear-gradient(to bottom, #000000 52%, transparent 100%);
+@media (min-width: 60rem) {
+    .main.about > .hero + .help {
+        margin-top: 0;
+    }
 
-        animation: home-image-reveal 1.2s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    .hero > .content-wrapper {
+        min-height: clamp(34rem, 50vw, 37rem);
+        padding-bottom: clamp(4rem, 7vw, 5rem);
+        padding-top: 4.75rem;
+    }
+
+    .hero .copy-wrapper {
+        flex-basis: auto;
+        margin-left: clamp(20.5rem, 33.4vw, 35rem);
+        margin-top: 0;
+        max-width: none;
+        width: auto;
+    }
+
+    .hero .about-me-statement {
+        font-size: 1.45rem;
+        margin-bottom: 2.625rem;
+        margin-top: 2rem;
+        max-width: 36rem;
+    }
+
+    .main.about .hero .hero-intro {
+        margin-bottom: 2rem;
+    }
+
+    .hero .page-hero-title {
+        font-size: clamp(5rem, calc(20vw - 7rem), 7.5rem);
+    }
+
+    .hero .image-wrapper {
+        --hero-image-breakout: max(var(--site-outer-gutter), calc((100vw - var(--site-max-width)) / 2));
+
         bottom: 0;
-        display: block;
-        height: min(42rem, calc(100% - 1.5rem));
-        mask-composite: intersect;
-        mask-image: var(--hero-image-horizontal-mask), var(--hero-image-vertical-mask);
+        height: 100%;
+        left: calc(var(--hero-image-breakout) * -1);
         margin: 0;
         position: absolute;
-        right: 0;
-        width: clamp(26rem, 46vw, 42.5rem);
-        -webkit-mask-composite: source-in;
-        -webkit-mask-image: var(--hero-image-horizontal-mask), var(--hero-image-vertical-mask);
+        top: 0;
+        width: clamp(24rem, 33.75vw, 36rem);
         z-index: 1;
     }
 
     .hero .image-wrapper .image {
-        display: block;
-        height: 100%;
-        object-fit: contain;
-        object-position: bottom center;
-        width: 100%;
-    }
-
-    .hero .image-picture {
-        display: block;
-        height: 100%;
-        width: 100%;
-    }
-}
-
-@media (min-width: 65rem) {
-    .hero .image-wrapper {
-        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 16%, #000000 36%);
+        object-fit: cover;
+        object-position: center 52%;
+        transform: scale(1.18);
     }
 }
 
@@ -252,40 +310,26 @@
     }
 }
 
-@keyframes home-image-reveal {
+@keyframes home-image-fade {
     from {
         opacity: 0;
-        transform: translateX(2.5rem);
     }
 
     to {
         opacity: 1;
-        transform: translateX(0);
     }
 }
 
-@media (min-width: 75rem) {
-    .hero .image-wrapper {
-        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.55) 12%, #000000 32%);
-    }
-}
-
-@media (min-width: 81rem) {
-    .hero .image-wrapper {
-        --hero-image-horizontal-mask: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.75) 8%, #000000 28%);
-    }
-}
-
-@media (min-width: 87rem) {
-    .hero .image-wrapper {
-        --hero-image-horizontal-mask: linear-gradient(to right, #000000 0%, #000000 100%);
+@media (min-width: 68rem) {
+    .hero .page-hero-title {
+        font-size: clamp(5.5rem, 10vw, 7.5rem);
     }
 }
 
 @media (min-width: 78.0625rem) {
     .hero .copy-wrapper {
-        flex-basis: 39rem;
-        max-width: 39rem;
+        flex-basis: auto;
+        max-width: none;
     }
 
     .hero .h3 {
@@ -297,17 +341,7 @@
     }
 
     .hero .about-me-statement {
-        max-width: 34rem;
-    }
-}
-
-@media (min-width: 42.5625rem) and (max-height: 48rem) {
-    .hero {
-        min-height: 0;
-    }
-
-    .hero .image-wrapper {
-        height: min(42rem, calc(100% - 1rem));
+        max-width: 36rem;
     }
 }
 
@@ -327,12 +361,36 @@
     width: 100%;
 
     .content-wrapper {
-        border-top: 0.0625rem solid var(--color-border-subtle);
         container-type: inline-size;
         display: flex;
         flex-direction: column;
         gap: clamp(3rem, 6vw, 6rem);
         padding-top: 3rem;
+    }
+    .help-intro {
+        align-items: center;
+        display: grid;
+        gap: clamp(2rem, 4vw, 5rem);
+        grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+        width: 100%;
+    }
+    .help-intro .home-section-header {
+        max-width: 58rem;
+        min-width: 0;
+    }
+    .help-artwork {
+        aspect-ratio: 1.65 / 1;
+        display: block;
+        min-width: 0;
+        overflow: hidden;
+        width: 100%;
+    }
+    .help-artwork-image {
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        width: 100%;
     }
     .help-list {
         display: grid;
@@ -429,6 +487,16 @@
         }
     }
 }
+
+@media (max-width: 42.5rem) {
+    .help .help-intro {
+        align-items: stretch;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+
 .testimonials {
     box-sizing: border-box;
     display: flex;
@@ -447,6 +515,31 @@
     }
     .h2 {
         margin: 0;
+    }
+    .testimonials-intro {
+        align-items: center;
+        display: grid;
+        gap: clamp(2rem, 4vw, 5rem);
+        grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+        width: 100%;
+    }
+    .testimonials-intro .home-section-header {
+        max-width: 58rem;
+        min-width: 0;
+    }
+    .testimonials-artwork {
+        aspect-ratio: 1.55 / 1;
+        display: block;
+        min-width: 0;
+        overflow: hidden;
+        width: 100%;
+    }
+    .testimonials-artwork-image {
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        width: 100%;
     }
     .logo-carousel {
         display: block;
@@ -825,6 +918,17 @@
 }
 
 @media (max-width: 42.5rem) {
+    .testimonials .testimonials-intro {
+        align-items: stretch;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .testimonials .testimonials-artwork {
+        aspect-ratio: 1.55 / 1;
+    }
+
     .testimonials .logo-carousel.is-continuous {
         display: block;
         order: 3;
@@ -883,17 +987,40 @@
 }
 
 .about-me-inner {
+    align-items: stretch;
     border-top: 0.0625rem solid var(--color-border-subtle);
-    display: grid;
-    gap: clamp(4rem, 8vw, 7rem);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     margin: 0 auto;
     max-width: var(--site-max-width);
     padding-top: clamp(3rem, 6vw, 5rem);
     width: 100%;
 }
 
-.about-me-copy {
-    max-width: 48rem;
+.about-me-artwork {
+    aspect-ratio: 1.65 / 1;
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    width: 100%;
+}
+
+.about-me-artwork-image {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    width: 100%;
+}
+
+@media (min-width: 42.5625rem) {
+    .about-me-inner {
+        align-items: center;
+        display: grid;
+        gap: clamp(2rem, 4vw, 5rem);
+        grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+    }
 }
 
 .about-me-eyebrow {
@@ -907,7 +1034,6 @@
     text-transform: uppercase;
 }
 
-.about-me-title,
 .about-me-next .h2 {
     display: block;
     font-size: clamp(2rem, 9vw, 3rem);
@@ -918,14 +1044,9 @@
 }
 
 @media (min-width: 42.0625rem) {
-    .about-me-title,
     .about-me-next .h2 {
         font-size: clamp(3rem, 7vw, 7.25rem);
     }
-}
-
-.about-me-title-separator {
-    font-weight: 200;
 }
 
 .about-me-statement {
@@ -938,17 +1059,15 @@
     max-width: 44rem;
 }
 
-.about-me-copy .about-me-statement {
-    color: var(--color-text-muted-light);
-}
-
 .about-me-next {
     align-items: start;
-    border-top: 0.0625rem solid var(--color-border-subtle);
+    border-top: 0;
     container-type: inline-size;
     display: flex;
     flex-direction: column;
-    padding-top: clamp(3rem, 6vw, 5rem);
+    max-width: 48rem;
+    padding-top: 0;
+    width: 100%;
 }
 
 .about-me-invitation {
@@ -1014,20 +1133,10 @@
 }
 
 @media screen and (min-width: 70rem) {
-    .about-me-inner {
-        gap: clamp(3rem, 7vw, 8rem);
-        grid-template-columns: minmax(0, 1.0625fr) minmax(18rem, 0.9375fr);
-    }
-
-    .about-me-title {
-        font-size: clamp(1.75rem, 3vw, 2.75rem);
-        max-width: min(100%, calc(16ch + 6.25rem));
-    }
-
     .about-me-next {
-        border-left: 0.0625rem solid var(--color-border-subtle);
+        border-left: 0;
         border-top: 0;
-        padding-left: clamp(2rem, 4vw, 4rem);
+        padding-left: 0;
         padding-top: 0;
     }
 

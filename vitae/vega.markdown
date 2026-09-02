@@ -2,7 +2,7 @@
 layout: project
 project: vega
 title: "Vega Enterprise Design System"
-permalink: /work/vega/
+permalink: /vitae/vega/
 description: "Jan Michael Wallace II’s design-system leadership across components, accessibility standards, design tokens, documentation, governance, and Figma-to-code alignment."
 social_image: /images/projects/vega/750x500 Project Cover.webp
 social_image_alt: "Vega enterprise design system shown across product interfaces"

@@ -11,7 +11,7 @@
     z-index: 1;
 }
 
-.main > :where(section:not(.eop-cta), aside, .work-items-wrapper, .h1, .h2, .h3, .h4, .p) {
+.main > :where(section:not(.eop-cta), aside, .vitae-items-wrapper, .h1, .h2, .h3, .h4, .p) {
     padding-left: var(--site-content-gutter);
     padding-right: var(--site-content-gutter);
 }

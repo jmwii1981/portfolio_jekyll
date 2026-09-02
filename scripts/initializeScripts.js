@@ -262,10 +262,10 @@
             });
         };
 
-        const initializeWorkProjectIndex = () => {
-            const projectIndex = document.querySelector('.work-project-index');
-            const projectList = projectIndex?.querySelector('.work-project-index-list');
-            const projectSummaries = projectIndex?.closest('.work-project-summaries');
+        const initializeVitaeProjectIndex = () => {
+            const projectIndex = document.querySelector('.vitae-project-index');
+            const projectList = projectIndex?.querySelector('.vitae-project-index-list');
+            const projectSummaries = projectIndex?.closest('.vitae-project-summaries');
             const previousProjectButton = projectIndex?.querySelector('[data-project-index-previous]');
             const nextProjectButton = projectIndex?.querySelector('[data-project-index-next]');
             const projectLinks = Array.from(projectIndex?.querySelectorAll('a[href^="#project-"]') || []);
@@ -331,8 +331,8 @@
             const setActiveProject = (entry, { ensureVisible = false } = {}) => {
                 const hasChanged = activeProjectId !== entry.projectId;
 
-                projectList.style.setProperty('--work-project-indicator-x', `${entry.item.offsetLeft}px`);
-                projectList.style.setProperty('--work-project-indicator-width', `${entry.item.offsetWidth}px`);
+                projectList.style.setProperty('--vitae-project-indicator-x', `${entry.item.offsetLeft}px`);
+                projectList.style.setProperty('--vitae-project-indicator-width', `${entry.item.offsetWidth}px`);
                 projectLinks.forEach((link) => {
                     if (link === entry.link) {
                         link.setAttribute('aria-current', 'location');
@@ -427,8 +427,8 @@
                 const bottomDockTop = window.innerHeight - projectIndex.offsetHeight;
                 const shouldBottomDock = desktopDockingQuery.matches && anchorTop > bottomDockTop + 0.5;
 
-                projectIndex.style.setProperty('--work-project-index-fixed-left', `${summariesRect.left}px`);
-                projectIndex.style.setProperty('--work-project-index-fixed-width', `${summariesRect.width}px`);
+                projectIndex.style.setProperty('--vitae-project-index-fixed-left', `${summariesRect.left}px`);
+                projectIndex.style.setProperty('--vitae-project-index-fixed-width', `${summariesRect.width}px`);
                 projectIndex.classList.toggle('is-bottom-docked', shouldBottomDock);
                 projectSummaries.classList.toggle('has-bottom-docked-index', shouldBottomDock);
                 isBottomDocked = shouldBottomDock;
@@ -478,7 +478,7 @@
             nextProjectButton?.addEventListener('click', () => scrollProjectList(1));
             projectList.addEventListener('scroll', updateProjectScrollControls, { passive: true });
             projectList.addEventListener('animationend', (event) => {
-                if (event.animationName === 'work-project-indicator-sheen') {
+                if (event.animationName === 'vitae-project-indicator-sheen') {
                     projectList.classList.remove('is-sheening');
                 }
             });
@@ -983,7 +983,7 @@
 
         safelyInitialize('contact form enhancement', initializeContactForm);
         safelyInitialize('privacy preferences', initializeConsentBanner);
-        safelyInitialize('work project index', initializeWorkProjectIndex);
+        safelyInitialize('vitae project index', initializeVitaeProjectIndex);
         safelyInitialize('mobile navigation', initializeMobileNavigation);
         safelyInitialize('desktop navigation indicator', initializeNavIndicator);
         safelyInitialize('project galleries', initializeProjectGalleries);

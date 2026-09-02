@@ -1,13 +1,13 @@
 ---
 layout: page
 ---
-{% assign project = site.data.work_projects[page.project] %}
-{% assign previous_project = site.data.work_projects[project.previous_slug] %}
-{% assign next_project = site.data.work_projects[project.next_slug] %}
-<main class="main work project-detail" id="main-content" tabindex="-1" data-search-keywords="{{ project.keywords }}">
+{% assign project = site.data.vitae_projects[page.project] %}
+{% assign previous_project = site.data.vitae_projects[project.previous_slug] %}
+{% assign next_project = site.data.vitae_projects[project.next_slug] %}
+<main class="main vitae project-detail" id="main-content" tabindex="-1" data-search-keywords="{{ project.keywords }}">
     <div class="content-wrapper project-detail-shell">
         <div class="project-detail-return">
-            <a class="a" href="{{ '/work/' | relative_url }}"><span aria-hidden="true">←</span> View all work</a>
+            <a class="a" href="{{ '/vitae/' | relative_url }}"><span aria-hidden="true">←</span> Return to vitae</a>
         </div>
 
         <article class="project-detail-article" aria-labelledby="project-detail-title">
@@ -70,20 +70,20 @@ layout: page
                 </div>
             </aside>
 
-            <nav class="project-detail-pagination" aria-label="More selected work">
+            <nav class="project-detail-pagination" aria-label="More vitae projects">
                 <div class="project-detail-pagination-projects">
-                    <a class="a project-detail-pagination-link project-detail-pagination-link--previous" href="{{ '/work/' | append: project.previous_slug | append: '/' | relative_url }}">
+                    <a class="a project-detail-pagination-link project-detail-pagination-link--previous" href="{{ '/vitae/' | append: project.previous_slug | append: '/' | relative_url }}">
                         <span class="project-detail-pagination-direction" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M16 10H4M9 5l-5 5 5 5" /></svg></span>
                         <span class="project-detail-pagination-thumbnail" aria-hidden="true"><img src="{{ previous_project.cover_small | default: previous_project.cover | relative_url }}" alt="" width="375" height="250" loading="lazy" decoding="async"></span>
                         <span class="project-detail-pagination-copy"><span>Previous project</span><strong>{{ project.previous_name }}</strong></span>
                     </a>
-                    <a class="a project-detail-pagination-link project-detail-pagination-link--next" href="{{ '/work/' | append: project.next_slug | append: '/' | relative_url }}">
+                    <a class="a project-detail-pagination-link project-detail-pagination-link--next" href="{{ '/vitae/' | append: project.next_slug | append: '/' | relative_url }}">
                         <span class="project-detail-pagination-copy"><span>Next project</span><strong>{{ project.next_name }}</strong></span>
                         <span class="project-detail-pagination-thumbnail" aria-hidden="true"><img src="{{ next_project.cover_small | default: next_project.cover | relative_url }}" alt="" width="375" height="250" loading="lazy" decoding="async"></span>
                         <span class="project-detail-pagination-direction" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></span>
                     </a>
                 </div>
-                <a class="a project-detail-pagination-all" href="{{ '/work/' | relative_url }}">View all work</a>
+                <a class="a project-detail-pagination-all" href="{{ '/vitae/' | relative_url }}">Return to vitae</a>
             </nav>
         </article>
     </div>

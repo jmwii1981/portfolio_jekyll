@@ -12,7 +12,7 @@ Durable design, accessibility, content, engineering, privacy, and release standa
 - **Markdown and Liquid** provide authored pages and reusable templates.
 - **Sass** compiles the design system from `master.scss` and `_sass/`.
 - **Vanilla JavaScript** provides progressive enhancements from `scripts/`.
-- **YAML data** in `_data/work_projects.yml` supplies shared project summaries.
+- **YAML data** in `_data/vitae_projects.yml` supplies shared project summaries.
 - **Local fonts and optimized media** avoid unnecessary runtime dependencies.
 - **GitHub Actions** builds and audits every pull request and push to `gh-pages`.
 
@@ -60,7 +60,7 @@ The first build renders the current content, the generator refreshes `search-ind
 .
 ├── .github/workflows/       # Continuous quality checks
 ├── _config.yml              # Jekyll and site metadata
-├── _data/work_projects.yml  # Shared public project summaries
+├── _data/vitae_projects.yml # Shared public project summaries
 ├── _includes/               # Reusable Liquid includes
 ├── _layouts/                # Page and redirect templates
 ├── _sass/                   # Design tokens, components, layouts, and pages
@@ -68,9 +68,9 @@ The first build renders the current content, the generator refreshes `search-ind
 ├── fonts/                   # Local web fonts
 ├── images/                  # Headshots, project media, and company logos
 ├── scripts/                 # Progressive enhancements and quality tooling
-├── work/                    # Focused project pages
+├── vitae/                   # Focused project pages
 ├── index.markdown           # Home and about content
-├── work.markdown            # Portfolio overview
+├── vitae.markdown           # Vitae overview
 ├── perspectives.markdown    # Writing and Medium integration
 ├── links.markdown           # Link-in-bio directory
 ├── contact.markdown         # Contact form and direct contact options
@@ -88,9 +88,9 @@ More detail about the Sass and script architecture is available in [_sass/README
 | Content | Source of truth |
 | --- | --- |
 | Home and professional narrative | `index.markdown` |
-| Portfolio overview | `work.markdown` |
-| Shared project summaries | `_data/work_projects.yml` |
-| Focused project pages | `work/*.markdown` |
+| Vitae overview | `vitae.markdown` |
+| Shared project summaries | `_data/vitae_projects.yml` |
+| Focused project pages | `vitae/*.markdown` |
 | Perspectives fallback and framing | `perspectives.markdown` |
 | Link directory and professional profiles | `links.markdown` |
 | Contact information and form fields | `contact.markdown` |

@@ -1,20 +1,20 @@
-.body--work {
-    --work-project-index-glass-background:
+.body--vitae {
+    --vitae-project-index-glass-background:
         linear-gradient(
             110deg,
             rgba(24, 26, 31, 0.66) 0%,
             rgba(10, 11, 14, 0.52) 48%,
             rgba(19, 21, 25, 0.62) 100%
         );
-    --work-glass-border: rgba(255, 255, 255, 0.13);
-    --work-project-index-glass-filter: blur(1.5rem) saturate(125%) brightness(1.02);
-    --work-project-index-glass-highlight-top: rgba(255, 255, 255, 0.12);
-    --work-project-index-glass-highlight-bottom: rgba(255, 255, 255, 0.045);
+    --vitae-glass-border: rgba(255, 255, 255, 0.13);
+    --vitae-project-index-glass-filter: blur(1.5rem) saturate(125%) brightness(1.02);
+    --vitae-project-index-glass-highlight-top: rgba(255, 255, 255, 0.12);
+    --vitae-project-index-glass-highlight-bottom: rgba(255, 255, 255, 0.045);
 
     background-color: var(--color-ink);
 }
 
-.body--work .header {
+.body--vitae .header {
     --header-glass-background:
         linear-gradient(180deg, rgba(30, 32, 38, 0.25), rgba(7, 8, 10, 0.18));
     --header-glass-border: rgba(255, 255, 255, 0.1);
@@ -35,36 +35,36 @@
     }
 }
 
-.body--work .logo.large path {
+.body--vitae .logo.large path {
     stroke: var(--color-paper);
 }
 
-.body--work .nav {
+.body--vitae .nav {
     background: var(--color-ink);
 }
 
-.body--work .nav-toggle-line {
+.body--vitae .nav-toggle-line {
     background: var(--color-paper);
 }
 
-.body--work .nav-toggle {
+.body--vitae .nav-toggle {
     background: transparent;
     border-color: transparent;
 }
 
-.body--work .nav-toggle:hover {
+.body--vitae .nav-toggle:hover {
     background: rgba(255, 255, 255, 0.09);
     border-color: transparent;
 }
 
-.body--work .footer,
-.body--work .main.work {
+.body--vitae .footer,
+.body--vitae .main.vitae {
     --color-link: var(--color-paper);
     --color-text: var(--color-paper);
 }
 
-.main.work {
-    --work-project-index-height: 3.25rem;
+.main.vitae {
+    --vitae-project-index-height: 3.25rem;
 
     align-items: flex-start;
     flex-direction: column;
@@ -74,7 +74,7 @@
     z-index: auto;
 }
 
-.work-intro {
+.vitae-intro {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -87,17 +87,17 @@
     width: 100%;
 }
 
-.work-intro-copy {
+.vitae-intro-copy {
     max-width: 74rem;
 }
 
-.work-intro-eyebrow {
-    animation: work-copy-reveal 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+.vitae-intro-eyebrow {
+    animation: vitae-copy-reveal 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
     color: var(--color-text-muted-on-dark);
 }
 
-.work-intro-title {
-    animation: work-copy-reveal 0.9s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+.vitae-intro-title {
+    animation: vitae-copy-reveal 0.9s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
     background: linear-gradient(135deg, #D2D8FF 0%, #FFFFFF 100%);
     background-clip: text;
     color: #D2D8FF;
@@ -105,20 +105,20 @@
     -webkit-text-fill-color: transparent;
 }
 
-.work-intro-statement {
-    animation: work-copy-reveal 0.9s 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+.vitae-intro-statement {
+    animation: vitae-copy-reveal 0.9s 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
     color: var(--color-text-muted-on-dark);
     margin: clamp(2rem, 5vw, 4rem) 0 0;
     max-width: 39rem;
 }
 
-.work-collection {
+.vitae-collection {
     box-sizing: border-box;
     padding: 0 var(--site-frame-gutter);
     width: 100%;
 }
 
-.work-project-index {
+.vitae-project-index {
     background: var(--color-ink);
     backdrop-filter: blur(0) saturate(100%);
     margin-bottom: 0;
@@ -132,8 +132,8 @@
     z-index: 2;
 }
 
-.work-project-index::before,
-.work-project-index::after {
+.vitae-project-index::before,
+.vitae-project-index::after {
     background: rgba(255, 255, 255, 0.14);
     content: "";
     height: 0.0625rem;
@@ -146,35 +146,35 @@
     width: 100%;
 }
 
-.work-project-index::before {
+.vitae-project-index::before {
     top: 0;
 }
 
-.work-project-index::after {
+.vitae-project-index::after {
     bottom: 0;
 }
 
-.work-project-index.is-stuck {
-    background: var(--work-project-index-glass-background);
-    backdrop-filter: var(--work-project-index-glass-filter);
+.vitae-project-index.is-stuck {
+    background: var(--vitae-project-index-glass-background);
+    backdrop-filter: var(--vitae-project-index-glass-filter);
     box-shadow:
-        inset 0 0.0625rem var(--work-project-index-glass-highlight-top),
-        inset 0 -0.0625rem var(--work-project-index-glass-highlight-bottom),
+        inset 0 0.0625rem var(--vitae-project-index-glass-highlight-top),
+        inset 0 -0.0625rem var(--vitae-project-index-glass-highlight-bottom),
         0 0.625rem 1.75rem rgba(0, 0, 0, 0.12);
-    -webkit-backdrop-filter: var(--work-project-index-glass-filter);
+    -webkit-backdrop-filter: var(--vitae-project-index-glass-filter);
 }
 
-.work-project-index.is-stuck::before {
-    background: var(--work-project-index-glass-highlight-top);
+.vitae-project-index.is-stuck::before {
+    background: var(--vitae-project-index-glass-highlight-top);
 }
 
-.work-project-index.is-stuck::after {
-    background: var(--work-project-index-glass-highlight-bottom);
+.vitae-project-index.is-stuck::after {
+    background: var(--vitae-project-index-glass-highlight-bottom);
 }
 
-.work-project-index-list {
-    --work-project-indicator-width: 0px;
-    --work-project-indicator-x: 0px;
+.vitae-project-index-list {
+    --vitae-project-indicator-width: 0px;
+    --vitae-project-indicator-x: 0px;
 
     display: flex;
     isolation: isolate;
@@ -189,7 +189,7 @@
     z-index: 2;
 }
 
-.work-project-index-list::before {
+.vitae-project-index-list::before {
     background:
         linear-gradient(
             105deg,
@@ -198,7 +198,7 @@
             transparent 66%
         ) 170% 0 / 250% 100% no-repeat,
         linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035));
-    border: 0.0625rem solid var(--work-glass-border);
+    border: 0.0625rem solid var(--vitae-glass-border);
     box-shadow:
         inset 0 0.0625rem rgba(255, 255, 255, 0.08),
         0 0.75rem 2rem rgba(0, 0, 0, 0.12);
@@ -210,28 +210,28 @@
     pointer-events: none;
     position: absolute;
     top: 0;
-    transform: translate3d(var(--work-project-indicator-x), 0, 0);
+    transform: translate3d(var(--vitae-project-indicator-x), 0, 0);
     transition:
         opacity 0.24s ease,
         transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
         width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-    width: var(--work-project-indicator-width);
+    width: var(--vitae-project-indicator-width);
     z-index: 0;
 }
 
-.work-project-index.is-stuck .work-project-index-list.has-active-project::before {
+.vitae-project-index.is-stuck .vitae-project-index-list.has-active-project::before {
     opacity: 1;
 }
 
-.work-project-index.is-stuck .work-project-index-list.has-active-project.is-sheening::before {
-    animation: work-project-indicator-sheen 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1;
+.vitae-project-index.is-stuck .vitae-project-index-list.has-active-project.is-sheening::before {
+    animation: vitae-project-indicator-sheen 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1;
 }
 
-.work-project-index-list::-webkit-scrollbar {
+.vitae-project-index-list::-webkit-scrollbar {
     display: none;
 }
 
-.work-project-index-scroll-button {
+.vitae-project-index-scroll-button {
     align-items: center;
     -webkit-backdrop-filter: blur(2.75rem) saturate(180%);
     backdrop-filter: blur(2.75rem) saturate(180%);
@@ -241,7 +241,7 @@
     color: var(--color-text-muted-on-dark);
     cursor: pointer;
     display: flex;
-    height: var(--work-project-index-height);
+    height: var(--vitae-project-index-height);
     isolation: isolate;
     justify-content: center;
     padding: 0;
@@ -257,43 +257,43 @@
     z-index: 3;
 }
 
-.work-project-index-scroll-button[hidden] {
+.vitae-project-index-scroll-button[hidden] {
     display: none;
 }
 
-.work-project-index-scroll-button--previous {
+.vitae-project-index-scroll-button--previous {
     border-right: 0.0625rem solid rgba(255, 255, 255, 0.08);
     left: 0;
 }
 
-.work-project-index-scroll-button--next {
+.vitae-project-index-scroll-button--next {
     border-left: 0.0625rem solid rgba(255, 255, 255, 0.08);
     right: 0;
 }
 
-.work-project-index-scroll-button:hover,
-.work-project-index-scroll-button:focus-visible {
+.vitae-project-index-scroll-button:hover,
+.vitae-project-index-scroll-button:focus-visible {
     background: rgba(20, 21, 24, 0.94);
     border-color: rgba(255, 255, 255, 0.42);
     color: var(--color-paper);
     opacity: 1;
 }
 
-.work-project-index-scroll-button:focus-visible {
+.vitae-project-index-scroll-button:focus-visible {
     outline: 0.125rem solid var(--color-focus-ring);
     outline-offset: -0.1875rem;
 }
 
-.work-project-index-scroll-button:hover {
+.vitae-project-index-scroll-button:hover {
     box-shadow: none;
 }
 
-.work-project-index-scroll-button:active {
+.vitae-project-index-scroll-button:active {
     background: rgba(30, 31, 34, 0.97);
     box-shadow: none;
 }
 
-.work-project-index-scroll-button svg {
+.vitae-project-index-scroll-button svg {
     display: block;
     height: 0.875rem;
     pointer-events: none;
@@ -304,7 +304,7 @@
     width: 0.875rem;
 }
 
-.work-project-index-list li {
+.vitae-project-index-list li {
     flex: 1 0 9.5rem;
     min-width: 0;
     overflow: clip;
@@ -313,11 +313,11 @@
     z-index: 1;
 }
 
-.work-project-index-list li + li {
+.vitae-project-index-list li + li {
     border-left: 0.0625rem solid rgba(255, 255, 255, 0.06);
 }
 
-.work-project-index-list .a {
+.vitae-project-index-list .a {
     align-items: center;
     box-sizing: border-box;
     display: flex;
@@ -325,7 +325,7 @@
     font-weight: 700;
     gap: 0.75rem;
     letter-spacing: 0.06em;
-    min-height: var(--work-project-index-height);
+    min-height: var(--vitae-project-index-height);
     min-width: 0;
     overflow: hidden;
     padding: 0.75rem clamp(0.75rem, 1.25vw, 1.25rem);
@@ -333,7 +333,7 @@
     transition: color 0.28s ease;
 }
 
-@keyframes work-project-indicator-sheen {
+@keyframes vitae-project-indicator-sheen {
     from {
         background-position: 170% 0, 0 0;
     }
@@ -343,69 +343,69 @@
     }
 }
 
-.work-project-index-list .a:hover,
-.work-project-index-list .a:focus-visible {
+.vitae-project-index-list .a:hover,
+.vitae-project-index-list .a:focus-visible {
     background: rgba(255, 255, 255, 0.08);
 }
 
-.work-project-index-list .a span {
+.vitae-project-index-list .a span {
     color: var(--color-text-muted-on-dark);
     font-size: 0.68rem;
     font-variant-numeric: tabular-nums;
     transition: color 0.28s ease;
 }
 
-.work-project-index-list .a[aria-current="location"],
-.work-project-index-list .a[aria-current="location"] span {
+.vitae-project-index-list .a[aria-current="location"],
+.vitae-project-index-list .a[aria-current="location"] span {
     color: var(--color-paper);
 }
 
-.work-items-wrapper {
+.vitae-items-wrapper {
     display: flex;
     flex-direction: column;
     gap: clamp(6rem, 9vw, 9rem);
 }
 
-.work-project-summaries {
+.vitae-project-summaries {
     display: flex;
     flex-direction: column;
     gap: 0;
     padding: clamp(4rem, 7vw, 6rem) 0 0;
 }
 
-.work-project-summaries::after {
+.vitae-project-summaries::after {
     content: "";
     flex: 0 0 clamp(5rem, 10vw, 9rem);
     pointer-events: none;
 }
 
-.work-project-summary {
+.vitae-project-summary {
     border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
     display: grid;
     gap: clamp(2.75rem, 7vw, 6rem);
     padding-top: clamp(3rem, 6vw, 5rem);
-    scroll-margin-top: calc(var(--site-top-gutter) + var(--work-project-index-height) + 2rem);
+    scroll-margin-top: calc(var(--site-top-gutter) + var(--vitae-project-index-height) + 2rem);
 }
 
-.work-project-index + .work-project-summary {
+.vitae-project-index + .vitae-project-summary {
     border-top: 0;
 }
 
-.work-project-summary + .work-project-summary {
+.vitae-project-summary + .vitae-project-summary {
     margin-top: clamp(6rem, 11vw, 10rem);
 }
 
-.work-project-summary-copy {
+.vitae-project-summary-copy {
     align-self: center;
     max-width: 42rem;
 }
 
-.work-project-summary-visual {
+.vitae-project-summary-visual {
     margin: 0;
     overflow: hidden;
 }
 
-.work-project-summary-visual img {
+.vitae-project-summary-visual img {
     aspect-ratio: 4 / 3;
     display: block;
     height: auto;
@@ -416,7 +416,7 @@
 .project-story {
     border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
     padding-top: clamp(3rem, 6vw, 5rem);
-    scroll-margin-top: calc(var(--site-top-gutter) + var(--work-project-index-height) + 2rem);
+    scroll-margin-top: calc(var(--site-top-gutter) + var(--vitae-project-index-height) + 2rem);
 }
 
 .project-story-header {
@@ -772,19 +772,19 @@
     text-transform: uppercase;
 }
 
-.work-summary {
+.vitae-summary {
     box-sizing: border-box;
     padding: 0 var(--site-frame-gutter) clamp(6rem, 11vw, 10rem);
     width: 100%;
 }
 
-.work-summary-intro {
+.vitae-summary-intro {
     border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
     max-width: 72rem;
     padding-top: clamp(3rem, 6vw, 5rem);
 }
 
-.work-summary-eyebrow {
+.vitae-summary-eyebrow {
     color: var(--color-text-muted-on-dark);
     display: block;
     font-size: 0.8rem;
@@ -795,7 +795,7 @@
     text-transform: uppercase;
 }
 
-.work-summary-title {
+.vitae-summary-title {
     display: block;
     font-size: clamp(2.75rem, 5.25vw, 5rem);
     letter-spacing: var(--type-feature-letter-spacing);
@@ -804,7 +804,7 @@
     max-width: 14ch;
 }
 
-.work-summary-statement {
+.vitae-summary-statement {
     color: var(--color-text-muted-on-dark);
     display: block;
     font-size: clamp(1.05rem, 1.8vw, 1.45rem);
@@ -814,7 +814,7 @@
     max-width: 44rem;
 }
 
-.work-summary-principles {
+.vitae-summary-principles {
     display: grid;
     gap: 0;
     list-style: none;
@@ -822,12 +822,12 @@
     padding: 0;
 }
 
-.work-summary-principles li {
+.vitae-summary-principles li {
     border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
     padding: 1.5rem 0 3rem;
 }
 
-.work-summary-number {
+.vitae-summary-number {
     color: var(--color-text-muted-on-dark);
     display: block;
     font-size: 0.75rem;
@@ -836,7 +836,7 @@
     margin: 0 0 clamp(2.5rem, 6vw, 5rem);
 }
 
-.work-summary-principles .h3 {
+.vitae-summary-principles .h3 {
     display: block;
     font-size: clamp(1.5rem, 2.5vw, 2.25rem);
     letter-spacing: var(--type-card-letter-spacing);
@@ -845,7 +845,7 @@
     max-width: 15ch;
 }
 
-.work-summary-principles li > .p:last-child {
+.vitae-summary-principles li > .p:last-child {
     color: var(--color-text-muted-on-dark);
     display: block;
     font-size: 1rem;
@@ -854,7 +854,7 @@
     max-width: 28rem;
 }
 
-.work-summary-next {
+.vitae-summary-next {
     border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
     display: grid;
     gap: 3rem;
@@ -862,7 +862,7 @@
     padding-top: clamp(3rem, 6vw, 5rem);
 }
 
-.work-summary-next .h3 {
+.vitae-summary-next .h3 {
     display: block;
     font-size: clamp(2.75rem, 5.25vw, 5rem);
     letter-spacing: var(--type-section-letter-spacing);
@@ -871,7 +871,7 @@
     max-width: 22ch;
 }
 
-.work-summary-actions {
+.vitae-summary-actions {
     align-items: flex-start;
     flex-direction: column;
     width: min(100%, 24rem);
@@ -881,11 +881,11 @@
     }
 }
 
-.main.work .button {
+.main.vitae .button {
     --button-hover-shadow: var(--shadow-control-edge-on-dark);
 }
 
-.main.work .button.primary {
+.main.vitae .button.primary {
     --button-background: var(--color-paper);
     --button-background-active: var(--color-control-light-hover);
     --button-background-hover: var(--color-control-light-hover);
@@ -895,7 +895,7 @@
     --button-text-hover: var(--color-ink);
 }
 
-.main.work .button.secondary {
+.main.vitae .button.secondary {
     --button-background: var(--color-ink);
     --button-background-active: var(--color-control-dark-hover);
     --button-background-hover: var(--color-control-dark-hover);
@@ -921,7 +921,7 @@
     }
 }
 
-@keyframes work-copy-reveal {
+@keyframes vitae-copy-reveal {
     from {
         opacity: 0;
         transform: translateY(1.5rem);
@@ -934,41 +934,41 @@
 }
 
 @media screen and (max-width: 42rem) {
-    .work-project-index {
-        --work-project-index-mobile-bleed:
+    .vitae-project-index {
+        --vitae-project-index-mobile-bleed:
             calc(var(--site-frame-gutter) + var(--site-outer-gutter));
 
-        margin-left: calc(0rem - var(--work-project-index-mobile-bleed));
-        margin-right: calc(0rem - var(--work-project-index-mobile-bleed));
+        margin-left: calc(0rem - var(--vitae-project-index-mobile-bleed));
+        margin-right: calc(0rem - var(--vitae-project-index-mobile-bleed));
         width: calc(
             100%
-            + var(--work-project-index-mobile-bleed)
-            + var(--work-project-index-mobile-bleed)
+            + var(--vitae-project-index-mobile-bleed)
+            + var(--vitae-project-index-mobile-bleed)
         );
     }
 }
 
 @media screen and (min-width: 42.0625rem) {
-    .main.work {
-        --work-project-index-height: 1.625rem;
+    .main.vitae {
+        --vitae-project-index-height: 1.625rem;
     }
 
-    .work-project-summaries.has-bottom-docked-index::before {
+    .vitae-project-summaries.has-bottom-docked-index::before {
         content: "";
-        flex: 0 0 var(--work-project-index-height);
+        flex: 0 0 var(--vitae-project-index-height);
         pointer-events: none;
     }
 
-    .work-project-index.is-bottom-docked {
+    .vitae-project-index.is-bottom-docked {
         bottom: 0;
-        left: var(--work-project-index-fixed-left);
+        left: var(--vitae-project-index-fixed-left);
         position: fixed;
         right: auto;
         top: auto;
-        width: var(--work-project-index-fixed-width);
+        width: var(--vitae-project-index-fixed-width);
     }
 
-    .work-project-index-list .a {
+    .vitae-project-index-list .a {
         padding-bottom: 0.25rem;
         padding-top: 0.25rem;
     }
@@ -980,18 +980,18 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .work-summary-actions {
+    .vitae-summary-actions {
         flex-direction: row;
         width: auto;
     }
 
-    .work-summary-actions .button {
+    .vitae-summary-actions .button {
         width: auto;
     }
 }
 
 @media screen and (min-width: 44.3125rem) {
-    .body--work .nav {
+    .body--vitae .nav {
         background: transparent;
     }
 }
@@ -1003,52 +1003,52 @@
 }
 
 @media screen and (min-width: 53.5625rem) {
-    .work-project-index-scroll-button--previous {
+    .vitae-project-index-scroll-button--previous {
         left: -2.75rem;
     }
 
-    .work-project-index-scroll-button--next {
+    .vitae-project-index-scroll-button--next {
         right: -2.75rem;
     }
 }
 
 @media screen and (min-width: 56.0625rem) {
-    .work-summary-principles {
+    .vitae-summary-principles {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .work-summary-principles li {
+    .vitae-summary-principles li {
         border-left: 0.0625rem solid rgba(255, 255, 255, 0.14);
         padding: 2rem clamp(2rem, 4vw, 4rem) 3rem;
     }
 
-    .work-summary-principles li:first-child {
+    .vitae-summary-principles li:first-child {
         border-left: 0;
         padding-left: 0;
     }
 
-    .work-summary-principles li:last-child {
+    .vitae-summary-principles li:last-child {
         padding-right: 0;
     }
 }
 
 @media screen and (min-width: 60.0625rem) {
-    .work-project-summary {
+    .vitae-project-summary {
         align-items: center;
         grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     }
 
-    .work-project-summary:nth-child(even) {
+    .vitae-project-summary:nth-child(even) {
         grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     }
 
-    .work-project-summary:nth-child(even) .work-project-summary-copy {
+    .vitae-project-summary:nth-child(even) .vitae-project-summary-copy {
         grid-column: 2;
         grid-row: 1;
         justify-self: end;
     }
 
-    .work-project-summary:nth-child(even) .work-project-summary-visual {
+    .vitae-project-summary:nth-child(even) .vitae-project-summary-visual {
         grid-column: 1;
         grid-row: 1;
     }
@@ -1103,24 +1103,24 @@
         grid-column: 2;
     }
 
-    .work-summary-next {
+    .vitae-summary-next {
         align-items: end;
         grid-template-columns: minmax(0, 1fr) auto;
     }
 
-    .work-summary-actions {
+    .vitae-summary-actions {
         align-items: center;
         justify-self: end;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .work-project-index,
-    .work-project-index::after,
-    .work-project-index-list::before,
-    .work-project-index-scroll-button,
-    .work-project-index-list .a,
-    .work-project-index-list .a span {
+    .vitae-project-index,
+    .vitae-project-index::after,
+    .vitae-project-index-list::before,
+    .vitae-project-index-scroll-button,
+    .vitae-project-index-list .a,
+    .vitae-project-index-list .a span {
         animation: none;
         transition: none;
     }
@@ -1129,9 +1129,9 @@
         transition: none;
     }
 
-    .work-intro-eyebrow,
-    .work-intro-statement,
-    .work-intro-title {
+    .vitae-intro-eyebrow,
+    .vitae-intro-statement,
+    .vitae-intro-title {
         animation: none;
     }
 

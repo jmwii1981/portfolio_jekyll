@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% assign redirect_target = page.redirect_to | relative_url %}
     <title>Page moved — Jan Michael Wallace II</title>
+    <meta name="robots" content="noindex, follow">
     <link rel="canonical" href="{{ page.redirect_canonical | absolute_url }}">
     <meta http-equiv="refresh" content="0; url={{ redirect_target }}">
     <script>window.location.replace({{ redirect_target | jsonify }});</script>

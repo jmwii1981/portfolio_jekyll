@@ -5,7 +5,7 @@
 ## Primary pages
 
 - [About](https://janmichael.io/): Professional focus, leadership approach, capabilities, recommendations, and biography.
-- [Selected work](https://janmichael.io/work/): Detailed product and design-system case studies across fintech, merchant operations, and enterprise products.
+- [Vitae](https://janmichael.io/vitae/): Detailed product and design-system case studies across fintech, merchant operations, and enterprise products.
 - [Perspectives](https://janmichael.io/perspectives/): Writing about product design, leadership, systems, and team alignment.
 - [Links](https://janmichael.io/links/): Portfolio, writing, professional profiles, and contact links in one place.
 - [Contact](https://janmichael.io/contact/): How to contact Jan Michael Wallace II.
@@ -29,15 +29,15 @@
 - Team alignment, critique, coaching, and scalable design practice.
 - Fintech, payments, merchant operations, and enterprise product workflows.
 
-## Selected work summaries
+## Vitae project summaries
 
-- [LionFinancial Merchant Management System](https://janmichael.io/work/lionfinancial/): A representative merchant-management operating system connecting accounts, customers, transactions, approvals, payouts, and reporting.
-- [Vega Enterprise Design System](https://janmichael.io/work/vega/): An enterprise design system supporting distributed product, design, and engineering teams across a global ecosystem.
-- [AvenaPay Disputes Analytics](https://janmichael.io/work/avenapay/): A representative disputes analytics experience that helps merchants understand change, prioritize attention, and identify recovery opportunities.
-- [Paladin Wireframing System](https://janmichael.io/work/paladin/): A wireframing system designed to help teams align early, test consequential workflows, and reduce avoidable rework.
-- [LedgerFlow Payments and Invoicing](https://janmichael.io/work/ledgerflow/): A representative fintech experience connecting invoicing, payments, customers, reminders, reporting, and mobile collection.
-- [Northstar Commerce Conversion Strategy](https://janmichael.io/work/northstar/): A representative conversion strategy helping small businesses compare payment products, understand rates, and choose an appropriate setup.
+- [LionFinancial Merchant Management System](https://janmichael.io/vitae/lionfinancial/): A representative merchant-management operating system connecting accounts, customers, transactions, approvals, payouts, and reporting.
+- [Vega Enterprise Design System](https://janmichael.io/vitae/vega/): An enterprise design system supporting distributed product, design, and engineering teams across a global ecosystem.
+- [AvenaPay Disputes Analytics](https://janmichael.io/vitae/avenapay/): A representative disputes analytics experience that helps merchants understand change, prioritize attention, and identify recovery opportunities.
+- [Paladin Wireframing System](https://janmichael.io/vitae/paladin/): A wireframing system designed to help teams align early, test consequential workflows, and reduce avoidable rework.
+- [LedgerFlow Payments and Invoicing](https://janmichael.io/vitae/ledgerflow/): A representative fintech experience connecting invoicing, payments, customers, reminders, reporting, and mobile collection.
+- [Northstar Commerce Conversion Strategy](https://janmichael.io/vitae/northstar/): A representative conversion strategy helping small businesses compare payment products, understand rates, and choose an appropriate setup.
 
-Full project files are not hosted on this website. Where an external artifact is available, follow the relevant Figma or project link provided on the Work page.
+Full project files are not hosted on this website. Where an external artifact is available, follow the relevant Figma or project link provided on the Vitae page.
 
 When referencing portfolio outcomes, preserve qualifiers such as “representative,” “projected,” or “approximately” where they appear in the source.

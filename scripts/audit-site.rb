@@ -9,7 +9,7 @@ require "yaml"
 
 source_root = Pathname.new(__dir__).join("..").expand_path
 site_root = source_root.join("_site")
-work_projects = YAML.safe_load_file(source_root.join("_data", "work_projects.yml"))
+vitae_projects = YAML.safe_load_file(source_root.join("_data", "vitae_projects.yml"))
 failures = []
 legacy_redirects = {
   "about/index.html" => {
@@ -21,8 +21,36 @@ legacy_redirects = {
     canonical: "https://janmichael.io/"
   },
   "experience/index.html" => {
-    target: "/work/",
-    canonical: "https://janmichael.io/work/"
+    target: "/vitae/",
+    canonical: "https://janmichael.io/vitae/"
+  },
+  "work/index.html" => {
+    target: "/vitae/",
+    canonical: "https://janmichael.io/vitae/"
+  },
+  "work/lionfinancial/index.html" => {
+    target: "/vitae/lionfinancial/",
+    canonical: "https://janmichael.io/vitae/lionfinancial/"
+  },
+  "work/vega/index.html" => {
+    target: "/vitae/vega/",
+    canonical: "https://janmichael.io/vitae/vega/"
+  },
+  "work/avenapay/index.html" => {
+    target: "/vitae/avenapay/",
+    canonical: "https://janmichael.io/vitae/avenapay/"
+  },
+  "work/paladin/index.html" => {
+    target: "/vitae/paladin/",
+    canonical: "https://janmichael.io/vitae/paladin/"
+  },
+  "work/ledgerflow/index.html" => {
+    target: "/vitae/ledgerflow/",
+    canonical: "https://janmichael.io/vitae/ledgerflow/"
+  },
+  "work/northstar/index.html" => {
+    target: "/vitae/northstar/",
+    canonical: "https://janmichael.io/vitae/northstar/"
   }
 }.freeze
 
@@ -342,14 +370,14 @@ else
   failures << "index.html: missing from build output"
 end
 
-project_pages = work_projects.to_h do |slug, project|
+project_pages = vitae_projects.to_h do |slug, project|
   [slug, Pathname.new(project.fetch("cover")).dirname.basename.to_s]
 end
-work_page_html = site_root.join("work", "index.html").read
+vitae_page_html = site_root.join("vitae", "index.html").read
 sitemap_html = site_root.join("sitemap.xml").read
-work_structured_data = work_page_html.scan(/<script\b[^>]*type=(['"])application\/ld\+json\1[^>]*>(.*?)<\/script>/mi).map { |(_, json)| JSON.parse(json) }
-work_graph = work_structured_data.flat_map { |document| document.fetch("@graph", []) }
-project_item_list = work_graph.find { |node| node["@type"] == "ItemList" && node["@id"] == "https://janmichael.io/work/#selected-work" }
+vitae_structured_data = vitae_page_html.scan(/<script\b[^>]*type=(['"])application\/ld\+json\1[^>]*>(.*?)<\/script>/mi).map { |(_, json)| JSON.parse(json) }
+vitae_graph = vitae_structured_data.flat_map { |document| document.fetch("@graph", []) }
+project_item_list = vitae_graph.find { |node| node["@type"] == "ItemList" && node["@id"] == "https://janmichael.io/vitae/#vitae-projects" }
 actual_project_items = Array(project_item_list&.fetch("itemListElement", nil)).map do |entry|
   item = entry.fetch("item", {})
   {
@@ -360,19 +388,19 @@ actual_project_items = Array(project_item_list&.fetch("itemListElement", nil)).m
     "description" => item["description"]
   }
 end
-expected_project_items = work_projects.map.with_index do |(slug, project), index|
+expected_project_items = vitae_projects.map.with_index do |(slug, project), index|
   {
     "position" => index + 1,
-    "url" => "https://janmichael.io/work/#{slug}/",
+    "url" => "https://janmichael.io/vitae/#{slug}/",
     "name" => project.fetch("name"),
     "headline" => project.fetch("headline"),
     "description" => project.fetch("introduction")
   }
 end
-failures << "work/index.html: project ItemList does not match _data/work_projects.yml" unless actual_project_items == expected_project_items
+failures << "vitae/index.html: project ItemList does not match _data/vitae_projects.yml" unless actual_project_items == expected_project_items
 
 project_pages.each do |slug, image_folder|
-  relative = "work/#{slug}/index.html"
+  relative = "vitae/#{slug}/index.html"
   file = site_root.join(relative)
 
   unless file.file?
@@ -381,12 +409,12 @@ project_pages.each do |slug, image_folder|
   end
 
   html = file.read
-  canonical = "https://janmichael.io/work/#{slug}/"
+  canonical = "https://janmichael.io/vitae/#{slug}/"
   failures << "#{relative}: canonical URL is missing or incorrect" unless html.match?(/<link\b[^>]*rel=(['"])canonical\1[^>]*href=(['"])#{Regexp.escape(canonical)}\2/i)
   failures << "#{relative}: Open Graph type must be article" unless html.match?(/<meta\b[^>]*property=(['"])og:type\1[^>]*content=(['"])article\2/i)
   failures << "#{relative}: project social image is missing" unless html.match?(/<meta\b[^>]*property=(['"])og:image\1[^>]*content=(['"])[^'"]*\/images\/projects\/#{Regexp.escape(image_folder)}\//i)
-  failures << "#{relative}: Work navigation is not current" unless html.match?(/<a\b[^>]*id=(['"])work\1[^>]*class=(['"])[^'"]*\bactive\b[^'"]*\2[^>]*aria-current=(['"])page\3/i)
-  failures << "work/index.html: missing visible link to #{canonical}" unless work_page_html.include?("href=\"/work/#{slug}/\"")
+  failures << "#{relative}: Vitae navigation is not current" unless html.match?(/<a\b[^>]*id=(['"])vitae\1[^>]*class=(['"])[^'"]*\bactive\b[^'"]*\2[^>]*aria-current=(['"])page\3/i)
+  failures << "vitae/index.html: missing visible link to #{canonical}" unless vitae_page_html.include?("href=\"/vitae/#{slug}/\"")
   failures << "sitemap.xml: missing focused project URL #{canonical}" unless sitemap_html.include?("<loc>#{canonical}</loc>")
 
   structured_data = html.scan(/<script\b[^>]*type=(['"])application\/ld\+json\1[^>]*>(.*?)<\/script>/mi).map { |(_, json)| JSON.parse(json) }

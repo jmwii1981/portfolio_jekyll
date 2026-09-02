@@ -7,6 +7,13 @@ description: "Fractional product design leadership for growing companies navigat
 <main class="main about" id="main-content" tabindex="-1">
     <section class="hero" id="about" aria-labelledby="about-title" data-search-section data-search-title="About Jan Michael Wallace II" data-search-category="About" data-search-summary="Fractional product design leadership for growing companies turning ambiguity into clear strategy, scalable systems, and durable shipped work." data-search-keywords="fractional product design leader portfolio product strategy leadership">
         <div class="content-wrapper page-intro-frame">
+            <div class="image-wrapper" aria-hidden="true">
+                <picture class="image-picture">
+                    <source type="image/avif" srcset="{{ '/images/hero/prayer-rocks.avif' | relative_url }}?v={{ site.asset_version }}">
+                    <source type="image/webp" srcset="{{ '/images/hero/prayer-rocks.webp' | relative_url }}?v={{ site.asset_version }}">
+                    <img width="1254" height="1254" class="image" src="{{ '/images/hero/prayer-rocks.png' | relative_url }}?v={{ site.asset_version }}" alt="" decoding="async" fetchpriority="high">
+                </picture>
+            </div>
             <div class="copy-wrapper">
                 <p class="p section-label page-intro-eyebrow hero-intro">Hello, I'm</p>
                 <h1 class="h1 page-hero-title" id="about-title">Jan Michael</h1>
@@ -14,46 +21,45 @@ description: "Fractional product design leadership for growing companies navigat
                 <div class="button-group">
                     <a
                     class="a button secondary"
-                    href="{{ '/work/' | relative_url }}"><span class="button-label">View selected work</span></a>
+                    href="{{ '/vitae/' | relative_url }}"><span class="button-label">View vitae</span></a>
                     <a
                     class="a button primary"
                     href="{{ '/contact/' | relative_url }}"><span class="button-label">Contact me</span></a>
                 </div>
             </div>
-            <div class="image-wrapper">
-                <picture class="image-picture">
-                    <source media="(min-width: 65rem)" type="image/avif" srcset="{{ '/images/hero/janmichael.avif' | relative_url }}?v={{ site.asset_version }}">
-                    <source media="(min-width: 65rem)" type="image/webp" srcset="{{ '/images/hero/janmichael.webp' | relative_url }}?v={{ site.asset_version }}">
-                    <source media="(min-width: 65rem)" srcset="{{ '/images/hero/janmichael.png' | relative_url }}?v={{ site.asset_version }}">
-                    <img width="834" height="882" class="image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 834 882'%3E%3C/svg%3E" alt="Jan Michael Wallace II" decoding="async" fetchpriority="high">
-                </picture>
-            </div>
         </div>
     </section>
     <section class="help" id="how-i-help" data-search-section data-search-title="How I Help" data-search-category="Services" data-search-keywords="clarify collaborate scale lead coaching strategy design systems team leadership">
         <div class="content-wrapper">
-            <header class="home-section-header" data-reveal="right">
-                <h2 class="h2 section-label">How I help</h2>
-                <p class="p home-section-title">Leadership that turns ambiguity into clarity.</p>
-            </header>
+            <div class="help-intro">
+                <header class="home-section-header" data-reveal="right">
+                    <h2 class="h2 section-label">How I help</h2>
+                    <p class="p home-section-title">Leadership that turns ambiguity into clarity.</p>
+                </header>
+                <picture class="help-artwork" aria-hidden="true" data-reveal="right">
+                    <source type="image/avif" srcset="{{ '/images/help/strategy-notes.avif' | relative_url }}?v={{ site.asset_version }}">
+                    <source type="image/webp" srcset="{{ '/images/help/strategy-notes.webp' | relative_url }}?v={{ site.asset_version }}">
+                    <img class="help-artwork-image" src="{{ '/images/help/strategy-notes.png' | relative_url }}?v={{ site.asset_version }}" width="1254" height="1254" alt="" loading="lazy" decoding="async">
+                </picture>
+            </div>
             <ul class="help-list">
                 <li class="help-item" data-reveal="up">
-                    <p class="p help-number" aria-hidden="true">02</p>
+                    <p class="p help-number" aria-hidden="true">01</p>
                     <h3>Clarify</h3>
                     <p class="p">Turn ambiguity into product strategy, design systems, and practical execution plans.</p>
                 </li>
                 <li class="help-item" data-reveal="left">
-                    <p class="p help-number" aria-hidden="true">03</p>
+                    <p class="p help-number" aria-hidden="true">02</p>
                     <h3>Collaborate</h3>
                     <p class="p">Bring stakeholders, designers, and engineers around the decisions that move work forward.</p>
                 </li>
                 <li class="help-item" data-reveal="right">
-                    <p class="p help-number" aria-hidden="true">04</p>
+                    <p class="p help-number" aria-hidden="true">03</p>
                     <h3>Scale</h3>
                     <p class="p">Create repeatable systems that help teams move faster without losing quality.</p>
                 </li>
                 <li class="help-item" data-reveal="left">
-                    <p class="p help-number" aria-hidden="true">05</p>
+                    <p class="p help-number" aria-hidden="true">04</p>
                     <h3>Lead</h3>
                     <p class="p">Coach people through critique, growth, and the habits that make excellent work sustainable.</p>
                 </li>
@@ -62,10 +68,17 @@ description: "Fractional product design leadership for growing companies navigat
     </section>
     <section class="testimonials" id="recommendations" data-search-section data-search-title="Recommendations and Companies" data-search-category="Experience" data-search-keywords="testimonials recommendations trusted companies clients colleagues global payments tsys worldpay humana adapt health">
         <div class="content-wrapper">
-            <header class="home-section-header" data-reveal="left">
-                <h2 class="h2 section-label">Trusted across the globe</h2>
-                <p class="p home-section-title">The strongest work is built together.</p>
-            </header>
+            <div class="testimonials-intro">
+                <header class="home-section-header" data-reveal="left">
+                    <h2 class="h2 section-label">Trusted across the globe</h2>
+                    <p class="p home-section-title">The strongest work is built together.</p>
+                </header>
+                <picture class="testimonials-artwork" aria-hidden="true" data-reveal="right">
+                    <source type="image/avif" srcset="{{ '/images/testimonials/puzzle-pieces.avif' | relative_url }}?v={{ site.asset_version }}">
+                    <source type="image/webp" srcset="{{ '/images/testimonials/puzzle-pieces.webp' | relative_url }}?v={{ site.asset_version }}">
+                    <img class="testimonials-artwork-image" src="{{ '/images/testimonials/puzzle-pieces.png' | relative_url }}?v={{ site.asset_version }}" width="1254" height="1254" alt="" loading="lazy" decoding="async">
+                </picture>
+            </div>
             <div class="logo-carousel" data-reveal="up">
                 <div class="logo-carousel-viewport">
                     <div class="logo-carousel-track" id="company-logo-track">
@@ -230,13 +243,8 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
         </div>
     </section>
-    <section class="about-me" id="beyond-the-work" data-search-section data-search-title="Beyond the Work" data-search-category="About" data-search-summary="More than 20 years of making, exploring, giving back, raising four kids, and sitting down over coffee with interesting people to talk about big ideas." data-search-keywords="personal interests connect linkedin conversation">
+    <section class="about-me" id="beyond-the-work" data-search-section data-search-title="Get in Touch" data-search-category="Contact" data-search-summary="Compare notes with Jan Michael Wallace II about a product, a team, or a challenge worth solving." data-search-keywords="contact connect linkedin product team challenge conversation">
         <div class="about-me-inner" data-reveal="up">
-            <div class="about-me-copy">
-                <p class="p about-me-eyebrow">Beyond the work</p>
-                <h2 class="h2 about-me-title">I’m usually making something<span class="about-me-title-separator">—</span>or going somewhere.</h2>
-                <p class="p about-me-statement">Curiosity has kept me building for more than 20 years, but life is about more than work. When I’m away from product design, I’m exploring new places, giving back, raising four kids, and sitting down over coffee with interesting people to talk about big ideas.</p>
-            </div>
             <div class="about-me-next">
                 <p class="p about-me-eyebrow">Get in touch</p>
                 <h2 class="h2">Have a problem worth untangling?</h2>
@@ -246,6 +254,11 @@ description: "Fractional product design leadership for growing companies navigat
                     <a class="a button primary" href="{{ '/contact/' | relative_url }}"><span class="button-label">Let’s talk</span></a>
                 </div>
             </div>
+            <picture class="about-me-artwork" aria-hidden="true">
+                <source type="image/avif" srcset="{{ '/images/contact/untangling-knot.avif' | relative_url }}?v={{ site.asset_version }}">
+                <source type="image/webp" srcset="{{ '/images/contact/untangling-knot.webp' | relative_url }}?v={{ site.asset_version }}">
+                <img class="about-me-artwork-image" src="{{ '/images/contact/untangling-knot.png' | relative_url }}?v={{ site.asset_version }}" width="1254" height="1254" alt="" loading="lazy" decoding="async">
+            </picture>
         </div>
     </section>
 </main>

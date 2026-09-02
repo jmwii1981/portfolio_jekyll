@@ -439,17 +439,17 @@
     margin-top: 0;
 }
 
-.body--work .site-search {
+.body--vitae .site-search {
     --search-foreground: var(--color-paper);
 }
 
-.body--work .site-search-toggle {
+.body--vitae .site-search-toggle {
     background: transparent;
     border-color: transparent;
     color: var(--color-paper);
 }
 
-.body--work .site-search-toggle:hover {
+.body--vitae .site-search-toggle:hover {
     background: rgba(255, 255, 255, 0.09);
     border-color: transparent;
 }
