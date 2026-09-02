@@ -531,7 +531,7 @@
         aspect-ratio: 1.55 / 1;
         display: block;
         min-width: 0;
-        overflow: hidden;
+        overflow: visible;
         width: 100%;
     }
     .testimonials-artwork-image {
@@ -539,6 +539,8 @@
         height: 100%;
         object-fit: cover;
         object-position: center center;
+        transform: scale(1.2);
+        transform-origin: center center;
         width: 100%;
     }
     .logo-carousel {
@@ -1019,7 +1021,17 @@
         align-items: center;
         display: grid;
         gap: clamp(2rem, 4vw, 5rem);
-        grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+        grid-template-columns: minmax(18rem, 0.85fr) minmax(0, 1.15fr);
+    }
+
+    .about-me-artwork {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .about-me-next {
+        grid-column: 2;
+        grid-row: 1;
     }
 }
 
@@ -1032,21 +1044,6 @@
     line-height: var(--type-label-line-height);
     margin: 0 0 1.5rem;
     text-transform: uppercase;
-}
-
-.about-me-next .h2 {
-    display: block;
-    font-size: clamp(2rem, 9vw, 3rem);
-    letter-spacing: var(--type-section-letter-spacing);
-    line-height: var(--type-section-line-height);
-    margin: 0;
-    max-width: min(100%, calc(12ch + 6.25rem));
-}
-
-@media (min-width: 42.0625rem) {
-    .about-me-next .h2 {
-        font-size: clamp(3rem, 7vw, 7.25rem);
-    }
 }
 
 .about-me-statement {
@@ -1138,13 +1135,6 @@
         border-top: 0;
         padding-left: 0;
         padding-top: 0;
-    }
-
-    .about-me-next .h2 {
-        font-size: clamp(1.75rem, 3vw, 2.75rem);
-        letter-spacing: var(--type-card-letter-spacing);
-        line-height: var(--type-card-line-height);
-        max-width: min(100%, calc(16ch + 6.25rem));
     }
 
     .about-me-actions {

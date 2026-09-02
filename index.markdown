@@ -243,12 +243,12 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
         </div>
     </section>
-    <section class="about-me" id="beyond-the-work" data-search-section data-search-title="Get in Touch" data-search-category="Contact" data-search-summary="Compare notes with Jan Michael Wallace II about a product, a team, or a challenge worth solving." data-search-keywords="contact connect linkedin product team challenge conversation">
+    <section class="about-me" id="beyond-the-work" data-search-section data-search-title="Get in Touch" data-search-category="Contact" data-search-summary="Discuss what’s next with Jan Michael Wallace II." data-search-keywords="contact connect linkedin product team challenge conversation">
         <div class="about-me-inner" data-reveal="up">
             <div class="about-me-next">
                 <p class="p about-me-eyebrow">Get in touch</p>
-                <h2 class="h2">Have a problem worth untangling?</h2>
-                <p class="p about-me-invitation">I’m always glad to compare notes on a product, a team, or a challenge worth solving.</p>
+                <h2 class="h2 home-section-title">Have a problem worth untangling?</h2>
+                <p class="p about-me-invitation">Let’s discuss what’s next.</p>
                 <div class="button-group about-me-actions">
                     <a class="a button secondary about-me-linkedin-button" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer"><span class="button-label"><span class="about-me-linkedin-icon" aria-hidden="true">{% include icon.html name="linked-in" %}</span>Let’s connect <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></a>
                     <a class="a button primary" href="{{ '/contact/' | relative_url }}"><span class="button-label">Let’s talk</span></a>
