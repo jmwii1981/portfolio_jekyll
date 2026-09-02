@@ -18,3 +18,6 @@ local_env.yml
 
 # Private local project governance
 PROJECT_REQUIREMENTS.md
+
+# Non-production visual explorations
+design-assets/
