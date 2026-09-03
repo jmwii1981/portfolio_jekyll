@@ -115,6 +115,14 @@
     }
 }
 
+@media screen and (min-width: 44.3125rem) {
+    .header {
+        height: 3rem;
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+}
+
 .site-identity {
     align-items: center;
     display: flex;

@@ -767,10 +767,6 @@
             let hasPositionedIndicator = false;
             let updateFrame = 0;
 
-            const rootFontSize = () => (
-                Number.parseFloat(getComputedStyle(document.documentElement).fontSize) || 16
-            );
-
             const persistentTarget = () => {
                 return focusedLink || hoveredLink || activeLink || null;
             };
@@ -785,7 +781,7 @@
 
                 const containerRect = navContainer.getBoundingClientRect();
                 const linkRect = currentLink.getBoundingClientRect();
-                const underlineOffset = rootFontSize() * 0.75;
+                const underlineOffset = 0;
                 const x = linkRect.left - containerRect.left;
                 const y = linkRect.bottom - containerRect.top + underlineOffset;
 

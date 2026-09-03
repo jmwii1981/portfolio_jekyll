@@ -113,7 +113,7 @@
     &::after {
         background: currentColor;
         border-radius: 999rem;
-        bottom: -0.75rem;
+        bottom: -0.125rem;
         content: "";
         height: 0.125rem;
         left: 0;
@@ -387,7 +387,7 @@
         padding: 0;
         pointer-events: auto;
         position: relative;
-        transform: none;
+        transform: translateY(0.125rem);
         transition: none;
         visibility: visible;
         width: auto;

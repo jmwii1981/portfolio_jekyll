@@ -26,7 +26,7 @@
 }
 
 .main.about .section-label {
-    color: var(--color-text-muted);
+    color: var(--color-section-label);
     font-size: var(--type-label-font-size);
     font-weight: 700;
     letter-spacing: var(--type-label-letter-spacing);
@@ -497,6 +497,20 @@
         flex-direction: column;
         gap: 2rem;
     }
+
+    .help .help-item {
+        min-height: 0;
+        padding-bottom: 2rem;
+        padding-top: 1.25rem;
+    }
+
+    .help .help-number {
+        margin-bottom: 1.5rem;
+    }
+
+    .help .help-item > .p:last-child {
+        margin-top: 0.75rem;
+    }
 }
 
 .testimonials {
@@ -509,7 +523,6 @@
     width: 100%;
 
     .content-wrapper {
-        border-top: 0.0625rem solid var(--color-border-subtle);
         display: flex;
         flex-direction: column;
         gap: clamp(3rem, 6vw, 6rem);
@@ -612,6 +625,7 @@
         --logo-width: 9.5rem;
 
         display: block;
+        filter: brightness(0) saturate(100%) invert(47%) sepia(10%) saturate(433%) hue-rotate(180deg) brightness(94%) contrast(86%);
         height: auto;
         max-height: var(--logo-height);
         max-width: var(--logo-width);
@@ -987,7 +1001,6 @@
 
 .about-me-inner {
     align-items: stretch;
-    border-top: 0.0625rem solid var(--color-border-subtle);
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -1033,7 +1046,7 @@
 }
 
 .about-me-eyebrow {
-    color: var(--color-text-muted);
+    color: var(--color-section-label);
     display: block;
     font-size: 0.8rem;
     font-weight: 700;
@@ -1126,7 +1139,24 @@
     }
 }
 
+@media (max-width: 42.5rem) {
+    .hero .image-wrapper,
+    .help .help-artwork,
+    .testimonials .testimonials-artwork,
+    .about-me .about-me-artwork {
+        display: none;
+    }
+}
+
 @media screen and (min-width: 70rem) {
+    .testimonials .logo-carousel {
+        margin-top: -6.4375rem;
+    }
+
+    .testimonials .recommendations {
+        margin-top: -4.625rem;
+    }
+
     .about-me-next {
         border-left: 0;
         border-top: 0;

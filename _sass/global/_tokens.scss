@@ -44,6 +44,7 @@
     --color-surface-subtle: #F2F2F2;
 
     // Text hierarchy
+    --color-section-label: #6C6F73;
     --color-text-muted: #696E79;
     --color-text-muted-light: #707681;
     --color-text-muted-on-dark: #AEB1B8;
@@ -84,5 +85,11 @@
     :root {
         --site-frame-gutter: 0rem;
         --site-section-gap: 4rem;
+    }
+}
+
+@media (min-width: 44.3125rem) {
+    :root {
+        --site-top-gutter: 2rem;
     }
 }
