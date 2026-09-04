@@ -44,22 +44,18 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
             <ul class="help-list">
                 <li class="help-item" data-reveal="up">
-                    <p class="p help-number" aria-hidden="true">01</p>
                     <h3>Clarify</h3>
                     <p class="p">Turn ambiguity into product strategy, design systems, and practical execution plans.</p>
                 </li>
                 <li class="help-item" data-reveal="left">
-                    <p class="p help-number" aria-hidden="true">02</p>
                     <h3>Collaborate</h3>
                     <p class="p">Bring stakeholders, designers, and engineers around the decisions that move work forward.</p>
                 </li>
                 <li class="help-item" data-reveal="right">
-                    <p class="p help-number" aria-hidden="true">03</p>
                     <h3>Scale</h3>
                     <p class="p">Create repeatable systems that help teams move faster without losing quality.</p>
                 </li>
                 <li class="help-item" data-reveal="left">
-                    <p class="p help-number" aria-hidden="true">04</p>
                     <h3>Lead</h3>
                     <p class="p">Coach people through critique, growth, and the habits that make excellent work sustainable.</p>
                 </li>
