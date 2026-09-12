@@ -1051,17 +1051,12 @@
 @media (min-width: 42.5625rem) {
     .about-me-inner {
         align-items: center;
-        display: grid;
+        flex-direction: column-reverse;
         gap: clamp(2.5rem, 6vw, 5rem);
-        grid-template-columns: minmax(0, 1fr);
-        justify-items: center;
     }
 
     .about-me-artwork {
         aspect-ratio: 1.243 / 1;
-        grid-column: 1;
-        grid-row: 1;
-        justify-self: center;
         transform: none;
         width: min(75.33%, 36.16rem);
     }
@@ -1076,9 +1071,6 @@
     }
 
     .about-me-next {
-        grid-column: 1;
-        grid-row: 2;
-        justify-self: center;
         transform: none;
     }
 }
@@ -1178,22 +1170,42 @@
     fill: var(--color-paper);
 }
 
-@media (min-width: 92rem) {
+// Desktop contact composition: cropped artwork left, copy/actions right.
+@media (min-width: 44.3125rem) {
     .about-me-inner {
-        grid-template-columns: minmax(0, 48rem) minmax(0, 1fr);
-        justify-items: stretch;
+        flex-direction: row-reverse;
+        gap: clamp(1rem, 2vw, 2rem);
     }
 
     .about-me-artwork {
-        grid-column: 1;
-        grid-row: 1;
+        aspect-ratio: 1.035 / 1;
+        flex: 1.05 1 0;
+        width: auto;
+    }
+
+    .about-me-artwork-image {
+        width: 100%;
     }
 
     .about-me-next {
-        grid-column: 2;
-        grid-row: 1;
-        justify-self: start;
-        width: 100%;
+        flex: 1 1 0;
+        min-width: 0;
+        width: auto;
+    }
+
+    .about-me-next > .home-section-title {
+        font-size: clamp(2.5rem, 17cqw, 5.5rem);
+    }
+
+    .about-me-actions {
+        align-items: center;
+        flex-direction: row;
+        gap: clamp(0.75rem, 2cqw, 1.25rem);
+        width: auto;
+    }
+
+    .about-me-actions .button {
+        width: auto;
     }
 }
 

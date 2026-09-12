@@ -42,6 +42,20 @@ bundle exec jekyll serve --livereload
 
 Jekyll serves the site at `http://127.0.0.1:4000/` by default. Generated output is written to `_site/` and must not be committed.
 
+### Chrome DevTools workspace (opt-in)
+
+To offer Chrome DevTools a connection to this source folder while inspecting the local preview, start Jekyll with:
+
+```bash
+bundle exec ruby _plugins/serve-devtools --livereload --host 127.0.0.1
+```
+
+Open `http://127.0.0.1:4000/` in Chrome, then use the workspace connection offered in DevTools and approve its folder-access request. The manifest is generated at `/.well-known/appspecific/com.chrome.devtools.json` only when this dedicated local preview command runs. Its source path is determined at runtime, and its UUID stays stable across runs. The regular serve and build commands do not enable it. Keep the preview bound to loopback; the manifest contains your local source-folder path.
+
+Saving a directly copied JavaScript asset from DevTools' Workspace panel has been verified. Automatic URL-to-source saving from the Page panel did not persist in the tested setup. You can browse other project files in the Workspace panel, but this manifest alone does not safely map Jekyll-generated HTML or compiled CSS back to Liquid, Markdown, or Sass sources. Continue editing those source files in the project.
+
+Follow-up check (September 12, 2026): with the automatic workspace connected, a disposable JavaScript file loaded by an isolated page on port 4001 was edited from `"before"` to `"after"` in Sources → Page and saved with Command-S. Chrome displayed the edit, but the original source and generated output both remained `"before"`; reloading the page restored `"before"` in the editor. This confirms that automatic Page-panel mapping did not persist the edit in this setup (preview output was in a separate temporary directory). It does not establish a failure in every possible mapping configuration. Use Sources → Workspace for verified source editing. Earlier interrupted attempts were inconclusive; this completed test supersedes them. Temporary fixtures were removed and the test server stopped.
+
 ### Production build
 
 Content changes require a two-pass build because the committed search database is generated from rendered pages:

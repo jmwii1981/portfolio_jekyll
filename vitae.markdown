@@ -2,6 +2,7 @@
 layout: page
 title: Vitae
 permalink: /vitae/
+selected_projects: [vega, avenapay, ledgerflow]
 description: "Selected product design leadership work spanning merchant operations, enterprise design systems, fintech workflows, and scalable product foundations."
 ---
 <main class="main vitae" id="main-content" tabindex="-1">
@@ -22,18 +23,16 @@ description: "Selected product design leadership work spanning merchant operatio
             <nav class="vitae-project-index" aria-label="Jump to a selected project" data-liquid-ignore>
                 <button class="vitae-project-index-scroll-button vitae-project-index-scroll-button--previous" type="button" data-project-index-previous aria-controls="vitae-project-index-list" aria-label="Show previous projects" hidden><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M16 10H4M9 5l-5 5 5 5" /></svg></button>
                 <ul class="vitae-project-index-list" id="vitae-project-index-list">
-                    {% for project_entry in site.data.vitae_projects %}
-                    {% assign project_slug = project_entry[0] %}
-                    {% assign project = project_entry[1] %}
+                    {% for project_slug in page.selected_projects %}
+                    {% assign project = site.data.vitae_projects[project_slug] %}
                     <li><a class="a" href="#project-{{ project_slug }}"><span aria-hidden="true">0{{ forloop.index }}</span> {{ project.index_label | default: project.organization }}</a></li>
                     {% endfor %}
                 </ul>
                 <button class="vitae-project-index-scroll-button vitae-project-index-scroll-button--next" type="button" data-project-index-next aria-controls="vitae-project-index-list" aria-label="Show more projects" hidden><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></button>
             </nav>
 
-            {% for project_entry in site.data.vitae_projects %}
-            {% assign project_slug = project_entry[0] %}
-            {% assign project = project_entry[1] %}
+            {% for project_slug in page.selected_projects %}
+            {% assign project = site.data.vitae_projects[project_slug] %}
             {% assign project_preview = project.vitae_cover | default: project.cover %}
             {% assign project_highlight = project.highlights | first %}
             <article class="vitae-project-summary" id="project-{{ project_slug }}" aria-labelledby="{{ project_slug }}-title" data-search-section data-search-title="{{ project.name }}" data-search-category="Vitae" data-search-summary="{{ project.introduction }}" data-search-keywords="{{ project.keywords }}">
@@ -42,7 +41,7 @@ description: "Selected product design leadership work spanning merchant operatio
                     <h3 class="h3 project-story-title" id="{{ project_slug }}-title"><a class="a project-story-title-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}">{{ project.headline }}</a></h3>
                     <p class="p project-story-intro">{{ project.introduction }}</p>
                     <div class="button-group project-story-actions">
-                        <a class="a button button-container secondary project-story-page-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}" aria-label="Explore Project">Explore Project<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Explore Project <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></span></span></a>
+                        <a class="a button button-container secondary project-story-page-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}" aria-label="Explore project">Explore project<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Explore project <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></span></span></a>
                         {% if project.external_url %}
                         <a class="a button button-container primary project-story-link" href="{{ project.external_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ project.external_label }}">{{ project.external_label }}<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">{{ project.external_label }} <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
                         {% endif %}
@@ -80,8 +79,8 @@ description: "Selected product design leadership work spanning merchant operatio
                 </li>
             </ul>
             <div class="button-group vitae-summary-actions">
-                <a class="a button button-container secondary" href="https://www.figma.com/@jmwii1981" target="_blank" rel="noopener noreferrer" aria-label="See More in Figma">See More in Figma<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">See More in Figma <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
-                <a class="a button button-container primary" href="{{ '/contact/' | relative_url }}" aria-label="Start a Conversation">Start a Conversation<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Start a Conversation</span></span></a>
+                <a class="a button button-container secondary" href="https://www.figma.com/@jmwii1981" target="_blank" rel="noopener noreferrer" aria-label="See more in figma">See more in figma<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">See more in figma <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
+                <a class="a button button-container primary" href="{{ '/contact/' | relative_url }}" aria-label="Start a conversation">Start a conversation<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Start a conversation</span></span></a>
             </div>
         </div>
     </section>

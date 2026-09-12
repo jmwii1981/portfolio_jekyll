@@ -53,7 +53,7 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
             </div>
 
             <div class="contact-actions">
-                <button class="button button-container primary contact-submit" type="submit" aria-label="Send Message">Send Message<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Send Message</span></span></button>
+                <button class="button button-container primary contact-submit" type="submit" aria-label="Send message">Send message<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Send message</span></span></button>
                 <p class="p contact-form-status" id="contact-form-status" data-contact-status role="status" aria-live="polite" aria-atomic="true"></p>
                 <p class="p contact-direct-email" id="contact-direct-email">If you’re having trouble with the form or prefer to reach out directly, please feel free to email me at <a class="a" href="mailto:hello@janmichael.io">hello@janmichael.io</a> or call or text my personal cell at <a class="a" href="tel:+14155069867">415.506.9867</a>.</p>
             </div>

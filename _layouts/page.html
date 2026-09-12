@@ -253,11 +253,10 @@
                     "@type": "ItemList",
                     "@id": {{ canonical_url | append: '#vitae-projects' | jsonify }},
                     "name": "Vitae projects",
-                    "numberOfItems": {{ site.data.vitae_projects.size }},
+                    "numberOfItems": {{ page.selected_projects.size }},
                     "itemListElement": [
-                        {% for project_entry in site.data.vitae_projects %}
-                        {% assign project_slug = project_entry[0] %}
-                        {% assign project_data = project_entry[1] %}
+                        {% for project_slug in page.selected_projects %}
+                        {% assign project_data = site.data.vitae_projects[project_slug] %}
                         {% assign project_url = '/vitae/' | append: project_slug | append: '/' | absolute_url %}
                         {
                             "@type": "ListItem",

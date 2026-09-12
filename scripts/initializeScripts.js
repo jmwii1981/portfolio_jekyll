@@ -289,7 +289,7 @@
 
             if (!projectIndex || !projectList || !projectSummaries || !projectEntries.length) return;
 
-            const desktopDockingQuery = window.matchMedia('(min-width: 42.0625rem)');
+            const desktopDockingQuery = window.matchMedia('(min-width: 44.3125rem)');
             const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             let activeProjectId = null;
             let isBottomDocked = false;

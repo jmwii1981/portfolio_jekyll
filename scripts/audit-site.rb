@@ -10,6 +10,7 @@ require "yaml"
 source_root = Pathname.new(__dir__).join("..").expand_path
 site_root = source_root.join("_site")
 vitae_projects = YAML.safe_load_file(source_root.join("_data", "vitae_projects.yml"))
+selected_project_slugs = YAML.safe_load(source_root.join("vitae.markdown").read.split("---", 3)[1]).fetch("selected_projects")
 failures = []
 legacy_redirects = {
   "about/index.html" => {
@@ -388,7 +389,8 @@ actual_project_items = Array(project_item_list&.fetch("itemListElement", nil)).m
     "description" => item["description"]
   }
 end
-expected_project_items = vitae_projects.map.with_index do |(slug, project), index|
+expected_project_items = selected_project_slugs.map.with_index do |slug, index|
+  project = vitae_projects.fetch(slug)
   {
     "position" => index + 1,
     "url" => "https://janmichael.io/vitae/#{slug}/",
@@ -414,7 +416,11 @@ project_pages.each do |slug, image_folder|
   failures << "#{relative}: Open Graph type must be article" unless html.match?(/<meta\b[^>]*property=(['"])og:type\1[^>]*content=(['"])article\2/i)
   failures << "#{relative}: project social image is missing" unless html.match?(/<meta\b[^>]*property=(['"])og:image\1[^>]*content=(['"])[^'"]*\/images\/projects\/#{Regexp.escape(image_folder)}\//i)
   failures << "#{relative}: Vitae navigation is not current" unless html.match?(/<a\b[^>]*id=(['"])vitae\1[^>]*class=(['"])[^'"]*\bactive\b[^'"]*\2[^>]*aria-current=(['"])page\3/i)
-  failures << "vitae/index.html: missing visible link to #{canonical}" unless vitae_page_html.include?("href=\"/vitae/#{slug}/\"")
+  if selected_project_slugs.include?(slug)
+    failures << "vitae/index.html: missing visible link to #{canonical}" unless vitae_page_html.include?("href=\"/vitae/#{slug}/\"")
+  else
+    failures << "vitae/index.html: unselected project section #{slug} remains" if vitae_page_html.include?("id=\"project-#{slug}\"") || vitae_page_html.include?("href=\"#project-#{slug}\"")
+  end
   failures << "sitemap.xml: missing focused project URL #{canonical}" unless sitemap_html.include?("<loc>#{canonical}</loc>")
 
   structured_data = html.scan(/<script\b[^>]*type=(['"])application\/ld\+json\1[^>]*>(.*?)<\/script>/mi).map { |(_, json)| JSON.parse(json) }

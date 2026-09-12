@@ -67,7 +67,7 @@
 
 .main.vitae {
     --vitae-project-index-height: 3.25rem;
-    --vitae-project-index-sticky-top: max(var(--site-top-gutter), 3rem);
+    --vitae-project-index-sticky-top: calc(max(var(--site-top-gutter), 3rem) - 2px);
 
     align-items: flex-start;
     flex-direction: column;
@@ -1016,58 +1016,62 @@
 }
 
 .main.vitae:not(.project-detail) .button {
-    --vitae-button-glass-end: rgba(207, 220, 246, 0.04);
-    --vitae-button-glass-middle: rgba(255, 255, 255, 0.012);
-    --vitae-button-glass-start: rgba(255, 255, 255, 0.13);
+    // Sampled from the supplied primary/secondary dark state references.
+    --button-border: #cecece;
+    --button-border-hover: #fffffe;
+    --button-face-border-hover: #fffffe;
+    --button-border-active: #fffffe;
+    --button-shadow-color: #040405;
+    --button-text: #cecece;
+    --button-text-hover: #fffffe;
+    --button-text-active: #fffffe;
 }
 
 .main.vitae:not(.project-detail) .button.primary {
-    --button-background: rgba(82, 96, 126, 0.34);
-    --button-background-active: rgba(53, 60, 76, 0.52);
-    --button-background-hover: rgba(106, 124, 158, 0.46);
-    --button-border-active: rgba(222, 229, 244, 0.42);
-    --button-border: rgba(231, 237, 250, 0.44);
-    --button-shadow-color: rgba(156, 174, 210, 0.16);
-    --button-text: var(--color-button-primary-text);
-    --button-text-active: var(--color-button-primary-text-interactive);
-    --button-text-hover: var(--color-button-primary-text-interactive);
-    --vitae-button-glass-end: rgba(203, 217, 245, 0.055);
-    --vitae-button-glass-middle: rgba(255, 255, 255, 0.02);
-    --vitae-button-glass-start: rgba(241, 245, 255, 0.16);
+    --button-background: #24262f;
+    --button-background-hover: #303340;
+    --button-background-active: #1c1e24;
 }
 
 .main.vitae:not(.project-detail) .button.secondary {
-    --button-background: rgba(255, 255, 255, 0.035);
-    --button-background-active: rgba(255, 255, 255, 0.025);
-    --button-background-hover: rgba(255, 255, 255, 0.09);
-    --button-border-active: rgba(255, 255, 255, 0.46);
-    --button-border: rgba(255, 255, 255, 0.5);
-    --button-border-hover: rgba(255, 255, 255, 0.68);
-    --button-shadow-color: rgba(207, 218, 239, 0.08);
-    --button-text: var(--color-button-primary-text);
-    --button-text-active: var(--color-button-primary-text-interactive);
-    --button-text-hover: var(--color-button-primary-text-interactive);
+    --button-background: #040405;
+    --button-background-hover: #040405;
+    --button-background-active: #101013;
 }
 
 .main.vitae:not(.project-detail) .button .button-shadow {
-    box-shadow:
-        inset 0 0.0625rem rgba(255, 255, 255, 0.36),
-        0 0.35rem 0.9rem rgba(0, 0, 0, 0.26);
+    border: 0.0625rem solid #616162;
+    box-shadow: none;
 }
 
 .main.vitae:not(.project-detail) .button .button-face {
-    -webkit-backdrop-filter: blur(0.875rem) saturate(135%) brightness(1.08);
-    backdrop-filter: blur(0.875rem) saturate(135%) brightness(1.08);
-    background-image: linear-gradient(
-        145deg,
-        var(--vitae-button-glass-start) 0%,
-        var(--vitae-button-glass-middle) 48%,
-        var(--vitae-button-glass-end) 100%
-    );
-    box-shadow:
-        inset 0 0.0625rem rgba(255, 255, 255, 0.56),
-        inset 0 -0.0625rem rgba(255, 255, 255, 0.08),
-        inset 0 0 0 0.0625rem rgba(255, 255, 255, 0.04);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-image: none;
+    box-shadow: none;
+}
+
+.main.vitae:not(.project-detail) .button:hover:not(:active):not(:focus-visible) .button-face::before {
+    border: 0.0625rem solid #616162;
+    border-radius: inherit;
+    box-sizing: border-box;
+    content: "";
+    inset: -0.0625rem;
+    pointer-events: none;
+    position: absolute;
+    transform: translateY(0.25rem);
+}
+
+.main.vitae:not(.project-detail) .button:active .button-face-container::after {
+    border: 0.0625rem solid #616162;
+    border-radius: inherit;
+    box-sizing: border-box;
+    clip-path: inset(50% 0 0 0);
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
 }
 
 @media (forced-colors: active) {
@@ -1118,22 +1122,18 @@
     }
 }
 
-@media screen and (max-width: 42rem) {
-    .vitae-project-index {
-        --vitae-project-index-mobile-bleed:
-            calc(var(--site-frame-gutter) + var(--site-outer-gutter));
+@media screen and (max-width: 44.25rem) {
+    .main.vitae {
+        --vitae-project-index-height: 0rem;
+        --vitae-project-index-sticky-top: var(--site-top-gutter);
+    }
 
-        margin-left: calc(0rem - var(--vitae-project-index-mobile-bleed));
-        margin-right: calc(0rem - var(--vitae-project-index-mobile-bleed));
-        width: calc(
-            100%
-            + var(--vitae-project-index-mobile-bleed)
-            + var(--vitae-project-index-mobile-bleed)
-        );
+    .vitae-project-index {
+        display: none;
     }
 }
 
-@media screen and (min-width: 42.0625rem) {
+@media screen and (min-width: 44.3125rem) {
     .main.vitae {
         --vitae-project-index-height: 1.625rem;
     }
@@ -1157,7 +1157,9 @@
         padding-bottom: 0.25rem;
         padding-top: 0.25rem;
     }
+}
 
+@media screen and (min-width: 42.0625rem) {
     .project-gallery-copy-item--overview,
     .project-story-details:not(.project-story-copy-panel) {
         display: grid;

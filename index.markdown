@@ -22,7 +22,7 @@ description: "Fractional product design leadership for growing companies navigat
                     <a
                     class="a button button-container secondary"
                     href="{{ '/vitae/' | relative_url }}"
-                    aria-label="View Work">View Work<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">View Work</span></span></a>
+                    aria-label="View work">View work<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">View work</span></span></a>
                     <a
                     class="a button button-container primary"
                     href="{{ '/contact/' | relative_url }}"
@@ -259,8 +259,8 @@ description: "Fractional product design leadership for growing companies navigat
                 <h2 class="h2 home-section-title"><span>Let's shake </span><span>things&nbsp;up!</span></h2>
                 <p class="p about-me-invitation">Tell me what you're working on.</p>
                 <div class="button-group about-me-actions">
-                    <a class="a button button-container primary" href="{{ '/contact/' | relative_url }}" aria-label="Let’s Talk">Let’s Talk<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Let’s Talk</span></span></a>
-                    <a class="a button button-container secondary about-me-linkedin-button" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="Let’s Connect">Let’s Connect<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><span class="about-me-linkedin-icon">{% include icon.html name="linked-in" %}</span>Let’s Connect <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
+                    <a class="a button button-container primary" href="{{ '/contact/' | relative_url }}" aria-label="Let’s talk">Let’s talk<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Let’s talk</span></span></a>
+                    <a class="a button button-container secondary about-me-linkedin-button" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="Let’s connect">Let’s connect<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><span class="about-me-linkedin-icon">{% include icon.html name="linked-in" %}</span>Let’s connect <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
                 </div>
             </div>
             <picture class="about-me-artwork" aria-hidden="true">

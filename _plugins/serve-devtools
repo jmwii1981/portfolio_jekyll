@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+# GitHub Pages forces Jekyll safe mode, so local _plugins/*.rb files are not
+# loaded. Running this script explicitly registers the development-only hook.
+require "fileutils"
+require "jekyll"
+require "json"
+
+Jekyll::Hooks.register :site, :post_write do |site|
+  next unless Jekyll.env == "development" && site.config["serving"]
+  next unless ["127.0.0.1", "localhost", "::1"].include?(site.config["host"])
+
+  manifest = File.join(site.dest, ".well-known", "appspecific", "com.chrome.devtools.json")
+  FileUtils.mkdir_p(File.dirname(manifest))
+  File.write(manifest, JSON.pretty_generate({
+    "workspace" => {
+      "root" => File.realpath(site.source),
+      "uuid" => "26522fd1-80d9-44e1-8be2-75814f749fb3"
+    }
+  }) + "\n")
+end
+
+ARGV.unshift("serve")
+load Gem.bin_path("jekyll", "jekyll")
