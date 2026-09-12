@@ -88,7 +88,7 @@ const { join } = require('path');
     expectTopResult('invoice creation', 'page:/vitae/ledgerflow/');
     expectTopResult('wireframing accessibility', 'page:/vitae/paladin/');
     expectTopResult('payment products rates', 'page:/vitae/northstar/');
-    expectTopResult('discuss next', 'section:/#beyond-the-work');
+    expectTopResult('working on', 'section:/#beyond-the-work');
     expectTopResult('Global Payments', 'section:/#recommendations');
     expectTopResult('jmwii1981', 'profile:jan-michael-wallace-ii');
     expectTopResult('link in bio', 'section:/links/#links');

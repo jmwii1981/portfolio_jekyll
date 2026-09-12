@@ -16,6 +16,7 @@
 }
 
 .body--vitae .header {
+    --header-top-background: var(--color-ink);
     --header-glass-background:
         linear-gradient(180deg, rgba(30, 32, 38, 0.25), rgba(7, 8, 10, 0.18));
     --header-glass-border: rgba(255, 255, 255, 0.1);
@@ -66,6 +67,7 @@
 
 .main.vitae {
     --vitae-project-index-height: 3.25rem;
+    --vitae-project-index-sticky-top: max(var(--site-top-gutter), 3rem);
 
     align-items: flex-start;
     flex-direction: column;
@@ -111,7 +113,7 @@
     display: block;
     height: auto;
     object-fit: contain;
-    transform: translateY(100px) scale(1.5);
+    transform: translate(75px, 100px) scale(1.5);
     transform-origin: center center;
     width: 100%;
 }
@@ -148,7 +150,7 @@
     }
 
     .vitae-intro-artwork-image {
-        transform: translate(200px, 0) scale(1.5);
+        transform: translate(275px, 0) scale(1.5);
     }
 }
 
@@ -184,7 +186,7 @@
     backdrop-filter: blur(0) saturate(100%);
     margin-bottom: 0;
     position: sticky;
-    top: calc(var(--site-top-gutter) - 0.25rem);
+    top: var(--vitae-project-index-sticky-top);
     transition:
         background-color 0.35s ease,
         backdrop-filter 0.35s ease,
@@ -445,7 +447,7 @@
     display: grid;
     gap: clamp(2.75rem, 7vw, 6rem);
     padding-top: clamp(3rem, 6vw, 5rem);
-    scroll-margin-top: calc(var(--site-top-gutter) + var(--vitae-project-index-height) + 2rem);
+    scroll-margin-top: calc(var(--vitae-project-index-sticky-top) + var(--vitae-project-index-height) + 2rem);
 }
 
 .vitae-project-index + .vitae-project-summary {
@@ -477,7 +479,7 @@
 .project-story {
     border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
     padding-top: clamp(3rem, 6vw, 5rem);
-    scroll-margin-top: calc(var(--site-top-gutter) + var(--vitae-project-index-height) + 2rem);
+    scroll-margin-top: calc(var(--vitae-project-index-sticky-top) + var(--vitae-project-index-height) + 2rem);
 }
 
 .project-story-header {
@@ -549,10 +551,6 @@
 
 .project-story-actions {
     margin-top: clamp(1.75rem, 3vw, 2.25rem);
-}
-
-.project-story-actions .button {
-    min-height: 3.25rem;
 }
 
 .project-story-link {
@@ -680,34 +678,75 @@
 .project-gallery-button {
     align-items: center;
     background: transparent;
-    border: 0.0625rem solid rgba(255, 255, 255, 0.34);
+    border: 0.0625rem solid transparent;
     border-radius: 100px;
     color: var(--color-paper);
     cursor: pointer;
     display: inline-flex;
     font: inherit;
     height: 3rem;
+    isolation: isolate;
     justify-content: center;
     padding: 0;
+    position: relative;
+    transition: color 0.2s ease;
+    width: 3rem;
+    z-index: 0;
+}
+
+.project-gallery-button::before {
+    background-color: var(--color-paper);
+    border-radius: inherit;
+    box-sizing: border-box;
+    content: "";
+    height: calc(100% + 0.125rem);
+    left: 0;
+    opacity: 1;
+    pointer-events: none;
+    position: absolute;
+    top: -0.0625rem;
+    visibility: hidden;
+    width: 100%;
+    z-index: 0;
+}
+
+.project-gallery-button::after {
+    background-color: transparent;
+    border: 0.0625rem solid rgba(255, 255, 255, 0.34);
+    border-radius: inherit;
+    box-sizing: border-box;
+    content: "";
+    height: calc(100% + 0.125rem);
+    left: -0.0625rem;
+    pointer-events: none;
+    position: absolute;
+    top: -0.0625rem;
+    transform: translate(0, 0);
     transition:
         background-color 0.2s ease,
         border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        color 0.2s ease,
         transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
-    width: 3rem;
+    width: calc(100% + 0.125rem);
+    z-index: 1;
 }
 
 .project-gallery-button:hover,
 .project-gallery-button:focus-visible {
-    background-color: var(--color-paper);
-    border-color: var(--color-paper);
     color: var(--color-ink);
 }
 
 .project-gallery-button:hover {
-    box-shadow: var(--shadow-control-edge-on-dark);
-    transform: translate(-0.125rem, -0.125rem);
+    box-shadow: none;
+}
+
+.project-gallery-button:hover::before {
+    visibility: visible;
+}
+
+.project-gallery-button:hover::after {
+    background-color: var(--color-paper);
+    border-color: var(--color-paper);
+    transform: translate(0, -0.25rem);
 }
 
 .project-gallery-button:focus-visible {
@@ -715,11 +754,28 @@
     outline-offset: 0.125rem;
 }
 
+.project-gallery-button:focus-visible::after {
+    background-color: var(--color-paper);
+    border-color: var(--color-paper);
+    border-width: 0.0625rem;
+    transform: translate(0, 0);
+}
+
 .project-gallery-button:active {
+    box-shadow: none;
+}
+
+.project-gallery-button:active::after {
     background-color: var(--color-control-light-hover);
     border-color: var(--color-control-light-hover);
-    box-shadow: none;
-    transform: translateY(0);
+    border-width: 0.125rem;
+    transform: translate(0, 0);
+}
+
+.project-gallery-button:focus-visible::before,
+.project-gallery-button:active::before,
+.project-gallery-button:disabled::before {
+    visibility: hidden;
 }
 
 .project-gallery-button:disabled {
@@ -731,11 +787,24 @@
     display: block;
     height: 1.1rem;
     pointer-events: none;
+    position: relative;
     stroke: currentColor;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 1.75;
+    transform: translate(0, 0);
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
     width: 1.1rem;
+    z-index: 2;
+}
+
+.project-gallery-button:hover .project-gallery-icon {
+    transform: translate(0, -0.25rem);
+}
+
+.project-gallery-button:focus-visible .project-gallery-icon,
+.project-gallery-button:active .project-gallery-icon {
+    transform: translate(0, 0);
 }
 
 .project-gallery-count {
@@ -879,7 +948,7 @@
     display: grid;
     gap: 0;
     list-style: none;
-    margin: clamp(4rem, 7vw, 6rem) 0 0;
+    margin: 0;
     padding: 0;
 }
 
@@ -919,11 +988,11 @@
     border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
     display: grid;
     gap: 3rem;
-    margin-top: clamp(4rem, 7vw, 6rem);
+    margin-top: 0;
     padding-top: clamp(3rem, 6vw, 5rem);
 }
 
-.vitae-summary-next .h3 {
+.vitae-summary-next > div:first-child .h3 {
     display: block;
     font-size: clamp(2.75rem, 5.25vw, 5rem);
     letter-spacing: var(--type-section-letter-spacing);
@@ -943,27 +1012,72 @@
 }
 
 .main.vitae .button {
-    --button-hover-shadow: var(--shadow-control-edge-on-dark);
+    --button-focus-ring: var(--color-paper);
 }
 
-.main.vitae .button.primary {
-    --button-background: var(--color-paper);
-    --button-background-active: var(--color-control-light-hover);
-    --button-background-hover: var(--color-control-light-hover);
-    --button-border: var(--color-paper);
-    --button-border-hover: var(--color-paper);
-    --button-text: var(--color-ink);
-    --button-text-hover: var(--color-ink);
+.main.vitae:not(.project-detail) .button {
+    --vitae-button-glass-end: rgba(207, 220, 246, 0.04);
+    --vitae-button-glass-middle: rgba(255, 255, 255, 0.012);
+    --vitae-button-glass-start: rgba(255, 255, 255, 0.13);
 }
 
-.main.vitae .button.secondary {
-    --button-background: var(--color-ink);
-    --button-background-active: var(--color-control-dark-hover);
-    --button-background-hover: var(--color-control-dark-hover);
-    --button-border: rgba(255, 255, 255, 0.42);
-    --button-border-hover: var(--color-paper);
-    --button-text: var(--color-paper);
-    --button-text-hover: var(--color-paper);
+.main.vitae:not(.project-detail) .button.primary {
+    --button-background: rgba(82, 96, 126, 0.34);
+    --button-background-active: rgba(53, 60, 76, 0.52);
+    --button-background-hover: rgba(106, 124, 158, 0.46);
+    --button-border-active: rgba(222, 229, 244, 0.42);
+    --button-border: rgba(231, 237, 250, 0.44);
+    --button-shadow-color: rgba(156, 174, 210, 0.16);
+    --button-text: var(--color-button-primary-text);
+    --button-text-active: var(--color-button-primary-text-interactive);
+    --button-text-hover: var(--color-button-primary-text-interactive);
+    --vitae-button-glass-end: rgba(203, 217, 245, 0.055);
+    --vitae-button-glass-middle: rgba(255, 255, 255, 0.02);
+    --vitae-button-glass-start: rgba(241, 245, 255, 0.16);
+}
+
+.main.vitae:not(.project-detail) .button.secondary {
+    --button-background: rgba(255, 255, 255, 0.035);
+    --button-background-active: rgba(255, 255, 255, 0.025);
+    --button-background-hover: rgba(255, 255, 255, 0.09);
+    --button-border-active: rgba(255, 255, 255, 0.46);
+    --button-border: rgba(255, 255, 255, 0.5);
+    --button-border-hover: rgba(255, 255, 255, 0.68);
+    --button-shadow-color: rgba(207, 218, 239, 0.08);
+    --button-text: var(--color-button-primary-text);
+    --button-text-active: var(--color-button-primary-text-interactive);
+    --button-text-hover: var(--color-button-primary-text-interactive);
+}
+
+.main.vitae:not(.project-detail) .button .button-shadow {
+    box-shadow:
+        inset 0 0.0625rem rgba(255, 255, 255, 0.36),
+        0 0.35rem 0.9rem rgba(0, 0, 0, 0.26);
+}
+
+.main.vitae:not(.project-detail) .button .button-face {
+    -webkit-backdrop-filter: blur(0.875rem) saturate(135%) brightness(1.08);
+    backdrop-filter: blur(0.875rem) saturate(135%) brightness(1.08);
+    background-image: linear-gradient(
+        145deg,
+        var(--vitae-button-glass-start) 0%,
+        var(--vitae-button-glass-middle) 48%,
+        var(--vitae-button-glass-end) 100%
+    );
+    box-shadow:
+        inset 0 0.0625rem rgba(255, 255, 255, 0.56),
+        inset 0 -0.0625rem rgba(255, 255, 255, 0.08),
+        inset 0 0 0 0.0625rem rgba(255, 255, 255, 0.04);
+}
+
+@media (forced-colors: active) {
+    .main.vitae:not(.project-detail) .button .button-shadow,
+    .main.vitae:not(.project-detail) .button .button-face {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        background-image: none;
+        box-shadow: none;
+    }
 }
 
 .project-gallery-copy-item.is-entering {
@@ -1175,13 +1289,13 @@
     }
 
     .vitae-summary-next {
-        align-items: end;
-        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: start;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .vitae-summary-actions {
         align-items: center;
-        justify-self: end;
+        justify-self: start;
     }
 }
 
@@ -1197,6 +1311,11 @@
     }
 
     .project-gallery-button {
+        transition: none;
+    }
+
+    .project-gallery-button::after,
+    .project-gallery-icon {
         transition: none;
     }
 

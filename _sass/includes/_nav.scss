@@ -27,7 +27,7 @@
     background: var(--color-link, currentColor);
     border-radius: 999rem;
     display: none;
-    height: 0.125rem;
+    height: 1px;
     left: 0;
     opacity: 0;
     pointer-events: none;
@@ -115,7 +115,7 @@
         border-radius: 999rem;
         bottom: -0.125rem;
         content: "";
-        height: 0.125rem;
+        height: 1px;
         left: 0;
         position: absolute;
         right: 0;

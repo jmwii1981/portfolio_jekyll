@@ -2,6 +2,7 @@ const DESKTOP_QUERY = '(min-width: 26rem)';
 const FINE_POINTER_QUERY = '(pointer: fine)';
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 const LIQUID_GLASS_OPACITY_PROPERTY = '--liquid-glass-opacity';
+const HEADER_GLASS_SCROLL_THRESHOLD = 50;
 
 const LIQUID_GLASS_OPTIONS = Object.freeze({
     snapshot: 'body',
@@ -122,11 +123,26 @@ const initializeLens = ({ container, targetSelector, label }) => {
 };
 
 export const initializeLiquidGlassNavigation = () => {
-    if (!canEnhanceNavigation()) return;
+    const header = document.querySelector('.header');
+    let enhancementRequested = false;
 
-    initializeLens({
-        container: document.querySelector('.header'),
-        targetSelector: '.site-liquid-glass-lens--header',
-        label: 'site header'
-    });
+    if (!header) return;
+
+    const syncHeaderSurface = () => {
+        const isScrolled = window.scrollY > HEADER_GLASS_SCROLL_THRESHOLD;
+
+        header.classList.toggle('is-scrolled', isScrolled);
+
+        if (!isScrolled || enhancementRequested || !canEnhanceNavigation()) return;
+
+        enhancementRequested = true;
+        initializeLens({
+            container: header,
+            targetSelector: '.site-liquid-glass-lens--header',
+            label: 'site header'
+        });
+    };
+
+    window.addEventListener('scroll', syncHeaderSurface, { passive: true });
+    syncHeaderSurface();
 };

@@ -51,6 +51,19 @@
     --color-text-soft: #2F3237;
 
     // Interactive states
+    --color-button-primary-face: #4D5463;
+    --color-button-primary-face-active: #4A4B4D;
+    --color-button-primary-face-hover: #60697B;
+    --color-button-primary-shadow: #36363C;
+    --color-button-primary-text: #F6F5F4;
+    --color-button-primary-text-interactive: #FFFEFC;
+    --color-button-secondary-dark: #272729;
+    --color-button-secondary-face: #F6F5F4;
+    --color-button-secondary-face-active: #E8E8E8;
+    --color-button-secondary-face-hover: #FFFCF8;
+    --color-button-secondary-on-light: #5A5959;
+    --color-button-secondary-text-active: #4B4343;
+    --color-button-secondary-text-hover: #897B7B;
     --color-carousel-dot: var(--color-border-subtle);
     --color-carousel-dot-active: #222E85;
     --color-carousel-dot-hover: #868CB8;
@@ -69,6 +82,7 @@
     // Shadows
     --shadow-control-edge-on-dark: 0.25rem 0.25rem 0 rgba(255, 255, 255, 0.34);
     --shadow-control-edge-on-light: 0.25rem 0.25rem 0 rgba(4, 4, 5, 0.3);
+    --shadow-secondary-button-edge-on-light: 0.0625rem 0.0625rem 0 var(--color-button-secondary-on-light);
     --shadow-control-on-dark: 0 0.55rem 1.2rem rgba(0, 0, 0, 0.22);
     --shadow-control-on-light: 0 0.55rem 1.2rem rgba(4, 4, 5, 0.14);
     --shadow-consent: 0 1rem 3rem rgba(0, 0, 0, 0.08);

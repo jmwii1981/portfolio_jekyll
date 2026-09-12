@@ -9,8 +9,9 @@
         0 0.75rem 2rem rgba(4, 4, 5, 0.065);
     --header-control-padding: var(--site-frame-gutter);
     --header-content-gutter: clamp(0rem, calc(var(--site-outer-gutter) - 50vw + 50.75rem), var(--site-outer-gutter));
+    --header-top-background: var(--color-paper);
 
-    background: transparent;
+    background: var(--header-top-background);
     backdrop-filter: none;
     border: 0;
     border-bottom: 0.0625rem solid transparent;
@@ -35,10 +36,10 @@
     z-index: 3;
 
     &::before {
-        -webkit-backdrop-filter: var(--header-glass-filter);
-        backdrop-filter: var(--header-glass-filter);
-        background: var(--header-glass-background);
-        border: 0.0625rem solid var(--header-glass-border);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        background: transparent;
+        border: 0.0625rem solid transparent;
         box-sizing: border-box;
         content: "";
         inset: 0;
@@ -57,11 +58,26 @@
         clip-path: inset(0 0 -3rem 0);
         content: "";
         inset: 0;
-        opacity: 1;
+        opacity: 0;
         pointer-events: none;
         position: absolute;
         transition: opacity 0.3s ease;
         z-index: -2;
+    }
+
+    &.is-scrolled {
+        background: transparent;
+    }
+
+    &.is-scrolled::before {
+        -webkit-backdrop-filter: var(--header-glass-filter);
+        backdrop-filter: var(--header-glass-filter);
+        background: var(--header-glass-background);
+        border-color: var(--header-glass-border);
+    }
+
+    &.is-scrolled::after {
+        opacity: 1;
     }
 
     .h1,
@@ -93,16 +109,16 @@
 }
 
 @media screen and (min-width: 26rem) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    .header.is-liquid-glass-loading .site-liquid-glass-lens--header,
-    .header.has-liquid-glass .site-liquid-glass-lens--header {
+    .header.is-scrolled.is-liquid-glass-loading .site-liquid-glass-lens--header,
+    .header.is-scrolled.has-liquid-glass .site-liquid-glass-lens--header {
         display: block;
     }
 
-    .header.has-liquid-glass::before {
+    .header.is-scrolled.has-liquid-glass::before {
         border-color: transparent;
     }
 
-    .header.has-liquid-glass::after {
+    .header.is-scrolled.has-liquid-glass::after {
         opacity: 0;
     }
 }

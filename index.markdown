@@ -20,21 +20,29 @@ description: "Fractional product design leadership for growing companies navigat
                 <p class="p about-me-statement">I shape how people, processes, products, and strategies work together to create happier teams, sustainable systems, and lasting value.</p>
                 <div class="button-group">
                     <a
-                    class="a button secondary"
-                    href="{{ '/vitae/' | relative_url }}"><span class="button-label">View vitae</span></a>
+                    class="a button button-container secondary"
+                    href="{{ '/vitae/' | relative_url }}"
+                    aria-label="View Work">View Work<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">View Work</span></span></a>
                     <a
-                    class="a button primary"
-                    href="{{ '/contact/' | relative_url }}"><span class="button-label">Contact me</span></a>
+                    class="a button button-container primary"
+                    href="{{ '/contact/' | relative_url }}"
+                    aria-label="Say hello">Say hello<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Say hello</span></span></a>
                 </div>
             </div>
         </div>
     </section>
     <section class="help" id="how-i-help" data-search-section data-search-title="How I Help" data-search-category="Services" data-search-keywords="clarify collaborate scale lead coaching strategy design systems team leadership">
+        <span class="help-accent help-accent--top" aria-hidden="true"></span>
+        <span class="help-accent help-accent--bottom" aria-hidden="true"></span>
         <div class="content-wrapper">
             <div class="help-intro">
                 <header class="home-section-header" data-reveal="right">
                     <h2 class="h2 section-label">How I help</h2>
-                    <p class="p home-section-title">Leadership that turns ambiguity into clarity.</p>
+                    <p class="p home-section-title">
+                        <span>Leadership that</span>
+                        <span>brings innovation</span>
+                        <span>into focus.</span>
+                    </p>
                 </header>
                 <picture class="help-artwork" aria-hidden="true" data-reveal="right">
                     <source type="image/avif" srcset="{{ '/images/help/strategy-notes.avif' | relative_url }}?v={{ site.asset_version }}">
@@ -53,11 +61,11 @@ description: "Fractional product design leadership for growing companies navigat
                 </li>
                 <li class="help-item" data-reveal="right">
                     <h3>Scale</h3>
-                    <p class="p">Create repeatable systems that help teams move faster without losing quality.</p>
+                    <p class="p">Build systems that help teams move faster together.</p>
                 </li>
                 <li class="help-item" data-reveal="left">
                     <h3>Lead</h3>
-                    <p class="p">Coach people through critique, growth, and the habits that make excellent work sustainable.</p>
+                    <p class="p">Launch excellent work through the support of growth, healthy habits, and focus.</p>
                 </li>
             </ul>
         </div>
@@ -69,72 +77,12 @@ description: "Fractional product design leadership for growing companies navigat
                     <h2 class="h2 section-label">Trusted across the globe</h2>
                     <p class="p home-section-title">The strongest work is built together.</p>
                 </header>
-                <picture class="testimonials-artwork" aria-hidden="true" data-reveal="right">
-                    <source type="image/avif" srcset="{{ '/images/testimonials/puzzle-pieces.avif' | relative_url }}?v={{ site.asset_version }}">
-                    <source type="image/webp" srcset="{{ '/images/testimonials/puzzle-pieces.webp' | relative_url }}?v={{ site.asset_version }}">
-                    <img class="testimonials-artwork-image" src="{{ '/images/testimonials/puzzle-pieces.png' | relative_url }}?v={{ site.asset_version }}" width="1254" height="1254" alt="" loading="lazy" decoding="async">
-                </picture>
-            </div>
-            <div class="logo-carousel" data-reveal="up">
-                <div class="logo-carousel-viewport">
-                    <div class="logo-carousel-track" id="company-logo-track">
-                        <ul class="testimony-list">
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/globalpayments.svg" alt="Global Payments">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/aph.svg" alt="APH">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/worldpay.svg" alt="Worldpay">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/big-ass-fans.svg" alt="Big Ass Fans">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/advancedmd.svg" alt="AdvancedMD">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mcm-cpas.svg" alt="MCM CPAs & Advisors">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/cleanse-clinic.svg" alt="Cleanse Clinic">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/tsys.svg" alt="TSYS">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mightily.svg" alt="Mightily">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/adapt-health.svg" alt="AdaptHealth">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/integrated-sign.svg" alt="Integrated Sign">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/xenial.svg" alt="Xenial">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/old-forester.svg" alt="Old Forester">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/dbs-interactive.svg" alt="DBS Interactive">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/zeon-chemicals.svg" alt="Zeon Chemicals">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/evo-payments.svg" alt="EVO Payments">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mighty-small-homes.svg" alt="Mighty Small Homes">
-                            </li>
-                            <li class="testimony-item">
-                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/humana.svg" alt="Humana">
-                            </li>
-                        </ul>
-                    </div>
+                <div class="testimonials-artwork-shell" aria-hidden="true" data-reveal="right">
+                    <picture class="testimonials-artwork">
+                        <source type="image/avif" srcset="{{ '/images/testimonials/puzzle-pieces.avif' | relative_url }}?v={{ site.asset_version }}">
+                        <source type="image/webp" srcset="{{ '/images/testimonials/puzzle-pieces.webp' | relative_url }}?v={{ site.asset_version }}">
+                        <img class="testimonials-artwork-image" src="{{ '/images/testimonials/puzzle-pieces.png' | relative_url }}?v={{ site.asset_version }}" width="1254" height="1254" alt="" loading="lazy" decoding="async">
+                    </picture>
                 </div>
             </div>
             <div class="recommendations" data-reveal="up">
@@ -236,24 +184,87 @@ description: "Fractional product design leadership for growing companies navigat
                         <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Brittany Robinson, <span class="recommendation-role">Sr. Designer</span></p>
                     </li>
                 </ul>
+                <hr class="testimonial-company-divider">
             </div>
+            <div class="logo-carousel" data-reveal="up">
+                <div class="logo-carousel-viewport">
+                    <div class="logo-carousel-track" id="company-logo-track">
+                        <ul class="testimony-list">
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/globalpayments.svg" alt="Global Payments">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/aph.svg" alt="APH">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/worldpay.svg" alt="Worldpay">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/old-forester.svg" alt="Old Forester">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/big-ass-fans.svg" alt="Big Ass Fans">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mcm-cpas.svg" alt="MCM CPAs & Advisors">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/advancedmd.svg" alt="AdvancedMD">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/xenial.svg" alt="Xenial">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/adapt-health.svg" alt="AdaptHealth">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/integrated-sign.svg" alt="Integrated Sign">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/cleanse-clinic.svg" alt="Cleanse Clinic">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/tsys.svg" alt="TSYS">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/dbs-interactive.svg" alt="DBS Interactive">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/evo-payments.svg" alt="EVO Payments">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/humana.svg" alt="Humana">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/zeon-chemicals.svg" alt="Zeon Chemicals">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mightily.svg" alt="Mightily">
+                            </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mighty-small-homes.svg" alt="Mighty Small Homes">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
-    <section class="about-me" id="beyond-the-work" data-search-section data-search-title="Get in Touch" data-search-category="Contact" data-search-summary="Discuss what’s next with Jan Michael Wallace II." data-search-keywords="contact connect linkedin product team challenge conversation">
+    <section class="about-me" id="beyond-the-work" data-search-section data-search-title="Get in Touch" data-search-category="Contact" data-search-summary="Tell Jan Michael Wallace II what you're working on." data-search-keywords="contact connect linkedin product team challenge conversation">
+        <span class="about-me-accent" aria-hidden="true"></span>
         <div class="about-me-inner" data-reveal="up">
             <div class="about-me-next">
-                <p class="p about-me-eyebrow">Get in touch</p>
-                <h2 class="h2 home-section-title">Have a problem worth untangling?</h2>
-                <p class="p about-me-invitation">Let’s discuss what’s next.</p>
+                <p class="p section-label about-me-eyebrow">Get in touch</p>
+                <h2 class="h2 home-section-title"><span>Let's shake </span><span>things&nbsp;up!</span></h2>
+                <p class="p about-me-invitation">Tell me what you're working on.</p>
                 <div class="button-group about-me-actions">
-                    <a class="a button secondary about-me-linkedin-button" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer"><span class="button-label"><span class="about-me-linkedin-icon" aria-hidden="true">{% include icon.html name="linked-in" %}</span>Let’s connect <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></a>
-                    <a class="a button primary" href="{{ '/contact/' | relative_url }}"><span class="button-label">Let’s talk</span></a>
+                    <a class="a button button-container primary" href="{{ '/contact/' | relative_url }}" aria-label="Let’s Talk">Let’s Talk<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Let’s Talk</span></span></a>
+                    <a class="a button button-container secondary about-me-linkedin-button" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="Let’s Connect">Let’s Connect<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><span class="about-me-linkedin-icon">{% include icon.html name="linked-in" %}</span>Let’s Connect <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
                 </div>
             </div>
             <picture class="about-me-artwork" aria-hidden="true">
-                <source type="image/avif" srcset="{{ '/images/contact/untangling-knot.avif' | relative_url }}?v={{ site.asset_version }}">
-                <source type="image/webp" srcset="{{ '/images/contact/untangling-knot.webp' | relative_url }}?v={{ site.asset_version }}">
-                <img class="about-me-artwork-image" src="{{ '/images/contact/untangling-knot.png' | relative_url }}?v={{ site.asset_version }}" width="1254" height="1254" alt="" loading="lazy" decoding="async">
+                <img class="about-me-artwork-image" src="{{ '/images/contact/floating-stones.png' | relative_url }}?v={{ site.asset_version }}" width="1536" height="1024" alt="" loading="lazy" decoding="async">
             </picture>
         </div>
     </section>

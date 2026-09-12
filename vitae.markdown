@@ -38,13 +38,13 @@ description: "Selected product design leadership work spanning merchant operatio
             {% assign project_highlight = project.highlights | first %}
             <article class="vitae-project-summary" id="project-{{ project_slug }}" aria-labelledby="{{ project_slug }}-title" data-search-section data-search-title="{{ project.name }}" data-search-category="Vitae" data-search-summary="{{ project.introduction }}" data-search-keywords="{{ project.keywords }}">
                 <header class="vitae-project-summary-copy" data-reveal="up">
-                    <p class="p project-story-meta">{{ project.organization }} <span aria-hidden="true">/</span> {{ project.discipline }}</p>
+                    <p class="p project-story-meta">{{ project.discipline }}</p>
                     <h3 class="h3 project-story-title" id="{{ project_slug }}-title"><a class="a project-story-title-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}">{{ project.headline }}</a></h3>
                     <p class="p project-story-intro">{{ project.introduction }}</p>
                     <div class="button-group project-story-actions">
-                        <a class="a button secondary project-story-page-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}"><span class="button-label">Explore project <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></span></a>
+                        <a class="a button button-container secondary project-story-page-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}" aria-label="Explore Project">Explore Project<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Explore Project <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></span></span></a>
                         {% if project.external_url %}
-                        <a class="a button primary project-story-link" href="{{ project.external_url }}" target="_blank" rel="noopener noreferrer"><span class="button-label">{{ project.external_label }} <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></a>
+                        <a class="a button button-container primary project-story-link" href="{{ project.external_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ project.external_label }}">{{ project.external_label }}<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">{{ project.external_label }} <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
                         {% endif %}
                     </div>
                 </header>
@@ -56,39 +56,32 @@ description: "Selected product design leadership work spanning merchant operatio
         </div>
     </section>
 
-    <section class="vitae-summary" id="design-leadership-principles" aria-labelledby="vitae-summary-title" data-search-section data-search-title="Product Design Leadership Principles" data-search-category="Approach" data-search-keywords="clarity complexity systems momentum leadership execution product territory">
-        <div class="vitae-summary-intro" data-reveal="up">
-            <p class="p vitae-summary-eyebrow">The throughline</p>
-            <h2 class="h2 vitae-summary-title" id="vitae-summary-title">Every challenge is different. Progress starts with clarity.</h2>
-            <p class="p vitae-summary-statement">Across platforms, systems, and teams, my role is consistent: make complexity understandable, create the structure people need to move together, and turn ambitious product decisions into work that can scale.</p>
-        </div>
-
-        <ul class="vitae-summary-principles" aria-label="Principles reflected across the selected work">
-            <li data-reveal="right">
-                <p class="p vitae-summary-number" aria-hidden="true">01</p>
-                <h3 class="h3">Clarity before complexity</h3>
-                <p class="p">Start with the decisions people need to make, then shape the product around helping them make those decisions well.</p>
-            </li>
-            <li data-reveal="up">
-                <p class="p vitae-summary-number" aria-hidden="true">02</p>
-                <h3 class="h3">Systems that create momentum</h3>
-                <p class="p">Build reusable foundations that improve quality and speed without flattening the needs of the product or the people using it.</p>
-            </li>
-            <li data-reveal="left">
-                <p class="p vitae-summary-number" aria-hidden="true">03</p>
-                <h3 class="h3">Leadership through execution</h3>
-                <p class="p">Align teams around a direction, stay close enough to the work to protect its intent, and help strong ideas make it into the product.</p>
-            </li>
-        </ul>
-
+    <section class="vitae-summary" id="design-leadership-principles" data-search-section data-search-title="Product Design Leadership Principles" data-search-category="Approach" data-search-keywords="clarity complexity systems momentum leadership execution product territory">
         <div class="vitae-summary-next" data-reveal="up">
             <div>
                 <p class="p vitae-summary-eyebrow">What comes next</p>
                 <h3 class="h3">If your team is entering unfamiliar product territory, let’s create a clear path forward together.</h3>
             </div>
+            <ul class="vitae-summary-principles" aria-label="Principles reflected across the selected work">
+                <li data-reveal="right">
+                    <p class="p vitae-summary-number" aria-hidden="true">01</p>
+                    <h3 class="h3">Clarity from collaboration and coordination</h3>
+                    <p class="p">Start with the decisions people need to make, then shape the product around helping them make those decisions well.</p>
+                </li>
+                <li data-reveal="up">
+                    <p class="p vitae-summary-number" aria-hidden="true">02</p>
+                    <h3 class="h3">Systems and teams that create momentum</h3>
+                    <p class="p">Build reusable foundations that improve quality and speed without flattening the needs of the product or the people using it.</p>
+                </li>
+                <li data-reveal="left">
+                    <p class="p vitae-summary-number" aria-hidden="true">03</p>
+                    <h3 class="h3">Leading from vision and innovation</h3>
+                    <p class="p">Align teams around a direction, stay close enough to the work to protect its intent, and help strong ideas make it into the product.</p>
+                </li>
+            </ul>
             <div class="button-group vitae-summary-actions">
-                <a class="a button secondary" href="https://www.figma.com/@jmwii1981" target="_blank" rel="noopener noreferrer"><span class="button-label">See more in Figma <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></a>
-                <a class="a button primary" href="{{ '/contact/' | relative_url }}"><span class="button-label">Start a conversation</span></a>
+                <a class="a button button-container secondary" href="https://www.figma.com/@jmwii1981" target="_blank" rel="noopener noreferrer" aria-label="See More in Figma">See More in Figma<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">See More in Figma <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
+                <a class="a button button-container primary" href="{{ '/contact/' | relative_url }}" aria-label="Start a Conversation">Start a Conversation<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Start a Conversation</span></span></a>
             </div>
         </div>
     </section>

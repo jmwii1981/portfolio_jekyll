@@ -1,67 +1,119 @@
-.button {
-    --button-hover-hit-buffer: 0.1875rem;
-    --button-hover-shadow: var(--shadow-control-edge-on-light);
+.button-container {
+    --button-inline-padding: 1.3125rem;
+    --button-shadow-color: var(--color-button-secondary-dark);
 
-    align-items: center;
-    background-color: var(--button-background, var(--color-link));
+    background-color: transparent;
+    border: 0;
     border-radius: 0;
-    border: 0.0625rem solid var(--button-border, var(--color-link));
     box-shadow: none;
-    color: var(--button-text, var(--color-paper));
+    box-sizing: border-box;
+    color: transparent;
     cursor: pointer;
-    display: inline-flex;
+    display: inline-block;
     font-family: inherit;
-    font-size: 0.82rem;
-    font-weight: 600;
+    font-size: 0.875rem;
+    font-weight: 400;
     isolation: isolate;
-    justify-content: center;
-    letter-spacing: 0.075rem;
-    padding: 0.78rem 1rem;
+    letter-spacing: 0.02em;
+    line-height: 1.25rem;
+    padding: 0.8125rem var(--button-inline-padding);
     position: relative;
-    text-transform: uppercase;
-    transform: translateY(0);
-    transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    text-align: center;
+    text-transform: none;
+    transform: none;
+    transition: none;
+    vertical-align: middle;
+    white-space: nowrap;
     z-index: 0;
 
-    &::before {
-        content: "";
-        inset: calc(var(--button-hover-hit-buffer) * -1);
+    // Icon-bearing faces need room beyond the raw sizing text housed by the
+    // container. Each icon plus its gap adds 1.45rem to the relevant side.
+    &:has(.button-external-icon) {
+        padding-right: calc(var(--button-inline-padding) + 1.45rem);
+    }
+
+    &:has(.about-me-linkedin-icon) {
+        padding-left: calc(var(--button-inline-padding) + 1.45rem);
+    }
+
+    .button-shadow,
+    .button-face-container {
+        border-radius: 9999px;
+        box-sizing: border-box;
+        height: 100%;
+        left: 0;
+        pointer-events: none;
         position: absolute;
-        z-index: -1;
+        top: 0;
+        width: 100%;
+    }
+
+    .button-shadow {
+        background-color: var(--button-shadow-color);
+        opacity: 1;
+        z-index: 1;
+    }
+
+    .button-face-container {
+        overflow: hidden;
+        transform: none;
+        transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+        z-index: 2;
+    }
+
+    .button-face {
+        align-items: center;
+        background-color: var(--button-background, var(--color-link));
+        border: 0.0625rem solid var(--button-border, var(--color-link));
+        border-radius: 9999px;
+        box-shadow: none;
+        box-sizing: border-box;
+        color: var(--button-text, var(--color-paper));
+        display: inline-flex;
+        gap: 0.45rem;
+        height: 100%;
+        justify-content: center;
+        left: 0;
+        overflow: hidden;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        transform: none;
+        transition:
+            background-color 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease,
+            transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+        width: 100%;
+        z-index: 1;
     }
 
     &.primary,
     &:not(.secondary) {
-        --button-background: var(--color-ink);
-        --button-background-active: var(--color-control-dark-hover);
-        --button-background-hover: var(--color-control-dark-hover);
-        --button-border: var(--color-ink);
-        --button-border-hover: var(--color-ink);
-        --button-text: var(--color-paper);
-        --button-text-hover: var(--color-paper);
+        --button-background: var(--color-button-primary-face);
+        --button-background-active: var(--color-button-primary-face-active);
+        --button-background-hover: var(--color-button-primary-face-hover);
+        --button-border-active: var(--color-button-primary-shadow);
+        --button-border: var(--color-button-primary-face);
+        --button-face-border-hover: transparent;
+        --button-shadow-color: var(--color-button-primary-shadow);
+        --button-text: var(--color-button-primary-text);
+        --button-text-active: var(--color-button-primary-text-interactive);
+        --button-text-hover: var(--color-button-primary-text-interactive);
     }
 
     &.secondary {
-        --button-background: var(--color-paper);
-        --button-background-active: var(--color-surface-muted);
-        --button-background-hover: var(--color-paper);
-        --button-border: var(--color-ink);
-        --button-border-hover: var(--color-ink);
-        --button-text: var(--color-ink);
-        --button-text-hover: var(--color-ink);
-    }
-
-    .button-label {
-        align-items: center;
-        display: inline-flex;
-        gap: 0.45rem;
-        position: relative;
-        z-index: 1;
+        --button-focus-ring: var(--color-button-secondary-dark);
+        --button-background: var(--color-button-secondary-face);
+        --button-background-active: var(--color-button-secondary-face-active);
+        --button-background-hover: var(--color-button-secondary-face-hover);
+        --button-border-active: var(--color-button-secondary-on-light);
+        --button-border: var(--color-button-secondary-on-light);
+        --button-border-hover: var(--color-button-secondary-on-light);
+        --button-shadow-color: var(--color-button-secondary-on-light);
+        --button-text: var(--color-button-secondary-on-light);
+        --button-text-active: var(--color-button-secondary-text-active);
+        --button-text-hover: var(--color-button-secondary-text-hover);
     }
 
     .button-external-icon {
@@ -77,63 +129,108 @@
         width: 1rem;
     }
 
+    &:visited,
+    &:hover,
+    &:focus,
+    &:active {
+        box-shadow: none;
+        color: transparent;
+    }
+
     &:hover {
-        background-color: var(--button-background-hover, var(--button-background));
-        border-color: var(--button-border-hover, var(--button-border));
-        box-shadow: var(--button-hover-shadow);
-        color: var(--button-text-hover, var(--button-text));
-        transform: translate(-0.125rem, -0.125rem);
+        .button-face-container {
+            transform: translateY(-0.25rem);
+        }
+
+        .button-face {
+            background-color: var(--button-background-hover, var(--button-background));
+            border-color: var(--button-face-border-hover, var(--button-border-hover, var(--button-border)));
+            color: var(--button-text-hover, var(--button-text));
+        }
     }
 
     &:focus-visible {
-        background-color: var(--button-background);
-        border-color: var(--button-border);
+        border-radius: 9999px;
         box-shadow: none;
-        color: var(--button-text);
-        outline: 0.1875rem solid var(--color-focus-ring);
+        color: transparent;
+        outline: 0.1875rem solid var(--button-focus-ring, var(--color-focus-ring));
         outline-offset: 0.1875rem;
-        transform: translateY(0);
+
+        .button-face-container {
+            transform: none;
+        }
+
+        .button-face {
+            background-color: var(--button-background);
+            border-color: var(--button-border);
+            color: var(--button-text);
+            transform: none;
+        }
     }
 
     &:active {
-        background-color: var(--button-background-active, var(--button-background-hover));
-        border-color: var(--button-border-hover, var(--button-border));
-        box-shadow: none;
-        color: var(--button-text-hover, var(--button-text));
-        transform: translateY(0);
+        .button-face-container {
+            transform: none;
+        }
+
+        .button-face {
+            background-color: var(--button-background-active, var(--button-background-hover, var(--button-background)));
+            border-color: var(--button-border-active, var(--button-border));
+            color: var(--button-text-active, var(--button-text-hover, var(--button-text)));
+            transform: translateY(0.25rem);
+        }
     }
 
     &:disabled,
     &:disabled:hover {
-        background-color: var(--button-background);
-        border-color: var(--button-border);
         box-shadow: none;
-        color: var(--button-text);
+        color: transparent;
         cursor: not-allowed;
-        transform: translateY(0);
+
+        .button-face-container,
+        .button-face {
+            transform: none;
+        }
+
+        .button-face {
+            background-color: var(--button-background);
+            border-color: var(--button-border);
+            color: var(--button-text);
+        }
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .button {
+    .button-container .button-face-container,
+    .button-container .button-face {
         transition: none;
     }
 }
 
 @media (forced-colors: active) {
-    .button,
-    .button.primary,
-    .button.secondary {
+    .button-container,
+    .button-container.primary,
+    .button-container.secondary {
+        color: transparent;
+    }
+
+    .button-container:hover {
+        box-shadow: none;
+    }
+
+    .button-container .button-shadow {
+        background: CanvasText;
+    }
+
+    .button-container .button-face,
+    .button-container:hover .button-face,
+    .button-container:active .button-face {
         background: Canvas;
         border-color: CanvasText;
         color: CanvasText;
     }
 
-    .button:hover {
-        box-shadow: none;
-    }
-
-    .button:focus-visible {
+    .button-container:focus-visible {
         outline-color: Highlight;
     }
 }
@@ -145,7 +242,7 @@
     gap: 1rem;
     width: 100%;
 
-    .button {
+    .button-container {
         box-sizing: border-box;
         width: 100%;
     }
@@ -159,7 +256,7 @@
         flex-wrap: nowrap;
         width: auto;
 
-        .button {
+        .button-container {
             width: auto;
         }
     }

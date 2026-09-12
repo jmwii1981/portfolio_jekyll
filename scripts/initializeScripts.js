@@ -21,14 +21,23 @@
             if (!form) return;
 
             const submitButton = form.querySelector('[type="submit"]');
-            const buttonLabel = submitButton?.querySelector('.button-label');
+            const buttonFace = submitButton?.querySelector('.button-face');
+            const buttonTextNode = Array.from(submitButton?.childNodes || []).find((node) => (
+                node.nodeType === Node.TEXT_NODE && node.textContent.trim()
+            ));
             const status = form.querySelector('[data-contact-status]');
             const requiredFields = Array.from(form.querySelectorAll('[required]'));
 
-            if (!submitButton || !buttonLabel || !status || typeof window.fetch !== 'function') return;
+            if (!submitButton || !buttonFace || !buttonTextNode || !status || typeof window.fetch !== 'function') return;
 
-            const defaultButtonLabel = buttonLabel.textContent;
+            const defaultButtonLabel = buttonTextNode.textContent.trim();
             let isSubmitting = false;
+
+            const setButtonLabel = (label) => {
+                buttonTextNode.textContent = label;
+                buttonFace.textContent = label;
+                submitButton.setAttribute('aria-label', label);
+            };
 
             const setStatus = (message, state = '') => {
                 status.textContent = message;
@@ -130,7 +139,7 @@
                 isSubmitting = true;
                 form.setAttribute('aria-busy', 'true');
                 submitButton.disabled = true;
-                buttonLabel.textContent = 'Sending…';
+                setButtonLabel('Sending…');
                 setStatus('Sending your message…', 'pending');
 
                 try {
@@ -171,7 +180,7 @@
                     isSubmitting = false;
                     form.removeAttribute('aria-busy');
                     submitButton.disabled = false;
-                    buttonLabel.textContent = defaultButtonLabel;
+                    setButtonLabel(defaultButtonLabel);
                 }
             });
 
@@ -871,36 +880,6 @@
             }
         };
 
-        const initializeCompanyLogoCarousel = () => {
-            const carousel = document.querySelector('.logo-carousel');
-
-            if (!carousel) return;
-
-            const track = carousel.querySelector('.logo-carousel-track');
-            const items = Array.from(carousel.querySelectorAll('.testimony-item'));
-
-            if (!track || items.length < 2) return;
-
-            const createSequence = (isDuplicate = false) => {
-                const sequence = document.createElement('ul');
-
-                sequence.className = 'testimony-list logo-carousel-sequence';
-
-                if (isDuplicate) {
-                    sequence.setAttribute('aria-hidden', 'true');
-                }
-
-                items.forEach((item) => {
-                    sequence.appendChild(item.cloneNode(true));
-                });
-
-                return sequence;
-            };
-
-            track.replaceChildren(createSequence(), createSequence(true));
-            carousel.classList.add('is-continuous');
-        };
-
         const initializeRecommendationCarousel = () => {
             const carousel = document.querySelector('.recommendation-list');
 
@@ -983,7 +962,6 @@
         safelyInitialize('mobile navigation', initializeMobileNavigation);
         safelyInitialize('desktop navigation indicator', initializeNavIndicator);
         safelyInitialize('project galleries', initializeProjectGalleries);
-        safelyInitialize('company logo carousel', initializeCompanyLogoCarousel);
         safelyInitialize('recommendation carousel', initializeRecommendationCarousel);
 
         if (document.querySelector('[data-header-liquid-glass-lens]')) {
