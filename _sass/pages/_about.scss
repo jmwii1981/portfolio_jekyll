@@ -203,27 +203,33 @@
 }
 
 @media (min-width: 42.5625rem) and (max-width: 59.9999rem) {
+    .hero {
+        padding-top: clamp(2rem, 4.5vw, 2.75rem);
+        padding-bottom: clamp(2rem, 4.5vw, 2.75rem);
+    }
+
     .hero > .content-wrapper {
-        align-items: stretch;
+        align-items: center;
         flex-direction: row;
-        gap: clamp(2rem, 4.5vw, 2.75rem);
-        min-height: clamp(32rem, 78vw, 36rem);
-        padding-bottom: clamp(3rem, 6vw, 4rem);
-        padding-top: clamp(3.25rem, 7vw, 4rem);
+        gap: clamp(1.25rem, 3vw, 1.75rem);
+        min-height: 0;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
     }
 
     .hero .copy-wrapper {
         flex: 1 1 auto;
-        margin-top: clamp(1.25rem, 3.5vw, 2rem);
+        align-self: center;
+        margin-top: 0;
         max-width: none;
         min-width: 0;
         width: auto;
     }
 
     .hero .image-wrapper {
-        align-self: stretch;
-        flex: 0 0 clamp(14.5rem, 36vw, 20rem);
-        height: auto;
+        align-self: center;
+        flex: 0 0 clamp(12.5rem, 30vw, 17.5rem);
+        height: clamp(22rem, 48vw, 28rem);
         margin-left: 0;
         width: auto;
     }
@@ -231,7 +237,7 @@
     .hero .image-wrapper .image {
         object-fit: cover;
         object-position: center center;
-        transform: scale(1.1);
+        transform: none;
     }
 
     .hero .page-hero-title {
@@ -454,7 +460,7 @@
         align-items: center;
         display: grid;
         gap: clamp(2rem, 4vw, 5rem);
-        grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
         width: 100%;
     }
     .help-intro .home-section-header {
@@ -563,10 +569,6 @@
 }
 
 @media (max-width: 42.5rem) {
-    .help .help-accent {
-        display: none;
-    }
-
     .help .help-intro {
         align-items: stretch;
         display: flex;
@@ -623,14 +625,14 @@
     .testimonials-artwork-shell {
         display: block;
         min-width: 0;
-        overflow: visible;
+        overflow: hidden;
         width: 100%;
     }
     .testimonials-artwork {
         aspect-ratio: 1197 / 977;
         display: block;
         overflow: hidden;
-        transform: translateY(3.125rem);
+        transform: none;
         width: 100%;
     }
     .testimonials-artwork-image {
@@ -1011,7 +1013,8 @@
 
 .about-me-artwork {
     aspect-ratio: 1.65 / 1;
-    display: block;
+    // Artwork is only shown when the side-by-side composition is enabled.
+    display: none;
     min-width: 0;
     overflow: hidden;
     position: relative;
@@ -1179,6 +1182,7 @@
 
     .about-me-artwork {
         aspect-ratio: 1.035 / 1;
+        display: block;
         flex: 1.05 1 0;
         width: auto;
     }
@@ -1243,26 +1247,78 @@
         display: none;
     }
 
-    .about-me-accent {
-        display: none;
+}
+
+// Keep the section curves proportional to smaller screens, with enough
+// clearance for the curve without carrying desktop whitespace onto phones.
+@media (max-width: 59.9999rem) {
+    .help {
+        --help-accent-size: clamp(5rem, calc(48vw - 15.4rem), 13.44rem);
+    }
+
+    .about-me {
+        --about-me-accent-size: clamp(5rem, calc(48vw - 15.4rem), 13.44rem);
     }
 }
 
-@media screen and (min-width: 45rem) {
-    .testimonials .testimonials-artwork {
-        transform: translate(-50px, 3.125rem);
+@media (max-width: 42.5rem) {
+    .help {
+        --help-accent-size: clamp(5rem, 20vw, 6rem);
+    }
+
+    .about-me {
+        --about-me-accent-size: clamp(5rem, 20vw, 6rem);
+    }
+
+    .hero {
+        // Paint the curve behind the hero content, rather than allowing the
+        // following section's accent to cover controls in this section.
+        background: #F5F5F7;
+        padding-bottom: 3rem;
+    }
+
+    .hero::before {
+        border-bottom-right-radius: clamp(5rem, 20vw, 6rem);
+    }
+
+    .main.about > .hero + .help {
+        margin-top: 0;
+    }
+
+    .help .help-accent--top {
+        display: none;
+    }
+
+    .main.about .home-section-title {
+        font-size: clamp(2.5rem, 10.5vw, 3.5rem);
+    }
+
+    .help .content-wrapper {
+        padding-top: clamp(3rem, 10vw, 4rem);
+        padding-bottom: clamp(3rem, 10vw, 4rem);
+    }
+
+    .testimonials .content-wrapper {
+        --testimonials-stack-gap: 2rem;
+        padding-top: calc(clamp(3rem, 12vw, 5rem) + 1.5rem);
+    }
+
+    .testimonials .recommendations {
+        margin-top: 0;
+    }
+
+    .about-me-inner {
+        padding-top: clamp(3rem, 10vw, 4rem);
+    }
+}
+
+@media (max-width: 44.25rem) {
+    .about-me-next {
+        width: 100%;
     }
 }
 
 @media screen and (min-width: 70rem) {
-    .testimonials .testimonials-artwork {
-        transform: translate(calc(-7.8125rem - 50px), 3.125rem);
-    }
-
-    .testimonials .recommendations {
-        margin-top: clamp(-1rem, calc(3rem - 4vw), 0.2rem);
-    }
-
     .about-me-next {
         border-left: 0;
         border-top: 0;
