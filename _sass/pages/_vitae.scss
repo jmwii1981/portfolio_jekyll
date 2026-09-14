@@ -37,6 +37,10 @@
     }
 }
 
+.body--vitae .header.is-scrolled {
+    border-bottom-color: var(--vitae-project-index-glass-highlight-top);
+}
+
 .body--vitae .logo.large path {
     stroke: var(--color-paper);
 }
@@ -67,7 +71,7 @@
 
 .main.vitae {
     --vitae-project-index-height: 3.25rem;
-    --vitae-project-index-sticky-top: calc(max(var(--site-top-gutter), 3rem) - 2px);
+    --vitae-project-index-sticky-top: calc(max(var(--site-top-gutter), 3rem) + 14px);
 
     align-items: flex-start;
     flex-direction: column;
@@ -183,11 +187,16 @@
 
 .vitae-project-index {
     background: var(--color-ink);
+    border-radius: 0;
     backdrop-filter: blur(0) saturate(100%);
     margin-bottom: 0;
+    margin-inline: auto;
+    width: 100%;
     position: sticky;
     top: var(--vitae-project-index-sticky-top);
     transition:
+        width 0.35s ease,
+        border-radius 0.35s ease,
         background-color 0.35s ease,
         backdrop-filter 0.35s ease,
         box-shadow 0.35s ease;
@@ -195,11 +204,24 @@
     z-index: 2;
 }
 
+.vitae-project-index.is-bottom-docked,
+.vitae-project-index.is-bottom-docked::before,
+.vitae-project-index.is-bottom-docked::after,
+.vitae-project-index.is-bottom-docked .vitae-project-index-list::before,
+.vitae-project-index:not(.is-motion-ready),
+.vitae-project-index:not(.is-motion-ready)::before,
+.vitae-project-index:not(.is-motion-ready)::after,
+.vitae-project-index:not(.is-motion-ready) .vitae-project-index-list::before {
+    animation: none;
+    transition: none;
+}
+
 .vitae-project-index::before,
 .vitae-project-index::after {
-    background: rgba(255, 255, 255, 0.14);
+    border-radius: inherit;
+    box-sizing: border-box;
     content: "";
-    height: 0.0625rem;
+    height: 100%;
     left: 0;
     pointer-events: none;
     position: absolute;
@@ -210,35 +232,42 @@
 }
 
 .vitae-project-index::before {
+    border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
     top: 0;
 }
 
 .vitae-project-index::after {
+    border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.14);
     bottom: 0;
 }
 
 .vitae-project-index.is-stuck {
+    width: calc(100% - 100px);
+    border-radius: 999px;
     background: var(--vitae-project-index-glass-background);
     backdrop-filter: var(--vitae-project-index-glass-filter);
     box-shadow:
         inset 0 0.0625rem var(--vitae-project-index-glass-highlight-top),
         inset 0 -0.0625rem var(--vitae-project-index-glass-highlight-bottom),
+        inset 0.0625rem 0 var(--vitae-project-index-glass-highlight-top),
+        inset -0.0625rem 0 var(--vitae-project-index-glass-highlight-top),
         0 0.625rem 1.75rem rgba(0, 0, 0, 0.12);
     -webkit-backdrop-filter: var(--vitae-project-index-glass-filter);
 }
 
 .vitae-project-index.is-stuck::before {
-    background: var(--vitae-project-index-glass-highlight-top);
+    border-top-color: var(--vitae-project-index-glass-highlight-top);
 }
 
 .vitae-project-index.is-stuck::after {
-    background: var(--vitae-project-index-glass-highlight-bottom);
+    border-bottom-color: var(--vitae-project-index-glass-highlight-bottom);
 }
 
 .vitae-project-index-list {
     --vitae-project-indicator-width: 0px;
     --vitae-project-indicator-x: 0px;
 
+    border-radius: inherit;
     display: flex;
     isolation: isolate;
     list-style: none;
@@ -262,6 +291,7 @@
         ) 170% 0 / 250% 100% no-repeat,
         linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035));
     border: 0.0625rem solid var(--vitae-glass-border);
+    border-radius: 999px;
     box-shadow:
         inset 0 0.0625rem rgba(255, 255, 255, 0.08),
         0 0.75rem 2rem rgba(0, 0, 0, 0.12);
@@ -280,6 +310,10 @@
         width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     width: var(--vitae-project-indicator-width);
     z-index: 0;
+}
+
+.vitae-project-index-list.is-resizing::before {
+    transition: opacity 0.24s ease;
 }
 
 .vitae-project-index.is-stuck .vitae-project-index-list.has-active-project::before {
@@ -376,24 +410,22 @@
     z-index: 1;
 }
 
-.vitae-project-index-list li + li {
-    border-left: 0.0625rem solid rgba(255, 255, 255, 0.06);
-}
-
 .vitae-project-index-list .a {
     align-items: center;
     box-sizing: border-box;
     display: flex;
     font-size: 0.78rem;
-    font-weight: 700;
+    font-weight: 600;
     gap: 0.75rem;
+    justify-content: center;
     letter-spacing: 0.06em;
     min-height: var(--vitae-project-index-height);
     min-width: 0;
     overflow: hidden;
     padding: 0.75rem clamp(0.75rem, 1.25vw, 1.25rem);
+    text-align: center;
     text-transform: uppercase;
-    transition: color 0.28s ease;
+    transition: color 0.28s ease, text-shadow 0.2s ease;
 }
 
 @keyframes vitae-project-indicator-sheen {
@@ -406,7 +438,10 @@
     }
 }
 
-.vitae-project-index-list .a:hover,
+.vitae-project-index-list .a:hover:not([aria-current="location"]) {
+    text-shadow: 0 0 0.5rem rgba(255, 255, 255, 0.3);
+}
+
 .vitae-project-index-list .a:focus-visible {
     background: rgba(255, 255, 255, 0.08);
 }
@@ -455,6 +490,7 @@
 }
 
 .vitae-project-summary + .vitae-project-summary {
+    border-top-color: transparent;
     margin-top: clamp(6rem, 11vw, 10rem);
 }
 
@@ -946,15 +982,20 @@
 
 .vitae-summary-principles {
     display: grid;
-    gap: 0;
+    gap: clamp(1rem, 2vw, 1.5rem);
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
 .vitae-summary-principles li {
-    border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
-    padding: 1.5rem 0 3rem;
+    background: transparent;
+    border: 0.0625rem solid var(--vitae-project-index-glass-highlight-top);
+    border-radius: 1.25rem;
+    box-sizing: border-box;
+    min-height: 18rem;
+    min-width: 0;
+    padding: 1.5rem 1.6rem 3rem;
 }
 
 .vitae-summary-number {
@@ -963,23 +1004,27 @@
     font-size: 0.75rem;
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.08em;
-    margin: 0 0 clamp(2.5rem, 6vw, 5rem);
+    margin: 0 0 1.25rem;
 }
 
 .vitae-summary-principles .h3 {
     display: block;
-    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-    letter-spacing: var(--type-card-letter-spacing);
-    line-height: var(--type-card-line-height);
+    font-size: var(--type-label-font-size);
+    font-weight: 700;
+    letter-spacing: var(--type-label-letter-spacing);
+    line-height: var(--type-label-line-height);
+    text-transform: uppercase;
     margin: 0;
-    max-width: 15ch;
+    max-width: none;
 }
 
 .vitae-summary-principles li > .p:last-child {
     color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: 1rem;
-    line-height: var(--type-body-line-height);
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    font-weight: 600;
+    letter-spacing: var(--type-card-letter-spacing);
+    line-height: var(--type-card-line-height);
     margin: 1.25rem 0 0;
     max-width: 28rem;
 }
@@ -1016,43 +1061,85 @@
 }
 
 .main.vitae:not(.project-detail) .button {
-    // Sampled from the supplied primary/secondary dark state references.
-    --button-border: #cecece;
-    --button-border-hover: #fffffe;
-    --button-face-border-hover: #fffffe;
-    --button-border-active: #fffffe;
-    --button-shadow-color: #040405;
+    --button-glass-background: linear-gradient(110deg, rgba(24, 26, 31, 0.33) 0%, rgba(10, 11, 14, 0.26) 48%, rgba(19, 21, 25, 0.31) 100%);
+    // Share the subnav glass surface without changing button geometry or motion.
+    --button-border: var(--vitae-project-index-glass-highlight-top);
+    --button-border-hover: var(--button-border);
+    --button-face-border-hover: var(--button-border);
+    --button-border-active: var(--button-border);
+    --button-shadow-color: transparent;
     --button-text: #cecece;
     --button-text-hover: #fffffe;
     --button-text-active: #fffffe;
 }
 
 .main.vitae:not(.project-detail) .button.primary {
-    --button-background: #24262f;
-    --button-background-hover: #303340;
-    --button-background-active: #1c1e24;
+    --button-background: transparent;
+    --button-rest-background: rgba(34, 36, 40, 0.4);
+    --button-background-hover: rgba(255, 255, 255, 0.04);
+    --button-background-active: rgba(0, 0, 0, 0.15);
+    --button-glass-tint: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.0175));
 }
 
 .main.vitae:not(.project-detail) .button.secondary {
-    --button-background: #040405;
-    --button-background-hover: #040405;
-    --button-background-active: #101013;
+    --button-background: transparent;
+    --button-rest-background: rgba(14, 16, 20, 0.3);
+    --button-background-hover: rgba(255, 255, 255, 0.025);
+    --button-background-active: rgba(0, 0, 0, 0.15);
+    --button-glass-tint: linear-gradient(transparent, transparent);
 }
 
 .main.vitae:not(.project-detail) .button .button-shadow {
-    border: 0.0625rem solid #616162;
+    border: 0.0625rem solid var(--button-border);
     box-shadow: none;
 }
 
 .main.vitae:not(.project-detail) .button .button-face {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    -webkit-backdrop-filter: var(--vitae-project-index-glass-filter);
+    backdrop-filter: var(--vitae-project-index-glass-filter);
+    background-image: var(--button-glass-tint), var(--button-glass-background);
+    box-shadow:
+        inset 0 0.0625rem var(--vitae-project-index-glass-highlight-top),
+        inset 0 -0.0625rem var(--vitae-project-index-glass-highlight-bottom),
+        0 0.625rem 1.75rem rgba(0, 0, 0, 0.12);
+}
+
+.main.vitae:not(.project-detail) .button:not(:hover):not(:active) .button-face {
     background-image: none;
-    box-shadow: none;
+    background-color: var(--button-rest-background);
+}
+
+.main.vitae:not(.project-detail) .button .button-face::after {
+    background: linear-gradient(180deg, transparent 25%, rgba(255, 255, 255, 0.08) 50%, transparent 75%);
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    transform: translateY(-110%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .main.vitae:not(.project-detail) .button:hover .button-face::after {
+        animation: vitae-button-light-sweep 0.2s ease-in-out 0s both;
+    }
+
+    .main.vitae:not(.project-detail) .button:active .button-face::after {
+        animation: vitae-button-light-press 0.2s ease-in-out 0s both;
+    }
+}
+
+@keyframes vitae-button-light-sweep {
+    from { transform: translateY(-110%); }
+    to { transform: translateY(110%); }
+}
+
+@keyframes vitae-button-light-press {
+    from { transform: translateY(110%); }
+    to { transform: translateY(-110%); }
 }
 
 .main.vitae:not(.project-detail) .button:hover:not(:active):not(:focus-visible) .button-face::before {
-    border: 0.0625rem solid #616162;
+    border: 0.0625rem solid var(--button-border);
     border-radius: inherit;
     box-sizing: border-box;
     content: "";
@@ -1063,7 +1150,7 @@
 }
 
 .main.vitae:not(.project-detail) .button:active .button-face-container::after {
-    border: 0.0625rem solid #616162;
+    border: 0.0625rem solid var(--button-border);
     border-radius: inherit;
     box-sizing: border-box;
     clip-path: inset(50% 0 0 0);
@@ -1201,22 +1288,9 @@
 
 @media screen and (min-width: 56.0625rem) {
     .vitae-summary-principles {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .vitae-summary-principles li {
-        border-left: 0.0625rem solid rgba(255, 255, 255, 0.14);
-        padding: 2rem clamp(2rem, 4vw, 4rem) 3rem;
-    }
-
-    .vitae-summary-principles li:first-child {
-        border-left: 0;
-        padding-left: 0;
-    }
-
-    .vitae-summary-principles li:last-child {
-        padding-right: 0;
-    }
 }
 
 @media screen and (min-width: 60.0625rem) {

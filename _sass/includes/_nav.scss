@@ -1,3 +1,15 @@
+// Main navigation changes state immediately at every breakpoint.
+.header,
+.header::before,
+.header::after,
+.header *,
+.header *::before,
+.header *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+}
+
 .nav-container {
     align-items: center;
     background: transparent;
@@ -110,25 +122,6 @@
         color 0.2s ease,
         text-shadow 0.2s ease;
 
-    &::after {
-        background: currentColor;
-        border-radius: 999rem;
-        bottom: -0.125rem;
-        content: "";
-        height: 1px;
-        left: 0;
-        position: absolute;
-        right: 0;
-        transform: scaleX(0);
-        transform-origin: center;
-        transition: transform 0.25s ease;
-    }
-
-    &:hover::after,
-    &:focus-visible::after,
-    &.active::after {
-        transform: scaleX(1);
-    }
 }
 
 .tab.active {

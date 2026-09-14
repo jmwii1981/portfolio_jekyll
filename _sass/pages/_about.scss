@@ -467,9 +467,6 @@
         max-width: 58rem;
         min-width: 0;
     }
-    .help-intro .home-section-title > span {
-        display: block;
-    }
     .help-artwork {
         aspect-ratio: auto;
         display: block;
@@ -1115,8 +1112,7 @@
 }
 
 .about-me-next > .home-section-title {
-    display: inline-flex;
-    flex-direction: column;
+    display: block;
     max-width: 100%;
     width: max-content;
 }
@@ -1262,6 +1258,19 @@
 }
 
 @media (max-width: 42.5rem) {
+    .main.about .button-group {
+        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        max-width: 100%;
+        width: auto;
+    }
+
+    .main.about .button-group .button-container {
+        flex: 0 0 auto;
+        width: auto;
+    }
+
     .help {
         --help-accent-size: clamp(5rem, 20vw, 6rem);
     }
@@ -1289,8 +1298,10 @@
         display: none;
     }
 
+    .main.about .hero .page-hero-title,
     .main.about .home-section-title {
-        font-size: clamp(2.5rem, 10.5vw, 3.5rem);
+        font-size: clamp(3.25rem, 15vw, 4.5rem);
+        overflow-wrap: anywhere;
     }
 
     .help .content-wrapper {

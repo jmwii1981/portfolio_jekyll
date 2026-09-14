@@ -25,7 +25,7 @@ description: "Selected product design leadership work spanning merchant operatio
                 <ul class="vitae-project-index-list" id="vitae-project-index-list">
                     {% for project_slug in page.selected_projects %}
                     {% assign project = site.data.vitae_projects[project_slug] %}
-                    <li><a class="a" href="#project-{{ project_slug }}"><span aria-hidden="true">0{{ forloop.index }}</span> {{ project.index_label | default: project.organization }}</a></li>
+                    <li><a class="a" href="#project-{{ project_slug }}">{{ project.index_label | default: project.organization }}</a></li>
                     {% endfor %}
                 </ul>
                 <button class="vitae-project-index-scroll-button vitae-project-index-scroll-button--next" type="button" data-project-index-next aria-controls="vitae-project-index-list" aria-label="Show more projects" hidden><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></button>

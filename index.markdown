@@ -38,11 +38,7 @@ description: "Fractional product design leadership for growing companies navigat
             <div class="help-intro">
                 <header class="home-section-header" data-reveal="right">
                     <h2 class="h2 section-label">How I help</h2>
-                    <p class="p home-section-title">
-                        <span>Leadership that</span>
-                        <span>brings innovation</span>
-                        <span>into focus.</span>
-                    </p>
+                    <p class="p home-section-title">Leadership that brings innovation into focus.</p>
                 </header>
                 <picture class="help-artwork" aria-hidden="true" data-reveal="right">
                     <source type="image/avif" srcset="{{ '/images/help/strategy-notes.avif' | relative_url }}?v={{ site.asset_version }}">
@@ -256,7 +252,7 @@ description: "Fractional product design leadership for growing companies navigat
         <div class="about-me-inner" data-reveal="up">
             <div class="about-me-next">
                 <p class="p section-label about-me-eyebrow">Get in touch</p>
-                <h2 class="h2 home-section-title"><span>Let's shake </span><span>things&nbsp;up!</span></h2>
+                <h2 class="h2 home-section-title">Let's shake things up!</h2>
                 <p class="p about-me-invitation">Tell me what you're working on.</p>
                 <div class="button-group about-me-actions">
                     <a class="a button button-container primary" href="{{ '/contact/' | relative_url }}" aria-label="Let’s talk">Let’s talk<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Let’s talk</span></span></a>

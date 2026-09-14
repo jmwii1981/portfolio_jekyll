@@ -296,6 +296,7 @@
             let navigationFrameId = null;
             let isTicking = false;
             let navigationToken = 0;
+            let navigationEntry = null;
 
             projectEntries.forEach((entry) => {
                 entry.heading.tabIndex = -1;
@@ -340,8 +341,10 @@
             const setActiveProject = (entry, { ensureVisible = false } = {}) => {
                 const hasChanged = activeProjectId !== entry.projectId;
 
-                projectList.style.setProperty('--vitae-project-indicator-x', `${entry.item.offsetLeft}px`);
-                projectList.style.setProperty('--vitae-project-indicator-width', `${entry.item.offsetWidth}px`);
+                const itemRect = entry.item.getBoundingClientRect();
+                const listRect = projectList.getBoundingClientRect();
+                projectList.style.setProperty('--vitae-project-indicator-x', `${itemRect.left - listRect.left + projectList.scrollLeft}px`);
+                projectList.style.setProperty('--vitae-project-indicator-width', `${itemRect.width}px`);
                 projectLinks.forEach((link) => {
                     if (link === entry.link) {
                         link.setAttribute('aria-current', 'location');
@@ -364,6 +367,7 @@
 
             const cancelProjectNavigation = () => {
                 navigationToken += 1;
+                navigationEntry = null;
 
                 if (navigationFrameId !== null) {
                     window.cancelAnimationFrame(navigationFrameId);
@@ -373,6 +377,8 @@
 
             const scrollToProject = (entry) => {
                 cancelProjectNavigation();
+                navigationEntry = entry;
+                setActiveProject(entry, { ensureVisible: true });
 
                 const currentNavigationToken = ++navigationToken;
                 const destinationHash = `#${entry.projectId}`;
@@ -384,9 +390,22 @@
                 const expectedTop = Number.parseFloat(window.getComputedStyle(entry.project).scrollMarginTop) || 0;
                 const maximumScrollTop = document.documentElement.scrollHeight - window.innerHeight;
                 const startTop = window.scrollY;
+                // The first project's scroll margin can stop above the sticky boundary.
+                // Land beyond that boundary so explicit navigation keeps the index pinned.
+                const summariesStyle = window.getComputedStyle(projectSummaries);
+                const indexStyle = window.getComputedStyle(projectIndex);
+                const rootFontSize = Number.parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 16;
+                const stickyTop = Number.parseFloat(indexStyle.top);
+                const pinnedTop = Number.isFinite(stickyTop)
+                    ? stickyTop
+                    : expectedTop - projectIndex.offsetHeight - 2 * rootFontSize;
+                const minimumPinnedScrollTop = desktopDockingQuery.matches
+                    ? startTop + projectSummaries.getBoundingClientRect().top
+                        + (Number.parseFloat(summariesStyle.paddingTop) || 0) - pinnedTop + 1
+                    : 0;
                 const destinationTop = Math.min(
                     maximumScrollTop,
-                    Math.max(0, startTop + entry.project.getBoundingClientRect().top - expectedTop)
+                    Math.max(0, minimumPinnedScrollTop, startTop + entry.project.getBoundingClientRect().top - expectedTop)
                 );
                 const distance = Math.abs(destinationTop - startTop);
 
@@ -394,12 +413,14 @@
                     if (currentNavigationToken !== navigationToken) return;
 
                     navigationFrameId = null;
-                    window.scrollTo(0, destinationTop);
+                    window.scrollTo({ top: destinationTop, behavior: 'instant' });
                     entry.heading.focus({ preventScroll: true });
+                    navigationEntry = null;
+                    requestProjectIndexUpdate();
                 };
 
                 if (reducedMotion || distance < 2) {
-                    window.scrollTo(0, destinationTop);
+                    window.scrollTo({ top: destinationTop, behavior: 'instant' });
                     navigationFrameId = window.requestAnimationFrame(finishNavigation);
                     return;
                 }
@@ -415,7 +436,7 @@
                         ? 4 * progress ** 3
                         : 1 - ((-2 * progress + 2) ** 3) / 2;
 
-                    window.scrollTo(0, startTop + (destinationTop - startTop) * easedProgress);
+                    window.scrollTo({ top: startTop + (destinationTop - startTop) * easedProgress, behavior: 'instant' });
 
                     if (progress < 1) {
                         navigationFrameId = window.requestAnimationFrame(animateProjectScroll);
@@ -455,12 +476,12 @@
 
                 if (isStuck) {
                     const activationLine = Math.max(projectIndexRect.bottom + 2 * 16, window.innerHeight * 0.38);
-                    const activeEntry = projectEntries.reduce((currentEntry, entry) => (
+                    const activeEntry = navigationEntry || projectEntries.reduce((currentEntry, entry) => (
                         entry.project.getBoundingClientRect().top <= activationLine ? entry : currentEntry
                     ), projectEntries[0]);
 
                     setActiveProject(activeEntry);
-                } else {
+                } else if (!navigationEntry) {
                     clearActiveProject();
                 }
 
@@ -516,8 +537,42 @@
 
             updateProjectScrollControls();
             updateProjectIndexState();
+            // Settle initial docking and restored scroll position before enabling motion.
+            const enableProjectIndexMotion = () => {
+                window.requestAnimationFrame(() => {
+                    updateProjectIndexState();
+                    window.requestAnimationFrame(() => projectIndex.classList.add('is-motion-ready'));
+                });
+            };
+            if (document.readyState === 'complete') {
+                enableProjectIndexMotion();
+            } else {
+                window.addEventListener('load', enableProjectIndexMotion, { once: true });
+            }
             window.addEventListener('scroll', requestProjectIndexUpdate, { passive: true });
             window.addEventListener('resize', handleProjectIndexResize);
+            // The sticky width transition resizes the list without a window resize.
+            if (typeof window.ResizeObserver === 'function') {
+                const projectListObserver = new ResizeObserver(() => {
+                    updateProjectScrollControls();
+                    const activeEntry = projectEntries.find((entry) => entry.projectId === activeProjectId);
+                    if (activeEntry) setActiveProject(activeEntry);
+                });
+                projectListObserver.observe(projectList);
+            }
+            projectIndex.addEventListener('transitionrun', (event) => {
+                if (event.target === projectIndex && event.propertyName === 'width') {
+                    projectList.classList.add('is-resizing');
+                }
+            });
+            const finishProjectIndexResize = (event) => {
+                if (event.target === projectIndex && event.propertyName === 'width') {
+                    handleProjectIndexResize();
+                    projectList.classList.remove('is-resizing');
+                }
+            };
+            projectIndex.addEventListener('transitionend', finishProjectIndexResize);
+            projectIndex.addEventListener('transitioncancel', finishProjectIndexResize);
         };
 
         const initializeMobileNavigation = () => {
@@ -539,7 +594,7 @@
             };
 
             const setMenuState = (isOpen, { animate = false, restoreFocus = false } = {}) => {
-                const shouldAnimate = animate && mobileQuery.matches;
+                const shouldAnimate = false;
 
                 cancelMenuTransition();
                 navContainer.classList.toggle('is-transitioning', shouldAnimate);
@@ -960,7 +1015,6 @@
         safelyInitialize('privacy preferences', initializeConsentBanner);
         safelyInitialize('vitae project index', initializeVitaeProjectIndex);
         safelyInitialize('mobile navigation', initializeMobileNavigation);
-        safelyInitialize('desktop navigation indicator', initializeNavIndicator);
         safelyInitialize('project galleries', initializeProjectGalleries);
         safelyInitialize('recommendation carousel', initializeRecommendationCarousel);
 
