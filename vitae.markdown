@@ -38,7 +38,7 @@ description: "Selected product design leadership work spanning merchant operatio
             <article class="vitae-project-summary" id="project-{{ project_slug }}" aria-labelledby="{{ project_slug }}-title" data-search-section data-search-title="{{ project.name }}" data-search-category="Vitae" data-search-summary="{{ project.introduction }}" data-search-keywords="{{ project.keywords }}">
                 <header class="vitae-project-summary-copy" data-reveal="up">
                     <p class="p project-story-meta">{{ project.discipline }}</p>
-                    <h3 class="h3 project-story-title" id="{{ project_slug }}-title"><a class="a project-story-title-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}">{{ project.headline }}</a></h3>
+                    <h2 class="h3 project-story-title" id="{{ project_slug }}-title"><a class="a project-story-title-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}">{{ project.headline }}</a></h2>
                     <p class="p project-story-intro">{{ project.introduction }}</p>
                     <div class="button-group project-story-actions">
                         <a class="a button button-container secondary project-story-page-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}" aria-label="Explore project">Explore project<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Explore project <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></span></span></a>
@@ -59,7 +59,7 @@ description: "Selected product design leadership work spanning merchant operatio
         <div class="vitae-summary-next" data-reveal="up">
             <div>
                 <p class="p vitae-summary-eyebrow">What comes next</p>
-                <h3 class="h3">If your team is entering unfamiliar product territory, let’s create a clear path forward together.</h3>
+                <h2 class="h3">If your team is entering unfamiliar product territory, let’s create a clear path forward together.</h2>
             </div>
             <ul class="vitae-summary-principles" aria-label="Principles reflected across the selected work">
                 <li data-reveal="right">

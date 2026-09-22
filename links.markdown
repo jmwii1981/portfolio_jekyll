@@ -7,7 +7,7 @@ date_modified: "2026-08-30T10:01:40-04:00"
 ---
 
 <main class="main links-page" id="main-content" tabindex="-1" data-search-keywords="Jan Michael Wallace II links portfolio LinkedIn Medium GitHub Figma Dribbble contact">
-    <section class="links-profile" id="links" aria-labelledby="links-heading" data-search-section data-search-title="Jan Michael Wallace II’s Links" data-search-category="Links" data-search-summary="Explore my selected work at janmichael.io, follow along for thoughts on product design and leadership, and check out what I’m making next." data-search-keywords="links link in bio portfolio profiles product design leadership contact email phone">
+    <section class="links-profile" id="links" aria-labelledby="links-heading" data-search-section data-search-title="Jan Michael Wallace II’s Links" data-search-category="Links" data-search-summary="I shape how people, processes, products, and strategies work together to create happier teams, sustainable systems, and lasting value." data-search-keywords="links link in bio portfolio profiles product design leadership contact email phone">
         <picture class="links-profile-art" aria-hidden="true">
             <source type="image/avif" srcset="{{ '/images/links/links-profile-swirls-to-white.avif' | relative_url }}?v={{ site.asset_version }}">
             <source type="image/webp" srcset="{{ '/images/links/links-profile-swirls-to-white.webp' | relative_url }}?v={{ site.asset_version }}">
@@ -20,7 +20,7 @@ date_modified: "2026-08-30T10:01:40-04:00"
                 <img src="{{ '/images/headshots/bio-pic-512.png' | relative_url }}?v={{ site.asset_version }}" width="512" height="512" alt="Portrait of Jan Michael Wallace II" decoding="async" fetchpriority="high">
             </picture>
             <h1 class="h1 links-name" id="links-heading">Jan Michael Wallace II</h1>
-            <p class="p links-intro">Explore my selected work at janmichael.io, follow along for thoughts on product design and leadership, and check out what I’m making&nbsp;next.</p>
+            <p class="p links-intro">I shape how people, processes, products, and strategies work together to create happier teams, sustainable systems, and lasting value.</p>
             <div class="links-contact-list" role="group" aria-label="Contact Jan Michael Wallace II">
                 <a class="a links-contact-item links-contact-link" href="mailto:hello@janmichael.io">hello@janmichael.io</a>
                 <a class="a links-contact-item links-contact-link" href="tel:+14155069867">+1.415.506.9867</a>

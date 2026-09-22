@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require "json"
+require "nokogiri"
 require "pathname"
 require "rexml/document"
 require "time"
@@ -447,6 +448,22 @@ legacy_redirects.each do |relative, redirect|
   failures << "#{relative}: JavaScript redirect fallback is incorrect" unless html.include?("window.location.replace(#{target.to_json})")
   failures << "#{relative}: canonical target is incorrect" unless html.include?("rel=\"canonical\" href=\"#{canonical}\"")
   failures << "#{relative}: accessible redirect link is missing" unless html.include?("href=\"#{target}\"")
+end
+
+# Preserve heading semantics independently of visual heading classes.
+vitae_document = Nokogiri::HTML5(site_root.join("vitae/index.html").read)
+previous_heading_level = 0
+vitae_document.css("main h1, main h2, main h3, main h4, main h5, main h6").each do |heading|
+  level = heading.name.delete_prefix("h").to_i
+  if level > previous_heading_level + 1
+    failures << "vitae/index.html: heading level skips from h#{previous_heading_level} to #{heading.name} at #{heading['id'] || heading.text.strip}"
+  end
+  previous_heading_level = level
+end
+
+perspectives_document = Nokogiri::HTML5(site_root.join("perspectives/index.html").read)
+if perspectives_document.at_css("main aside, main [role='complementary']")
+  failures << "perspectives/index.html: complementary landmark must not be nested in main; use a named section for grouped page content"
 end
 
 if failures.any?

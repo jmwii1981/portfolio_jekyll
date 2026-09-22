@@ -47,6 +47,11 @@
     color: var(--color-section-label);
 }
 
+// This small label needs normal-text contrast against its white background.
+.main.about .testimonials-intro .section-label {
+    color: #657591;
+}
+
 .home-section-header {
     max-width: 58rem;
 }
