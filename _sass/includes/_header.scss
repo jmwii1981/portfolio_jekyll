@@ -1,163 +1,34 @@
 .header {
-    --header-glass-background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.1));
-    --header-glass-border: rgba(4, 4, 5, 0.09);
-    --header-glass-filter: blur(1.5rem) saturate(150%) contrast(1.02);
-    --header-glass-shadow:
-        inset 0 0.0625rem rgba(255, 255, 255, 0.58),
-        inset 0 -0.0625rem rgba(4, 4, 5, 0.055),
-        0 0.75rem 2rem rgba(4, 4, 5, 0.065);
-    --header-control-padding: var(--site-frame-gutter);
-    --header-content-gutter: clamp(0rem, calc(var(--site-outer-gutter) - 50vw + 50.75rem), var(--site-outer-gutter));
-    --header-top-background: var(--color-paper);
-
-    background: var(--header-top-background);
-    backdrop-filter: none;
-    border: 0;
-    border-bottom: 0.0625rem solid transparent;
-    box-shadow: none;
-
-    align-items: center;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    gap: 4rem;
-    justify-content: space-between;
-    left: 0;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0.15rem calc(var(--header-content-gutter) + var(--header-control-padding));
+    --dock-ink: #30343b;
+    --dock-surface: rgba(245, 247, 250, .38);
+    --menu-surface: rgba(250, 251, 253, .76);
+    --dock-frost: rgba(255, 255, 255, .48);
+    --dock-selected: rgba(217, 230, 246, .78);
+    --dock-selected-ink: #284f7c;
+    --dock-rim: rgba(255, 255, 255, .72);
     position: fixed;
-    right: 0;
-    top: 0;
-    -webkit-backdrop-filter: none;
-    width: min(100%, var(--site-max-width));
-    // Keep the fixed primary navigation above page-level sticky navigation.
-    z-index: 3;
-
-    &::before {
-        -webkit-backdrop-filter: none;
-        backdrop-filter: none;
-        background: transparent;
-        border: 0.0625rem solid transparent;
-        box-sizing: border-box;
-        content: "";
-        inset: 0;
-        pointer-events: none;
-        position: absolute;
-        transition:
-            background-color 0.3s ease,
-            backdrop-filter 0.3s ease,
-            border-color 0.3s ease,
-            box-shadow 0.3s ease;
-        z-index: -1;
-    }
-
-    &::after {
-        box-shadow: var(--header-glass-shadow);
-        clip-path: inset(0 0 -3rem 0);
-        content: "";
-        inset: 0;
-        opacity: 0;
-        pointer-events: none;
-        position: absolute;
-        transition: opacity 0.3s ease;
-        z-index: -2;
-    }
-
-    &.is-scrolled {
-        background: transparent;
-    }
-
-    &.is-scrolled::before {
-        -webkit-backdrop-filter: var(--header-glass-filter);
-        backdrop-filter: var(--header-glass-filter);
-        background: var(--header-glass-background);
-        border-color: var(--header-glass-border);
-    }
-
-    &.is-scrolled::after {
-        opacity: 1;
-    }
-
-    .h1,
-    .h2,
-    .p {
-        margin: 0 auto;
-        text-align: center;
-    }
-    .h1 {
-        font-size: 1.75rem;
-        line-height: 1.75rem;
-        margin: 1.25rem auto 0;
-    }
-    .h2 {
-        font-size: 1.125rem;
-        font-weight: 400;
-        line-height: 1.5;
-    }
-}
-
-.site-liquid-glass-lens {
-    --liquid-glass-opacity: 0.65;
-
-    border-radius: 0;
-    display: none;
-    inset: 0;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 12;
     pointer-events: none;
-    position: absolute;
 }
-
-@media screen and (min-width: 26rem) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    .header.is-scrolled.is-liquid-glass-loading .site-liquid-glass-lens--header,
-    .header.is-scrolled.has-liquid-glass .site-liquid-glass-lens--header {
-        display: block;
-    }
-
-    .header.is-scrolled.has-liquid-glass::before {
-        border-color: transparent;
-    }
-
-    .header.is-scrolled.has-liquid-glass::after {
-        opacity: 0;
-    }
+.body--vitae .header {
+    --dock-ink: #f0f1f3;
+    --dock-surface: rgba(35, 39, 46, .38);
+    --menu-surface: rgba(24, 28, 34, .78);
+    --dock-frost: rgba(210, 222, 239, .10);
+    --dock-selected: rgba(160, 191, 231, .24);
+    --dock-selected-ink: #e2efff;
+    --dock-rim: rgba(255, 255, 255, .20);
 }
-
-@media screen and (max-width: 44.3124rem) {
+@media (max-width: 47.999rem) {
     .header {
-        --header-glass-background:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0.35));
-        --header-glass-filter: blur(1.25rem) saturate(135%);
+        left: 50%;
+        right: auto;
+        top: auto;
+        bottom: calc(16px + env(safe-area-inset-bottom));
+        transform: translateX(-50%);
     }
-}
-
-@media screen and (min-width: 44.3125rem) {
-    .header {
-        height: 3rem;
-        padding-bottom: 0;
-        padding-top: 0;
-    }
-}
-
-.site-identity {
-    align-items: center;
-    display: flex;
-    flex: 0 0 2.5rem;
-    font: inherit;
-    height: 2.5rem;
-    line-height: 0;
-    margin: 0;
-    width: 2.5rem;
-}
-
-@supports not ((backdrop-filter: blur(1rem)) or (-webkit-backdrop-filter: blur(1rem))) {
-    .header,
-    .header::before {
-        background: var(--color-paper);
-    }
-
-    .body--vitae .header,
-    .body--vitae .header::before {
-        background: var(--color-ink);
-    }
+    body.body { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
 }

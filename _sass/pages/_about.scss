@@ -59,12 +59,18 @@
 .home-section-title {
     display: block;
     font-size: clamp(2rem, 9vw, 3rem);
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: var(--type-section-letter-spacing);
     line-height: var(--type-section-line-height);
     margin: 0;
     max-width: min(100%, calc(12ch + 6.25rem));
 }
+
+.main.about .page-hero-title {
+    font-weight: 700;
+}
+
+.main.about #about-title { font-weight: 600; }
 
 .hero {
     align-items: stretch;
@@ -156,8 +162,35 @@
 
 .hero .about-me-statement {
     animation: home-copy-reveal 0.9s 0.46s cubic-bezier(0.22, 1, 0.36, 1) both;
-    color: var(--color-text-muted-light);
+    color: #414244;
     margin: 2rem 0 2.25rem;
+}
+
+.hero-profile-link {
+    color: #293342;
+    font: inherit;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: currentColor;
+    text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.16em;
+
+    &:hover,
+    &:focus-visible {
+        text-decoration-color: currentColor;
+    }
+
+    &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 3px;
+        border-radius: 2px;
+    }
+}
+
+.hero .button-container.primary {
+    --clay-primary-ink: #eeebe5;
 }
 
 .hero .button-group {
@@ -208,16 +241,21 @@
 }
 
 @media (min-width: 42.5625rem) and (max-width: 59.9999rem) {
+    .main.about > .hero {
+        // Offset the page inset and the artwork's built-in upper whitespace.
+        margin-top: -3rem;
+    }
+
     .hero {
-        padding-top: clamp(2rem, 4.5vw, 2.75rem);
-        padding-bottom: clamp(2rem, 4.5vw, 2.75rem);
+        padding-top: 0;
+        padding-bottom: 1.5rem;
     }
 
     .hero > .content-wrapper {
         align-items: center;
         flex-direction: row;
-        gap: clamp(1.25rem, 3vw, 1.75rem);
-        min-height: 0;
+        gap: 0;
+        min-height: clamp(28rem, 64vw, 38rem);
         padding-bottom: 1rem;
         padding-top: 1rem;
     }
@@ -226,17 +264,20 @@
         flex: 1 1 auto;
         align-self: center;
         margin-top: 0;
+        margin-left: 29vw;
         max-width: none;
         min-width: 0;
         width: auto;
     }
 
     .hero .image-wrapper {
-        align-self: center;
-        flex: 0 0 clamp(12.5rem, 30vw, 17.5rem);
-        height: clamp(22rem, 48vw, 28rem);
+        // Let the artwork's empty margin sit outside the frame, not the stones.
+        position: absolute;
+        top: 0;
+        left: calc(var(--site-outer-gutter) * -1);
+        height: 100%;
         margin-left: 0;
-        width: auto;
+        width: 36vw;
     }
 
     .hero .image-wrapper .image {
@@ -246,10 +287,16 @@
     }
 
     .hero .page-hero-title {
-        font-size: clamp(3.25rem, 7.5vw, 4.5rem);
+        font-size: clamp(2.5rem, 5.9vw, 3.5rem);
     }
 
     .hero .about-me-statement {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        margin-bottom: 2rem;
+        margin-top: 2rem;
+    }
+
+    .home-section-description {
         font-size: clamp(1.05rem, 2.2vw, 1.3rem);
         margin-bottom: 2rem;
         margin-top: 2rem;
@@ -292,8 +339,9 @@
         width: auto;
     }
 
-    .hero .about-me-statement {
-        font-size: 1.45rem;
+    .hero .about-me-statement,
+    .home-section-description {
+        font-size: 1.25rem;
         margin-bottom: 2.625rem;
         margin-top: 2rem;
         max-width: 36rem;
@@ -304,7 +352,7 @@
     }
 
     .hero .page-hero-title {
-        font-size: clamp(5rem, calc(20vw - 7rem), 7.5rem);
+        font-size: var(--type-display-size);
     }
 
     .hero .image-wrapper {
@@ -323,7 +371,7 @@
     .hero .image-wrapper .image {
         object-fit: cover;
         object-position: center 52%;
-        transform: scale(1.18);
+        transform: translateY(-75px) scale(1.3);
     }
 }
 
@@ -351,7 +399,7 @@
 
 @media (min-width: 68rem) {
     .hero .page-hero-title {
-        font-size: clamp(5.5rem, 10vw, 7.5rem);
+        font-size: var(--type-display-size);
     }
 }
 
@@ -376,11 +424,11 @@
 
 @media (min-width: 42.0625rem) {
     .home-section-title {
-        font-size: clamp(3rem, 7vw, 7.25rem);
+        font-size: clamp(2.5rem, 5.5vw, 5.5rem);
     }
 
     .help-intro .home-section-title {
-        font-size: clamp(3rem, 6.4vw, 6.75rem);
+        font-size: clamp(2.5rem, 5vw, 5rem);
     }
 }
 
@@ -457,7 +505,7 @@
         flex-direction: column;
         gap: clamp(1rem, 2vw, 2rem);
         padding-bottom: 6.25rem;
-        padding-top: 1.390625rem;
+        padding-top: clamp(3rem, 5vw, 4.5rem);
         position: relative;
         z-index: 1;
     }
@@ -695,9 +743,12 @@
         opacity: var(--logo-opacity, 1);
         width: 100%;
     }
+    .company-logo[src$="focal-signum.svg"] {
+        transform: scale(0.5);
+    }
     .company-logo[src$="globalpayments.svg"] {
         --logo-height: 3.15rem;
-        --logo-width: 11.25rem;
+        --logo-width: 8.5rem;
 
         transform: translateY(0.25rem);
     }
@@ -706,6 +757,10 @@
         --logo-width: 6.4rem;
 
         transform: translateY(0.1875rem);
+    }
+    .company-logo[src$="heartland.svg"] {
+        --logo-height: 1.07rem;
+        --logo-width: 6rem;
     }
     .company-logo[src$="tsys.svg"] {
         --logo-height: 1.47rem;
@@ -725,11 +780,11 @@
     }
     .company-logo[src$="advancedmd.svg"] {
         --logo-height: 2.1rem;
-        --logo-width: 9.6rem;
+        --logo-width: 7.7rem;
     }
     .company-logo[src$="adapt-health.svg"] {
         --logo-height: 2.35rem;
-        --logo-width: 10.25rem;
+        --logo-width: 8.2rem;
 
         transform: translateY(0.125rem);
     }
@@ -745,7 +800,7 @@
     }
     .company-logo[src$="cleanse-clinic.svg"] {
         --logo-height: 2.1rem;
-        --logo-width: 9.75rem;
+        --logo-width: 7.8rem;
     }
     .company-logo[src$="dbs-interactive.svg"] {
         --logo-height: 2.45rem;
@@ -803,7 +858,8 @@
     }
     .recommendation-list {
         list-style: none;
-        margin: 0;
+        margin: 0 auto;
+        max-width: 54rem;
         min-height: 8rem;
         padding: 0;
         position: relative;
@@ -820,6 +876,10 @@
             calc(var(--site-max-width) / 3)
         );
     }
+    .testimonial-divider--top {
+        margin: 0 auto 2rem;
+    }
+
     .recommendation-item {
         align-items: center;
         display: flex;
@@ -833,7 +893,7 @@
 
     .recommendation-list.is-controlled .recommendation-item.is-active {
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         min-height: 8rem;
     }
 
@@ -870,6 +930,13 @@
     .recommendation-mark,
     .recommendation-role {
         font-weight: 300;
+    }
+}
+
+@media (min-width: 60rem) {
+    .testimonials .recommendations {
+        // Tighten only the introduction-to-quote gap; preserve logo spacing.
+        margin-top: calc(clamp(1.0625rem, calc(3.875rem - 4vw), 1.875rem) - 100px);
     }
 }
 
@@ -1004,6 +1071,12 @@
     width: 100%;
 }
 
+@media (min-width: 60rem) {
+    .about-me-inner {
+        padding-top: calc(6.25rem - 50px);
+    }
+}
+
 .main.about ~ .footer {
     --color-link: #4C5463;
 
@@ -1011,6 +1084,17 @@
     box-shadow: 0 0 0 100vmax #D7DAE1;
     clip-path: inset(0 -100vmax);
     padding-top: 1.5rem;
+}
+
+@media (max-width: 47.999rem) {
+    body.body:has(.main.about) {
+        padding-bottom: 0;
+    }
+
+    .main.about ~ .footer {
+        // Keep dock clearance within the painted footer, not a white body strip.
+        padding-bottom: calc(4rem + 96px + env(safe-area-inset-bottom));
+    }
 }
 
 .about-me-artwork {
@@ -1116,6 +1200,21 @@
     width: 100%;
 }
 
+.home-section-header .home-section-description {
+    color: var(--color-text-muted-light);
+    margin: 1.5rem 0 0;
+    max-width: 36rem;
+}
+
+.help-intro .home-section-description {
+    color: #4C5463;
+    margin-top: clamp(2rem, 3vw, 3rem);
+}
+
+.testimonials-intro .home-section-description {
+    color: #46536B;
+}
+
 .about-me-next > .home-section-title {
     display: block;
     max-width: 100%;
@@ -1129,11 +1228,26 @@
 }
 
 .about-me-invitation {
-    color: #4E586D;
+    color: #4C5463;
     display: block;
-    line-height: var(--type-body-line-height);
+    font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+    font-weight: 400;
+    letter-spacing: var(--type-lead-letter-spacing);
+    line-height: var(--type-lead-line-height);
     margin: 1.25rem 0 0;
     max-width: 32rem;
+}
+
+@media (min-width: 42.5625rem) {
+    .about-me-invitation {
+        font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+    }
+}
+
+@media (min-width: 60rem) {
+    .about-me-invitation {
+        font-size: 1.25rem;
+    }
 }
 
 .about-me-actions {
@@ -1150,8 +1264,12 @@
 .about-me-linkedin-icon {
     align-items: center;
     aspect-ratio: 1;
-    background: currentColor;
+    background: transparent;
     border-radius: 0.125rem;
+    box-shadow: inset 0 1.5px 2px rgba(22, 30, 43, 0.65),
+        inset 1px 0 1.5px rgba(22, 30, 43, 0.3),
+        inset 0 -0.5px 0.5px rgba(223, 230, 237, 0.15),
+        0 0.75px 0 rgba(223, 230, 237, 0.28);
     color: inherit;
     display: inline-flex;
     flex: 0 0 1.25rem;
@@ -1159,19 +1277,21 @@
     justify-content: center;
     line-height: 1;
     overflow: hidden;
-    transition: background-color 0.2s ease;
     width: 1.25rem;
 }
 
 .about-me-linkedin-icon svg {
     display: block;
-    height: 0.8rem;
-    transform: scale(1.75);
-    width: 0.8rem;
+    height: 100%;
+    width: 100%;
 }
 
 .about-me-linkedin-icon path {
-    fill: var(--color-paper);
+    fill: currentColor;
+    // Reduce the ~12.64px glyph by 2px, centering it within the unchanged square.
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: translateY(0.5px) scale(0.842);
 }
 
 // Desktop contact composition: cropped artwork left, copy/actions right.
@@ -1305,7 +1425,7 @@
 
     .main.about .hero .page-hero-title,
     .main.about .home-section-title {
-        font-size: clamp(3.25rem, 15vw, 4.5rem);
+        font-size: var(--type-display-size-mobile);
         overflow-wrap: anywhere;
     }
 

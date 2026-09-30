@@ -7,9 +7,13 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
 <main class="main contact" id="main-content" tabindex="-1">
     <section class="page-hero page-intro-frame contact-hero" id="contact-jan" aria-labelledby="contact-heading" data-search-section data-search-title="Contact Jan Michael Wallace II" data-search-category="Contact" data-search-keywords="email phone cell message leadership opportunity conversation collaboration">
         <div class="content-wrapper page-hero-content">
-            <p class="p section-label page-intro-eyebrow">Contact me</p>
             <h1 class="h1 page-hero-title" id="contact-heading">Let’s create a clear path forward, together.</h1>
         </div>
+        <picture class="contact-avatar">
+            <source type="image/avif" srcset="{{ '/images/headshots/bio-pic-512.avif' | relative_url }}?v={{ site.asset_version }}">
+            <source type="image/webp" srcset="{{ '/images/headshots/bio-pic-512.webp' | relative_url }}?v={{ site.asset_version }}">
+            <img src="{{ '/images/headshots/bio-pic-512.png' | relative_url }}?v={{ site.asset_version }}" width="512" height="512" alt="Portrait of Jan Michael Wallace II" decoding="async">
+        </picture>
     </section>
 
     <section class="contact-section" id="send-a-message" aria-label="Send a message" data-search-section data-search-title="Send Jan Michael Wallace II a message" data-search-category="Contact" data-search-keywords="contact form email phone cell message">

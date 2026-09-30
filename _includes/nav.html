@@ -2,16 +2,31 @@
 <nav 
     class="nav-container"
     aria-label="Primary">
-    {% include site-search.html %}
+    <div class="nav-controls{% if page.url == '/' %} has-sections{% endif %}">
     <button
-        class="nav-toggle"
+        class="nav-toggle dock-control"
         type="button"
         aria-expanded="false"
         aria-controls="primary-navigation"
-        aria-label="Open menu">
-        <span class="nav-toggle-line nav-toggle-line--top" aria-hidden="true"></span>
-        <span class="nav-toggle-line nav-toggle-line--bottom" aria-hidden="true"></span>
+        aria-label="Open menu" title="Menu">
+        <span class="dock-menu-icon" aria-hidden="true"><span class="nav-toggle-line nav-toggle-line--top"></span><span class="nav-toggle-line nav-toggle-line--bottom"></span></span>
     </button>
+    {% if page.url == '/' %}
+    <div class="dock-dots" role="group" aria-label="Page sections">
+        <a class="dock-dot" href="#about" aria-label="Introduction" aria-current="location"><span class="dock-dot-label">Introduction</span></a>
+        <a class="dock-dot" href="#how-i-help" aria-label="How I help"><span class="dock-dot-label">How I help</span></a>
+        <a class="dock-dot" href="#recommendations" aria-label="Recommendations"><span class="dock-dot-label">Recommendations</span></a>
+        <a class="dock-dot" href="#beyond-the-work" aria-label="Get in touch"><span class="dock-dot-label">Get in touch</span></a>
+    </div>
+    {% endif %}
+    {% if page.url != '/' %}
+    <button class="dock-control dock-top" type="button" aria-label="Back to top" title="Back to top" tabindex="-1">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4m-7 7 7-7 7 7"/></svg>
+    </button>
+    {% endif %}
+    </div>
+    <div class="nav-panel">
+    <span class="nav-panel-shadow" aria-hidden="true"></span>
     <ul class="nav" id="primary-navigation">
         <li 
             id="about-tab"
@@ -20,7 +35,7 @@
                 id="about-link"
                 class="a tab {% if page.url == '/' %}active{% endif %}"
                 {% if page.url == '/' %}aria-current="page"{% endif %}
-                href="{{ '/' | relative_url }}">About</a>
+                href="{{ '/' | relative_url }}" aria-label="About"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg><span>About</span></a>
         </li>
         <li 
             id="vitae-tab"
@@ -29,7 +44,7 @@
                 id="vitae"
                 class="a tab {% if page.url == '/vitae/' or page.layout == 'project' %}active{% endif %}"
                 {% if page.url == '/vitae/' or page.layout == 'project' %}aria-current="page"{% endif %}
-                href="{{ '/vitae/' | relative_url }}">Vitae</a>
+                href="{{ '/vitae/' | relative_url }}" aria-label="Vitae"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="3"/><path d="M8 7V4h8v3M3 12a24 24 0 0 0 18 0M12 12v3"/></svg><span>Vitae</span></a>
         </li>
         <li 
             id="perspectives-tab"
@@ -38,7 +53,7 @@
                     id="perspectives"
                     class="a tab {% if page.url == '/perspectives/' %}active{% endif %}"
                     {% if page.url == '/perspectives/' %}aria-current="page"{% endif %}
-                    href="{{ '/perspectives/' | relative_url }}">Perspectives</a>
+                    href="{{ '/perspectives/' | relative_url }}" aria-label="Perspectives"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v13H9l-5 4V4ZM8 8h8M8 12h5"/></svg><span>Perspectives</span></a>
         </li>
         <li 
             id="contact-tab"
@@ -46,7 +61,8 @@
                 <a id="contact"
                    class="a tab {% if page.url == '/contact/' %}active{% endif %}"
                    {% if page.url == '/contact/' %}aria-current="page"{% endif %}
-                   href="{{ '/contact/' | relative_url }}">Contact Me</a>
+                   href="{{ '/contact/' | relative_url }}" aria-label="Contact Me"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg><span>Contact Me</span></a>
         </li>
     </ul>
+    </div>
 </nav>

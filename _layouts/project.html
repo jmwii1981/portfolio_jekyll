@@ -21,9 +21,9 @@ layout: page
                     <header class="project-detail-gallery-header">
                         <h2 class="h2 section-label project-detail-gallery-title" id="project-gallery-title">Product walkthrough</h2>
                         <div class="project-gallery-controls">
-                            <button class="project-gallery-button" type="button" data-gallery-previous aria-label="View previous {{ project.organization }} screen"><svg class="project-gallery-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M16 10H4M9 5l-5 5 5 5" /></svg></button>
+                            <button class="button-container secondary project-gallery-button" type="button" data-gallery-previous aria-label="View previous {{ project.organization }} screen"><span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><svg class="project-gallery-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M16 10H4M9 5l-5 5 5 5" /></svg></span></span></button>
                             <p class="p project-gallery-count" aria-live="polite"><span data-gallery-current>1</span> / {{ project.gallery.size }}</p>
-                            <button class="project-gallery-button" type="button" data-gallery-next aria-label="View next {{ project.organization }} screen"><svg class="project-gallery-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></button>
+                            <button class="button-container secondary project-gallery-button" type="button" data-gallery-next aria-label="View next {{ project.organization }} screen"><span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><svg class="project-gallery-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></span></span></button>
                         </div>
                     </header>
                     <div class="project-gallery-viewport" data-gallery-viewport tabindex="0" aria-label="{{ project.name }} product walkthrough">

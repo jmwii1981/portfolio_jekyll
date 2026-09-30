@@ -24,7 +24,6 @@
 @import "components/page-hero";
 @import "components/skeleton";
 @import "components/social-icons";
-@import "components/site-search";
 
 // includes
 @import "includes/footer";
@@ -40,6 +39,8 @@
 @import "pages/project";
 @import "pages/terms";
 @import "pages/vitae";
+@import "global/button-material-tokens";
+@import "components/material-buttons";
 
 @media (forced-colors: active) {
     .a:focus-visible,

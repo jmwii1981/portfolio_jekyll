@@ -15,53 +15,7 @@
     overflow-x: clip;
 }
 
-.body--vitae .header {
-    --header-top-background: var(--color-ink);
-    --header-glass-background:
-        linear-gradient(180deg, rgba(30, 32, 38, 0.25), rgba(7, 8, 10, 0.18));
-    --header-glass-border: rgba(255, 255, 255, 0.1);
-    --header-glass-filter: blur(1.5rem) saturate(150%) brightness(1.02);
-    --header-glass-shadow:
-        inset 0 0.0625rem rgba(255, 255, 255, 0.11),
-        inset 0 -0.0625rem rgba(255, 255, 255, 0.035),
-        0 0.75rem 2rem rgba(0, 0, 0, 0.16);
-
-    --color-link: var(--color-paper);
-    --color-text: var(--color-paper);
-    border-left: 0;
-    border-right: 0;
-
-    &::before {
-        border-left: 0;
-        border-right: 0;
-    }
-}
-
-.body--vitae .header.is-scrolled {
-    border-bottom-color: var(--vitae-project-index-glass-highlight-top);
-}
-
-.body--vitae .logo.large path {
-    stroke: var(--color-paper);
-}
-
-.body--vitae .nav {
-    background: var(--color-ink);
-}
-
-.body--vitae .nav-toggle-line {
-    background: var(--color-paper);
-}
-
-.body--vitae .nav-toggle {
-    background: transparent;
-    border-color: transparent;
-}
-
-.body--vitae .nav-toggle:hover {
-    background: rgba(255, 255, 255, 0.09);
-    border-color: transparent;
-}
+.body--vitae .logo.large path { stroke: var(--color-paper); }
 
 .body--vitae .footer,
 .body--vitae .main.vitae {
@@ -165,9 +119,9 @@
 
 .vitae-intro-title {
     animation: vitae-copy-reveal 0.9s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
-    background: linear-gradient(135deg, #D2D8FF 0%, #FFFFFF 100%);
+    background: linear-gradient(135deg, #E1E1E1 0%, #FFFFFF 100%);
     background-clip: text;
-    color: #D2D8FF;
+    color: #FFFFFF;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -540,7 +494,7 @@
 
 .project-story-title {
     display: block;
-    font-size: clamp(2.25rem, 5vw, 4.75rem);
+    font-size: clamp(2rem, 4vw, 3.75rem);
     letter-spacing: var(--type-feature-letter-spacing);
     line-height: var(--type-feature-line-height);
     margin: 0;
@@ -578,7 +532,7 @@
 .project-story-intro {
     color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
     letter-spacing: var(--type-lead-letter-spacing);
     line-height: var(--type-lead-line-height);
     margin: clamp(1.75rem, 4vw, 3rem) 0 0;
@@ -1060,116 +1014,6 @@
     --button-focus-ring: var(--color-paper);
 }
 
-.main.vitae:not(.project-detail) .button {
-    --button-glass-background: linear-gradient(110deg, rgba(24, 26, 31, 0.33) 0%, rgba(10, 11, 14, 0.26) 48%, rgba(19, 21, 25, 0.31) 100%);
-    // Share the subnav glass surface without changing button geometry or motion.
-    --button-border: var(--vitae-project-index-glass-highlight-top);
-    --button-border-hover: var(--button-border);
-    --button-face-border-hover: var(--button-border);
-    --button-border-active: var(--button-border);
-    --button-shadow-color: transparent;
-    --button-text: #cecece;
-    --button-text-hover: #fffffe;
-    --button-text-active: #fffffe;
-}
-
-.main.vitae:not(.project-detail) .button.primary {
-    --button-background: transparent;
-    --button-rest-background: rgba(34, 36, 40, 0.4);
-    --button-background-hover: rgba(255, 255, 255, 0.04);
-    --button-background-active: rgba(0, 0, 0, 0.15);
-    --button-glass-tint: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.0175));
-}
-
-.main.vitae:not(.project-detail) .button.secondary {
-    --button-background: transparent;
-    --button-rest-background: rgba(14, 16, 20, 0.3);
-    --button-background-hover: rgba(255, 255, 255, 0.025);
-    --button-background-active: rgba(0, 0, 0, 0.15);
-    --button-glass-tint: linear-gradient(transparent, transparent);
-}
-
-.main.vitae:not(.project-detail) .button .button-shadow {
-    border: 0.0625rem solid var(--button-border);
-    box-shadow: none;
-}
-
-.main.vitae:not(.project-detail) .button .button-face {
-    -webkit-backdrop-filter: var(--vitae-project-index-glass-filter);
-    backdrop-filter: var(--vitae-project-index-glass-filter);
-    background-image: var(--button-glass-tint), var(--button-glass-background);
-    box-shadow:
-        inset 0 0.0625rem var(--vitae-project-index-glass-highlight-top),
-        inset 0 -0.0625rem var(--vitae-project-index-glass-highlight-bottom),
-        0 0.625rem 1.75rem rgba(0, 0, 0, 0.12);
-}
-
-.main.vitae:not(.project-detail) .button:not(:hover):not(:active) .button-face {
-    background-image: none;
-    background-color: var(--button-rest-background);
-}
-
-.main.vitae:not(.project-detail) .button .button-face::after {
-    background: linear-gradient(180deg, transparent 25%, rgba(255, 255, 255, 0.08) 50%, transparent 75%);
-    content: "";
-    inset: 0;
-    pointer-events: none;
-    position: absolute;
-    transform: translateY(-110%);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .main.vitae:not(.project-detail) .button:hover .button-face::after {
-        animation: vitae-button-light-sweep 0.2s ease-in-out 0s both;
-    }
-
-    .main.vitae:not(.project-detail) .button:active .button-face::after {
-        animation: vitae-button-light-press 0.2s ease-in-out 0s both;
-    }
-}
-
-@keyframes vitae-button-light-sweep {
-    from { transform: translateY(-110%); }
-    to { transform: translateY(110%); }
-}
-
-@keyframes vitae-button-light-press {
-    from { transform: translateY(110%); }
-    to { transform: translateY(-110%); }
-}
-
-.main.vitae:not(.project-detail) .button:hover:not(:active):not(:focus-visible) .button-face::before {
-    border: 0.0625rem solid var(--button-border);
-    border-radius: inherit;
-    box-sizing: border-box;
-    content: "";
-    inset: -0.0625rem;
-    pointer-events: none;
-    position: absolute;
-    transform: translateY(0.25rem);
-}
-
-.main.vitae:not(.project-detail) .button:active .button-face-container::after {
-    border: 0.0625rem solid var(--button-border);
-    border-radius: inherit;
-    box-sizing: border-box;
-    clip-path: inset(50% 0 0 0);
-    content: "";
-    inset: 0;
-    pointer-events: none;
-    position: absolute;
-    z-index: 2;
-}
-
-@media (forced-colors: active) {
-    .main.vitae:not(.project-detail) .button .button-shadow,
-    .main.vitae:not(.project-detail) .button .button-face {
-        -webkit-backdrop-filter: none;
-        backdrop-filter: none;
-        background-image: none;
-        box-shadow: none;
-    }
-}
 
 .project-gallery-copy-item.is-entering {
     animation: project-gallery-copy-enter 0.22s ease-out both;

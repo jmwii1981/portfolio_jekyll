@@ -463,15 +463,6 @@
             visibility 0s linear;
     }
 
-    .nav-container.is-open .site-search {
-        opacity: 0;
-        pointer-events: none;
-        transition:
-            opacity 0.16s ease,
-            visibility 0s linear 0.16s;
-        visibility: hidden;
-    }
-
     .site-search-panel {
         width: calc(100vw - 2rem);
     }
@@ -484,12 +475,6 @@
 }
 
 @media screen and (min-width: 44.3125rem) {
-    .site-search {
-        // Match the optical 2rem gap created by adjacent navigation item padding.
-        margin-right: 1.25rem;
-        transform: translateY(-0.25rem);
-    }
-
     .site-search-panel {
         width: min(42rem, calc(100vw - 3rem));
     }

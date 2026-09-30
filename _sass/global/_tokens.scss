@@ -12,20 +12,23 @@
     // Typography
     --font-sans: "Heebo", "Helvetica neue", Helvetica, Verdana, sans-serif;
     --type-display-letter-spacing: -0.03em;
-    --type-display-line-height: 0.9;
+    --type-display-line-height: 1.06;
     --type-section-letter-spacing: -0.03em;
-    --type-section-line-height: 1;
+    --type-section-line-height: 1.08;
     --type-feature-letter-spacing: -0.03em;
-    --type-feature-line-height: 0.98;
-    --type-card-letter-spacing: -0.03em;
-    --type-card-line-height: 1.15;
+    --type-feature-line-height: 1.12;
+    --type-card-letter-spacing: -0.02em;
+    --type-card-line-height: 1.25;
     --type-lead-letter-spacing: -0.01em;
     --type-lead-line-height: 1.55;
     --type-body-line-height: 1.6;
     --type-reading-line-height: 1.65;
     --type-label-font-size: 0.85rem;
-    --type-label-letter-spacing: 0.12em;
+    --type-label-letter-spacing: 0.08em;
     --type-label-line-height: 1.4;
+    --type-display-size: clamp(3rem, 6.5vw, 6rem);
+    --type-display-size-mobile: clamp(2.75rem, 11vw, 3.5rem);
+    --type-control-size: 1rem;
 
     // Core palette
     --color-background: var(--color-paper);

@@ -1,3 +1,11 @@
+// Keep control labels out of text selections without affecting activation.
+button,
+.button,
+.button-container {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 .button-container {
     --button-inline-padding: 1.3125rem;
     --button-shadow-color: var(--color-button-secondary-dark);

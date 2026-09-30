@@ -7,6 +7,23 @@
     background: var(--color-background);
     min-height: 0;
     padding-bottom: 0;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.contact-avatar {
+    align-self: center;
+    border-radius: 50% 0 50% 50%;
+    display: block;
+    flex: none;
+    overflow: hidden;
+    width: min(55vw, 16rem);
+
+    img {
+        display: block;
+        height: auto;
+        width: 100%;
+    }
 }
 
 .contact-section > .page-hero-lead {
@@ -197,6 +214,17 @@
 }
 
 @media (min-width: 42.5625rem) {
+    .contact-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        column-gap: clamp(2rem, 5vw, 5rem);
+    }
+
+    .contact-avatar {
+        justify-self: center;
+        width: min(100%, 32vw, 22rem);
+    }
+
     .main.contact > .contact-hero {
         padding-bottom: clamp(1.667rem, 3.333vw, 2.667rem);
     }
@@ -216,22 +244,26 @@
     }
 
     .main.contact > .contact-hero {
+        grid-column: 1 / -1;
         min-height: 0;
         padding: 0;
     }
 
     .contact-hero .page-hero-content {
+        margin-left: 0;
         max-width: 36rem;
     }
 
     .main.contact > .contact-section {
+        grid-column: 1 / -1;
+        justify-content: start;
         margin-top: calc(1.19rem + 1.5rem);
         padding: 0;
     }
 
     .contact-form {
         gap: 1rem;
-        justify-self: end;
+        justify-self: start;
         max-width: 34rem;
     }
 

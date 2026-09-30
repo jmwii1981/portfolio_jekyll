@@ -1,0 +1,278 @@
+// Shared physical interaction; clay on non-Vitae pages, existing glass on Vitae.
+body:not(:has(.main.vitae)),
+.main.vitae {
+    .button-container {
+        --material-lift: var(--button-material-lift);
+        --material-press: var(--button-material-press);
+        --material-ease: var(--button-material-ease);
+
+        font-size: var(--type-control-size);
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 1.25rem;
+        padding-top: 0.875rem;
+        padding-bottom: 0.875rem;
+
+        .button-shadow {
+            background: var(--material-base);
+            box-shadow: var(--material-shadow);
+            transform: translateY(2px);
+            transition: box-shadow var(--button-material-duration) var(--material-ease);
+        }
+
+        .button-face-container {
+            overflow: visible;
+            transform: none;
+            transition: transform var(--button-material-duration) var(--material-ease);
+        }
+
+        .button-face {
+            background: var(--material-surface);
+            border: 1px solid var(--material-edge);
+            box-shadow: var(--material-bevel);
+            color: var(--material-ink);
+            transform: none;
+            transition: box-shadow var(--button-material-duration) var(--material-ease), border-color var(--button-material-duration) ease;
+        }
+
+        &:focus-visible {
+            outline-color: var(--material-focus);
+        }
+
+        &:focus-visible .button-face {
+            background: var(--material-surface);
+            border-color: var(--material-edge);
+            color: var(--material-ink);
+        }
+
+        // No hover lift on touchscreens; pressing still compresses the surface.
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(:active):not(:disabled) .button-face-container {
+                transform: translateY(var(--material-lift));
+            }
+
+            &:hover:not(:active):not(:disabled) .button-shadow {
+                box-shadow: var(--material-shadow-hover);
+            }
+        }
+
+        &:active:not(:disabled) {
+            .button-face-container {
+                transform: translateY(var(--material-press)) scale(0.99);
+                transition-duration: var(--button-material-press-duration);
+            }
+
+            .button-face {
+                box-shadow: var(--material-bevel-pressed);
+            }
+
+            .button-shadow {
+                box-shadow: var(--material-shadow-pressed);
+            }
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            .button-face-container { transform: none; }
+        }
+    }
+}
+
+body:not(:has(.main.vitae)) .button-container {
+    --material-lift: -4px;
+    --material-base: var(--clay-secondary-base);
+    --material-ink: var(--clay-secondary-ink);
+    --material-focus: var(--clay-focus);
+    --material-label-relief: var(--clay-secondary-label-relief);
+    --material-edge: var(--clay-secondary-edge);
+    --material-surface: var(--clay-secondary-surface);
+    --material-bevel: var(--clay-secondary-bevel);
+    --material-bevel-pressed: var(--clay-secondary-bevel-pressed);
+    --material-shadow: var(--clay-secondary-shadow);
+    --material-shadow-hover: var(--clay-secondary-shadow-hover);
+    --material-shadow-pressed: var(--clay-secondary-shadow-pressed);
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover:not(:active):not(:disabled) .button-face-container {
+            transform: translateY(var(--material-lift)) scale(1.035);
+        }
+    }
+
+    &.primary,
+    &:not(.secondary) {
+        --material-base: var(--clay-primary-base);
+        --material-edge: var(--clay-primary-edge);
+        --material-ink: var(--clay-primary-ink);
+        --material-label-relief: var(--clay-primary-label-relief);
+        --material-surface: var(--clay-primary-surface);
+        --material-bevel: var(--clay-primary-bevel);
+        --material-bevel-pressed: var(--clay-primary-bevel-pressed);
+        --material-shadow: var(--clay-primary-shadow);
+        --material-shadow-hover: var(--clay-primary-shadow-hover);
+        --material-shadow-pressed: var(--clay-primary-shadow-pressed);
+    }
+
+    // Version 4 uses a solid clay rim beneath the textured face.
+    .button-shadow {
+        transform: translateY(var(--clay-rim-depth));
+    }
+
+    // Place stationary grain behind the lettering.
+    .button-face {
+        isolation: isolate;
+        text-shadow: var(--material-label-relief);
+    }
+    .button-face::after {
+        background: url('/images/ui/clay-grain.svg') repeat;
+        border-radius: inherit;
+        content: "";
+        inset: 0;
+        mix-blend-mode: multiply;
+        pointer-events: none;
+        position: absolute;
+        opacity: var(--clay-grain-opacity);
+        -webkit-mask-image: var(--clay-grain-mask);
+        mask-image: var(--clay-grain-mask);
+        z-index: -1;
+    }
+}
+
+.main.vitae .button-container,
+.body--vitae .dock-control {
+    --glass-inner-highlight-height: 10%;
+    --material-base: transparent;
+    --material-edge: rgba(224, 233, 246, 0.12);
+    --material-ink: #eef1f6;
+    --material-focus: #d9e3f4;
+    --material-surface:
+        radial-gradient(ellipse 65% var(--glass-inner-highlight-height) at 50% 100%, rgba(235, 245, 255, 0.28), transparent),
+        linear-gradient(225deg, rgba(255, 255, 255, 0.09), transparent 18%, transparent 85%, rgba(226, 238, 255, 0.06));
+    --material-shadow: 0 2px 3px rgba(0, 0, 0, 0.85), 0 9px 16px rgba(0, 0, 0, 0.65), 0 3px 1px rgba(201, 222, 248, 0.12);
+    --material-shadow-hover: 0 0 9px rgba(255, 255, 255, 0.035), 0 0 18px rgba(255, 255, 255, 0.015), 0 4px 8px rgba(0, 0, 0, 0.45), 0 10px 24px rgba(0, 0, 0, 0.28), 0 3px 1px rgba(201, 222, 248, 0.2);
+    --material-shadow-pressed: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --material-bevel:
+        inset 0 1px 1px rgba(255, 255, 255, 0.22),
+        inset 0 -1px 1px rgba(223, 236, 255, 0.14),
+        inset 1px 0 1px rgba(235, 244, 255, 0.04),
+        inset -1px 0 1px rgba(235, 244, 255, 0.1);
+    --material-bevel-pressed:
+        inset 0 2px 5px rgba(0, 0, 0, 0.5),
+        inset 0 -1px 1px rgba(215, 229, 247, 0.22);
+
+    &.primary {
+        --material-edge: rgba(224, 237, 255, 0.17);
+        --material-surface:
+            radial-gradient(ellipse 65% var(--glass-inner-highlight-height) at 50% 100%, rgba(235, 245, 255, 0.36), transparent),
+            linear-gradient(225deg, rgba(255, 255, 255, 0.14), transparent 20%, transparent 82%, rgba(226, 238, 255, 0.09));
+        --material-shadow: 0 2px 3px rgba(0, 0, 0, 0.85), 0 9px 16px rgba(0, 0, 0, 0.65), 0 3px 1px rgba(201, 222, 248, 0.18);
+        --material-shadow-hover: 0 0 9px rgba(255, 255, 255, 0.035), 0 0 18px rgba(255, 255, 255, 0.015), 0 4px 8px rgba(0, 0, 0, 0.55), 0 10px 24px rgba(0, 0, 0, 0.36), 0 3px 1px rgba(201, 222, 248, 0.26);
+        --material-shadow-pressed: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .button-face {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        border-width: 0.75px;
+        background-color: transparent;
+        transition:
+            background-color var(--button-material-duration) var(--material-ease),
+            box-shadow var(--button-material-duration) var(--material-ease),
+            border-color var(--button-material-duration) ease;
+    }
+
+    .button-face::before {
+        // Uneven reflected light around the glass rim, with clear gaps.
+        background: conic-gradient(from 105deg,
+            transparent 0deg, rgba(240, 247, 255, 0.28) 65deg,
+            transparent 105deg, transparent 160deg,
+            rgba(240, 247, 255, 0.12) 200deg, transparent 240deg,
+            rgba(255, 255, 255, 0.36) 300deg, transparent 350deg);
+        border-radius: inherit;
+        content: "";
+        inset: 0;
+        padding: 0.75px;
+        pointer-events: none;
+        position: absolute;
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+    }
+
+    .button-face::after {
+        background: radial-gradient(ellipse 48% 10% at 78% 26%, rgba(255, 255, 255, 0.27), transparent);
+        content: "";
+        inset: -50% 0;
+        pointer-events: none;
+        position: absolute;
+        transform: translateY(-10%);
+        transition: transform var(--button-material-duration) var(--material-ease);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            // Only the upper half of this bottom-anchored ellipse is visible.
+            --glass-inner-highlight-height: max(0px, calc(10% - 2px));
+        }
+        &:hover:not(:active):not(:disabled) .button-face {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+        &:hover .button-face::after { transform: translateY(10%); }
+    }
+
+    &:active .button-face::after { transform: translateY(-15%); }
+}
+
+// Icon-only controls share the same glass layers without changing hit targets.
+.main.vitae .button-container.project-gallery-button,
+.main.vitae .button-container.vitae-project-index-scroll-button {
+    padding: 0;
+    color: var(--material-ink);
+
+    &::before,
+    &::after { display: none; }
+
+    .project-gallery-icon { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body:not(:has(.main.vitae)),
+    .main.vitae {
+        .button-container {
+            --material-lift: 0px;
+            --material-press: 0px;
+            .button-face-container,
+            .button-face,
+            .button-face::after,
+            .button-shadow { transition: none; }
+            &:active:not(:disabled) .button-face-container { transform: none; }
+            &:hover:not(:active):not(:disabled) .button-face-container { transform: none; }
+            .button-face::after,
+            &:hover .button-face::after,
+            &:active .button-face::after { transform: none; }
+        }
+    }
+}
+
+@media (forced-colors: active) {
+    body:not(:has(.main.vitae)),
+    .main.vitae {
+        .button-container,
+        .button-container.primary,
+        .button-container.secondary {
+            --material-surface: Canvas;
+            --material-edge: ButtonText;
+            --material-ink: ButtonText;
+            --material-focus: Highlight;
+            .button-shadow,
+            .button-face::before,
+            .button-face::after { display: none; }
+            .button-face {
+                -webkit-backdrop-filter: none;
+                backdrop-filter: none;
+                box-shadow: none;
+                text-shadow: none;
+            }
+        }
+    }
+}

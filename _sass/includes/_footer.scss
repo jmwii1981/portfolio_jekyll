@@ -15,6 +15,33 @@
         min-width: 0;
     }
 
+    .footer-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: center;
+        width: 44px;
+        height: 44px;
+        color: inherit;
+        position: relative;
+        top: 12px;
+        border-radius: 8px;
+        text-decoration: none;
+
+        &:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+        &:hover { opacity: .8; }
+    }
+
+    .footer-brand-mark {
+        display: block;
+        width: 33px;
+        height: 33px;
+
+        path { stroke: currentColor; }
+    }
+
     .a,
     .social-icon,
     .social-icon rect,
@@ -170,7 +197,7 @@
 
     .footer-compact-content {
         grid-column: 1;
-        grid-row: 2;
+        grid-row: 3;
         justify-self: center;
 
         .p {
@@ -221,7 +248,7 @@
 
     .copyright {
         grid-column: 1;
-        grid-row: 1;
+        grid-row: 2;
         justify-self: center;
 
         .p {
@@ -232,6 +259,8 @@
     .links-footer-line {
         display: block;
     }
+
+    .footer-brand { grid-row: 1; }
 
     .links-footer-secondary {
         align-items: baseline;
@@ -257,6 +286,13 @@
         text-align: left;
         width: min(calc(100% - (var(--site-outer-gutter) * 2)), var(--site-max-width));
 
+        .footer-brand {
+            grid-row: 1;
+            justify-self: start;
+            // Align the visible mark, not its SVG's built-in whitespace.
+            margin-left: -10px;
+        }
+
         .site-signature {
             grid-column: 1;
             grid-row: 2;
@@ -278,6 +314,8 @@
             grid-column: 2;
             grid-row: 1;
             justify-self: stretch;
+            position: relative;
+            top: 12px;
         }
 
         .social-links-container {
@@ -301,6 +339,8 @@
     .footer.footer--without-social {
         grid-template-columns: minmax(0, 1fr);
 
+        .footer-brand { justify-self: center; margin-left: 0; }
+
         .site-signature {
             grid-column: 1;
             grid-row: 2;
@@ -310,7 +350,7 @@
 
         .copyright {
             grid-column: 1;
-            grid-row: 1;
+            grid-row: 2;
             justify-self: center;
 
             .p {

@@ -1,0 +1,40 @@
+// Selected clay treatment: comparison version 4 with version 1 outer shadows.
+// Lighting comes from the upper right; these tokens exclude Vitae.
+:root {
+    --button-material-duration: 180ms;
+    --button-material-press-duration: 90ms;
+    --button-material-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --button-material-lift: -1px;
+    --button-material-press: 2px;
+    --clay-secondary-base: #b0aba4;
+    --clay-primary-base: #333c48;
+    --clay-rim-depth: 2px;
+    --clay-secondary-ink: #393b3e;
+    --clay-primary-ink: #fff4e6;
+    --clay-focus: #596779;
+    --clay-secondary-label-relief: none;
+    --clay-primary-label-relief: none;
+    --clay-secondary-surface: radial-gradient(ellipse at 76% 0%, rgba(255, 254, 250, 0.4), transparent 72%),
+        linear-gradient(215deg, #eeebe5, #ded8cf);
+    --clay-primary-surface: radial-gradient(ellipse at 76% 0%, rgba(187, 197, 211, 0.13), transparent 72%),
+        linear-gradient(215deg, #606b7b, #465263);
+    --clay-secondary-bevel: inset -1px 2px 3px rgba(255, 255, 255, 0.5),
+        inset 1px -3px 5px rgba(100, 85, 65, 0.16), inset -2px 0 4px rgba(255, 255, 255, 0.18);
+    --clay-primary-bevel: inset -1px 2px 3px rgba(223, 230, 237, 0.18),
+        inset 1px -3px 5px rgba(22, 30, 43, 0.32), inset -2px 0 4px rgba(204, 212, 224, 0.06);
+    --clay-secondary-bevel-pressed: inset -1px 2px 5px rgba(100, 85, 65, 0.19),
+        inset 1px -1px 2px rgba(255, 255, 255, 0.55);
+    --clay-primary-bevel-pressed: inset -1px 2px 5px rgba(22, 30, 43, 0.4),
+        inset 1px -1px 2px rgba(223, 230, 237, 0.2);
+    --clay-grain-opacity: 0.16;
+    --clay-grain-mask: none;
+    --clay-secondary-edge: rgba(121, 113, 102, 0.25);
+    --clay-primary-edge: rgba(36, 46, 60, 0.4);
+    --clay-secondary-shadow: 0 3px 5px rgba(64, 55, 44, 0.15), 0 7px 14px rgba(64, 55, 44, 0.08);
+    --clay-secondary-shadow-hover: 0 6px 9px rgba(64, 55, 44, 0.24), 0 14px 24px rgba(64, 55, 44, 0.16);
+    --clay-secondary-shadow-pressed: 0 1px 2px rgba(64, 55, 44, 0.12);
+    --clay-primary-shadow-rgb: 51, 60, 72;
+    --clay-primary-shadow: 0 3px 5px rgba(var(--clay-primary-shadow-rgb), 0.6), 0 7px 14px rgba(var(--clay-primary-shadow-rgb), 0.4);
+    --clay-primary-shadow-hover: 0 6px 9px rgba(var(--clay-primary-shadow-rgb), 0.68), 0 14px 24px rgba(var(--clay-primary-shadow-rgb), 0.48);
+    --clay-primary-shadow-pressed: 0 1px 2px rgba(var(--clay-primary-shadow-rgb), 0.48);
+}

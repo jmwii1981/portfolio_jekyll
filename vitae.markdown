@@ -21,14 +21,14 @@ description: "Selected product design leadership work spanning merchant operatio
     <section class="vitae-collection" aria-label="Selected projects">
         <div class="vitae-project-summaries">
             <nav class="vitae-project-index" aria-label="Jump to a selected project" data-liquid-ignore>
-                <button class="vitae-project-index-scroll-button vitae-project-index-scroll-button--previous" type="button" data-project-index-previous aria-controls="vitae-project-index-list" aria-label="Show previous projects" hidden><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M16 10H4M9 5l-5 5 5 5" /></svg></button>
+                <button class="button-container secondary vitae-project-index-scroll-button vitae-project-index-scroll-button--previous" type="button" data-project-index-previous aria-controls="vitae-project-index-list" aria-label="Show previous projects" hidden><span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M16 10H4M9 5l-5 5 5 5" /></svg></span></span></button>
                 <ul class="vitae-project-index-list" id="vitae-project-index-list">
                     {% for project_slug in page.selected_projects %}
                     {% assign project = site.data.vitae_projects[project_slug] %}
                     <li><a class="a" href="#project-{{ project_slug }}">{{ project.index_label | default: project.organization }}</a></li>
                     {% endfor %}
                 </ul>
-                <button class="vitae-project-index-scroll-button vitae-project-index-scroll-button--next" type="button" data-project-index-next aria-controls="vitae-project-index-list" aria-label="Show more projects" hidden><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></button>
+                <button class="button-container secondary vitae-project-index-scroll-button vitae-project-index-scroll-button--next" type="button" data-project-index-next aria-controls="vitae-project-index-list" aria-label="Show more projects" hidden><span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></span></span></button>
             </nav>
 
             {% for project_slug in page.selected_projects %}
@@ -41,7 +41,7 @@ description: "Selected product design leadership work spanning merchant operatio
                     <h2 class="h3 project-story-title" id="{{ project_slug }}-title"><a class="a project-story-title-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}">{{ project.headline }}</a></h2>
                     <p class="p project-story-intro">{{ project.introduction }}</p>
                     <div class="button-group project-story-actions">
-                        <a class="a button button-container secondary project-story-page-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}" aria-label="Explore project">Explore project<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Explore project <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" /></svg></span></span></a>
+                        <a class="a button button-container secondary project-story-page-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}" aria-label="Explore project">Explore project<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Explore project</span></span></a>
                         {% if project.external_url %}
                         <a class="a button button-container primary project-story-link" href="{{ project.external_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ project.external_label }}">{{ project.external_label }}<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">{{ project.external_label }} <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
                         {% endif %}

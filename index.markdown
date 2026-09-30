@@ -15,9 +15,8 @@ description: "Fractional product design leadership for growing companies navigat
                 </picture>
             </div>
             <div class="copy-wrapper">
-                <p class="p section-label page-intro-eyebrow hero-intro">Hello, I'm</p>
-                <h1 class="h1 page-hero-title" id="about-title">Jan Michael</h1>
-                <p class="p about-me-statement">I shape how people, processes, products, and strategies work together to create happier teams, sustainable systems, and lasting value.</p>
+                <h1 class="h1 page-hero-title" id="about-title">Glad you're here.</h1>
+                <p class="p about-me-statement">I'm <a class="hero-profile-link" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">Jan Michael</a>. I shape how people, processes, products, and strategies work together to create happier teams, sustainable systems, and value that sticks.</p>
                 <div class="button-group">
                     <a
                     class="a button button-container secondary"
@@ -37,8 +36,8 @@ description: "Fractional product design leadership for growing companies navigat
         <div class="content-wrapper">
             <div class="help-intro">
                 <header class="home-section-header" data-reveal="right">
-                    <h2 class="h2 section-label">How I help</h2>
-                    <p class="p home-section-title">Leadership that brings innovation into focus.</p>
+                    <h2 class="h2 home-section-title">Leadership that brings innovation into focus.</h2>
+                    <p class="p about-me-statement home-section-description">Every good idea starts with a spark and needs space to develop, with a few nudges to help it take shape. I help teams explore possibilities, make sense of the tradeoffs, and turn shared ambition into delightful products.</p>
                 </header>
                 <picture class="help-artwork" aria-hidden="true" data-reveal="right">
                     <source type="image/avif" srcset="{{ '/images/help/strategy-notes.avif' | relative_url }}?v={{ site.asset_version }}">
@@ -70,8 +69,8 @@ description: "Fractional product design leadership for growing companies navigat
         <div class="content-wrapper">
             <div class="testimonials-intro">
                 <header class="home-section-header" data-reveal="left">
-                    <h2 class="h2 section-label">Trusted across the globe</h2>
-                    <p class="p home-section-title">The strongest work is built together.</p>
+                    <h2 class="h2 home-section-title">The strongest work is built together.</h2>
+                    <p class="p about-me-statement home-section-description">Human nature is to ask questions, have a distinct perspective, and a healthy sense of curiosity. My role is to bring those elements together to support individual growth and excellent outcomes.</p>
                 </header>
                 <div class="testimonials-artwork-shell" aria-hidden="true" data-reveal="right">
                     <picture class="testimonials-artwork">
@@ -82,6 +81,7 @@ description: "Fractional product design leadership for growing companies navigat
                 </div>
             </div>
             <div class="recommendations" data-reveal="up">
+                <hr class="testimonial-company-divider testimonial-divider--top" aria-hidden="true">
                 <ul class="recommendation-list" id="recommendation-list" aria-live="polite" aria-atomic="true">
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan taught our team the product design process with patience and professionalism, helping us craft products that met stakeholder and user needs.”</blockquote>
@@ -187,6 +187,9 @@ description: "Fractional product design leadership for growing companies navigat
                     <div class="logo-carousel-track" id="company-logo-track">
                         <ul class="testimony-list">
                             <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/focal-signum.svg" width="817" height="637" alt="Focal Signum">
+                            </li>
+                            <li class="testimony-item">
                                 <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/globalpayments.svg" alt="Global Payments">
                             </li>
                             <li class="testimony-item">
@@ -240,6 +243,9 @@ description: "Fractional product design leadership for growing companies navigat
                             <li class="testimony-item">
                                 <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mighty-small-homes.svg" alt="Mighty Small Homes">
                             </li>
+                            <li class="testimony-item">
+                                <img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/heartland.svg" width="576" height="104" alt="Heartland">
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -251,12 +257,11 @@ description: "Fractional product design leadership for growing companies navigat
         <span class="about-me-accent" aria-hidden="true"></span>
         <div class="about-me-inner" data-reveal="up">
             <div class="about-me-next">
-                <p class="p section-label about-me-eyebrow">Get in touch</p>
                 <h2 class="h2 home-section-title">Let's shake things up!</h2>
-                <p class="p about-me-invitation">Tell me what you're working on.</p>
+                <p class="p about-me-invitation">Tell me a little about yourself and what you're working on.</p>
                 <div class="button-group about-me-actions">
-                    <a class="a button button-container primary" href="{{ '/contact/' | relative_url }}" aria-label="Let’s talk">Let’s talk<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Let’s talk</span></span></a>
-                    <a class="a button button-container secondary about-me-linkedin-button" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="Let’s connect">Let’s connect<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><span class="about-me-linkedin-icon">{% include icon.html name="linked-in" %}</span>Let’s connect <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
+                    <a class="a button button-container secondary" href="{{ '/contact/' | relative_url }}" aria-label="Let’s talk">Let’s talk<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Let’s talk</span></span></a>
+                    <a class="a button button-container primary about-me-linkedin-button" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="Let’s connect">Let’s connect<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><span class="about-me-linkedin-icon">{% include icon.html name="linked-in-cutout" %}</span>Let’s connect <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
                 </div>
             </div>
             <picture class="about-me-artwork" aria-hidden="true">

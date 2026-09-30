@@ -576,90 +576,74 @@
         };
 
         const initializeMobileNavigation = () => {
-            const navContainer = document.querySelector('.nav-container');
-            const toggle = navContainer?.querySelector('.nav-toggle');
-            const nav = navContainer?.querySelector('.nav');
-            const searchControl = navContainer?.querySelector('.site-search');
-            const backgroundRegions = Array.from(document.querySelectorAll('.skip-link, .site-identity, main, footer, [data-consent-banner]'));
-
-            if (!navContainer || !toggle || !nav || !('inert' in HTMLElement.prototype)) return;
-
-            const mobileQuery = window.matchMedia('(max-width: 44.25rem)');
-            let transitionTimerId = null;
-
-            const cancelMenuTransition = () => {
-                window.clearTimeout(transitionTimerId);
-                transitionTimerId = null;
-                navContainer.classList.remove('is-transitioning');
+            const container = document.querySelector('.nav-container');
+            const toggle = container?.querySelector('.nav-toggle');
+            const nav = container?.querySelector('.nav');
+            if (!toggle || !nav) return;
+            const setOpen = (open, restoreFocus = false) => {
+                container.classList.toggle('is-open', open);
+                toggle.setAttribute('aria-expanded', String(open));
+                toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+                nav.inert = !open;
+                if (restoreFocus) toggle.focus();
             };
-
-            const setMenuState = (isOpen, { animate = false, restoreFocus = false } = {}) => {
-                const shouldAnimate = false;
-
-                cancelMenuTransition();
-                navContainer.classList.toggle('is-transitioning', shouldAnimate);
-                navContainer.classList.toggle('is-open', isOpen);
-                document.documentElement.classList.toggle('is-nav-open', isOpen);
-                document.body.classList.toggle('is-nav-open', isOpen);
-                toggle.setAttribute('aria-expanded', String(isOpen));
-                toggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-                navContainer.dispatchEvent(new CustomEvent('navstatechange'));
-                backgroundRegions.forEach((region) => {
-                    region.inert = isOpen;
-                });
-                if (searchControl) searchControl.inert = isOpen;
-
-                if (isOpen) {
-                    window.requestAnimationFrame(() => nav.querySelector('.tab')?.focus());
-                } else if (restoreFocus) {
-                    toggle.focus();
-                }
-
-                if (shouldAnimate) {
-                    transitionTimerId = window.setTimeout(cancelMenuTransition, 300);
-                }
-            };
-
-            toggle.addEventListener('click', () => {
-                setMenuState(!navContainer.classList.contains('is-open'), { animate: true });
+            toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+            nav.addEventListener('click', (event) => {
+                if (event.target.closest('a')) setOpen(false);
             });
-
-            nav.querySelectorAll('.tab').forEach((link) => {
-                link.addEventListener('click', () => setMenuState(false));
+            document.addEventListener('pointerdown', (event) => {
+                if (!nav.contains(event.target) && !toggle.contains(event.target)) setOpen(false);
             });
-
             document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape' && navContainer.classList.contains('is-open')) {
-                    setMenuState(false, { animate: true, restoreFocus: true });
-                    return;
-                }
-
-                if (event.key !== 'Tab' || !navContainer.classList.contains('is-open')) return;
-
-                const focusableItems = [toggle, ...nav.querySelectorAll('.tab')];
-                const firstItem = focusableItems[0];
-                const lastItem = focusableItems[focusableItems.length - 1];
-
-                if (event.shiftKey && document.activeElement === firstItem) {
-                    event.preventDefault();
-                    lastItem.focus();
-                } else if (!event.shiftKey && document.activeElement === lastItem) {
-                    event.preventDefault();
-                    firstItem.focus();
+                if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+                    setOpen(false, true);
                 }
             });
-
-            const handleMobileChange = (event) => {
-                if (!event.matches) setMenuState(false);
+            container.addEventListener('focusout', (event) => {
+                if (!container.contains(event.relatedTarget)) setOpen(false);
+            });
+            setOpen(false);
+            const topButton = container.querySelector('.dock-top');
+            const controls = container.querySelector('.nav-controls');
+            const sectionLinks = Array.from(container.querySelectorAll('.dock-dot'));
+            const sections = sectionLinks.map(link => document.querySelector(link.getAttribute('href')));
+            const syncSections = () => {
+                if (!sections.length) return;
+                let index = 0;
+                sections.forEach((section, i) => {
+                    if (section.getBoundingClientRect().top <= window.innerHeight * .35) index = i;
+                });
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) index = sections.length - 1;
+                sectionLinks.forEach((link, i) => {
+                    if (i === index) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                });
             };
-
-            if (typeof mobileQuery.addEventListener === 'function') {
-                mobileQuery.addEventListener('change', handleMobileChange);
-            } else if (typeof mobileQuery.addListener === 'function') {
-                mobileQuery.addListener(handleMobileChange);
-            }
-
-            window.addEventListener('resize', cancelMenuTransition, { passive: true });
+            sectionLinks.forEach((link, index) => link.addEventListener('click', event => {
+                event.preventDefault();
+                setOpen(false);
+                sections[index].scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+            }));
+            let scrollFrame = 0;
+            const syncTop = () => {
+                scrollFrame = 0;
+                syncSections();
+                if (!topButton) return;
+                const visible = window.scrollY > Math.max(320, window.innerHeight * .65);
+                if (!visible && document.activeElement === topButton) toggle.focus({ preventScroll: true });
+                controls.classList.toggle('has-top', visible);
+                topButton.tabIndex = visible ? 0 : -1;
+            };
+            window.addEventListener('scroll', () => {
+                if (!scrollFrame) scrollFrame = requestAnimationFrame(syncTop);
+            }, { passive: true });
+            window.addEventListener('resize', syncTop, { passive: true });
+            topButton?.addEventListener('click', () => {
+                setOpen(false);
+                toggle.focus({ preventScroll: true });
+                window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+            });
+            syncTop();
             document.documentElement.classList.add('navigation-ready');
         };
 
@@ -815,125 +799,6 @@
             });
         };
 
-        const initializeNavIndicator = () => {
-            const navContainer = document.querySelector('.nav-container');
-            const nav = navContainer?.querySelector('.nav');
-            const indicator = navContainer?.querySelector('.nav-indicator');
-            const links = nav ? Array.from(nav.querySelectorAll('.tab')) : [];
-            const activeLink = nav?.querySelector('.tab[aria-current="page"], .tab.active');
-            const desktopQuery = window.matchMedia('(min-width: 44.3125rem)');
-
-            if (!navContainer || !nav || !indicator || !links.length) return;
-
-            let currentLink = activeLink || null;
-            let focusedLink = null;
-            let hoveredLink = null;
-            let hasPositionedIndicator = false;
-            let updateFrame = 0;
-
-            const persistentTarget = () => {
-                return focusedLink || hoveredLink || activeLink || null;
-            };
-
-            const positionIndicator = () => {
-                updateFrame = 0;
-
-                if (!desktopQuery.matches || !currentLink?.isConnected) {
-                    navContainer.classList.remove('is-indicator-ready');
-                    return;
-                }
-
-                const containerRect = navContainer.getBoundingClientRect();
-                const linkRect = currentLink.getBoundingClientRect();
-                const underlineOffset = 0;
-                const x = linkRect.left - containerRect.left;
-                const y = linkRect.bottom - containerRect.top + underlineOffset;
-
-                if (![x, y, linkRect.width].every(Number.isFinite) || linkRect.width <= 0) {
-                    navContainer.classList.remove('is-indicator-ready');
-                    return;
-                }
-
-                if (!hasPositionedIndicator) {
-                    navContainer.classList.add('is-indicator-initializing');
-                }
-
-                indicator.style.setProperty('--nav-indicator-x', `${x}px`);
-                indicator.style.setProperty('--nav-indicator-y', `${y}px`);
-                indicator.style.setProperty('--nav-indicator-width', `${linkRect.width}px`);
-                navContainer.classList.add('is-indicator-ready');
-
-                if (!hasPositionedIndicator) {
-                    hasPositionedIndicator = true;
-                    window.requestAnimationFrame(() => {
-                        navContainer.classList.remove('is-indicator-initializing');
-                    });
-                }
-            };
-
-            const requestIndicatorUpdate = () => {
-                if (updateFrame) return;
-
-                updateFrame = window.requestAnimationFrame(positionIndicator);
-            };
-
-            const targetLink = (link) => {
-                currentLink = link;
-                requestIndicatorUpdate();
-            };
-
-            links.forEach((link) => {
-                link.addEventListener('pointerenter', () => {
-                    hoveredLink = link;
-                    targetLink(link);
-                });
-                link.addEventListener('focus', () => {
-                    focusedLink = link;
-                    targetLink(link);
-                });
-                link.addEventListener('blur', () => {
-                    if (focusedLink === link) focusedLink = null;
-                    targetLink(persistentTarget());
-                });
-            });
-
-            nav.addEventListener('pointerleave', () => {
-                hoveredLink = null;
-                targetLink(persistentTarget());
-            });
-
-            const handleDesktopChange = () => {
-                currentLink = persistentTarget();
-
-                if (!desktopQuery.matches) {
-                    navContainer.classList.remove('is-indicator-ready');
-                }
-
-                requestIndicatorUpdate();
-            };
-
-            if (typeof desktopQuery.addEventListener === 'function') {
-                desktopQuery.addEventListener('change', handleDesktopChange);
-            } else if (typeof desktopQuery.addListener === 'function') {
-                desktopQuery.addListener(handleDesktopChange);
-            }
-
-            if (typeof window.ResizeObserver === 'function') {
-                const resizeObserver = new ResizeObserver(requestIndicatorUpdate);
-                resizeObserver.observe(navContainer);
-                links.forEach((link) => resizeObserver.observe(link));
-            } else {
-                window.addEventListener('resize', requestIndicatorUpdate, { passive: true });
-            }
-
-            const initializePosition = () => requestIndicatorUpdate();
-
-            if (document.fonts?.ready) {
-                document.fonts.ready.then(initializePosition).catch(initializePosition);
-            } else {
-                window.addEventListener('load', initializePosition, { once: true });
-            }
-        };
 
         const initializeRecommendationCarousel = () => {
             const carousel = document.querySelector('.recommendation-list');
@@ -1017,24 +882,6 @@
         safelyInitialize('mobile navigation', initializeMobileNavigation);
         safelyInitialize('project galleries', initializeProjectGalleries);
         safelyInitialize('recommendation carousel', initializeRecommendationCarousel);
-
-        if (document.querySelector('[data-header-liquid-glass-lens]')) {
-            try {
-                const { initializeLiquidGlassNavigation } = await import(`./glass/initializeLiquidGlassNavigation.mjs${moduleVersion}`);
-                initializeLiquidGlassNavigation();
-            } catch (error) {
-                console.warn('Unable to initialize liquid glass navigation; using the CSS fallback:', error);
-            }
-        }
-
-        if (document.querySelector('[data-site-search]')) {
-            try {
-                const { initializeSiteSearch } = await import(`./search/initializeSiteSearch.mjs${moduleVersion}`);
-                initializeSiteSearch();
-            } catch (error) {
-                console.error('Unable to initialize site search:', error);
-            }
-        }
 
         if (window.location.pathname.endsWith('/perspectives/') && document.querySelector('[data-medium-runtime-feed]')) {
             try {
