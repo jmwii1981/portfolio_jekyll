@@ -972,6 +972,8 @@
                 let loaded = false;
                 let lastTick = 0;
                 let playhead = 0;
+                let drift = 0;
+                let driftStartScroll = null;
                 let requestedFrame = -1;
                 let readRetries = 0;
                 let previousScroll = window.scrollY;
@@ -1010,43 +1012,53 @@
                         retract = {
                             elapsed: 0,
                             time: Math.min(videoEnd, playhead),
-                            drift: Math.max(0, Math.min(1, playhead - videoEnd))
+                            drift
                         };
                     }
                     previousScroll = window.scrollY;
-                    // Anticipate the drift by 60px, while still finishing the puzzle first.
-                    const driftProgress = endDrift ? Math.max(0, Math.min(1, (window.scrollY - (end - 60)) / 240)) : 0;
-                    const target = progress * videoEnd + (progress === 1 ? driftProgress : 0);
+                    // Pieces enter through the source video's right edge. Keep that
+                    // edge flush with the viewport until the final frame is decoded;
+                    // only subsequent scrolling may expose it by pushing left.
+                    if (endDrift && driftStartScroll === null && !retract &&
+                        !video.seeking && video.currentTime >= videoEnd - .5 / fps) {
+                        driftStartScroll = Math.max(end, window.scrollY);
+                    }
+                    const driftProgress = driftStartScroll === null ? 0
+                        : Math.max(0, Math.min(1, (window.scrollY - driftStartScroll) / 240));
+                    const target = progress * videoEnd;
                     const elapsed = lastTick ? Math.min(50, now - lastTick) : 1000 / 60;
                     lastTick = now;
                     if (retract) {
                         retract.elapsed += elapsed;
                         const fraction = Math.min(1, retract.elapsed / 450);
-                        const remaining = 1 - fraction * fraction * (3 - 2 * fraction);
+                        // On a fast upward jump, hide the source edge again before
+                        // reversing the entrance through it, all within the same reset.
+                        const returnDuration = retract.drift > 0 ? 150 : 0;
+                        const videoFraction = Math.max(0, Math.min(1,
+                            (retract.elapsed - returnDuration) / (450 - returnDuration)));
+                        const remaining = 1 - videoFraction * videoFraction * (3 - 2 * videoFraction);
                         playhead = retract.time * remaining;
-                        video.style.transform = `translateX(${-endDrift * retract.drift ** 2 * remaining}px)`;
+                        const returnFraction = returnDuration ? Math.min(1, retract.elapsed / returnDuration) : 1;
+                        drift = retract.drift * (1 - returnFraction) ** 2;
+                        video.style.transform = `translateX(${-endDrift * drift}px)`;
                         const resetFrame = Math.round(playhead * fps);
                         if (!video.seeking && resetFrame !== requestedFrame) {
                             requestedFrame = resetFrame;
                             video.currentTime = resetFrame / fps;
                         }
-                        if (fraction === 1) retract = null;
+                        if (fraction === 1) {
+                            retract = null;
+                            driftStartScroll = null;
+                        }
                         requestScrub();
                         return;
                     }
-                    const drifting = endDrift && (playhead > videoEnd || (playhead === videoEnd && target > videoEnd));
-                    // Keep each phase separate even after a large scroll jump.
-                    const phaseTarget = endDrift
-                        ? (drifting ? Math.max(videoEnd, target) : Math.min(videoEnd, target))
-                        : target;
-                    const easing = drifting ? scrubEasing * 3 : scrubEasing;
-                    playhead += (phaseTarget - playhead) * (1 - Math.exp(-elapsed / easing));
-                    if (Math.abs(phaseTarget - playhead) < .001) playhead = phaseTarget;
+                    playhead += (target - playhead) * (1 - Math.exp(-elapsed / scrubEasing));
+                    if (Math.abs(target - playhead) < .001) playhead = target;
                     const nextFrame = Math.max(0, Math.min(finalFrame, Math.round(playhead * fps)));
                     if (endDrift) {
-                        const drift = Math.max(0, Math.min(1, playhead - videoEnd));
-                        const easedDrift = drift * drift;
-                        video.style.transform = `translateX(${-endDrift * easedDrift}px)`;
+                        drift = driftProgress * driftProgress;
+                        video.style.transform = `translateX(${-endDrift * drift}px)`;
                     }
                     // Seek only once per distinct frame. Keep easing independent of
                     // decoder timing; seeked resumes any queued frame after decoding.

@@ -287,7 +287,7 @@
 @media (max-width: 47.999rem) {
     .footer {
         // Keep about 20px between the final logo and the fixed bottom dock.
-        padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+        padding-bottom: calc(5rem + 10px + env(safe-area-inset-bottom));
     }
 }
 

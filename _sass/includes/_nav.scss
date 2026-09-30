@@ -448,7 +448,7 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
         width: max-content;
         max-width: calc(100vw - 44px);
         max-height: none;
-        height: 50px;
+        height: 60px;
     }
     .dock-home { grid-row: 1; grid-column: 1; }
     .nav-toggle { grid-row: 1; grid-column: 1; }
@@ -464,7 +464,7 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
         overflow: visible;
         &.is-overflowing { overflow-y: hidden; overflow-x: auto; }
     }
-    .dock-dot { width: 28px; height: 44px; }
+    .dock-dot { width: 44px; height: 48px; }
     .dock-dot-label {
         right: calc(50% - 14px);
         top: auto;
@@ -592,14 +592,19 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
 }
 .nav-controls.has-top .dock-top { transform: scale(1); transition-delay: 0s; }
 @media (max-width: 47.999rem) {
-    .dock-home-slot { width: 42px; height: 50px; margin: 0 0 0 8px; }
-    .dock-bottom-slot { width: 36px; height: 50px; margin: 0 0 0 8px; padding: 0 4px 0 0; }
+    .header .nav-controls > .nav-toggle { width: 56px; height: 56px; border-radius: 18px; }
+    .dock-home-slot { width: 48px; height: 60px; margin: 0 0 0 8px; }
+    .dock-bottom-slot { width: 48px; height: 60px; margin: 0 0 0 8px; padding: 0 4px 0 0; }
     .dock-bottom-slot { transition-property: width, margin, padding; }
-    .at-bottom .dock-bottom-slot { width: 0; height: 50px; margin-left: 0; padding-right: 0; }
-    .dock-top-slot { width: 0; height: 50px; transition-property: width; }
-    .has-top .dock-top-slot { width: 40px; height: 50px; }
-    .nav-controls .dock-top { left: 12px; top: auto; }
-    .nav-controls .dock-arrow::after { inset: -10px -4px; }
+    .at-bottom .dock-bottom-slot { width: 0; height: 60px; margin-left: 0; padding-right: 0; }
+    .dock-top-slot { width: 0; height: 60px; transition-property: width; }
+    .has-top .dock-top-slot { width: 52px; height: 60px; }
+    .nav-controls .dock-top { left: 8px; top: auto; }
+    .nav-controls .dock-control.dock-home,
+    .nav-controls .dock-control.dock-arrow { width: 44px; height: 44px; }
+    .nav-controls .dock-arrow svg { width: 18px; height: 18px; }
+    .nav-controls .dock-house-icon { width: 20px; height: 20px; }
+    .nav-controls .dock-arrow::after { inset: 0; }
 }
 
 .html:not(.navigation-ready):not(.navigation-pending) .header {
