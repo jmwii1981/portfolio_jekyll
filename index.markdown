@@ -6,16 +6,19 @@ description: "Fractional product design leadership for growing companies navigat
 
 <main class="main about" id="main-content" tabindex="-1">
     <section class="hero" id="about" aria-labelledby="about-title" data-search-section data-search-title="About Jan Michael Wallace II" data-search-category="About" data-search-summary="Fractional product design leadership for growing companies turning ambiguity into clear strategy, scalable systems, and durable shipped work." data-search-keywords="fractional product design leader portfolio product strategy leadership">
+        <div class="hero-brand-rail" aria-hidden="true">
+            {% include site-logo.svg class="hero-brand-mark" %}
+        </div>
         <div class="content-wrapper page-intro-frame">
             <div class="image-wrapper" aria-hidden="true">
                 <picture class="image-picture">
-                    <source type="image/avif" srcset="{{ '/images/hero/prayer-rocks.avif' | relative_url }}?v={{ site.asset_version }}">
-                    <source type="image/webp" srcset="{{ '/images/hero/prayer-rocks.webp' | relative_url }}?v={{ site.asset_version }}">
-                    <img width="1254" height="1254" class="image" src="{{ '/images/hero/prayer-rocks.png' | relative_url }}?v={{ site.asset_version }}" alt="" decoding="async" fetchpriority="high">
+                    <source type="image/avif" srcset="{{ '/images/hero/prayer-rocks.avif' | relative_url }}?v=20260930-transparent">
+                    <source type="image/webp" srcset="{{ '/images/hero/prayer-rocks.webp' | relative_url }}?v=20260930-transparent">
+                    <img width="1254" height="1254" class="image" src="{{ '/images/hero/prayer-rocks.png' | relative_url }}?v=20260930-transparent" alt="" decoding="async" fetchpriority="high">
                 </picture>
             </div>
             <div class="copy-wrapper">
-                <h1 class="h1 page-hero-title" id="about-title">Glad you're here.</h1>
+                <h1 class="h1 page-hero-title" id="about-title">Glad you're here!</h1>
                 <p class="p about-me-statement">I'm <a class="hero-profile-link" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">Jan Michael</a>. I shape how people, processes, products, and strategies work together to create happier teams, sustainable systems, and value that sticks.</p>
                 <div class="button-group">
                     <a
@@ -30,7 +33,7 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
         </div>
     </section>
-    <section class="help" id="how-i-help" data-search-section data-search-title="How I Help" data-search-category="Services" data-search-keywords="clarify collaborate scale lead coaching strategy design systems team leadership">
+    <section class="help" id="how-i-help" data-dock-label="My Approach" data-search-section data-search-title="How I Help" data-search-category="Services" data-search-keywords="clarify collaborate scale lead coaching strategy design systems team leadership">
         <span class="help-accent help-accent--top" aria-hidden="true"></span>
         <span class="help-accent help-accent--bottom" aria-hidden="true"></span>
         <div class="content-wrapper">
@@ -40,9 +43,9 @@ description: "Fractional product design leadership for growing companies navigat
                     <p class="p about-me-statement home-section-description">Every good idea starts with a spark and needs space to develop, with a few nudges to help it take shape. I help teams explore possibilities, make sense of the tradeoffs, and turn shared ambition into delightful products.</p>
                 </header>
                 <picture class="help-artwork" aria-hidden="true" data-reveal="right">
-                    <source type="image/avif" srcset="{{ '/images/help/strategy-notes.avif' | relative_url }}?v={{ site.asset_version }}">
-                    <source type="image/webp" srcset="{{ '/images/help/strategy-notes.webp' | relative_url }}?v={{ site.asset_version }}">
-                    <img class="help-artwork-image" src="{{ '/images/help/strategy-notes.png' | relative_url }}?v={{ site.asset_version }}" width="1254" height="1254" alt="" loading="lazy" decoding="async">
+                    <source type="image/avif" srcset="{{ '/images/help/post-its.avif' | relative_url }}?v={{ site.asset_version }}">
+                    <source type="image/webp" srcset="{{ '/images/help/post-its.webp' | relative_url }}?v={{ site.asset_version }}">
+                    <img class="help-artwork-image" src="{{ '/images/help/post-its.png' | relative_url }}?v={{ site.asset_version }}" width="1254" height="1254" alt="" loading="lazy" decoding="async">
                 </picture>
             </div>
             <ul class="help-list">
@@ -65,7 +68,7 @@ description: "Fractional product design leadership for growing companies navigat
             </ul>
         </div>
     </section>
-    <section class="testimonials" id="recommendations" data-search-section data-search-title="Recommendations and Companies" data-search-category="Experience" data-search-keywords="testimonials recommendations trusted companies clients colleagues global payments tsys worldpay humana adapt health">
+    <section class="testimonials" id="recommendations" data-dock-label="My Path" data-search-section data-search-title="Recommendations and Companies" data-search-category="Experience" data-search-keywords="testimonials recommendations trusted companies clients colleagues global payments tsys worldpay humana adapt health">
         <div class="content-wrapper">
             <div class="testimonials-intro">
                 <header class="home-section-header" data-reveal="left">
@@ -74,10 +77,13 @@ description: "Fractional product design leadership for growing companies navigat
                 </header>
                 <div class="testimonials-artwork-shell" aria-hidden="true" data-reveal="right">
                     <picture class="testimonials-artwork">
-                        <source type="image/avif" srcset="{{ '/images/testimonials/puzzle-pieces.avif' | relative_url }}?v={{ site.asset_version }}">
-                        <source type="image/webp" srcset="{{ '/images/testimonials/puzzle-pieces.webp' | relative_url }}?v={{ site.asset_version }}">
-                        <img class="testimonials-artwork-image" src="{{ '/images/testimonials/puzzle-pieces.png' | relative_url }}?v={{ site.asset_version }}" width="1254" height="1254" alt="" loading="lazy" decoding="async">
+                        <source type="image/avif" srcset="{{ '/images/testimonials/puzzle-pieces.avif' | relative_url }}?v=20260930-transparent-2">
+                        <source type="image/webp" srcset="{{ '/images/testimonials/puzzle-pieces.webp' | relative_url }}?v=20260930-transparent-2">
+                        <img class="testimonials-artwork-image" src="{{ '/images/testimonials/puzzle-pieces.png' | relative_url }}?v=20260930-transparent-2" width="929" height="803" alt="" loading="lazy" decoding="async">
                     </picture>
+                    <video class="testimonials-artwork-video" data-decorative-video data-scrub-end="0.712" data-scrub-easing="320" muted playsinline preload="none" tabindex="-1" width="1112" height="834">
+                        <source src="{{ '/images/testimonials/puzzle-pieces-shuffle-smooth.mp4' | relative_url }}?v={{ site.asset_version }}" type="video/mp4">
+                    </video>
                 </div>
             </div>
             <div class="recommendations" data-reveal="up">
@@ -258,15 +264,18 @@ description: "Fractional product design leadership for growing companies navigat
         <div class="about-me-inner" data-reveal="up">
             <div class="about-me-next">
                 <h2 class="h2 home-section-title">Let's shake things up!</h2>
-                <p class="p about-me-invitation">Tell me a little about yourself and what you're working on.</p>
+                <p class="p about-me-invitation">Tell me a little about yourself and what you're <span class="keep-together">working on.</span></p>
                 <div class="button-group about-me-actions">
                     <a class="a button button-container secondary" href="{{ '/contact/' | relative_url }}" aria-label="Let’s talk">Let’s talk<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Let’s talk</span></span></a>
                     <a class="a button button-container primary about-me-linkedin-button" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="Let’s connect">Let’s connect<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><span class="about-me-linkedin-icon">{% include icon.html name="linked-in-cutout" %}</span>Let’s connect <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
                 </div>
             </div>
-            <picture class="about-me-artwork" aria-hidden="true">
-                <img class="about-me-artwork-image" src="{{ '/images/contact/floating-stones.png' | relative_url }}?v={{ site.asset_version }}" width="1536" height="1024" alt="" loading="lazy" decoding="async">
-            </picture>
+            <div class="about-me-artwork" aria-hidden="true">
+                <img class="about-me-artwork-image" src="{{ '/images/contact/shaken-rocks.png' | relative_url }}?v={{ site.asset_version }}" width="1536" height="1024" alt="" loading="lazy" decoding="async">
+                <video class="about-me-artwork-image about-me-artwork-video" data-decorative-video muted playsinline preload="none" tabindex="-1" poster="{{ '/images/contact/shaken-rocks.png' | relative_url }}?v={{ site.asset_version }}">
+                    <source src="{{ '/images/contact/shaking-rocks-scrub.mp4' | relative_url }}?v={{ site.asset_version }}" type="video/mp4">
+                </video>
+            </div>
         </div>
     </section>
 </main>

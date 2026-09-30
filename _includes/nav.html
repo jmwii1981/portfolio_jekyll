@@ -2,32 +2,43 @@
 <nav 
     class="nav-container"
     aria-label="Primary">
-    <div class="nav-controls{% if page.url == '/' %} has-sections{% endif %}">
+    <div class="nav-controls">
+    <span class="dock-glass" aria-hidden="true"></span>
     <button
         class="nav-toggle dock-control"
         type="button"
         aria-expanded="false"
         aria-controls="primary-navigation"
-        aria-label="Open menu" title="Menu">
+        aria-label="Open menu">
         <span class="dock-menu-icon" aria-hidden="true"><span class="nav-toggle-line nav-toggle-line--top"></span><span class="nav-toggle-line nav-toggle-line--bottom"></span></span>
+        <span class="dock-dot-label" aria-hidden="true">Menu</span>
     </button>
-    {% if page.url == '/' %}
-    <div class="dock-dots" role="group" aria-label="Page sections">
-        <a class="dock-dot" href="#about" aria-label="Introduction" aria-current="location"><span class="dock-dot-label">Introduction</span></a>
-        <a class="dock-dot" href="#how-i-help" aria-label="How I help"><span class="dock-dot-label">How I help</span></a>
-        <a class="dock-dot" href="#recommendations" aria-label="Recommendations"><span class="dock-dot-label">Recommendations</span></a>
-        <a class="dock-dot" href="#beyond-the-work" aria-label="Get in touch"><span class="dock-dot-label">Get in touch</span></a>
+    {% unless page.url == '/' %}
+    <div class="dock-home-slot">
+        <a class="dock-control dock-home" href="{{ '/' | relative_url }}" aria-label="Home">
+            <span class="dock-house-icon" aria-hidden="true"></span>
+            <span class="dock-dot-label" aria-hidden="true">Home</span>
+        </a>
     </div>
-    {% endif %}
-    {% if page.url != '/' %}
-    <button class="dock-control dock-top" type="button" aria-label="Back to top" title="Back to top" tabindex="-1">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4m-7 7 7-7 7 7"/></svg>
-    </button>
-    {% endif %}
+    {% endunless %}
+    <div class="dock-top-slot" aria-hidden="true" inert>
+        <button class="dock-control dock-top dock-arrow" type="button" aria-label="To the top" tabindex="-1">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4m-7 7 7-7 7 7"/></svg>
+            <span class="dock-dot-label" aria-hidden="true">To the top</span>
+        </button>
+    </div>
+    <div class="dock-dots" role="group" aria-label="Page sections"></div>
+    <div class="dock-bottom-slot">
+        <button class="dock-control dock-bottom dock-arrow" type="button" aria-label="To the bottom">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4m-7 7 7-7 7 7"/></svg>
+            <span class="dock-dot-label" aria-hidden="true">To the bottom</span>
+        </button>
+    </div>
     </div>
     <div class="nav-panel">
-    <span class="nav-panel-shadow" aria-hidden="true"></span>
+    <span class="menu-glass" aria-hidden="true"></span>
     <ul class="nav" id="primary-navigation">
+        {% unless page.url == '/' %}
         <li 
             id="about-tab"
             class="tab-container">
@@ -35,8 +46,10 @@
                 id="about-link"
                 class="a tab {% if page.url == '/' %}active{% endif %}"
                 {% if page.url == '/' %}aria-current="page"{% endif %}
-                href="{{ '/' | relative_url }}" aria-label="About"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg><span>About</span></a>
+                href="{{ '/' | relative_url }}" aria-label="About"><span class="menu-hand-icon" aria-hidden="true"></span><span>About</span></a>
         </li>
+        {% endunless %}
+        {% unless page.url == '/vitae/' %}
         <li 
             id="vitae-tab"
             class="tab-container">
@@ -46,6 +59,8 @@
                 {% if page.url == '/vitae/' or page.layout == 'project' %}aria-current="page"{% endif %}
                 href="{{ '/vitae/' | relative_url }}" aria-label="Vitae"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="3"/><path d="M8 7V4h8v3M3 12a24 24 0 0 0 18 0M12 12v3"/></svg><span>Vitae</span></a>
         </li>
+        {% endunless %}
+        {% unless page.url == '/perspectives/' %}
         <li 
             id="perspectives-tab"
             class="tab-container">
@@ -55,6 +70,8 @@
                     {% if page.url == '/perspectives/' %}aria-current="page"{% endif %}
                     href="{{ '/perspectives/' | relative_url }}" aria-label="Perspectives"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v13H9l-5 4V4ZM8 8h8M8 12h5"/></svg><span>Perspectives</span></a>
         </li>
+        {% endunless %}
+        {% unless page.url == '/contact/' %}
         <li 
             id="contact-tab"
             class="tab-container">
@@ -63,6 +80,7 @@
                    {% if page.url == '/contact/' %}aria-current="page"{% endif %}
                    href="{{ '/contact/' | relative_url }}" aria-label="Contact Me"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg><span>Contact Me</span></a>
         </li>
+        {% endunless %}
     </ul>
     </div>
 </nav>

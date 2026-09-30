@@ -43,7 +43,7 @@ description: "Perspectives from Jan Michael Wallace II on product design leaders
                 <section class="medium-author-card" aria-labelledby="medium-author-label" data-reveal="left">
                     <div class="medium-author-copy">
                         <p class="p section-label medium-sidebar-label" id="medium-author-label">About Jan Michael</p>
-                        <p class="p about-me-statement medium-author-bio">Jan Michael Wallace II is a fractional product design leader helping teams turn product ambiguity into clear strategy, scalable systems, and durable shipped work.</p>
+                        <p class="p about-me-statement medium-author-bio">Jan Michael brings a fresh perspective to the industry with his substantial work in product development.</p>
                     </div>
                 </section>
 

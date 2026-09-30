@@ -1,3 +1,21 @@
 <header class="header" data-liquid-ignore>
+    <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;pointer-events:none">
+        <defs>
+            <filter id="nav-local-refraction" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+                <feImage href="{{ '/images/ui/dock-lens-map.svg' | relative_url }}" x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="lens-map"/>
+                <feDisplacementMap in="SourceGraphic" in2="lens-map" scale="30" xChannelSelector="R" yChannelSelector="G"/>
+                <feGaussianBlur stdDeviation="0.0325" result="refracted"/>
+                <feGaussianBlur in="refracted" stdDeviation="2" result="frosted"/>
+                <feFlood flood-color="white" flood-opacity="0.80" result="interior-tint"/>
+                <feComposite in="interior-tint" in2="frosted" operator="over" result="frosted-tinted"/>
+                <feImage data-interior-mask x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="interior"/>
+                <feGaussianBlur in="interior" stdDeviation="1.5" result="interior-soft"/>
+                <feComposite in="frosted-tinted" in2="interior-soft" operator="in" result="frosted-interior"/>
+                <feFlood flood-color="white" flood-opacity="0.01" result="bevel-tint"/>
+                <feComposite in="bevel-tint" in2="refracted" operator="over" result="refracted-tinted"/>
+                <feComposite in="frosted-interior" in2="refracted-tinted" operator="over"/>
+            </filter>
+        </defs>
+    </svg>
     {% include nav.html %}
 </header>

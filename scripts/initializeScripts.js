@@ -580,7 +580,26 @@
             const toggle = container?.querySelector('.nav-toggle');
             const nav = container?.querySelector('.nav');
             if (!toggle || !nav) return;
+            const panel = container.querySelector('.nav-panel');
+            const fitPanel = () => {
+                if (window.matchMedia('(max-width: 47.999rem)').matches) {
+                    panel.style.removeProperty('--menu-top');
+                    return;
+                }
+                // A tall section list must not push the menu above the viewport.
+                const origin = container.getBoundingClientRect().top;
+                const halfHeight = panel.offsetHeight / 2;
+                const center = Math.max(16 + halfHeight, Math.min(origin + 25, window.innerHeight - 16 - halfHeight));
+                panel.style.setProperty('--menu-top', `${center - origin}px`);
+            };
+            window.addEventListener('resize', fitPanel);
+            if (typeof ResizeObserver === 'function') {
+                const panelObserver = new ResizeObserver(fitPanel);
+                panelObserver.observe(container);
+                panelObserver.observe(panel);
+            }
             const setOpen = (open, restoreFocus = false) => {
+                if (open) fitPanel();
                 container.classList.toggle('is-open', open);
                 toggle.setAttribute('aria-expanded', String(open));
                 toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
@@ -605,34 +624,82 @@
             setOpen(false);
             const topButton = container.querySelector('.dock-top');
             const controls = container.querySelector('.nav-controls');
+            const topSlot = controls.querySelector('.dock-top-slot');
+            const bottomButton = controls.querySelector('.dock-bottom');
+            const bottomSlot = controls.querySelector('.dock-bottom-slot');
+            const dotGroup = controls.querySelector('.dock-dots');
+            const main = document.querySelector('main');
+            // Search landmarks describe full content sections (including Vitae
+            // project articles), not nested cards, galleries, or form fields.
+            // Pages can explicitly opt into a different set of dock landmarks.
+            const explicitSections = Array.from(main?.querySelectorAll('[data-dock-section]') || []);
+            const searchSections = Array.from(main?.querySelectorAll('[data-search-section]') || []);
+            const outerSections = Array.from(main?.querySelectorAll('section') || [])
+                .filter(section => !section.parentElement.closest('section'));
+            const pageSections = (explicitSections.length ? explicitSections : searchSections.length >= 2 ? searchSections : outerSections)
+                .filter(section => !section.closest('[hidden]'));
+            const sections = pageSections.slice(1, -1);
+            sections.forEach((section, index) => {
+                if (!section.id) {
+                    let id = `dock-section-${index + 1}`;
+                    while (document.getElementById(id)) id += '-anchor';
+                    section.id = id;
+                }
+                const labelledBy = section.getAttribute('aria-labelledby')?.split(/\s+/)
+                    .map(id => document.getElementById(id)?.textContent.trim()).filter(Boolean).join(' ');
+                const label = section.dataset.dockLabel || section.getAttribute('aria-label')
+                    || section.dataset.searchTitle || labelledBy
+                    || section.querySelector('h2, h1, h3')?.textContent.trim() || `Section ${index + 2}`;
+                const link = document.createElement('a');
+                link.className = 'dock-dot';
+                link.href = `#${section.id}`;
+                link.setAttribute('aria-label', label);
+                const tooltip = document.createElement('span');
+                tooltip.className = 'dock-dot-label';
+                tooltip.setAttribute('aria-hidden', 'true');
+                tooltip.textContent = label;
+                link.append(tooltip);
+                dotGroup.append(link);
+            });
             const sectionLinks = Array.from(container.querySelectorAll('.dock-dot'));
-            const sections = sectionLinks.map(link => document.querySelector(link.getAttribute('href')));
             const syncSections = () => {
-                if (!sections.length) return;
-                let index = 0;
-                sections.forEach((section, i) => {
+                if (!pageSections.length) return;
+                let index = -1;
+                pageSections.forEach((section, i) => {
                     if (section.getBoundingClientRect().top <= window.innerHeight * .35) index = i;
                 });
-                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) index = sections.length - 1;
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) index = pageSections.length - 1;
                 sectionLinks.forEach((link, i) => {
-                    if (i === index) link.setAttribute('aria-current', 'location');
+                    if (sections[i] === pageSections[index]) link.setAttribute('aria-current', 'location');
                     else link.removeAttribute('aria-current');
                 });
             };
             sectionLinks.forEach((link, index) => link.addEventListener('click', event => {
                 event.preventDefault();
                 setOpen(false);
-                sections[index].scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+                const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
+                sections[index].scrollIntoView({ block: 'start', behavior });
             }));
             let scrollFrame = 0;
             const syncTop = () => {
                 scrollFrame = 0;
                 syncSections();
+                const bottomSection = pageSections.length > 1 ? pageSections[pageSections.length - 1] : document.querySelector('footer');
+                const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4
+                    || (bottomSection && bottomSection.getBoundingClientRect().top < window.innerHeight - 24);
+                controls.classList.toggle('at-bottom', Boolean(atBottom));
+                bottomButton.tabIndex = atBottom ? -1 : 0;
+                if (atBottom && document.activeElement === bottomButton) toggle.focus({ preventScroll: true });
+                bottomSlot.inert = Boolean(atBottom);
+                bottomSlot.setAttribute('aria-hidden', String(Boolean(atBottom)));
                 if (!topButton) return;
                 const visible = window.scrollY > Math.max(320, window.innerHeight * .65);
-                if (!visible && document.activeElement === topButton) toggle.focus({ preventScroll: true });
+                const focusedControl = document.activeElement;
                 controls.classList.toggle('has-top', visible);
                 topButton.tabIndex = visible ? 0 : -1;
+                if (!visible && focusedControl === topButton) toggle.focus({ preventScroll: true });
+                topSlot.inert = !visible;
+                topSlot.setAttribute('aria-hidden', String(!visible));
             };
             window.addEventListener('scroll', () => {
                 if (!scrollFrame) scrollFrame = requestAnimationFrame(syncTop);
@@ -643,6 +710,19 @@
                 toggle.focus({ preventScroll: true });
                 window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
             });
+            bottomButton?.addEventListener('click', () => {
+                setOpen(false);
+                window.scrollTo({ top: document.documentElement.scrollHeight, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+            });
+            const syncDotOverflow = () => {
+                const horizontal = matchMedia('(max-width: 47.999rem)').matches;
+                // Floating labels must not make an otherwise fitting dot strip scroll.
+                const required = sectionLinks.reduce((size, link) => size + (horizontal ? link.offsetWidth : link.offsetHeight), 0);
+                dotGroup.classList.toggle('is-overflowing', required > (horizontal ? dotGroup.clientWidth : dotGroup.clientHeight) + 1);
+            };
+            if (typeof ResizeObserver === 'function') new ResizeObserver(syncDotOverflow).observe(dotGroup);
+            window.addEventListener('resize', syncDotOverflow, { passive: true });
+            syncDotOverflow();
             syncTop();
             document.documentElement.classList.add('navigation-ready');
         };
@@ -868,6 +948,98 @@
             }
         };
 
+        const initializeDecorativeVideos = () => {
+            const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+            document.querySelectorAll('[data-decorative-video]').forEach(video => {
+                const scrubEnd = parseFloat(video.dataset.scrubEnd);
+                const scrubEasing = Math.max(1, parseFloat(video.dataset.scrubEasing) || 240);
+                const edgeAligned = video.classList.contains('testimonials-artwork-video');
+                const alignArtwork = () => {
+                    if (!edgeAligned) return;
+                    const shell = video.parentElement.getBoundingClientRect();
+                    video.style.setProperty('--artwork-edge-offset', `${Math.max(0, document.documentElement.clientWidth - shell.right)}px`);
+                };
+                alignArtwork();
+                window.addEventListener('resize', alignArtwork);
+                if (edgeAligned && typeof ResizeObserver === 'function') {
+                    new ResizeObserver(alignArtwork).observe(video.parentElement);
+                }
+                let frame = 0;
+                let loaded = false;
+                let lastTick = 0;
+                let playhead = 0;
+                let requestedFrame = -1;
+                video.muted = true;
+                video.pause();
+                const syncScrub = (now) => {
+                    frame = 0;
+                    if (document.hidden || reducedMotion.matches || !video.getClientRects().length) return;
+                    const rect = video.getBoundingClientRect();
+                    if (!rect.width || !rect.height) return;
+                    if (!loaded && rect.top < window.innerHeight + 200 && rect.bottom > -200) {
+                        loaded = true;
+                        video.preload = 'auto';
+                        video.load();
+                    }
+                    // Hold frame zero until the whole artwork fits in view.
+                    // On unusually short viewports, start when its top reaches
+                    // the viewport top (the most artwork that can be visible).
+                    // Keep puzzle timing tied to its original layout slot as the video grows.
+                    const timingRect = edgeAligned ? video.parentElement.getBoundingClientRect() : rect;
+                    const start = Math.max(0, window.scrollY + timingRect.top + Math.min(timingRect.height, window.innerHeight) - window.innerHeight);
+                    // Optional endpoint: artwork center reaches this viewport fraction.
+                    const endPosition = Number.isFinite(scrubEnd)
+                        ? window.scrollY + timingRect.top + timingRect.height / 2 - window.innerHeight * scrubEnd
+                        : document.documentElement.scrollHeight - window.innerHeight;
+                    const end = Math.max(start + 1, endPosition);
+                    const progress = Math.max(0, Math.min(1, (window.scrollY - start) / (end - start)));
+                    if (!Number.isFinite(video.duration) || video.readyState < 2) return;
+                    const fps = 60;
+                    const finalFrame = Math.max(0, Math.floor(video.duration * fps - .001));
+                    const target = progress * finalFrame / fps;
+                    const elapsed = lastTick ? Math.min(50, now - lastTick) : 1000 / 60;
+                    lastTick = now;
+                    playhead += (target - playhead) * (1 - Math.exp(-elapsed / scrubEasing));
+                    if (Math.abs(target - playhead) < .001) playhead = target;
+                    const nextFrame = Math.max(0, Math.min(finalFrame, Math.round(playhead * fps)));
+                    // Seek only once per distinct frame. Keep easing independent of
+                    // decoder timing; seeked resumes any queued frame after decoding.
+                    if (!video.seeking && nextFrame !== requestedFrame) {
+                        requestedFrame = nextFrame;
+                        video.currentTime = nextFrame / fps;
+                    }
+                    if (playhead !== target) requestScrub();
+                    else lastTick = 0;
+                };
+                const requestScrub = () => {
+                    if (!frame) frame = requestAnimationFrame(syncScrub);
+                };
+                const observer = new IntersectionObserver(entries => {
+                    if (entries[0].isIntersecting && !loaded && !reducedMotion.matches) {
+                        loaded = true;
+                        video.preload = 'auto';
+                        video.load();
+                    }
+                    requestScrub();
+                }, { rootMargin: '200px 0px' });
+                observer.observe(video);
+                video.addEventListener('loadedmetadata', requestScrub);
+                // Expose the decoded surface before seeking; Chromium can defer
+                // frame delivery indefinitely for a fully transparent paused video.
+                video.addEventListener('loadedmetadata', () => video.classList.add('is-video-ready'));
+                video.addEventListener('loadeddata', requestScrub);
+                video.addEventListener('loadeddata', () => video.classList.add('is-video-ready'));
+                video.addEventListener('error', () => video.classList.remove('is-video-ready'));
+                video.addEventListener('canplay', requestScrub);
+                video.addEventListener('seeked', requestScrub);
+                window.addEventListener('scroll', requestScrub, { passive: true });
+                window.addEventListener('resize', requestScrub, { passive: true });
+                reducedMotion.addEventListener('change', requestScrub);
+                document.addEventListener('visibilitychange', requestScrub);
+                requestScrub();
+            });
+        };
+
         const safelyInitialize = (name, initializer) => {
             try {
                 initializer();
@@ -880,8 +1052,11 @@
         safelyInitialize('privacy preferences', initializeConsentBanner);
         safelyInitialize('vitae project index', initializeVitaeProjectIndex);
         safelyInitialize('mobile navigation', initializeMobileNavigation);
+        const { initializeLiquidGlassNavigation } = await import(`./glass/initializeLiquidGlassNavigation.mjs${moduleVersion}`);
+        safelyInitialize('dock glass', initializeLiquidGlassNavigation);
         safelyInitialize('project galleries', initializeProjectGalleries);
         safelyInitialize('recommendation carousel', initializeRecommendationCarousel);
+        safelyInitialize('decorative videos', initializeDecorativeVideos);
 
         if (window.location.pathname.endsWith('/perspectives/') && document.querySelector('[data-medium-runtime-feed]')) {
             try {

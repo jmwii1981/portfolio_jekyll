@@ -88,6 +88,27 @@
     z-index: 1;
 }
 
+// Independent of the image/copy columns. The sticky mark follows the viewport's
+// lower edge only until its absolutely positioned hero rail runs out of room.
+.hero-brand-rail {
+    position: absolute;
+    top: 0;
+    bottom: 24px;
+    left: calc(24px - max(var(--site-outer-gutter), (100vw - var(--site-max-width)) / 2));
+    width: 40px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.hero-brand-mark {
+    --color-ink: #9FA2A8;
+    display: block;
+    position: sticky;
+    top: calc(100dvh - 64px - env(safe-area-inset-bottom, 0px));
+    width: 40px;
+    height: 40px;
+}
+
 .hero::before {
     background: var(--color-paper);
     content: "";
@@ -493,10 +514,13 @@
     .help-accent--bottom {
         bottom: 0;
         transform: translateY(100%);
+        // Leave the inside of the curve clear so the artwork can sit beneath it.
+        background: radial-gradient(circle var(--help-accent-size) at left bottom,
+            transparent calc(100% - 0.5px), var(--help-background) 100%);
     }
 
     .help-accent--bottom::before {
-        bottom: -100%;
+        display: none;
     }
 
     .content-wrapper {
@@ -646,7 +670,7 @@
     padding-right: var(--site-frame-gutter);
     position: relative;
     width: 100%;
-    z-index: 3;
+    z-index: 1;
 
     .content-wrapper {
         --testimonial-divider-block-size: 2rem;
@@ -674,25 +698,43 @@
     }
     .testimonials-artwork-shell {
         display: block;
+        position: relative;
         min-width: 0;
-        overflow: hidden;
+        overflow: visible;
         width: 100%;
     }
     .testimonials-artwork {
-        aspect-ratio: 1197 / 977;
         display: block;
-        overflow: hidden;
+        overflow: visible;
         transform: none;
         width: 100%;
     }
     .testimonials-artwork-image {
         display: block;
         height: auto;
-        max-width: none;
+        max-width: 100%;
+        margin: 0 auto;
         object-fit: contain;
         object-position: center center;
-        transform: translate(-2.153%, -12.999%);
-        width: 104.762%;
+        transform: none;
+        width: 94%;
+    }
+    .testimonials-artwork-video {
+        position: absolute;
+        inset: 0;
+        top: auto;
+        left: auto;
+        right: calc(-1 * var(--artwork-edge-offset, 0px));
+        width: 105.28%;
+        height: 112%;
+        margin: 0 auto;
+        object-fit: contain;
+        background: white;
+        opacity: 0;
+        &.is-video-ready { opacity: 1; }
+    }
+    .testimonials-artwork-shell:has(.is-video-ready) .testimonials-artwork {
+        visibility: hidden;
     }
     .logo-carousel {
         display: block;
@@ -1011,7 +1053,7 @@
 
 .about-me {
     --about-me-accent-size: clamp(12.5rem, 22.4vw, 16.5rem);
-    --about-me-background: #D7DAE1;
+    --about-me-background: #D4D8E0;
 
     background-color: var(--about-me-background);
     box-sizing: border-box;
@@ -1080,8 +1122,8 @@
 .main.about ~ .footer {
     --color-link: #4C5463;
 
-    background-color: #D7DAE1;
-    box-shadow: 0 0 0 100vmax #D7DAE1;
+    background-color: #D4D8E0;
+    box-shadow: 0 0 0 100vmax #D4D8E0;
     clip-path: inset(0 -100vmax);
     padding-top: 1.5rem;
 }
@@ -1106,21 +1148,22 @@
     position: relative;
     width: 100%;
 }
+.about-me-invitation .keep-together { white-space: nowrap; }
 
 .about-me-artwork::after {
     background:
         linear-gradient(
             to right,
             var(--about-me-background) 0%,
-            rgba(215, 218, 225, 0) 10%,
-            rgba(215, 218, 225, 0) 90%,
+            rgba(212, 216, 224, 0) 10%,
+            rgba(212, 216, 224, 0) 90%,
             var(--about-me-background) 100%
         ),
         linear-gradient(
             to bottom,
             var(--about-me-background) 0%,
-            rgba(215, 218, 225, 0) 10%,
-            rgba(215, 218, 225, 0) 90%,
+            rgba(212, 216, 224, 0) 10%,
+            rgba(212, 216, 224, 0) 90%,
             var(--about-me-background) 100%
         );
     content: "";
@@ -1135,6 +1178,11 @@
     object-fit: cover;
     object-position: center center;
     width: 100%;
+}
+.about-me-artwork-video { position: absolute; inset: 0; }
+@media (prefers-reduced-motion: reduce) {
+    .about-me-artwork-video, .testimonials-artwork-video { display: none; }
+    .testimonials .testimonials-artwork-shell:has(.is-video-ready) .testimonials-artwork { visibility: visible; }
 }
 
 @media (min-width: 42.5625rem) {

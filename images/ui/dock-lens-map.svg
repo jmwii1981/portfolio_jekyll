@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="x"><stop stop-color="#ff0000"/><stop offset=".22" stop-color="#800000"/><stop offset=".78" stop-color="#800000"/><stop offset="1" stop-color="#000000"/></linearGradient>
+    <filter id="combine" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feImage href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cdefs%3E%3ClinearGradient id='g' x2='0' y2='1'%3E%3Cstop stop-color='%2300ff00'/%3E%3Cstop offset='.12' stop-color='%23008000'/%3E%3Cstop offset='.88' stop-color='%23008000'/%3E%3Cstop offset='1' stop-color='%23000000'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='128' height='128' fill='url(%23g)'/%3E%3C/svg%3E" result="green"/>
+      <feBlend in="SourceGraphic" in2="green" mode="screen"/>
+    </filter>
+  </defs>
+  <rect width="128" height="128" fill="url(#x)" filter="url(#combine)"/>
+</svg>

@@ -22,7 +22,7 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
             <input type="hidden" name="from_name" value="janmichael.io Contact Form">
             <input class="contact-botcheck" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-            <p class="p contact-required-note" id="contact-required-note">Fields marked with an asterisk are required.</p>
+            <p class="p contact-required-note" id="contact-required-note">Fields marked with an asterisk (*) are required.</p>
 
             <div class="contact-name-fields">
                 <div class="contact-field">
@@ -62,5 +62,9 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
                 <p class="p contact-direct-email" id="contact-direct-email">If you’re having trouble with the form or prefer to reach out directly, please feel free to email me at <a class="a" href="mailto:hello@janmichael.io">hello@janmichael.io</a> or call or text my personal cell at <a class="a" href="tel:+14155069867">415.506.9867</a>.</p>
             </div>
         </form>
+        <picture class="contact-stones" aria-hidden="true">
+            <source type="image/webp" srcset="{{ '/images/contact/stonehenge.webp' | relative_url }}?v=20260930-transparent">
+            <img src="{{ '/images/contact/stonehenge.png' | relative_url }}?v=20260930-transparent" width="1254" height="1254" alt="" loading="lazy" decoding="async">
+        </picture>
     </section>
 </main>

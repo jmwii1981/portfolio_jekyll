@@ -97,7 +97,7 @@ site_root.glob("**/*.html").each do |file|
     failures << "#{relative}: standalone links page footer is missing its two-line legal and home link group" unless footer_html&.match?(/\bclass=(['"])[^'"]*\blinks-footer-secondary\b[^'"]*\1/i)
     failures << "#{relative}: standalone links page footer is missing its home link" unless footer_html&.match?(/<a\b[^>]*\bhref=(['"])\/\1[^>]*>janmichael\.io<\/a>/i)
   else
-    failures << "#{relative}: labeled home logo must hide its decorative SVG" unless html.match?(/<a\b[^>]*\bclass=(['"])[^'"]*logo-container[^'"]*\1[^>]*\baria-label=(['"])Jan Michael Wallace II, home\2[^>]*>\s*<svg\b[^>]*\baria-hidden=(['"])true\3[^>]*\bfocusable=(['"])false\4/i)
+    failures << "#{relative}: labeled home logo must hide its decorative SVG" unless html.match?(/<a\b[^>]*\bclass=(['"])[^'"]*\b(?:logo-container|footer-brand)\b[^'"]*\1[^>]*\baria-label=(['"])Jan Michael Wallace II, home\2[^>]*>\s*<svg\b[^>]*\baria-hidden=(['"])true\3[^>]*\bfocusable=(['"])false\4/i)
     failures << "#{relative}: missing the site footer" unless html.match?(/<footer\b[^>]*\bclass=(['"])[^'"]*\bfooter\b[^'"]*\1/i)
   end
 
@@ -197,11 +197,11 @@ failures << "generated site: vendored Liquid Glass license is missing" unless de
 failures << "logo: CSS path animation must be feature-gated behind @supports" unless logo_styles.match?(/@supports\s*\(d:\s*path\(/)
 failures << "navigation: removed underline markup has returned" if source_root.join("_includes", "nav.html").read.include?('class="nav-indicator"')
 failures << "navigation: removed underline initializer is enabled" if main_script.include?("safelyInitialize('desktop navigation indicator'")
-failures << "navigation: active-page styling is missing" unless nav_styles.include?(".tab.active")
+failures << "navigation: active-page styling is missing" unless nav_styles.match?(/&\[aria-current="page"\]\s*\{[^}]*background:\s*var\(--dock-selected\)/)
 failures << "site search: control is missing its successful-initialization gate" unless search_script.include?("classList.add('is-ready')")
 failures << "site search: control must be hidden before its enhancement is ready" unless search_styles.match?(/\.site-search\s*\{.*?display:\s*none;/m)
 failures << "site search: ready control is not revealed" unless search_styles.match?(/\.site-search\.is-ready\s*\{.*?display:\s*flex;/m)
-failures << "navigation: static fallback is missing when enhancement initialization fails" unless nav_styles.include?(".html:not(.navigation-ready) .nav")
+failures << "navigation: static fallback is missing when enhancement initialization fails" unless nav_styles.match?(/\.html:not\(\.navigation-ready\) \.header\s*\{.*?\.nav-controls\s*\{\s*display:\s*none;.*?\.nav-panel\s*\{[^}]*opacity:\s*1;[^}]*visibility:\s*visible;[^}]*pointer-events:\s*auto;/m)
 
 contact = site_root.join("contact", "index.html")
 if contact.file?

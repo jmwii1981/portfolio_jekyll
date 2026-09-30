@@ -46,3 +46,27 @@
 #main-content:focus {
     outline: none;
 }
+
+// Keep decorative media and interface controls out of text selections.
+// Leave prose, inline text links, and editable fields selectable.
+:where(img, picture, video, audio, svg, canvas, hr,
+    button, select, summary,
+    input[type="button"], input[type="submit"], input[type="reset"],
+    input[type="checkbox"], input[type="radio"], input[type="range"],
+    [role="button"], [role="tab"], [role="switch"], [role="slider"],
+    [role="option"], [role="menuitem"],
+    .button, .button-container, .dock-control, .dock-dot, nav a,
+    .nav a, .skip-link) {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+// Editable content stays usable even when nested in an interface component.
+:where(input:not([type]), input[type="text"], input[type="search"],
+    input[type="email"], input[type="tel"], input[type="url"],
+    input[type="password"], input[type="number"], textarea,
+    [contenteditable="true"]) {
+    -webkit-user-select: text;
+    user-select: text;
+}

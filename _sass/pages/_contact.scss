@@ -17,7 +17,7 @@
     display: block;
     flex: none;
     overflow: hidden;
-    width: min(55vw, 16rem);
+    width: min(90%, 66vw, 19.2rem);
 
     img {
         display: block;
@@ -46,6 +46,19 @@
     gap: 1.5rem;
     max-width: 46rem;
     width: 100%;
+}
+
+.contact-stones {
+    display: block;
+    align-self: center;
+    justify-self: center;
+    width: min(100%, 48rem);
+
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
 }
 
 .contact-botcheck {
@@ -222,7 +235,7 @@
 
     .contact-avatar {
         justify-self: center;
-        width: min(100%, 32vw, 22rem);
+        width: min(90%, 38.4vw, 26.4rem);
     }
 
     .main.contact > .contact-hero {
@@ -235,6 +248,22 @@
 }
 
 @media (min-width: 64rem) {
+    .contact-stones {
+        width: min(120%, 48rem);
+        // Frame the visible stones, excluding the source's transparent margins.
+        // This lets the grid center the artwork itself against the whole form.
+        position: relative;
+        aspect-ratio: 1254 / 800;
+        overflow: hidden;
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateY(-25%);
+        }
+    }
+
     .main.contact {
         align-items: start;
         column-gap: clamp(3rem, 6vw, 6rem);
@@ -245,8 +274,14 @@
 
     .main.contact > .contact-hero {
         grid-column: 1 / -1;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        column-gap: clamp(3rem, 6vw, 6rem);
         min-height: 0;
         padding: 0;
+    }
+
+    .contact-avatar {
+        align-self: start;
     }
 
     .contact-hero .page-hero-content {
@@ -256,6 +291,8 @@
 
     .main.contact > .contact-section {
         grid-column: 1 / -1;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        column-gap: clamp(3rem, 6vw, 6rem);
         justify-content: start;
         margin-top: calc(1.19rem + 1.5rem);
         padding: 0;
