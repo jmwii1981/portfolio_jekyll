@@ -145,11 +145,17 @@ export async function renderPost(feedUrl) {
             }
         }
 
-        // Replace skeleton-title (both instances with one h2)
+        // Use the article title as the page's single main heading, without an eyebrow.
+        const pageTitle = document.getElementById('perspectives-page-title');
+        if (pageTitle) {
+            const titleMarkup = document.createElement('template');
+            titleMarkup.innerHTML = postData.title || '';
+            pageTitle.textContent = titleMarkup.content.textContent.trim() || 'No Title';
+        }
         const skeletonTitles = mostRecentPostDiv.querySelectorAll('.skeleton-title');
         if (skeletonTitles.length > 0) {
             skeletonTitles.forEach((el, idx) => {
-                if (idx === 0) {
+                if (idx === 0 && !pageTitle) {
                     el.outerHTML = postData.title || '<h2 class="h2 page-hero-title post-title">No Title</h2>';
                 } else {
                     el.remove();

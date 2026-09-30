@@ -201,7 +201,7 @@ failures << "navigation: active-page styling is missing" unless nav_styles.match
 failures << "site search: control is missing its successful-initialization gate" unless search_script.include?("classList.add('is-ready')")
 failures << "site search: control must be hidden before its enhancement is ready" unless search_styles.match?(/\.site-search\s*\{.*?display:\s*none;/m)
 failures << "site search: ready control is not revealed" unless search_styles.match?(/\.site-search\.is-ready\s*\{.*?display:\s*flex;/m)
-failures << "navigation: static fallback is missing when enhancement initialization fails" unless nav_styles.match?(/\.html:not\(\.navigation-ready\) \.header\s*\{.*?\.nav-controls\s*\{\s*display:\s*none;.*?\.nav-panel\s*\{[^}]*opacity:\s*1;[^}]*visibility:\s*visible;[^}]*pointer-events:\s*auto;/m)
+failures << "navigation: static fallback is missing when enhancement initialization fails" unless nav_styles.match?(/\.html:not\(\.navigation-ready\):not\(\.navigation-pending\) \.header\s*\{.*?\.nav-controls\s*\{\s*display:\s*none;.*?\.nav-panel\s*\{[^}]*opacity:\s*1;[^}]*visibility:\s*visible;[^}]*pointer-events:\s*auto;/m)
 
 contact = site_root.join("contact", "index.html")
 if contact.file?

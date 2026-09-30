@@ -455,7 +455,7 @@
 
 .help {
     --help-accent-size: clamp(12.5rem, 22.4vw, 16.5rem);
-    --help-background: #F5F5F7;
+    --help-background: #F2F3F6;
 
     align-items: center;
     background: var(--help-background);
@@ -545,6 +545,7 @@
         min-width: 0;
     }
     .help-artwork {
+        position: relative;
         aspect-ratio: auto;
         display: block;
         min-width: 0;
@@ -558,6 +559,18 @@
         object-position: center center;
         width: 100%;
     }
+    .help-artwork-poster { display: block; }
+    .help-artwork-video {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0;
+        &.is-video-ready { opacity: 1; }
+    }
+    .help-artwork:has(.is-video-ready) .help-artwork-poster { visibility: hidden; }
     .help-list {
         display: grid;
         gap: clamp(1rem, 2vw, 1.5rem);
@@ -1181,7 +1194,8 @@
 }
 .about-me-artwork-video { position: absolute; inset: 0; }
 @media (prefers-reduced-motion: reduce) {
-    .about-me-artwork-video, .testimonials-artwork-video { display: none; }
+    .about-me-artwork-video, .testimonials-artwork-video, .help .help-artwork-video { display: none; }
+    .help .help-artwork:has(.is-video-ready) .help-artwork-poster { visibility: visible; }
     .testimonials .testimonials-artwork-shell:has(.is-video-ready) .testimonials-artwork { visibility: visible; }
 }
 
@@ -1237,6 +1251,10 @@
     max-width: 44rem;
 }
 
+.hero .about-me-statement {
+    font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+}
+
 .about-me-next {
     align-items: start;
     border-top: 0;
@@ -1284,18 +1302,6 @@
     line-height: var(--type-lead-line-height);
     margin: 1.25rem 0 0;
     max-width: 32rem;
-}
-
-@media (min-width: 42.5625rem) {
-    .about-me-invitation {
-        font-size: clamp(1.05rem, 2.2vw, 1.3rem);
-    }
-}
-
-@media (min-width: 60rem) {
-    .about-me-invitation {
-        font-size: 1.25rem;
-    }
 }
 
 .about-me-actions {

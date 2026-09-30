@@ -83,7 +83,7 @@ body:not(.body--vitae) .nav-controls > .dock-glass {
 body:not(.body--vitae) .nav-toggle:not([aria-expanded="true"]) {
     border-radius: 15px;
     --clay-grain-opacity: .09;
-    --clay-primary-surface: linear-gradient(155deg, #cdd3d9, #bbc4cd);
+    --clay-primary-surface: linear-gradient(155deg, #c4cbd1, #adb6bf);
     --clay-primary-base: transparent;
     --clay-primary-edge: rgba(107, 116, 134, .18);
     --clay-primary-ink: #46535d;
@@ -317,27 +317,9 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
 body:not(.body--vitae) .dock-top svg { width: 17px; height: 17px; }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
     .dock-arrow:hover svg { animation: dock-arrow-hop .48s cubic-bezier(.3,.6,.3,1) 1; }
-    .nav-controls .nav-toggle:hover,
-    .nav-controls .dock-arrow:hover {
-        animation: dock-control-spring .52s ease-out 1;
-    }
 }
-@property --dock-hover-scale {
-    syntax: '<number>';
-    inherits: true;
-    initial-value: 1;
-}
-.nav-controls .nav-toggle, .nav-controls .dock-arrow { scale: var(--dock-hover-scale); }
-.nav-controls .dock-menu-icon,
-.nav-controls .dock-arrow > svg,
-.nav-controls .dock-control > .dock-dot-label { scale: calc(1 / var(--dock-hover-scale)); }
-// Counter-scale glyphs so only the button surface rubber-bands.
-@keyframes dock-control-spring {
-    0%, 100% { --dock-hover-scale: 1; }
-    30% { --dock-hover-scale: 1.08; }
-    58% { --dock-hover-scale: .975; }
-    78% { --dock-hover-scale: 1.015; }
-}
+// Keep controls stationary on hover: their labels share the dot-label reveal.
+// Animate only the arrow glyph, never the label's containing button.
 @media (prefers-reduced-motion: no-preference) {
     .dock-top:active svg { transform: translateY(1px); }
 }
@@ -359,6 +341,16 @@ body:not(.body--vitae) .dock-top svg { width: 17px; height: 17px; }
 .nav-toggle-line--bottom { width: 12px; transform: translateY(3px); }
 // Give the clay controls a fuller icon weight; retain the finer glass strokes.
 body:not(.body--vitae) .nav-toggle-line { height: 2px; top: 8.75px; }
+body:not(.body--vitae) .nav-toggle:not([aria-expanded="true"]) {
+    .nav-toggle-line {
+        height: 2.25px;
+        top: 8.375px;
+        border-radius: 999px;
+        box-shadow: 0 .5px .5px rgba(244, 247, 250, .55);
+    }
+    .nav-toggle-line--top { transform: translateY(-3.35px); }
+    .nav-toggle-line--bottom { transform: translateY(3.35px); }
+}
 body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
 @media (hover: hover) and (pointer: fine) {
     .nav-toggle:not([aria-expanded="true"]):hover .nav-toggle-line--bottom { left: 7px; }
@@ -579,7 +571,7 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     .nav-controls .dock-arrow::after { inset: -10px -4px; }
 }
 
-.html:not(.navigation-ready) .header {
+.html:not(.navigation-ready):not(.navigation-pending) .header {
     position: relative; inset: auto; transform: none; padding: 16px;
     .nav-controls { display: none; }
     .nav-panel { position: static; opacity: 1; visibility: visible; pointer-events: auto; transform: none; width: 100%; padding: 0; }

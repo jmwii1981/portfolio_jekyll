@@ -725,6 +725,7 @@
             syncDotOverflow();
             syncTop();
             document.documentElement.classList.add('navigation-ready');
+            document.documentElement.classList.remove('navigation-pending');
         };
 
         const initializeProjectGalleries = () => {
@@ -1040,6 +1041,45 @@
             });
         };
 
+        const initializeVisibleLoops = () => {
+            const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+            document.querySelectorAll('[data-visible-loop]').forEach(video => {
+                let inView = false;
+                let loaded = false;
+                const shouldPlay = () => inView && !document.hidden && !reducedMotion.matches && video.getClientRects().length > 0;
+                const sync = () => {
+                    if (!shouldPlay()) {
+                        video.pause();
+                        return;
+                    }
+                    if (!loaded) {
+                        loaded = true;
+                        video.muted = true;
+                        video.preload = 'auto';
+                        video.load();
+                    }
+                    const playing = video.play();
+                    if (playing) playing.then(() => {
+                        if (!shouldPlay()) video.pause();
+                    }).catch(() => {});
+                };
+                // Observe the actual visible area, with no preplay margin.
+                const observer = new IntersectionObserver(entries => {
+                    inView = entries[0].isIntersecting && entries[0].intersectionRatio > 0;
+                    sync();
+                }, { threshold: 0 });
+                observer.observe(video);
+                video.addEventListener('loadeddata', () => {
+                    video.classList.add('is-video-ready');
+                    sync();
+                });
+                video.addEventListener('error', () => video.classList.remove('is-video-ready'));
+                document.addEventListener('visibilitychange', sync);
+                reducedMotion.addEventListener('change', sync);
+                window.addEventListener('resize', sync, { passive: true });
+            });
+        };
+
         const safelyInitialize = (name, initializer) => {
             try {
                 initializer();
@@ -1057,6 +1097,7 @@
         safelyInitialize('project galleries', initializeProjectGalleries);
         safelyInitialize('recommendation carousel', initializeRecommendationCarousel);
         safelyInitialize('decorative videos', initializeDecorativeVideos);
+        safelyInitialize('visible artwork loops', initializeVisibleLoops);
 
         if (window.location.pathname.endsWith('/perspectives/') && document.querySelector('[data-medium-runtime-feed]')) {
             try {

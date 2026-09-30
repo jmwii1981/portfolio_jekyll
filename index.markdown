@@ -19,7 +19,7 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
             <div class="copy-wrapper">
                 <h1 class="h1 page-hero-title" id="about-title">Glad you're here!</h1>
-                <p class="p about-me-statement">I'm <a class="hero-profile-link" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">Jan Michael</a>. I shape how people, processes, products, and strategies work together to create happier teams, sustainable systems, and value that sticks.</p>
+                <p class="p about-me-statement">I'm <a class="hero-profile-link" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">Jan Michael</a>. I shape how people, processes, products, and strategies work together to create happier teams, rock-solid systems, and value that sticks.</p>
                 <div class="button-group">
                     <a
                     class="a button button-container secondary"
@@ -33,42 +33,29 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
         </div>
     </section>
-    <section class="help" id="how-i-help" data-dock-label="My Approach" data-search-section data-search-title="How I Help" data-search-category="Services" data-search-keywords="clarify collaborate scale lead coaching strategy design systems team leadership">
+    <section class="help" id="how-i-help" data-dock-label="My approach" data-search-section data-search-title="How I Help" data-search-category="Services" data-search-keywords="clarify collaborate scale lead coaching strategy design systems team leadership">
         <span class="help-accent help-accent--top" aria-hidden="true"></span>
         <span class="help-accent help-accent--bottom" aria-hidden="true"></span>
         <div class="content-wrapper">
             <div class="help-intro">
                 <header class="home-section-header" data-reveal="right">
                     <h2 class="h2 home-section-title">Leadership that brings innovation into focus.</h2>
-                    <p class="p about-me-statement home-section-description">Every good idea starts with a spark and needs space to develop, with a few nudges to help it take shape. I help teams explore possibilities, make sense of the tradeoffs, and turn shared ambition into delightful products.</p>
+                    <p class="p about-me-statement home-section-description">Every good idea starts with a spark, needs space to grow, and a few nudges to help it take form. I help teams explore possibilities, make sense of tradeoffs, and turn shared ambition into delightful products.</p>
                 </header>
-                <picture class="help-artwork" aria-hidden="true" data-reveal="right">
+                <div class="help-artwork" aria-hidden="true" data-reveal="right">
+                <picture class="help-artwork-poster">
                     <source type="image/avif" srcset="{{ '/images/help/post-its.avif' | relative_url }}?v={{ site.asset_version }}">
                     <source type="image/webp" srcset="{{ '/images/help/post-its.webp' | relative_url }}?v={{ site.asset_version }}">
                     <img class="help-artwork-image" src="{{ '/images/help/post-its.png' | relative_url }}?v={{ site.asset_version }}" width="1254" height="1254" alt="" loading="lazy" decoding="async">
                 </picture>
+                <video class="help-artwork-video" data-visible-loop muted loop playsinline preload="none" tabindex="-1" width="960" height="960">
+                    <source src="{{ '/images/help/moving-post-its-loop.mp4' | relative_url }}?v={{ site.asset_version }}" type="video/mp4">
+                </video>
+                </div>
             </div>
-            <ul class="help-list">
-                <li class="help-item" data-reveal="up">
-                    <h3>Clarify</h3>
-                    <p class="p">Turn ambiguity into product strategy, design systems, and practical execution plans.</p>
-                </li>
-                <li class="help-item" data-reveal="left">
-                    <h3>Collaborate</h3>
-                    <p class="p">Bring stakeholders, designers, and engineers around the decisions that move work forward.</p>
-                </li>
-                <li class="help-item" data-reveal="right">
-                    <h3>Scale</h3>
-                    <p class="p">Build systems that help teams move faster together.</p>
-                </li>
-                <li class="help-item" data-reveal="left">
-                    <h3>Lead</h3>
-                    <p class="p">Launch excellent work through the support of growth, healthy habits, and focus.</p>
-                </li>
-            </ul>
         </div>
     </section>
-    <section class="testimonials" id="recommendations" data-dock-label="My Path" data-search-section data-search-title="Recommendations and Companies" data-search-category="Experience" data-search-keywords="testimonials recommendations trusted companies clients colleagues global payments tsys worldpay humana adapt health">
+    <section class="testimonials" id="recommendations" data-dock-label="My role" data-search-section data-search-title="Recommendations and Companies" data-search-category="Experience" data-search-keywords="testimonials recommendations trusted companies clients colleagues global payments tsys worldpay humana adapt health">
         <div class="content-wrapper">
             <div class="testimonials-intro">
                 <header class="home-section-header" data-reveal="left">
