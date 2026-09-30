@@ -22,6 +22,22 @@
     --dock-selected-ink: #e2efff;
     --dock-rim: rgba(255, 255, 255, .20);
 }
+@media (prefers-reduced-motion: no-preference) {
+    .fresh-arrival:not(.dock-arrived).navigation-pending .header,
+    .fresh-arrival:not(.dock-arrived).navigation-ready .header {
+        animation: dock-arrive-right .8s .15s cubic-bezier(.22, 1, .36, 1) both;
+        animation-play-state: paused;
+    }
+    .fresh-arrival:not(.dock-arrived).navigation-ready .header { animation-play-state: running; }
+}
+@keyframes dock-arrive-right {
+    from { translate: calc(100% + 32px) 0; }
+    to { translate: 0 0; }
+}
+@keyframes dock-arrive-bottom {
+    from { translate: 0 calc(100% + 32px + env(safe-area-inset-bottom, 0px)); }
+    to { translate: 0 0; }
+}
 @media (max-width: 47.999rem) {
     .header {
         left: 50%;
@@ -31,4 +47,6 @@
         transform: translateX(-50%);
     }
     body.body { padding-bottom: 0; }
+    .fresh-arrival:not(.dock-arrived).navigation-pending .header,
+    .fresh-arrival:not(.dock-arrived).navigation-ready .header { animation-name: dock-arrive-bottom; }
 }

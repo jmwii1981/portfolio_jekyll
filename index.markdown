@@ -68,7 +68,7 @@ description: "Fractional product design leadership for growing companies navigat
                         <source type="image/webp" srcset="{{ '/images/testimonials/puzzle-pieces.webp' | relative_url }}?v=20260930-transparent-2">
                         <img class="testimonials-artwork-image" src="{{ '/images/testimonials/puzzle-pieces.png' | relative_url }}?v=20260930-transparent-2" width="929" height="803" alt="" loading="lazy" decoding="async">
                     </picture>
-                    <video class="testimonials-artwork-video" data-decorative-video data-scrub-end="0.712" data-scrub-easing="320" muted playsinline preload="none" tabindex="-1" width="1112" height="834">
+                    <video class="testimonials-artwork-video" data-decorative-video data-scrub-end="0.712" data-scrub-easing="320" data-end-drift="50" muted playsinline preload="none" tabindex="-1" width="1112" height="834">
                         <source src="{{ '/images/testimonials/puzzle-pieces-shuffle-smooth.mp4' | relative_url }}?v={{ site.asset_version }}" type="video/mp4">
                     </video>
                 </div>

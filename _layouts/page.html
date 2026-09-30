@@ -3,6 +3,21 @@
 <head>
     <script>
         document.documentElement.classList.add('navigation-pending');
+        // Decide before first paint so internal navigation never flashes an entrance.
+        var arrival = performance.getEntriesByType('navigation')[0];
+        var fromThisSite = false;
+        try { fromThisSite = new URL(document.referrer).origin === location.origin; } catch (_) {}
+        if ((arrival && arrival.type === 'reload') || (!fromThisSite && (!arrival || arrival.type !== 'back_forward'))) {
+            document.documentElement.classList.add('fresh-arrival');
+        }
+        document.addEventListener('animationend', function (event) {
+            if (event.animationName === 'dock-arrive-right' || event.animationName === 'dock-arrive-bottom') {
+                document.documentElement.classList.add('dock-arrived');
+            }
+        });
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) document.documentElement.classList.remove('fresh-arrival');
+        });
         window.addEventListener('load', function () {
             document.documentElement.classList.remove('navigation-pending');
         }, { once: true });

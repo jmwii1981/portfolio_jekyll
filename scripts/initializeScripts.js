@@ -955,6 +955,7 @@
                 const scrubEnd = parseFloat(video.dataset.scrubEnd);
                 const scrubEasing = Math.max(1, parseFloat(video.dataset.scrubEasing) || 240);
                 const edgeAligned = video.classList.contains('testimonials-artwork-video');
+                const endDrift = Math.max(0, Number(video.dataset.endDrift) || 0);
                 const alignArtwork = () => {
                     if (!edgeAligned) return;
                     const shell = video.parentElement.getBoundingClientRect();
@@ -972,6 +973,9 @@
                 let lastTick = 0;
                 let playhead = 0;
                 let requestedFrame = -1;
+                let readRetries = 0;
+                let previousScroll = window.scrollY;
+                let retract = null;
                 video.muted = true;
                 video.pause();
                 const syncScrub = (now) => {
@@ -999,12 +1003,51 @@
                     if (!Number.isFinite(video.duration) || video.readyState < 2) return;
                     const fps = 60;
                     const finalFrame = Math.max(0, Math.floor(video.duration * fps - .001));
-                    const target = progress * finalFrame / fps;
+                    const videoEnd = finalFrame / fps;
+                    // Leaving the artwork's full-view range upward retracts it in
+                    // one short pass, rather than waiting for the slow drift to unwind.
+                    if (endDrift && !retract && window.scrollY < previousScroll && window.scrollY <= start && playhead > 0) {
+                        retract = {
+                            elapsed: 0,
+                            time: Math.min(videoEnd, playhead),
+                            drift: Math.max(0, Math.min(1, playhead - videoEnd))
+                        };
+                    }
+                    previousScroll = window.scrollY;
+                    // Anticipate the drift by 60px, while still finishing the puzzle first.
+                    const driftProgress = endDrift ? Math.max(0, Math.min(1, (window.scrollY - (end - 60)) / 240)) : 0;
+                    const target = progress * videoEnd + (progress === 1 ? driftProgress : 0);
                     const elapsed = lastTick ? Math.min(50, now - lastTick) : 1000 / 60;
                     lastTick = now;
-                    playhead += (target - playhead) * (1 - Math.exp(-elapsed / scrubEasing));
-                    if (Math.abs(target - playhead) < .001) playhead = target;
+                    if (retract) {
+                        retract.elapsed += elapsed;
+                        const fraction = Math.min(1, retract.elapsed / 450);
+                        const remaining = 1 - fraction * fraction * (3 - 2 * fraction);
+                        playhead = retract.time * remaining;
+                        video.style.transform = `translateX(${-endDrift * retract.drift ** 2 * remaining}px)`;
+                        const resetFrame = Math.round(playhead * fps);
+                        if (!video.seeking && resetFrame !== requestedFrame) {
+                            requestedFrame = resetFrame;
+                            video.currentTime = resetFrame / fps;
+                        }
+                        if (fraction === 1) retract = null;
+                        requestScrub();
+                        return;
+                    }
+                    const drifting = endDrift && (playhead > videoEnd || (playhead === videoEnd && target > videoEnd));
+                    // Keep each phase separate even after a large scroll jump.
+                    const phaseTarget = endDrift
+                        ? (drifting ? Math.max(videoEnd, target) : Math.min(videoEnd, target))
+                        : target;
+                    const easing = drifting ? scrubEasing * 3 : scrubEasing;
+                    playhead += (phaseTarget - playhead) * (1 - Math.exp(-elapsed / easing));
+                    if (Math.abs(phaseTarget - playhead) < .001) playhead = phaseTarget;
                     const nextFrame = Math.max(0, Math.min(finalFrame, Math.round(playhead * fps)));
+                    if (endDrift) {
+                        const drift = Math.max(0, Math.min(1, playhead - videoEnd));
+                        const easedDrift = drift * drift;
+                        video.style.transform = `translateX(${-endDrift * easedDrift}px)`;
+                    }
                     // Seek only once per distinct frame. Keep easing independent of
                     // decoder timing; seeked resumes any queued frame after decoding.
                     if (!video.seeking && nextFrame !== requestedFrame) {
@@ -1032,7 +1075,20 @@
                 video.addEventListener('loadedmetadata', () => video.classList.add('is-video-ready'));
                 video.addEventListener('loadeddata', requestScrub);
                 video.addEventListener('loadeddata', () => video.classList.add('is-video-ready'));
-                video.addEventListener('error', () => video.classList.remove('is-video-ready'));
+                video.addEventListener('error', () => {
+                    video.classList.remove('is-video-ready');
+                    // A failed byte-range read can poison the browser's cached media
+                    // response during preview rebuilds. Retry once with a fresh URL.
+                    if (video.error?.code === 2 && readRetries++ === 0) {
+                        const source = new URL(video.currentSrc, location.href);
+                        source.searchParams.set('read-retry', Date.now().toString());
+                        window.setTimeout(() => {
+                            requestedFrame = -1;
+                            video.src = source.href;
+                            video.load();
+                        }, 500);
+                    }
+                });
                 video.addEventListener('canplay', requestScrub);
                 video.addEventListener('seeked', requestScrub);
                 window.addEventListener('scroll', requestScrub, { passive: true });

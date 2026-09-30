@@ -721,6 +721,9 @@
     .testimonials-intro .home-section-header {
         max-width: 58rem;
         min-width: 0;
+        // Keep copy above the video's empty white margin during its end drift.
+        position: relative;
+        z-index: 1;
     }
     .testimonials-artwork-shell {
         display: block;
@@ -747,7 +750,7 @@
     }
     .testimonials-artwork-video {
         position: absolute;
-        top: calc(-1 * var(--artwork-top-offset, 0px));
+        top: calc(30px - var(--artwork-top-offset, 0px));
         right: calc(-1 * var(--artwork-edge-offset, 0px));
         width: calc(100% + var(--artwork-edge-offset, 0px) + 2rem);
         height: auto;

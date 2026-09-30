@@ -152,6 +152,19 @@
 }
 
 // Home sequence: . → .. → ... → .... → J → M → W → II → final mark.
+@media (prefers-reduced-motion: no-preference) {
+    .fresh-arrival .hero-brand-mark [class^="anim-col-"] {
+        animation-duration: 3.6s;
+        animation-delay: .15s;
+        animation-fill-mode: both;
+        animation-timing-function: cubic-bezier(.65, 0, .35, 1);
+    }
+    @for $column from 1 through 4 {
+        .fresh-arrival .hero-brand-mark .anim-col-#{$column} {
+            animation-name: home-logo-col-#{$column};
+        }
+    }
+}
 @keyframes home-logo-col-1 {
     0%, 23% { d: path("M33 114.9L33 115"); opacity: 1; }
     31%, 39% { d: path("M64 95L64 125"); opacity: 1; }
