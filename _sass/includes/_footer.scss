@@ -276,6 +276,21 @@
     }
 }
 
+@media (max-width: 50.0624rem) {
+    .footer:not(.footer--without-social) {
+        row-gap: 0.5rem;
+        .footer-compact-content { grid-row: 2; }
+        .footer-brand { grid-row: 3; margin-top: 0.75rem; top: 0; }
+    }
+}
+
+@media (max-width: 47.999rem) {
+    .footer {
+        // Keep about 20px between the final logo and the fixed bottom dock.
+        padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+    }
+}
+
 @media (min-width: 50.0625rem) {
     .footer {
         column-gap: clamp(1.5rem, 4vw, 4rem);

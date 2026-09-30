@@ -114,6 +114,12 @@ body:not(.body--vitae) .dock-home {
 body:not(.body--vitae) .dock-arrow {
     --clay-secondary-surface: linear-gradient(155deg, #f0e7da, #e1d2c0);
 }
+body:not(.body--vitae) .dock-home {
+    --clay-secondary-surface: linear-gradient(155deg, #ececec, #dedede);
+    --clay-secondary-edge: rgba(120, 122, 125, .16);
+    --clay-secondary-bevel: inset 0 1px 2px rgba(255,255,255,.6),
+        inset 0 -1px 2px rgba(105,108,112,.13);
+}
 body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
     border-radius: 50%;
     --nav-close-scale: .87;
@@ -475,6 +481,32 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     .header .is-open .nav-panel { transform: translateX(-50%); }
 }
 // Refract only the live backdrop; controls stay sharp above the lens.
+// SVG backdrop filters parse in Safari but do not render. Keep the same glass
+// geometry and tint with CSS layers there (and when refraction is disabled).
+.header:not(.has-orb-lenses) .nav-controls > .dock-glass {
+    background: rgba(255,255,255,.01);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: rgba(255,255,255,.82);
+    box-shadow: inset 1px 1px 1px rgba(255,255,255,.9),
+        inset -1px -1px 2px rgba(76,100,126,.24),
+        inset 0 0 0 3px rgba(245,250,255,.28),
+        inset 0 0 0 4px rgba(113,137,161,.12),
+        0 2px 3px rgba(255,255,255,.65),
+        0 6px 18px rgba(26,36,50,.12);
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 4px;
+        border-radius: 16px;
+        background: rgba(255,255,255,.64);
+        -webkit-backdrop-filter: blur(2px) saturate(115%);
+        backdrop-filter: blur(2px) saturate(115%);
+        box-shadow: 0 0 2px 1px rgba(255,255,255,.3);
+        pointer-events: none;
+    }
+}
 .header.has-orb-lenses .nav-controls > .dock-glass {
     // The dock filter applies 64% white inside and 1% at the bevel using the same
     // rounded mask as the frosting, without another backdrop/blending layer.
@@ -493,9 +525,8 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
 .body--vitae .header.has-orb-lenses .nav-controls > .dock-glass {
     background: transparent;
 }
-// The live 80%-white lens needs dark glyphs, even on the dark Vitae page.
-// Keep the white-on-dark ink for its CSS-only fallback and pop-out menu.
-.body--vitae .header.has-orb-lenses .nav-controls {
+// Both dock renderers use light frosted glass; the pop-out menu stays separate.
+.body--vitae .header .nav-controls {
     --dock-ink: #30343b;
     .dock-control { color: var(--dock-ink); }
 }
@@ -595,8 +626,12 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     .header { --dock-surface: #eef0f3; --menu-surface: #fafbfd; --dock-frost: #f7f8fa; }
     .body--vitae .header { --dock-surface: #23272e; --menu-surface: #181c22; --dock-frost: #343a43; }
     .dock-glass, .dock-control, .header .nav-panel::before { -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .header:not(.has-orb-lenses) .nav-controls > .dock-glass { background: #eef0f3; }
+    .header:not(.has-orb-lenses) .nav-controls > .dock-glass::before { display: none; }
 }
 @media (forced-colors: active) {
+    .header:not(.has-orb-lenses) .nav-controls > .dock-glass { background: Canvas; border-color: CanvasText; box-shadow: none; }
+    .header:not(.has-orb-lenses) .nav-controls > .dock-glass::before { display: none; }
     .dock-stepper .clay-arrow-face { fill: ButtonText; stroke: none; }
     .dock-stepper .clay-arrow-base { display: none; }
     .dock-stepper button, .dock-stepper button.dock-section-previous { background: ButtonFace; color: ButtonText; border: 1px solid ButtonText; }

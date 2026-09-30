@@ -61,6 +61,13 @@
     }
 }
 
+@media (max-width: 42.5rem) {
+    .contact-avatar,
+    .contact-stones {
+        display: none;
+    }
+}
+
 .contact-botcheck {
     display: none;
 }

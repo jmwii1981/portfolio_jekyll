@@ -48,7 +48,7 @@ description: "Fractional product design leadership for growing companies navigat
                     <source type="image/webp" srcset="{{ '/images/help/post-its.webp' | relative_url }}?v={{ site.asset_version }}">
                     <img class="help-artwork-image" src="{{ '/images/help/post-its.png' | relative_url }}?v={{ site.asset_version }}" width="1254" height="1254" alt="" loading="lazy" decoding="async">
                 </picture>
-                <video class="help-artwork-video" data-visible-loop muted loop playsinline preload="none" tabindex="-1" width="960" height="960">
+                <video class="help-artwork-video" data-visible-loop data-loop-slowdown="3" muted loop playsinline preload="none" tabindex="-1" width="960" height="960">
                     <source src="{{ '/images/help/moving-post-its-loop.mp4' | relative_url }}?v={{ site.asset_version }}" type="video/mp4">
                 </video>
                 </div>

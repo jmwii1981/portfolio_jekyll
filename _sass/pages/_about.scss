@@ -1,4 +1,5 @@
 .main.about {
+    --help-accent-size: clamp(12.5rem, 22.4vw, 16.5rem);
     padding: 0;
     row-gap: 0;
 }
@@ -454,7 +455,6 @@
 }
 
 .help {
-    --help-accent-size: clamp(12.5rem, 22.4vw, 16.5rem);
     --help-background: #F2F3F6;
 
     align-items: center;
@@ -571,6 +571,16 @@
         &.is-video-ready { opacity: 1; }
     }
     .help-artwork:has(.is-video-ready) .help-artwork-poster { visibility: hidden; }
+    .help-artwork::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        // Keep the fades within the empty margins throughout the moving loop.
+        background:
+            linear-gradient(to right, var(--help-background), transparent 2%, transparent 98%, var(--help-background)),
+            linear-gradient(to bottom, var(--help-background), transparent 8%, transparent 92%, var(--help-background));
+    }
     .help-list {
         display: grid;
         gap: clamp(1rem, 2vw, 1.5rem);
@@ -675,6 +685,9 @@
 }
 
 .testimonials {
+    // Clip the video compositor to the same viewport-edge curve painted above.
+    // Stacking order alone can let Safari's video layer cover that corner.
+    clip-path: inset(0 calc((100% - 100vw) / 2) -100vmax round 0 var(--help-accent-size) 0 0);
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -734,12 +747,11 @@
     }
     .testimonials-artwork-video {
         position: absolute;
-        inset: 0;
-        top: auto;
-        left: auto;
+        top: calc(-1 * var(--artwork-top-offset, 0px));
         right: calc(-1 * var(--artwork-edge-offset, 0px));
-        width: 105.28%;
-        height: 112%;
+        width: calc(100% + var(--artwork-edge-offset, 0px) + 2rem);
+        height: auto;
+        aspect-ratio: 4 / 3;
         margin: 0 auto;
         object-fit: contain;
         background: white;
@@ -1139,16 +1151,10 @@
     box-shadow: 0 0 0 100vmax #D4D8E0;
     clip-path: inset(0 -100vmax);
     padding-top: 1.5rem;
-}
 
-@media (max-width: 47.999rem) {
-    body.body:has(.main.about) {
-        padding-bottom: 0;
-    }
-
-    .main.about ~ .footer {
-        // Keep dock clearance within the painted footer, not a white body strip.
-        padding-bottom: calc(4rem + 96px + env(safe-area-inset-bottom));
+    .footer-brand {
+        // Solid blend of the previous logo color with 20% of the footer background.
+        color: #727988;
     }
 }
 
@@ -1415,6 +1421,32 @@
 }
 
 @media (max-width: 42.5rem) {
+    .main.about { margin-top: 0; }
+
+    .main.about > .hero {
+        box-sizing: border-box;
+        min-height: 33.5rem;
+        padding-top: 4.5rem;
+        padding-bottom: 4.5rem;
+    }
+
+    .hero > .content-wrapper {
+        align-self: stretch;
+        justify-content: center;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .hero .copy-wrapper {
+        flex: 0 1 auto;
+        margin-top: 0;
+    }
+
+    .hero::before {
+        top: 0;
+        height: 100%;
+    }
+
     .hero .image-wrapper,
     .help .help-artwork,
     .testimonials .testimonials-artwork-shell,
@@ -1427,7 +1459,7 @@
 // Keep the section curves proportional to smaller screens, with enough
 // clearance for the curve without carrying desktop whitespace onto phones.
 @media (max-width: 59.9999rem) {
-    .help {
+    .main.about {
         --help-accent-size: clamp(5rem, calc(48vw - 15.4rem), 13.44rem);
     }
 
@@ -1450,7 +1482,7 @@
         width: auto;
     }
 
-    .help {
+    .main.about {
         --help-accent-size: clamp(5rem, 20vw, 6rem);
     }
 

@@ -30,5 +30,5 @@
         bottom: calc(16px + env(safe-area-inset-bottom));
         transform: translateX(-50%);
     }
-    body.body { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+    body.body { padding-bottom: 0; }
 }

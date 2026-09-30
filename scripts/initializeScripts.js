@@ -958,7 +958,9 @@
                 const alignArtwork = () => {
                     if (!edgeAligned) return;
                     const shell = video.parentElement.getBoundingClientRect();
+                    const section = video.closest('.testimonials').getBoundingClientRect();
                     video.style.setProperty('--artwork-edge-offset', `${Math.max(0, document.documentElement.clientWidth - shell.right)}px`);
+                    video.style.setProperty('--artwork-top-offset', `${shell.top - section.top}px`);
                 };
                 alignArtwork();
                 window.addEventListener('resize', alignArtwork);
@@ -1046,6 +1048,9 @@
             document.querySelectorAll('[data-visible-loop]').forEach(video => {
                 let inView = false;
                 let loaded = false;
+                const slowdown = Number(video.dataset.loopSlowdown) || 1;
+                const playbackRate = 1 / Math.max(1, slowdown);
+                video.defaultPlaybackRate = playbackRate;
                 const shouldPlay = () => inView && !document.hidden && !reducedMotion.matches && video.getClientRects().length > 0;
                 const sync = () => {
                     if (!shouldPlay()) {
@@ -1058,6 +1063,7 @@
                         video.preload = 'auto';
                         video.load();
                     }
+                    video.playbackRate = playbackRate;
                     const playing = video.play();
                     if (playing) playing.then(() => {
                         if (!shouldPlay()) video.pause();
