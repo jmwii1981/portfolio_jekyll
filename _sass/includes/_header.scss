@@ -40,13 +40,29 @@
 }
 @media (max-width: 47.999rem) {
     .header {
-        left: 50%;
-        right: auto;
+        left: 0;
+        right: 0;
         top: auto;
         bottom: calc(16px + env(safe-area-inset-bottom));
-        transform: translateX(-50%);
+        transform: none;
     }
     body.body { padding-bottom: 0; }
     .fresh-arrival:not(.dock-arrived).navigation-pending .header,
-    .fresh-arrival:not(.dock-arrived).navigation-ready .header { animation-name: dock-arrive-bottom; }
+    .fresh-arrival:not(.dock-arrived).navigation-ready .header { animation: none; }
+}
+@media (max-width: 47.999rem) and (prefers-reduced-motion: no-preference) {
+    // Never transform the header: it would become the fixed island's
+    // containing block and pull the island down to the bottom dock.
+    .fresh-arrival:not(.dock-arrived).navigation-pending .header .nav-controls > *,
+    .fresh-arrival:not(.dock-arrived).navigation-ready .header .nav-controls > * {
+        animation: dock-arrive-bottom .8s .15s cubic-bezier(.22, 1, .36, 1) both;
+        animation-play-state: paused;
+    }
+    .fresh-arrival:not(.dock-arrived).navigation-pending .header .nav-controls > .dock-dots,
+    .fresh-arrival:not(.dock-arrived).navigation-ready .header .nav-controls > .dock-dots {
+        animation-name: dock-arrive-right;
+    }
+    .fresh-arrival:not(.dock-arrived).navigation-ready .header .nav-controls > * {
+        animation-play-state: running;
+    }
 }

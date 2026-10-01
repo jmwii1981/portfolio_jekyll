@@ -638,7 +638,9 @@
                 .filter(section => !section.parentElement.closest('section'));
             const pageSections = (explicitSections.length ? explicitSections : searchSections.length >= 2 ? searchSections : outerSections)
                 .filter(section => !section.closest('[hidden]'));
-            const sections = pageSections.slice(1, -1);
+            // The mobile dot/dock island includes both endpoints; desktop hides
+            // those links and retains its existing middle-section navigation.
+            const sections = pageSections;
             sections.forEach((section, index) => {
                 if (!section.id) {
                     let id = `dock-section-${index + 1}`;
@@ -649,9 +651,10 @@
                     .map(id => document.getElementById(id)?.textContent.trim()).filter(Boolean).join(' ');
                 const label = section.dataset.dockLabel || section.getAttribute('aria-label')
                     || section.dataset.searchTitle || labelledBy
-                    || section.querySelector('h2, h1, h3')?.textContent.trim() || `Section ${index + 2}`;
+                    || section.querySelector('h2, h1, h3')?.textContent.trim() || `Section ${index + 1}`;
                 const link = document.createElement('a');
                 link.className = 'dock-dot';
+                if (index === 0 || index === sections.length - 1) link.classList.add('dock-dot-endpoint');
                 link.href = `#${section.id}`;
                 link.setAttribute('aria-label', label);
                 const tooltip = document.createElement('span');
@@ -670,12 +673,23 @@
                 });
                 if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) index = pageSections.length - 1;
                 sectionLinks.forEach((link, i) => {
-                    if (sections[i] === pageSections[index]) link.setAttribute('aria-current', 'location');
-                    else link.removeAttribute('aria-current');
+                    const active = sections[i] === pageSections[index];
+                    if (active) {
+                        link.setAttribute('aria-current', 'location');
+                        link.setAttribute('aria-disabled', 'true');
+                        link.removeAttribute('href');
+                        link.tabIndex = -1;
+                    } else {
+                        link.removeAttribute('aria-current');
+                        link.removeAttribute('aria-disabled');
+                        link.setAttribute('href', `#${sections[i].id}`);
+                        link.tabIndex = 0;
+                    }
                 });
             };
             sectionLinks.forEach((link, index) => link.addEventListener('click', event => {
                 event.preventDefault();
+                if (link.getAttribute('aria-current') === 'location') return;
                 setOpen(false);
                 const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
                 sections[index].scrollIntoView({ block: 'start', behavior });
@@ -715,7 +729,7 @@
                 window.scrollTo({ top: document.documentElement.scrollHeight, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
             });
             const syncDotOverflow = () => {
-                const horizontal = matchMedia('(max-width: 47.999rem)').matches;
+                const horizontal = getComputedStyle(dotGroup).flexDirection === 'row';
                 // Floating labels must not make an otherwise fitting dot strip scroll.
                 const required = sectionLinks.reduce((size, link) => size + (horizontal ? link.offsetWidth : link.offsetHeight), 0);
                 dotGroup.classList.toggle('is-overflowing', required > (horizontal ? dotGroup.clientWidth : dotGroup.clientHeight) + 1);

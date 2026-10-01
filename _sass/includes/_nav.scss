@@ -173,6 +173,10 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
     &.is-overflowing { overflow-y: auto; overflow-x: hidden; }
     &:empty { display: none; }
 }
+@media (min-width: 48rem) {
+    .dock-dot.dock-dot-endpoint { display: none; }
+    .dock-dots:not(:has(.dock-dot:not(.dock-dot-endpoint))) { display: none; }
+}
 .dock-dot {
     position: relative;
     display: flex;
@@ -188,37 +192,76 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
         content: "";
         width: 7px;
         height: 7px;
-        border-radius: 50%;
+        pointer-events: none;
+        border-radius: 999px;
         background: currentColor;
         opacity: .28;
         transform: scale(1);
-        transition: opacity .18s ease, background-color .18s ease, transform .2s ease;
+        transition: opacity .18s ease, background-color .18s ease, width .2s ease, height .2s ease;
     }
     &[aria-current="location"]::before {
         background: #313d5b;
         opacity: 1;
-        transform: scale(1.28);
+        transform: none;
     }
     &:not([aria-current="location"]):hover::before, &:focus-visible::before {
         background: #4c5e7b;
         opacity: 1;
-        transform: scale(1.43);
+        transform: none;
     }
-    &[aria-current="location"] { cursor: default; }
+    &[aria-current="location"] { display: none; cursor: default; pointer-events: none; }
     &[aria-current="location"]:focus-visible::before { background: #313d5b; }
     &:focus-visible { outline: 2px solid currentColor; outline-offset: -3px; }
 }
 @media (hover: hover) and (pointer: fine) {
-    .dock-dots:has(.dock-dot:not([aria-current="location"]):hover) .dock-dot[aria-current="location"]::before {
-        background: currentColor;
-        opacity: .28;
-        transform: scale(1);
+    .dock-dots {
+        pointer-events: auto;
+        row-gap: 0;
     }
+    // Reserve the spacing in stable hit boxes, not hover-dependent layout.
+    .dock-dots .dock-dot { height: 32px; }
+    .dock-dots:hover .dock-dot:not([aria-current="location"]):hover::before { width: 30px; height: 9px; flex-shrink: 0; }
+    .dock-dot[aria-current="location"]::before { transition: none; }
+}
+@media (max-width: 47.999rem) and (hover: hover) and (pointer: fine) {
+    .nav-controls .dock-dots { width: 45px; --island-half-width: 22.5px; pointer-events: none; isolation: isolate; }
+    .nav-controls .dock-dots .dock-dot { width: 30px; height: 20px; pointer-events: none; }
+    // Enter through a padded dot target inside the compact tray, never the
+    // glass. Once open, the glass bridges gaps to keep hover from flickering.
+    .nav-controls .dock-dots::before { left: 20px; right: -1px; pointer-events: none; transition: left .2s ease; }
+    .nav-controls .dock-dots .dock-dot:not([aria-current="location"])::after {
+        content: "";
+        position: absolute;
+        top: 0; bottom: 0;
+        left: 13.5px; right: -7.5px;
+        pointer-events: auto;
+    }
+    .nav-controls .dock-dots:hover .dock-dot::after,
+    .nav-controls .dock-dots:has(.dock-dot:focus-visible) .dock-dot::after { left: -7.5px; right: -7.5px; }
+    .nav-controls .dock-dots:hover .dock-dot:not([aria-current="location"]),
+    .nav-controls .dock-dots:has(.dock-dot:focus-visible) .dock-dot:not([aria-current="location"]) { pointer-events: auto; }
+    .nav-controls .dock-dots:not(:hover):not(:has(.dock-dot:focus-visible)) .dock-dot::before { translate: 10.5px 0; }
+    .nav-controls .dock-dots:hover::before,
+    .nav-controls .dock-dots:has(.dock-dot:focus-visible)::before { left: -1px; right: -1px; pointer-events: auto; }
+    // Forgiveness is available only after entering a dot target; the idle
+    // island must not activate from invisible space beside the compact tray.
+    .nav-controls .dock-dots:hover::after,
+    .nav-controls .dock-dots:has(.dock-dot:focus-visible)::after {
+        content: "";
+        position: absolute;
+        inset: -15px;
+        border-radius: inherit;
+        z-index: -1;
+        pointer-events: auto;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .dock-dots, .nav-controls .dock-dots::before, .dock-dot::before { transition: none; }
 }
 .dock-dot-label {
     position: absolute;
-    // Anchor to the common control center, not each button's different size.
-    right: calc(50% + 30px);
+    // All control centers share the tray center: half its width + rim + gap.
+    right: calc(50% + 25px + var(--dock-inset) + 3px);
     top: 50%;
     transform: translateY(-50%);
     padding: 7px 11px;
@@ -239,6 +282,11 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
     opacity: 0;
     visibility: hidden;
     transition: opacity .15s ease, visibility .15s;
+}
+@media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
+    .dock-dot .dock-dot-label {
+        font-size: 14px;
+    }
 }
 .dock-dot:not([aria-current="location"]):hover .dock-dot-label, .dock-dot:focus-visible .dock-dot-label,
 .dock-arrow:hover .dock-dot-label, .dock-arrow:focus-visible .dock-dot-label,
@@ -443,6 +491,7 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     &:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }
 }
 @media (max-width: 47.999rem) {
+    .nav-container { width: max-content; margin-inline: auto; }
     .nav-controls {
         flex-direction: row;
         width: max-content;
@@ -455,20 +504,62 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     .dock-top { grid-row: 1; grid-column: 2; transform-origin: left center; }
     .dock-stepper { grid-row: 1; grid-column: 3; align-self: center; }
     .dock-dots {
-        flex-direction: row;
-        width: max-content;
-        height: 50px;
-        min-width: 28px;
+        --island-half-width: 12px;
+        position: fixed;
+        right: calc(2px + env(safe-area-inset-right, 0px));
+        top: 50%;
+        transform: translateY(-50%);
+        flex-direction: column;
+        flex: none;
+        width: 24px;
+        height: auto;
+        max-height: min(220px, calc(100dvh - 140px));
+        min-width: 24px;
         min-height: 0;
-        margin: 0 0 0 8px;
+        margin: 0;
+        padding: 4px 6px;
+        border: 1px solid transparent;
+        border-radius: 18px;
+        &::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        pointer-events: none;
+        border: 1px solid rgba(255,255,255,.82);
+        border-radius: inherit;
+        background: rgba(250,252,255,.64);
+        -webkit-backdrop-filter: blur(12px) saturate(115%);
+        backdrop-filter: blur(12px) saturate(115%);
+        box-shadow: inset 1px 1px 1px rgba(255,255,255,.9),
+            inset -1px -1px 2px rgba(76,100,126,.24),
+            inset 0 0 0 3px rgba(245,250,255,.28),
+            0 2px 3px rgba(255,255,255,.65),
+            0 6px 18px rgba(26,36,50,.12);
+        }
         overflow: visible;
-        &.is-overflowing { overflow-y: hidden; overflow-x: auto; }
+        &.is-overflowing { overflow-y: auto; overflow-x: hidden; }
     }
-    .dock-dot { width: 44px; height: 48px; }
+    .dock-dot { width: 24px; height: 20px; min-height: 20px; flex: none; }
+    .nav-controls .dock-dots:hover,
+    .nav-controls .dock-dots:has(.dock-dot:focus-visible) {
+        row-gap: 8px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+    .dock-dots .dock-dot[aria-current="location"] { display: flex; }
+    .dock-dots:hover .dock-dot:not([aria-current="location"])::before,
+    .dock-dots:has(.dock-dot:focus-visible) .dock-dot:not([aria-current="location"])::before { width: 9px; height: 9px; }
+    .dock-dots:hover .dock-dot[aria-current="location"]::before,
+    .dock-dots:has(.dock-dot:focus-visible) .dock-dot[aria-current="location"]::before { width: 5px; height: 5px; }
+    .dock-dots .dock-dot-label {
+        right: calc(50% + var(--island-half-width) + 3px);
+        top: 50%; bottom: auto;
+        transform: translateY(-50%);
+    }
     .dock-dot-label {
         right: calc(50% - 14px);
         top: auto;
-        bottom: calc(50% + 32px);
+        bottom: calc(50% + 30px + var(--dock-inset) + 3px);
         transform: none;
     }
     .has-sections .dock-top { grid-row: 1; grid-column: 2; }
@@ -479,6 +570,25 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     }
     .header .nav { max-height: calc(100dvh - 120px); }
     .header .is-open .nav-panel { transform: translateX(-50%); }
+}
+@media (max-width: 47.999rem) and (prefers-reduced-motion: no-preference) {
+    .nav-controls .dock-dots {
+        --island-motion: .28s cubic-bezier(.22, .61, .36, 1);
+        transition: row-gap var(--island-motion), padding-top var(--island-motion), padding-bottom var(--island-motion);
+    }
+    .nav-controls .dock-dots::before {
+        transition: left var(--island-motion), right var(--island-motion);
+    }
+    // Reversible transitions preserve the current interpolated state when
+    // interaction changes mid-motion, instead of restarting an entrance animation.
+    .nav-controls .dock-dots .dock-dot::before {
+        translate: 0 0;
+        transition: translate var(--island-motion), width var(--island-motion), height var(--island-motion),
+            opacity var(--island-motion), background-color var(--island-motion);
+    }
+    .nav-controls .dock-dots .dock-dot-label {
+        transition: opacity var(--island-motion), visibility var(--island-motion);
+    }
 }
 // Refract only the live backdrop; controls stay sharp above the lens.
 // SVG backdrop filters parse in Safari but do not render. Keep the same glass
@@ -599,6 +709,8 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     .at-bottom .dock-bottom-slot { width: 0; height: 60px; margin-left: 0; padding-right: 0; }
     .dock-top-slot { width: 0; height: 60px; transition-property: width; }
     .has-top .dock-top-slot { width: 52px; height: 60px; }
+    // Match the down arrow's 4px end inset when the up arrow ends the tray.
+    .has-top.at-bottom .dock-top-slot { width: 56px; }
     .nav-controls .dock-top { left: 8px; top: auto; }
     .nav-controls .dock-control.dock-home,
     .nav-controls .dock-control.dock-arrow { width: 44px; height: 44px; }

@@ -5,7 +5,7 @@ description: "Fractional product design leadership for growing companies navigat
 ---
 
 <main class="main about" id="main-content" tabindex="-1">
-    <section class="hero" id="about" aria-labelledby="about-title" data-search-section data-search-title="About Jan Michael Wallace II" data-search-category="About" data-search-summary="Fractional product design leadership for growing companies turning ambiguity into clear strategy, scalable systems, and durable shipped work." data-search-keywords="fractional product design leader portfolio product strategy leadership">
+    <section class="hero" id="about" aria-labelledby="about-title" data-dock-label="To the top" data-search-section data-search-title="About Jan Michael Wallace II" data-search-category="About" data-search-summary="Fractional product design leadership for growing companies turning ambiguity into clear strategy, scalable systems, and durable shipped work." data-search-keywords="fractional product design leader portfolio product strategy leadership">
         <div class="hero-brand-rail" aria-hidden="true">
             {% include site-logo.svg class="hero-brand-mark" %}
         </div>
@@ -246,7 +246,7 @@ description: "Fractional product design leadership for growing companies navigat
 
         </div>
     </section>
-    <section class="about-me" id="beyond-the-work" data-search-section data-search-title="Get in Touch" data-search-category="Contact" data-search-summary="Tell Jan Michael Wallace II what you're working on." data-search-keywords="contact connect linkedin product team challenge conversation">
+    <section class="about-me" id="beyond-the-work" data-dock-label="Get in touch" data-search-section data-search-title="Get in Touch" data-search-category="Contact" data-search-summary="Tell Jan Michael Wallace II what you're working on." data-search-keywords="contact connect linkedin product team challenge conversation">
         <span class="about-me-accent" aria-hidden="true"></span>
         <div class="about-me-inner" data-reveal="up">
             <div class="about-me-next">
