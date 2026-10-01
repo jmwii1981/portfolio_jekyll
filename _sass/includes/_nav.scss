@@ -209,9 +209,12 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
         opacity: 1;
         transform: none;
     }
-    &[aria-current="location"] { display: none; cursor: default; pointer-events: none; }
+    &[aria-current="location"] { cursor: default; pointer-events: none; }
     &[aria-current="location"]:focus-visible::before { background: #313d5b; }
     &:focus-visible { outline: 2px solid currentColor; outline-offset: -3px; }
+}
+@media (min-width: 48rem) {
+    .dock-dot[aria-current="location"]::before { width: 5px; height: 5px; }
 }
 @media (hover: hover) and (pointer: fine) {
     .dock-dots {
@@ -229,7 +232,7 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
     // Enter through a padded dot target inside the compact tray, never the
     // glass. Once open, the glass bridges gaps to keep hover from flickering.
     .nav-controls .dock-dots::before { left: 20px; right: -1px; pointer-events: none; transition: left .2s ease; }
-    .nav-controls .dock-dots .dock-dot:not([aria-current="location"])::after {
+    .nav-controls .dock-dots .dock-dot::after {
         content: "";
         position: absolute;
         top: 0; bottom: 0;
@@ -491,7 +494,15 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     &:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }
 }
 @media (max-width: 47.999rem) {
-    .nav-container { width: max-content; margin-inline: auto; }
+    body:has(main.contact) .nav-controls .dock-dots,
+    body:has(main.perspectives) .nav-controls .dock-dots { display: none; }
+    .nav-container {
+        width: max-content;
+        margin-left: auto;
+        margin-right: calc(2px + var(--dock-inset, 6px) + env(safe-area-inset-right, 0px));
+    }
+    .nav-controls .dock-top-slot,
+    .nav-controls .dock-bottom-slot { display: none; }
     .nav-controls {
         flex-direction: row;
         width: max-content;
@@ -505,6 +516,9 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     .dock-stepper { grid-row: 1; grid-column: 3; align-self: center; }
     .dock-dots {
         --island-half-width: 12px;
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
         position: fixed;
         right: calc(2px + env(safe-area-inset-right, 0px));
         top: 50%;
@@ -540,6 +554,7 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
         &.is-overflowing { overflow-y: auto; overflow-x: hidden; }
     }
     .dock-dot { width: 24px; height: 20px; min-height: 20px; flex: none; }
+    .nav-controls .dock-dots.is-touch-active,
     .nav-controls .dock-dots:hover,
     .nav-controls .dock-dots:has(.dock-dot:focus-visible) {
         row-gap: 8px;
@@ -547,34 +562,54 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
         padding-bottom: 12px;
     }
     .dock-dots .dock-dot[aria-current="location"] { display: flex; }
+    .dock-dots.is-touch-active .dock-dot:not([aria-current="location"])::before,
     .dock-dots:hover .dock-dot:not([aria-current="location"])::before,
     .dock-dots:has(.dock-dot:focus-visible) .dock-dot:not([aria-current="location"])::before { width: 9px; height: 9px; }
+    .dock-dots.is-touch-active .dock-dot[aria-current="location"]::before,
     .dock-dots:hover .dock-dot[aria-current="location"]::before,
     .dock-dots:has(.dock-dot:focus-visible) .dock-dot[aria-current="location"]::before { width: 5px; height: 5px; }
     .dock-dots .dock-dot-label {
+        left: auto;
         right: calc(50% + var(--island-half-width) + 3px);
         top: 50%; bottom: auto;
         transform: translateY(-50%);
     }
     .dock-dot-label {
-        right: calc(50% - 14px);
+        left: auto;
+        right: 0;
         top: auto;
         bottom: calc(50% + 30px + var(--dock-inset) + 3px);
         transform: none;
     }
     .has-sections .dock-top { grid-row: 1; grid-column: 2; }
     .header .nav-panel {
-        left: 50%; right: auto; top: auto; bottom: calc(100% + 12px);
+        left: auto; right: -6px; top: auto; bottom: calc(100% + 12px);
         width: min(250px, calc(100vw - 32px)); padding: 6px;
-        transform: translateX(-50%) translateY(6px);
+        transform: translateY(6px);
     }
     .header .nav { max-height: calc(100dvh - 120px); }
-    .header .is-open .nav-panel { transform: translateX(-50%); }
+    .header .is-open .nav-panel { transform: none; }
+    .header .is-open .dock-dots {
+        transform: translate(calc(100% + 40px + env(safe-area-inset-right, 0px)), -50%);
+    }
+    .nav-controls .dock-dots.is-touch-active {
+        width: 45px;
+        --island-half-width: 22.5px;
+    }
+    .nav-controls .dock-dots.is-touch-active::before { left: -1px; right: -1px; }
+    .nav-controls .dock-dots.is-touch-active .dock-dot { width: 30px; }
+    .nav-controls .dock-dots.is-touch-active .dock-dot::before { translate: 0 0; }
+    .nav-controls .dock-dots .dock-dot.is-touch-target:not([aria-current="location"])::before {
+        width: 30px; height: 9px; flex-shrink: 0; opacity: 1; background: #4c5e7b;
+    }
+    .dock-dot.is-touch-target:not([aria-current="location"]) .dock-dot-label {
+        opacity: 1; visibility: visible;
+    }
 }
 @media (max-width: 47.999rem) and (prefers-reduced-motion: no-preference) {
     .nav-controls .dock-dots {
         --island-motion: .28s cubic-bezier(.22, .61, .36, 1);
-        transition: row-gap var(--island-motion), padding-top var(--island-motion), padding-bottom var(--island-motion);
+        transition: row-gap var(--island-motion), padding-top var(--island-motion), padding-bottom var(--island-motion), transform var(--island-motion);
     }
     .nav-controls .dock-dots::before {
         transition: left var(--island-motion), right var(--island-motion);
@@ -588,6 +623,23 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     }
     .nav-controls .dock-dots .dock-dot-label {
         transition: opacity var(--island-motion), visibility var(--island-motion);
+    }
+}
+// Touch browsers can retain :hover after a finger lifts. The gesture state,
+// not that emulated hover, determines whether the island stays expanded.
+@media (max-width: 47.999rem) and (hover: none) {
+    .nav-controls .dock-dots:not(.is-touch-active) {
+        row-gap: 0;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+    .nav-controls .dock-dots:not(.is-touch-active) .dock-dot::before {
+        width: 7px;
+        height: 7px;
+    }
+    .nav-controls .dock-dots:not(.is-touch-active) .dock-dot-label {
+        opacity: 0;
+        visibility: hidden;
     }
 }
 // Refract only the live backdrop; controls stay sharp above the lens.

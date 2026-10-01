@@ -581,6 +581,12 @@
             const nav = container?.querySelector('.nav');
             if (!toggle || !nav) return;
             const panel = container.querySelector('.nav-panel');
+            const mobileDock = window.matchMedia('(max-width: 47.999rem)');
+            const syncIslandAvailability = () => {
+                const island = container.querySelector('.dock-dots');
+                if (island) island.inert = mobileDock.matches && container.classList.contains('is-open');
+            };
+            mobileDock.addEventListener('change', syncIslandAvailability);
             const fitPanel = () => {
                 if (window.matchMedia('(max-width: 47.999rem)').matches) {
                     panel.style.removeProperty('--menu-top');
@@ -601,6 +607,7 @@
             const setOpen = (open, restoreFocus = false) => {
                 if (open) fitPanel();
                 container.classList.toggle('is-open', open);
+                syncIslandAvailability();
                 toggle.setAttribute('aria-expanded', String(open));
                 toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
                 nav.inert = !open;
@@ -687,13 +694,64 @@
                     }
                 });
             };
+            let suppressTouchClickUntil = 0;
             sectionLinks.forEach((link, index) => link.addEventListener('click', event => {
                 event.preventDefault();
+                if (event.isTrusted && performance.now() < suppressTouchClickUntil) return;
                 if (link.getAttribute('aria-current') === 'location') return;
                 setOpen(false);
                 const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
                 sections[index].scrollIntoView({ block: 'start', behavior });
             }));
+            // Capture the gesture so lifting selects once, without scrolling
+            // the page or navigating through every section under the thumb.
+            let islandPointer = null;
+            let touchCandidate = null;
+            const clearTouchPreview = () => {
+                sectionLinks.forEach(link => link.classList.remove('is-touch-target'));
+                touchCandidate = null;
+            };
+            const previewTouch = (event) => {
+                clearTouchPreview();
+                const bounds = dotGroup.getBoundingClientRect();
+                if (event.clientX < bounds.left - 15 || event.clientX > bounds.right + 15
+                    || event.clientY < bounds.top - 15 || event.clientY > bounds.bottom + 15) return;
+                let distance = Infinity;
+                sectionLinks.forEach(link => {
+                    const rect = link.getBoundingClientRect();
+                    if (!rect.height) return;
+                    const delta = Math.abs(event.clientY - (rect.top + rect.height / 2));
+                    if (delta < distance) { distance = delta; touchCandidate = link; }
+                });
+                touchCandidate?.classList.add('is-touch-target');
+            };
+            const endIslandTouch = (event, select = false) => {
+                if (event.pointerId !== islandPointer) return;
+                if (select) previewTouch(event);
+                const selection = select ? touchCandidate : null;
+                islandPointer = null;
+                suppressTouchClickUntil = performance.now() + 600;
+                clearTouchPreview();
+                dotGroup.classList.remove('is-touch-active');
+                if (dotGroup.hasPointerCapture(event.pointerId)) dotGroup.releasePointerCapture(event.pointerId);
+                selection?.click();
+            };
+            dotGroup.addEventListener('pointerdown', event => {
+                if (!mobileDock.matches || event.pointerType !== 'touch' || !event.isPrimary || islandPointer !== null || dotGroup.inert) return;
+                event.preventDefault();
+                islandPointer = event.pointerId;
+                dotGroup.setPointerCapture(event.pointerId);
+                dotGroup.classList.add('is-touch-active');
+                previewTouch(event);
+            });
+            dotGroup.addEventListener('pointermove', event => {
+                if (event.pointerId !== islandPointer) return;
+                event.preventDefault();
+                previewTouch(event);
+            });
+            dotGroup.addEventListener('pointerup', event => endIslandTouch(event, true));
+            dotGroup.addEventListener('pointercancel', event => endIslandTouch(event));
+            dotGroup.addEventListener('lostpointercapture', event => endIslandTouch(event));
             let scrollFrame = 0;
             const syncTop = () => {
                 scrollFrame = 0;

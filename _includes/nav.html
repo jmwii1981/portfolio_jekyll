@@ -13,14 +13,6 @@
         <span class="dock-menu-icon" aria-hidden="true"><span class="nav-toggle-line nav-toggle-line--top"></span><span class="nav-toggle-line nav-toggle-line--bottom"></span></span>
         <span class="dock-dot-label" aria-hidden="true">Menu</span>
     </button>
-    {% unless page.url == '/' %}
-    <div class="dock-home-slot">
-        <a class="dock-control dock-home" href="{{ '/' | relative_url }}" aria-label="Home">
-            <span class="dock-house-icon" aria-hidden="true"></span>
-            <span class="dock-dot-label" aria-hidden="true">Home</span>
-        </a>
-    </div>
-    {% endunless %}
     <div class="dock-top-slot" aria-hidden="true" inert>
         <button class="dock-control dock-top dock-arrow" type="button" aria-label="To the top" tabindex="-1">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4m-7 7 7-7 7 7"/></svg>
