@@ -63,7 +63,7 @@ vega:
     As design system lead and product design manager, I kicked off and led Vega’s creation and evolution across reusable components, accessibility standards, design tokens, documentation, governance, and Figma-to-code alignment. I partnered closely with engineering to reduce rework and help teams build better software with greater speed and confidence.
   cover: "/images/projects/vega/750x500 Project Cover.webp"
   cover_small: "/images/projects/vega/750x500 Project Cover-375w.webp"
-  vitae_cover: "/images/project-covers/vega.png"
+  vitae_cover: "/images/vitae/glass-laptop-v2.webp"
   cover_alt: "Vega enterprise design system shown across product interfaces"
   keywords: "enterprise design system design systems components design tokens accessibility documentation governance Figma code global product teams"
   external_url: "https://vega.globalpayments.com/"
@@ -114,7 +114,7 @@ avenapay:
     I designed the dashboard strategy, information architecture, dispute-health KPIs, probability scoring, filtered queue shortcuts, case detail views, alerts, custom reports, and natural-language analytics. The interface, branding, data, and identifying details were recreated to protect confidential work while preserving the product’s complexity and design strategy.
   cover: "/images/projects/avena/750x500 Project Cover.webp"
   cover_small: "/images/projects/avena/750x500 Project Cover-375w.webp"
-  vitae_cover: "/images/project-covers/avenapay.png"
+  vitae_cover: "/images/vitae/glass-smartphone-v2.webp"
   cover_alt: "AvenaPay disputes management experience across desktop and mobile"
   keywords: "disputes analytics chargebacks merchants recovery probability scoring natural language analytics fintech product design"
   gallery:
@@ -212,7 +212,7 @@ ledgerflow:
     I designed the core desktop and mobile flows, including the dashboard, reporting, invoice creation, payment links, customer billing, reminders, and payment collection. I focused on hierarchy, clarity, status visibility, and reusable patterns so users could quickly see what needed attention, what was handled, and where money was moving.
   cover: "/images/projects/ledger/750x500 Project Cover.webp"
   cover_small: "/images/projects/ledger/750x500 Project Cover-375w.webp"
-  vitae_cover: "/images/project-covers/ledgerflow.png"
+  vitae_cover: "/images/vitae/glass-tablet-v2.webp"
   cover_alt: "LedgerFlow invoicing, payment, and collections product overview"
   keywords: "fintech invoicing payments customers reminders reporting mobile collection product design"
   gallery:

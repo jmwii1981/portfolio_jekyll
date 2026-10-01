@@ -71,7 +71,15 @@
     font-weight: 700;
 }
 
-.main.about #about-title { font-weight: 600; }
+.main.about #about-title {
+    font-weight: 700;
+    font-size: min(7rem, 13cqi);
+    letter-spacing: -.04em;
+    line-height: 1.06;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    max-width: none;
+}
 
 .hero {
     align-items: stretch;
@@ -136,6 +144,8 @@
 }
 
 .hero .copy-wrapper {
+    // Fit the single-line welcome to its actual column, not the viewport.
+    container-type: inline-size;
     align-self: flex-start;
     display: flex;
     flex: 0 1 100%;
@@ -358,7 +368,7 @@
         margin-left: clamp(20.5rem, 33.4vw, 35rem);
         margin-top: 0;
         max-width: none;
-        width: auto;
+        width: calc(100% - clamp(20.5rem, 33.4vw, 35rem));
     }
 
     .hero .about-me-statement,
@@ -429,6 +439,9 @@
     .hero .copy-wrapper {
         flex-basis: auto;
         max-width: none;
+        // Bring the copy into the artwork's empty right margin without
+        // changing the headline fit or the text column's line lengths.
+        left: -40px;
     }
 
     .hero .h3 {

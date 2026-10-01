@@ -473,6 +473,12 @@
                 const isStuck = !isBottomDocked && Math.abs(currentTop - stickyTop) < 1.5;
 
                 projectIndex.classList.toggle('is-stuck', isStuck);
+                // Reveal at the same boundary that starts the rounded/glass morph.
+                // Keep layout measurable while excluding hidden navigation from input.
+                const isAvailable = desktopDockingQuery.matches && isStuck;
+                projectIndex.classList.toggle('is-in-view', isAvailable);
+                projectIndex.inert = !isAvailable;
+                projectIndex.setAttribute('aria-hidden', String(!isAvailable));
 
                 if (isStuck) {
                     const activationLine = Math.max(projectIndexRect.bottom + 2 * 16, window.innerHeight * 0.38);
@@ -515,6 +521,10 @@
 
             projectEntries.forEach((entry) => {
                 entry.link.addEventListener('click', (event) => {
+                    if (projectIndex.inert) {
+                        event.preventDefault();
+                        return;
+                    }
                     const hasModifier = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
 
                     if (event.defaultPrevented || event.button !== 0 || hasModifier) return;
@@ -1226,6 +1236,33 @@
             });
         };
 
+        const initializeDockReflections = () => {
+            const header = document.querySelector('.body--vitae .header');
+            if (!header) return;
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            let frame = 0;
+            const paint = () => {
+                frame = 0;
+                if (reducedMotion.matches) {
+                    header.style.removeProperty('--dock-reflection-angle');
+                    return;
+                }
+                header.style.setProperty('--dock-reflection-angle', `${105 + window.scrollY * 0.12}deg`);
+            };
+            const schedule = () => {
+                if (!frame && !reducedMotion.matches && !document.hidden) frame = requestAnimationFrame(paint);
+            };
+            window.addEventListener('scroll', schedule, { passive: true });
+            reducedMotion.addEventListener('change', () => {
+                cancelAnimationFrame(frame);
+                frame = 0;
+                paint();
+            });
+            window.addEventListener('pageshow', schedule);
+            document.addEventListener('visibilitychange', schedule);
+            paint();
+        };
+
         const safelyInitialize = (name, initializer) => {
             try {
                 initializer();
@@ -1240,6 +1277,7 @@
         safelyInitialize('mobile navigation', initializeMobileNavigation);
         const { initializeLiquidGlassNavigation } = await import(`./glass/initializeLiquidGlassNavigation.mjs${moduleVersion}`);
         safelyInitialize('dock glass', initializeLiquidGlassNavigation);
+        safelyInitialize('dock reflections', initializeDockReflections);
         safelyInitialize('project galleries', initializeProjectGalleries);
         safelyInitialize('recommendation carousel', initializeRecommendationCarousel);
         safelyInitialize('decorative videos', initializeDecorativeVideos);

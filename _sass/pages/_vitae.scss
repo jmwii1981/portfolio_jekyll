@@ -1,4 +1,5 @@
 .body--vitae {
+    --color-selection: rgba(180, 180, 180, 0.35);
     --vitae-project-index-glass-background:
         linear-gradient(
             110deg,
@@ -25,7 +26,7 @@
 
 .main.vitae {
     --vitae-project-index-height: 3.25rem;
-    --vitae-project-index-sticky-top: calc(max(var(--site-top-gutter), 3rem) + 14px);
+    --vitae-project-index-sticky-top: 10px;
 
     align-items: flex-start;
     flex-direction: column;
@@ -70,8 +71,9 @@
 .vitae-intro-artwork-image {
     display: block;
     height: auto;
+    mix-blend-mode: lighten;
     object-fit: contain;
-    transform: translate(75px, 100px) scale(1.5);
+    transform: none;
     transform-origin: center center;
     width: 100%;
 }
@@ -88,7 +90,7 @@
         align-items: start;
         display: grid;
         gap: clamp(2rem, 5vw, 6rem);
-        grid-template-columns: minmax(0, 1.15fr) minmax(14rem, 0.85fr);
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .vitae-intro-artwork {
@@ -108,7 +110,7 @@
     }
 
     .vitae-intro-artwork-image {
-        transform: translate(275px, 0) scale(1.5);
+        transform: none;
     }
 }
 
@@ -129,6 +131,7 @@
 .vitae-intro-statement {
     animation: vitae-copy-reveal 0.9s 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
     color: var(--color-text-muted-on-dark);
+    font-size: clamp(1.05rem, 1.8vw, 1.45rem);
     margin: clamp(2rem, 5vw, 4rem) 0 0;
     max-width: 39rem;
 }
@@ -137,6 +140,10 @@
     box-sizing: border-box;
     padding: 0 var(--site-frame-gutter);
     width: 100%;
+}
+
+.vitae-intro-statement + .vitae-intro-statement {
+    margin-top: 1.25em;
 }
 
 .vitae-project-index {
@@ -156,6 +163,11 @@
         box-shadow 0.35s ease;
     -webkit-backdrop-filter: blur(0) saturate(100%);
     z-index: 2;
+}
+
+.js .vitae-project-index:not(.is-in-view) {
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .vitae-project-index.is-bottom-docked,
@@ -462,7 +474,8 @@
     aspect-ratio: 4 / 3;
     display: block;
     height: auto;
-    object-fit: cover;
+    mix-blend-mode: lighten;
+    object-fit: contain;
     width: 100%;
 }
 
@@ -904,6 +917,60 @@
     padding-top: clamp(3rem, 6vw, 5rem);
 }
 
+.vitae-contact > div {
+    border-top: 1px solid rgba(255,255,255,.14);
+    padding-top: clamp(3rem, 6vw, 5rem);
+}
+
+.vitae-contact-layout {
+    display: grid;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 5rem);
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+}
+
+.vitae-contact-artwork {
+    display: block;
+    min-width: 0;
+}
+
+.vitae-contact-artwork img {
+    display: block;
+    width: 100%;
+    height: auto;
+    mix-blend-mode: lighten;
+}
+
+.vitae-contact-copy {
+    min-width: 0;
+}
+
+@media (max-width: 42.5rem) {
+    .vitae-contact-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .vitae-contact-artwork {
+        max-width: 28rem;
+        justify-self: center;
+    }
+}
+
+.vitae-contact .home-section-title {
+    margin: 0;
+}
+
+.vitae-contact-invitation {
+    color: var(--color-text-muted-on-dark);
+    font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+    margin: 2rem 0;
+    max-width: 36rem;
+}
+
+.vitae-contact-actions {
+    flex-wrap: wrap;
+}
+
 .vitae-summary-eyebrow {
     color: var(--color-text-muted-on-dark);
     display: block;
@@ -1067,6 +1134,12 @@
 @media screen and (min-width: 44.3125rem) {
     .main.vitae {
         --vitae-project-index-height: 1.625rem;
+    }
+
+    // The first project follows the subnav immediately. Extra anchor clearance
+    // would stop dot/hash navigation before the subnav reaches its reveal point.
+    .vitae-project-index + .vitae-project-summary {
+        scroll-margin-top: calc(var(--vitae-project-index-sticky-top) + var(--vitae-project-index-height));
     }
 
     .vitae-project-summaries.has-bottom-docked-index::before {

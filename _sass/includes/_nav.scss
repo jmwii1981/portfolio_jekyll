@@ -67,7 +67,7 @@
 }
 // A clear carrier with a thin refractive edge; the clay supplies the volume.
 body:not(.body--vitae) .nav-controls { --dock-inset: 6px; }
-body:not(.body--vitae) .dock-control {
+.header .dock-control {
     width: 46px;
     height: 46px;
     align-self: center;
@@ -373,7 +373,7 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
 .dock-top svg { transform-origin: center; transition: transform .18s ease; }
 body:not(.body--vitae) .dock-top svg { width: 17px; height: 17px; }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    .dock-arrow:hover svg { animation: dock-arrow-hop .48s cubic-bezier(.3,.6,.3,1) 1; }
+    .dock-arrow:hover svg { animation: dock-arrow-hop .6s ease-in-out 1; }
 }
 // Keep controls stationary on hover: their labels share the dot-label reveal.
 // Animate only the arrow glyph, never the label's containing button.
@@ -381,12 +381,11 @@ body:not(.body--vitae) .dock-top svg { width: 17px; height: 17px; }
     .dock-top:active svg { transform: translateY(1px); }
 }
 // Animate translation independently so the down-arrow retains its rotation.
-.dock-top { --arrow-hop: -3px; --arrow-settle: 1px; }
-.dock-bottom { --arrow-hop: 3px; --arrow-settle: -1px; }
+.dock-top { --arrow-hop: -1.5px; }
+.dock-bottom { --arrow-hop: 1.5px; }
 @keyframes dock-arrow-hop {
     0%, 100% { translate: 0 0; }
-    35% { translate: 0 var(--arrow-hop); }
-    70% { translate: 0 var(--arrow-settle); }
+    50% { translate: 0 var(--arrow-hop); }
 }
 .dock-menu-icon { width: 20px; height: 19px; position: relative; }
 .nav-toggle-line {
@@ -684,28 +683,6 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
         0 2px 3px rgba(255,255,255,.65),
         0 6px 18px rgba(26,36,50,.12);
 }
-.body--vitae .header.has-orb-lenses .nav-controls > .dock-glass {
-    background: transparent;
-}
-// Both dock renderers use light frosted glass; the pop-out menu stays separate.
-.body--vitae .header .nav-controls {
-    --dock-ink: #30343b;
-    .dock-control { color: var(--dock-ink); }
-}
-// Match the reference palette while retaining Vitae's own bevel and reflections.
-.body--vitae .header .nav-controls {
-    .nav-toggle:not([aria-expanded="true"]) {
-        background: linear-gradient(155deg, #cdd3d9, #bbc4cd);
-        color: #46535d;
-    }
-    .dock-home, .dock-arrow {
-        background: linear-gradient(155deg, #f1eee8, #e3dfd6);
-        color: #60605e;
-    }
-    .dock-arrow {
-        background: linear-gradient(155deg, #f0e7da, #e1d2c0);
-    }
-}
 
 // The tray fits its visible controls; its 50% anchor centers every size.
 .nav-controls > .nav-toggle { flex: none; margin: 2px; }
@@ -732,6 +709,21 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
 }
 .has-top .dock-top-slot { height: 40px; }
 .nav-controls .dock-control.dock-home { width: 34px; height: 34px; border-radius: 50%; }
+// The desktop Home control keeps the reference's soft warm-gray clay finish.
+@media (min-width: 48rem) {
+    .header .nav-controls .dock-home {
+        background: linear-gradient(155deg, #f1eee8, #e3dfd6);
+        border: 1px solid rgba(133, 115, 96, .16);
+        color: #60605e;
+        box-shadow: inset 0 1px 2px rgba(255,251,244,.6), inset 0 -1px 2px rgba(119,99,78,.13), 0 2px 4px rgba(91,76,60,.1);
+        &:hover, &:focus-visible { box-shadow: inset 0 1px 2px rgba(255,251,244,.6), inset 0 -1px 2px rgba(119,99,78,.13), 0 3px 6px rgba(91,76,60,.14); }
+        &:active { box-shadow: inset 0 2px 3px rgba(119,99,78,.2), inset 0 -1px 1px rgba(255,251,244,.4); }
+        &::before { display: none; }
+    }
+}
+@media (max-width: 47.999rem) {
+    .nav-controls .dock-home-slot { display: none; }
+}
 .dock-house-icon {
     width: 15px; height: 15px;
     background: currentColor;
@@ -797,6 +789,118 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     .dock-glass, .dock-control, .header .nav-panel::before { -webkit-backdrop-filter: none; backdrop-filter: none; }
     .header:not(.has-orb-lenses) .nav-controls > .dock-glass { background: #eef0f3; }
     .header:not(.has-orb-lenses) .nav-controls > .dock-glass::before { display: none; }
+}
+// Vitae's dock shares the page buttons' dark glass, without the light lens tint.
+@media (forced-colors: none) {
+    .body--vitae .header .nav-panel { --dock-ink: #eef1f6; }
+    .body--vitae .header .menu-glass {
+        background: var(--vitae-project-index-glass-background);
+        -webkit-backdrop-filter: var(--vitae-project-index-glass-filter);
+        backdrop-filter: var(--vitae-project-index-glass-filter);
+        border-color: rgba(200,210,220,.30);
+        box-shadow:
+            inset 1px 1px 1px rgba(230,238,245,.32),
+            inset -1px -1px 1px rgba(0,0,0,.40),
+            inset 0 0 0 2px rgba(160,180,200,.10),
+            0 .625rem 1.75rem rgba(0,0,0,.12);
+    }
+    .body--vitae .header.has-orb-lenses .menu-glass,
+    .body--vitae .header.has-orb-lenses .nav-controls > .dock-glass {
+        background: transparent;
+        -webkit-backdrop-filter: var(--dock-refraction-filter) saturate(115%);
+        backdrop-filter: var(--dock-refraction-filter) saturate(115%);
+    }
+    .body--vitae .header .nav-controls {
+        --dock-ink: #fff;
+        > .dock-glass {
+            background: rgba(5,5,6,.12);
+            -webkit-backdrop-filter: blur(8px) saturate(115%);
+            backdrop-filter: blur(8px) saturate(115%);
+            border-color: rgba(172,184,196,.28);
+            // Two distinct contours surround a clear, unfilled bevel.
+            box-shadow: inset 0 1px 1px rgba(224,232,240,.18),
+                inset 0 -1px 1px rgba(0,0,0,.45),
+                0 2px 3px rgba(0,0,0,.35),
+                0 6px 18px rgba(0,0,0,.28);
+            &::before {
+                content: "";
+                display: block;
+                position: absolute;
+                inset: 4px;
+                border-radius: 16px;
+                border: 1px solid rgba(172,184,196,.25);
+                background: transparent;
+                -webkit-backdrop-filter: none;
+                backdrop-filter: none;
+                box-shadow: 0 1px 0 rgba(0,0,0,.45), inset 0 1px 0 rgba(224,232,240,.08);
+                pointer-events: none;
+            }
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: inherit;
+                padding: 1px;
+                pointer-events: none;
+                background: conic-gradient(from var(--dock-reflection-angle, 105deg),
+                    transparent 0deg 35deg, rgba(240,244,250,.28) 65deg,
+                    transparent 95deg 205deg, rgba(240,244,250,.17) 240deg,
+                    transparent 275deg 360deg);
+                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                mask-composite: exclude;
+            }
+        }
+        .dock-control {
+            --glass-inner-highlight-height: 10%;
+            // Only the surface is translucent; never fade the control or icons.
+            background: rgba(5,5,6,.05);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            border: .75px solid var(--material-edge);
+            color: #fff;
+            box-shadow: var(--material-bevel), var(--material-shadow);
+            &::before {
+                display: block;
+                background: conic-gradient(from var(--dock-reflection-angle, 105deg),
+                    transparent 0deg 35deg, rgba(240,244,250,.36) 65deg,
+                    transparent 105deg 205deg, rgba(240,244,250,.21) 240deg,
+                    transparent 280deg 360deg);
+            }
+            &:hover, &:focus-visible {
+                background: rgba(5,5,6,.05);
+                box-shadow: var(--material-bevel), var(--material-shadow-hover);
+            }
+            &:active { box-shadow: var(--material-bevel-pressed), var(--material-shadow-pressed); }
+        }
+        .nav-toggle-line, .dock-house-icon { filter: drop-shadow(0 0 2px rgba(255,255,255,.3)); }
+        .dock-dot::before { background: #808080; opacity: 1; }
+        .dock-dot[aria-current="location"]::before,
+        .dock-dot:not([aria-current="location"]):hover::before,
+        .dock-dot:focus-visible::before,
+        .dock-dot.is-touch-target::before { background: #fff; }
+        .dock-dot-label { color: #eef1f6; background: #141518; border-color: rgba(224,233,246,.2); }
+    }
+    @media (max-width: 47.999rem) {
+        .body--vitae .header .nav-controls .dock-dots::before {
+            background: #050506;
+            border-color: rgba(224,233,246,.2);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,.22), inset 0 -1px 2px rgba(223,236,255,.14), 0 3px 6px rgba(0,0,0,.65);
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+        }
+    }
+}
+// Keep the dark treatment legible when transparency is explicitly reduced.
+@media (prefers-reduced-transparency: reduce) {
+    .body--vitae .header .nav-controls > .dock-glass,
+    .body--vitae .header .menu-glass,
+    .body--vitae .header .dock-control {
+        background: #101114;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
 }
 @media (forced-colors: active) {
     .header:not(.has-orb-lenses) .nav-controls > .dock-glass { background: Canvas; border-color: CanvasText; box-shadow: none; }

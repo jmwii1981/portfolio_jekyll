@@ -8,14 +8,10 @@ description: "Selected product design leadership work spanning merchant operatio
 <main class="main vitae" id="main-content" tabindex="-1">
     <section class="vitae-intro page-intro-frame" id="vitae-projects" aria-labelledby="vitae-intro-title" data-search-section data-search-title="Selected Projects" data-search-category="Vitae" data-search-summary="Products and systems I’ve moved forward through complete project narratives and product walkthroughs." data-search-keywords="portfolio vitae case studies product design systems teams">
         <div class="vitae-intro-copy">
-            <p class="p section-label page-intro-eyebrow vitae-intro-eyebrow">Selected projects</p>
-            <h1 class="h1 page-hero-title vitae-intro-title" id="vitae-intro-title">Products and systems I’ve moved forward.</h1>
+            <h1 class="h1 page-hero-title vitae-intro-title" id="vitae-intro-title">Leading, Shaping &amp; Shipping.</h1>
+            <p class="p vitae-intro-statement">Leading through service to my team and the people around us, I create to show what’s possible and collaborate to explore what it could become—asking questions, offering perspective, and challenging assumptions along the way.</p>
+            <p class="p vitae-intro-statement">A clear vision, creative freedom, and shared determination turn that possibility into an excellent product. I’m excited to share the outcomes of that work with you now.</p>
         </div>
-        <picture class="vitae-intro-artwork" aria-hidden="true">
-            <source type="image/avif" srcset="{{ '/images/vitae/hero-geometry.avif' | relative_url }}?v={{ site.asset_version }}">
-            <source type="image/webp" srcset="{{ '/images/vitae/hero-geometry.webp' | relative_url }}?v={{ site.asset_version }}">
-            <img class="vitae-intro-artwork-image" src="{{ '/images/vitae/hero-geometry.png' | relative_url }}?v={{ site.asset_version }}" width="1448" height="1086" alt="" decoding="async" fetchpriority="high">
-        </picture>
     </section>
 
     <section class="vitae-collection" aria-label="Selected projects">
@@ -55,32 +51,21 @@ description: "Selected product design leadership work spanning merchant operatio
         </div>
     </section>
 
-    <section class="vitae-summary" id="design-leadership-principles" data-search-section data-search-title="Product Design Leadership Principles" data-search-category="Approach" data-search-keywords="clarity complexity systems momentum leadership execution product territory">
-        <div class="vitae-summary-next" data-reveal="up">
+    <section class="vitae-summary vitae-contact" id="get-in-touch" aria-labelledby="vitae-contact-title" data-search-section data-search-title="Get in touch" data-search-category="Contact" data-search-keywords="contact connect linkedin conversation">
+        <div class="vitae-contact-layout" data-reveal="up">
+            <picture class="vitae-contact-artwork" aria-hidden="true">
+                <source type="image/webp" srcset="{{ '/images/vitae/glass-shapes-v2.webp' | relative_url }}?v={{ site.asset_version }}">
+                <img src="{{ '/images/vitae/glass-shapes-v2.png' | relative_url }}?v={{ site.asset_version }}" width="1148" height="1042" alt="" loading="lazy" decoding="async">
+            </picture>
+            <div class="vitae-contact-copy">
             <div>
-                <p class="p vitae-summary-eyebrow">What comes next</p>
-                <h2 class="h3">If your team is entering unfamiliar product territory, let’s create a clear path forward together.</h2>
+                <h2 class="h2 home-section-title" id="vitae-contact-title">Let’s get in touch</h2>
+                <p class="p vitae-contact-invitation">Tell me a little about yourself and what you're <span class="keep-together">working on.</span></p>
             </div>
-            <ul class="vitae-summary-principles" aria-label="Principles reflected across the selected work">
-                <li data-reveal="right">
-                    <p class="p vitae-summary-number" aria-hidden="true">01</p>
-                    <h3 class="h3">Clarity from collaboration and coordination</h3>
-                    <p class="p">Start with the decisions people need to make, then shape the product around helping them make those decisions well.</p>
-                </li>
-                <li data-reveal="up">
-                    <p class="p vitae-summary-number" aria-hidden="true">02</p>
-                    <h3 class="h3">Systems and teams that create momentum</h3>
-                    <p class="p">Build reusable foundations that improve quality and speed without flattening the needs of the product or the people using it.</p>
-                </li>
-                <li data-reveal="left">
-                    <p class="p vitae-summary-number" aria-hidden="true">03</p>
-                    <h3 class="h3">Leading from vision and innovation</h3>
-                    <p class="p">Align teams around a direction, stay close enough to the work to protect its intent, and help strong ideas make it into the product.</p>
-                </li>
-            </ul>
-            <div class="button-group vitae-summary-actions">
-                <a class="a button button-container secondary" href="https://www.figma.com/@jmwii1981" target="_blank" rel="noopener noreferrer" aria-label="See more in figma">See more in figma<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">See more in figma <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
-                <a class="a button button-container primary" href="{{ '/contact/' | relative_url }}" aria-label="Start a conversation">Start a conversation<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Start a conversation</span></span></a>
+            <div class="button-group vitae-contact-actions">
+                <a class="a button button-container secondary" href="{{ '/contact/' | relative_url }}" aria-label="Let’s talk">Let’s talk<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Let’s talk</span></span></a>
+                <a class="a button button-container primary about-me-linkedin-button" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="Let’s connect">Let’s connect<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><span class="about-me-linkedin-icon">{% include icon.html name="linked-in-cutout" %}</span>Let’s connect <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
+            </div>
             </div>
         </div>
     </section>

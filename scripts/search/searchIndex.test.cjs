@@ -29,7 +29,7 @@ const { join } = require('path');
         'section:/vitae/#project-vega',
         'section:/vitae/#project-avenapay',
         'section:/vitae/#project-ledgerflow',
-        'section:/vitae/#design-leadership-principles',
+        'section:/vitae/#get-in-touch',
         'section:/perspectives/#latest-medium-article',
         'section:/perspectives/#read-more-on-medium',
         'section:/links/#links',
@@ -85,7 +85,11 @@ const { join } = require('path');
     expectTopResult('invoice creation', 'page:/vitae/ledgerflow/');
     expectTopResult('wireframing accessibility', 'page:/vitae/paladin/');
     expectTopResult('payment products rates', 'page:/vitae/northstar/');
-    expectTopResult('working on', 'section:/#beyond-the-work');
+    // Both contact sections now use the same invitation copy.
+    const contactResults = rankSearchRecords(records, 'working on').map(({ id }) => id);
+    assert(['section:/#beyond-the-work', 'section:/vitae/#get-in-touch'].includes(contactResults[0]));
+    assert(contactResults.includes('section:/#beyond-the-work'));
+    assert(contactResults.includes('section:/vitae/#get-in-touch'));
     expectTopResult('Global Payments', 'section:/#recommendations');
     expectTopResult('jmwii1981', 'profile:jan-michael-wallace-ii');
     expectTopResult('link in bio', 'section:/links/#links');

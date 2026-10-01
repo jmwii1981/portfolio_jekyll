@@ -27,7 +27,14 @@ export const initializeLiquidGlassNavigation = () => {
         const nextFilter = filter.cloneNode(true);
         nextFilter.id = `nav-local-refraction-${surfaceIndex}-${++revision}`;
         // Lighten only the dock's interior tint by 20%; preserve the menu and bevel.
-        if (!isMenu) {
+        if (document.body.classList.contains('body--vitae')) {
+            // Reuse the light lens geometry without its white frosting.
+            const tint = nextFilter.querySelector('[result="interior-tint"]');
+            tint.setAttribute('flood-color', '#050506');
+            tint.setAttribute('flood-opacity', isMenu ? '0.60' : '0.12');
+            nextFilter.querySelector('[result="bevel-tint"]').setAttribute('flood-opacity', '0');
+            nextFilter.querySelector('[result="frosted"]').setAttribute('stdDeviation', isMenu ? '24' : '8');
+        } else if (!isMenu) {
             nextFilter.querySelector('[result="interior-tint"]').setAttribute('flood-opacity', '0.64');
         }
         // Keep the filter region and map in the same local pixel coordinate
@@ -94,10 +101,12 @@ export const initializeLiquidGlassNavigation = () => {
         frame = requestAnimationFrame(syncLensBounds);
     };
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    const reducedTransparency = matchMedia('(prefers-reduced-transparency: reduce)');
+    const forcedColors = matchMedia('(forced-colors: active)');
     const chromium = /chrome|chromium|edg\//i.test(navigator.userAgent);
     const sync = () => {
         header?.classList.toggle('has-orb-lenses',
-            chromium && !reducedMotion.matches
+            chromium && !reducedMotion.matches && !reducedTransparency.matches && !forcedColors.matches
             && CSS.supports('backdrop-filter', 'url("#nav-local-refraction")'));
         syncLensBounds();
     };
@@ -107,6 +116,8 @@ export const initializeLiquidGlassNavigation = () => {
     stateObserver.observe(controls, { attributes: true, attributeFilter: ['class'] });
     controls.addEventListener('transitionend', queueLensBounds);
     reducedMotion.addEventListener('change', sync);
+    reducedTransparency.addEventListener('change', sync);
+    forcedColors.addEventListener('change', sync);
     sync();
     });
 };
