@@ -612,6 +612,31 @@
     &:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 }
 
+// Scope the brighter control labels to the portfolio overview, not case studies.
+body:has(.vitae-intro) {
+    --vitae-control-ink: rgba(238, 241, 246, 0.95);
+
+    a:not(.button-container),
+    button:not(.button-container) {
+        color: var(--vitae-control-ink);
+    }
+
+    a:not(.button-container):hover,
+    a:not(.button-container):focus-visible,
+    button:not(.button-container):hover,
+    button:not(.button-container):focus-visible {
+        color: #fff;
+    }
+}
+
+.vitae-intro ~ section .vitae-editorial-link {
+    color: var(--vitae-control-ink, rgba(238, 241, 246, 0.88));
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+
+    &:hover,
+    &:focus-visible { color: #fff; }
+}
+
 .vitae-project-summary .project-story-actions { align-items: center; }
 
 // The scroll controller owns motion; never stack a CSS entrance on top of it.

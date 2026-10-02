@@ -33,14 +33,16 @@ description: "Selected product design leadership work spanning merchant operatio
             {% assign project = site.data.vitae_projects[project_slug] %}
             {% assign project_preview = project.vitae_cover | default: project.cover %}
             {% assign project_highlight = project.highlights | first %}
+            {% assign project_button_label = 'Explore project' %}
+            {% if project_slug == 'vega' %}{% assign project_button_label = 'Explore Vega' %}{% elsif project_slug == 'avenapay' %}{% assign project_button_label = 'Introducing AvenaPay' %}{% elsif project_slug == 'ledgerflow' %}{% assign project_button_label = 'Discover LedgerFlow' %}{% endif %}
             <article class="vitae-project-summary" id="project-{{ project_slug }}" aria-labelledby="{{ project_slug }}-title" data-search-section data-search-title="{{ project.name }}" data-search-category="Vitae" data-search-summary="{{ project.introduction }}" data-search-keywords="{{ project.keywords }}">
                 <header class="vitae-project-summary-copy" data-reveal="up">
                     <h2 class="h3 project-story-title" id="{{ project_slug }}-title"><a class="a project-story-title-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}">{{ project.headline }}</a></h2>
                 </header>
                 <div class="vitae-project-summary-detail" data-reveal="up">
-                    <p class="p project-story-intro">{% if project_slug == 'vega' %}{{ project.introduction | replace_first: 'Vega', '<strong class="vitae-intro-emphasis">Vega</strong>' }}{% elsif project_slug == 'avenapay' %}<strong class="vitae-intro-emphasis">AvenaPay</strong>–{{ project.introduction }}{% else %}{{ project.introduction }}{% endif %}</p>
+                    <p class="p project-story-intro">{% if project_slug == 'vega' %}{{ project.introduction | replace_first: 'Vega', '<strong class="vitae-intro-emphasis">Vega</strong>' }}{% elsif project_slug == 'avenapay' %}{{ project.introduction | replace_first: 'AvenaPay', '<strong class="vitae-intro-emphasis">AvenaPay</strong>' }}{% elsif project_slug == 'ledgerflow' %}{{ project.introduction | replace_first: 'LedgerFlow', '<strong class="vitae-intro-emphasis">LedgerFlow</strong>' }}{% else %}{{ project.introduction }}{% endif %}</p>
                     <div class="button-group project-story-actions">
-                        <a class="a button button-container secondary project-story-page-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}" aria-label="Explore project">Explore project<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Explore project</span></span></a>
+                        <a class="a button button-container secondary project-story-page-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}" aria-label="{{ project_button_label }}">{{ project_button_label }}<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">{{ project_button_label }}</span></span></a>
                         {% if project.external_url %}
                         <a class="a vitae-editorial-link" href="{{ project.external_url }}" target="_blank" rel="noopener noreferrer">{{ project.external_label }} <span aria-hidden="true">↗</span></a>
                         {% endif %}
@@ -63,7 +65,7 @@ description: "Selected product design leadership work spanning merchant operatio
             </picture>
             <div class="vitae-contact-copy">
             <div>
-                <p class="p vitae-contact-invitation">Tell me a little about yourself and what you're <span class="keep-together">working on.</span></p>
+                <p class="p vitae-contact-invitation">Tell me what’s on your mind. It doesn’t need a working title.</p>
             </div>
             <div class="button-group vitae-contact-actions">
                 <a class="a button button-container secondary" href="{{ '/contact/' | relative_url }}" aria-label="Let’s talk">Let’s talk<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Let’s talk</span></span></a>

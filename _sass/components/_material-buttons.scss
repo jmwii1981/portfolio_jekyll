@@ -175,6 +175,8 @@ body:not(:has(.main.vitae)) .button-container {
         border-width: 0.75px;
         background-color: transparent;
         transition:
+            color var(--button-material-press-duration) var(--material-ease),
+            text-shadow var(--button-material-press-duration) var(--material-ease),
             background-color var(--button-material-duration) var(--material-ease),
             box-shadow var(--button-material-duration) var(--material-ease),
             border-color var(--button-material-duration) ease;
@@ -182,7 +184,7 @@ body:not(:has(.main.vitae)) .button-container {
 
     .button-face::before {
         // Uneven reflected light around the glass rim, with clear gaps.
-        background: conic-gradient(from 105deg,
+        background: conic-gradient(from var(--dock-reflection-angle, 105deg),
             transparent 0deg, rgba(240, 247, 255, 0.28) 65deg,
             transparent 105deg, transparent 160deg,
             rgba(240, 247, 255, 0.12) 200deg, transparent 240deg,
@@ -217,10 +219,29 @@ body:not(:has(.main.vitae)) .button-container {
         &:hover:not(:active):not(:disabled) .button-face {
             background-color: rgba(255, 255, 255, 0.02);
         }
-        &:hover .button-face::after { transform: translateY(10%); }
+        &:hover .button-face::after {
+            transform: translate(var(--glass-reflection-x, 0px), calc(10% + var(--glass-reflection-y, 0px)));
+        }
     }
 
-    &:active .button-face::after { transform: translateY(-15%); }
+    .button-face,
+    &:hover .button-face,
+    &:focus-visible .button-face {
+        color: var(--vitae-control-ink, rgba(238, 241, 246, 0.88));
+        text-shadow: none;
+    }
+
+    &:active:not(:disabled) .button-face {
+        // Illuminate only the label, leaving the glass and reflection intact.
+        color: #fff;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    }
+
+    &:active .button-face::after {
+        // The reflection spans 20% of this layer (10% ellipse radius).
+        // Raise it by two-thirds of that span from its hover position.
+        transform: translate(var(--glass-reflection-x, 0px), calc(-3.333% + var(--glass-reflection-y, 0px)));
+    }
 }
 
 // Icon-only controls share the same glass layers without changing hit targets.

@@ -1202,17 +1202,18 @@
         };
 
         const initializeDockReflections = () => {
-            const header = document.querySelector('.body--vitae .header');
-            if (!header) return;
+            // Share the scroll-driven light angle with both dock and page buttons.
+            const reflectionSurface = document.querySelector('.body--vitae');
+            if (!reflectionSurface) return;
             const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
             let frame = 0;
             const paint = () => {
                 frame = 0;
                 if (reducedMotion.matches) {
-                    header.style.removeProperty('--dock-reflection-angle');
+                    reflectionSurface.style.removeProperty('--dock-reflection-angle');
                     return;
                 }
-                header.style.setProperty('--dock-reflection-angle', `${105 + window.scrollY * 0.12}deg`);
+                reflectionSurface.style.setProperty('--dock-reflection-angle', `${105 + window.scrollY * 0.12}deg`);
             };
             const schedule = () => {
                 if (!frame && !reducedMotion.matches && !document.hidden) frame = requestAnimationFrame(paint);
@@ -1226,6 +1227,36 @@
             window.addEventListener('pageshow', schedule);
             document.addEventListener('visibilitychange', schedule);
             paint();
+        };
+
+        const initializeGlassButtonReflections = () => {
+            const controls = document.querySelectorAll('.main.vitae .button-container, .body--vitae .dock-control');
+            const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            controls.forEach(control => {
+                const reset = () => {
+                    control.style.removeProperty('--glass-reflection-x');
+                    control.style.removeProperty('--glass-reflection-y');
+                };
+                control.addEventListener('pointermove', event => {
+                    if (!finePointer.matches || reducedMotion.matches || event.pointerType === 'touch'
+                        || control.matches(':disabled, [aria-disabled="true"]') || control.closest('[inert]')) {
+                        reset();
+                        return;
+                    }
+                    // Measure the stationary hit target, never the moving reflection.
+                    const rect = control.getBoundingClientRect();
+                    if (!rect.width || !rect.height) return;
+                    const x = Math.max(-1, Math.min(1, (event.clientX - rect.left) / rect.width * 2 - 1));
+                    const y = Math.max(-1, Math.min(1, (event.clientY - rect.top) / rect.height * 2 - 1));
+                    control.style.setProperty('--glass-reflection-x', `${(-x * 8).toFixed(2)}px`);
+                    control.style.setProperty('--glass-reflection-y', `${(-y * 4).toFixed(2)}px`);
+                }, { passive: true });
+                control.addEventListener('pointerleave', reset);
+                control.addEventListener('pointercancel', reset);
+                reducedMotion.addEventListener('change', reset);
+                finePointer.addEventListener('change', reset);
+            });
         };
 
         const initializeVitaeEntrances = () => {
@@ -1367,6 +1398,7 @@
         const { initializeLiquidGlassNavigation } = await import(`./glass/initializeLiquidGlassNavigation.mjs${moduleVersion}`);
         safelyInitialize('dock glass', initializeLiquidGlassNavigation);
         safelyInitialize('dock reflections', initializeDockReflections);
+        safelyInitialize('glass button reflections', initializeGlassButtonReflections);
         safelyInitialize('project galleries', initializeProjectGalleries);
         safelyInitialize('recommendation carousel', initializeRecommendationCarousel);
         safelyInitialize('decorative videos', initializeDecorativeVideos);
