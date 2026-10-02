@@ -875,11 +875,14 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
             &:active { box-shadow: var(--material-bevel-pressed), var(--material-shadow-pressed); }
         }
         .nav-toggle-line, .dock-house-icon { filter: drop-shadow(0 0 2px rgba(255,255,255,.3)); }
-        .dock-dot::before { background: #808080; opacity: 1; }
-        .dock-dot[aria-current="location"]::before,
+        .dock-dot::before { background: #363A40; opacity: 1; }
         .dock-dot:not([aria-current="location"]):hover::before,
         .dock-dot:focus-visible::before,
         .dock-dot.is-touch-target::before { background: #fff; }
+        .dock-dot[aria-current="location"]::before {
+            background: #E0F2FF;
+            box-shadow: 0 0 3px rgba(224,242,255,.45), 0 0 7px rgba(184,216,240,.22);
+        }
         .dock-dot-label { color: #eef1f6; background: #141518; border-color: rgba(224,233,246,.2); }
     }
     @media (max-width: 47.999rem) {
@@ -902,6 +905,17 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
         backdrop-filter: none;
     }
 }
+@keyframes dock-active-glow {
+    0%, 100% { box-shadow: 0 0 2px rgba(224,242,255,.3), 0 0 5px rgba(184,216,240,.12); }
+    50% { box-shadow: 0 0 4px rgba(224,242,255,.65), 0 0 10px rgba(184,216,240,.32); }
+}
+
+@media (forced-colors: none) and (prefers-reduced-motion: no-preference) {
+    .body--vitae .header .dock-dot[aria-current="location"]::before {
+        animation: dock-active-glow 4.8s ease-in-out infinite;
+    }
+}
+
 @media (forced-colors: active) {
     .header:not(.has-orb-lenses) .nav-controls > .dock-glass { background: Canvas; border-color: CanvasText; box-shadow: none; }
     .header:not(.has-orb-lenses) .nav-controls > .dock-glass::before { display: none; }

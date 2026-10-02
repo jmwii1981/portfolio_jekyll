@@ -275,8 +275,6 @@
             const projectIndex = document.querySelector('.vitae-project-index');
             const projectList = projectIndex?.querySelector('.vitae-project-index-list');
             const projectSummaries = projectIndex?.closest('.vitae-project-summaries');
-            const previousProjectButton = projectIndex?.querySelector('[data-project-index-previous]');
-            const nextProjectButton = projectIndex?.querySelector('[data-project-index-next]');
             const projectLinks = Array.from(projectIndex?.querySelectorAll('a[href^="#project-"]') || []);
             const projectEntries = projectLinks.map((link) => {
                 const projectId = link.getAttribute('href')?.slice(1);
@@ -302,28 +300,6 @@
                 entry.heading.tabIndex = -1;
             });
 
-            const updateProjectScrollControls = () => {
-                const maximumScrollLeft = Math.max(0, projectList.scrollWidth - projectList.clientWidth);
-                const hasOverflow = maximumScrollLeft > 1;
-
-                if (previousProjectButton) {
-                    previousProjectButton.hidden = !hasOverflow || projectList.scrollLeft <= 1;
-                }
-
-                if (nextProjectButton) {
-                    nextProjectButton.hidden = !hasOverflow || projectList.scrollLeft >= maximumScrollLeft - 1;
-                }
-            };
-
-            const scrollProjectList = (direction) => {
-                const step = projectEntries[0]?.item.offsetWidth || projectList.clientWidth * 0.5;
-
-                projectList.scrollBy({
-                    behavior: reducedMotion ? 'auto' : 'smooth',
-                    left: direction * step
-                });
-            };
-
             const triggerProjectIndicatorSheen = () => {
                 if (reducedMotion) return;
 
@@ -338,8 +314,7 @@
                 activeProjectId = null;
             };
 
-            const setActiveProject = (entry, { ensureVisible = false } = {}) => {
-                const hasChanged = activeProjectId !== entry.projectId;
+            const setActiveProject = (entry) => {
 
                 const itemRect = entry.item.getBoundingClientRect();
                 const listRect = projectList.getBoundingClientRect();
@@ -355,14 +330,6 @@
                 projectList.classList.add('has-active-project');
                 activeProjectId = entry.projectId;
 
-                if ((hasChanged || ensureVisible) && projectList.scrollWidth > projectList.clientWidth) {
-                    const centeredLeft = entry.item.offsetLeft - ((projectList.clientWidth - entry.item.offsetWidth) / 2);
-
-                    projectList.scrollTo({
-                        behavior: reducedMotion ? 'auto' : 'smooth',
-                        left: Math.max(0, centeredLeft)
-                    });
-                }
             };
 
             const cancelProjectNavigation = () => {
@@ -378,7 +345,7 @@
             const scrollToProject = (entry) => {
                 cancelProjectNavigation();
                 navigationEntry = entry;
-                setActiveProject(entry, { ensureVisible: true });
+                setActiveProject(entry);
 
                 const currentNavigationToken = ++navigationToken;
                 const destinationHash = `#${entry.projectId}`;
@@ -502,17 +469,12 @@
             };
 
             const handleProjectIndexResize = () => {
-                updateProjectScrollControls();
                 requestProjectIndexUpdate();
                 window.requestAnimationFrame(() => {
-                    updateProjectScrollControls();
                     requestProjectIndexUpdate();
                 });
             };
 
-            previousProjectButton?.addEventListener('click', () => scrollProjectList(-1));
-            nextProjectButton?.addEventListener('click', () => scrollProjectList(1));
-            projectList.addEventListener('scroll', updateProjectScrollControls, { passive: true });
             projectList.addEventListener('animationend', (event) => {
                 if (event.animationName === 'vitae-project-indicator-sheen') {
                     projectList.classList.remove('is-sheening');
@@ -545,7 +507,6 @@
                 if (scrollKeys.includes(event.key)) cancelProjectNavigation();
             });
 
-            updateProjectScrollControls();
             updateProjectIndexState();
             // Settle initial docking and restored scroll position before enabling motion.
             const enableProjectIndexMotion = () => {
@@ -564,7 +525,6 @@
             // The sticky width transition resizes the list without a window resize.
             if (typeof window.ResizeObserver === 'function') {
                 const projectListObserver = new ResizeObserver(() => {
-                    updateProjectScrollControls();
                     const activeEntry = projectEntries.find((entry) => entry.projectId === activeProjectId);
                     if (activeEntry) setActiveProject(activeEntry);
                 });
