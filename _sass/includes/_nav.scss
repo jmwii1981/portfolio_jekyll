@@ -1,4 +1,13 @@
 .nav-container { position: relative; }
+// Navigation controls should not open system link previews or text callouts.
+.nav-controls,
+.nav-controls *,
+.nav-panel a,
+.nav-panel button {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
 .nav-controls {
     --dock-inset: 6px;
     display: flex;

@@ -550,6 +550,11 @@
             const toggle = container?.querySelector('.nav-toggle');
             const nav = container?.querySelector('.nav');
             if (!toggle || !nav) return;
+            // Cancel Safari's pressure-triggered preview/Look Up without
+            // interfering with normal clicks, taps, or island pointer dragging.
+            container.addEventListener('webkitmouseforcewillbegin', (event) => {
+                event.preventDefault();
+            }, { capture: true, passive: false });
             const panel = container.querySelector('.nav-panel');
             const mobileDock = window.matchMedia('(max-width: 47.999rem)');
             const syncIslandAvailability = () => {
@@ -1223,6 +1228,129 @@
             paint();
         };
 
+        const initializeVitaeEntrances = () => {
+            // Animate individual visual items, never their shared layout wrappers.
+            const targets = [...document.querySelectorAll([
+                '.vitae-project-summary .project-story-title',
+                '.vitae-project-summary .vitae-project-tag',
+                '.vitae-project-summary .project-story-intro',
+                '.vitae-project-summary .project-story-actions > a',
+                '.vitae-project-summary-visual',
+                '.vitae-contact #vitae-contact-title',
+                '.vitae-contact-invitation',
+                '.vitae-contact-actions > a'
+            ].join(', '))];
+            if (!targets.length) return;
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            let measurements = [];
+            const rocket = document.querySelector('.vitae-contact-artwork img');
+            let rocketRange = null;
+            let frame = 0;
+            const interactiveTargets = new Set(targets.filter(element =>
+                element.matches('a, button, input, select, textarea, [tabindex]') ||
+                element.querySelector('a, button, input, select, textarea, [tabindex]')
+            ));
+            const originalInert = new Map(targets.map(element => [element, element.inert]));
+            const setInteractive = (element, enabled) => {
+                element.style.pointerEvents = enabled ? '' : 'none';
+                if (interactiveTargets.has(element)) {
+                    // Inert also blocks keyboard focus and descendant links,
+                    // unlike pointer-events alone.
+                    element.inert = originalInert.get(element) || !enabled;
+                }
+            };
+            targets.forEach(element => element.classList.add('vitae-scroll-item'));
+            const check = () => {
+                frame = 0;
+                const scroll = Math.max(0, window.scrollY);
+                if (rocket && rocketRange) {
+                    const progress = Math.max(0, Math.min(1,
+                        (scroll - rocketRange.start) / rocketRange.distance));
+                    rocket.style.transform = reducedMotion.matches ? 'none' : `scale(${1 + .2 * progress})`;
+                }
+                measurements.forEach(({ element, start, distance, x, y }) => {
+                    if (reducedMotion.matches) {
+                        element.style.removeProperty('translate');
+                        element.style.removeProperty('opacity');
+                        setInteractive(element, true);
+                        return;
+                    }
+                    // One fixed entrance range in document space. After its
+                    // end, progress stays at 1 even when the item leaves above
+                    // the viewport. Only crossing that range upward reverses it.
+                    const progress = Math.max(0, Math.min(1, (scroll - start) / distance));
+                    const eased = progress * progress * (3 - 2 * progress);
+                    const remaining = 1 - eased;
+                    element.style.translate = `${x * remaining}px ${y * remaining}px`;
+                    element.style.opacity = String(eased);
+                    setInteractive(element, eased >= .9);
+                });
+            };
+            const measure = () => {
+                // Measure the unanimated layout in one read phase. No animated
+                // rectangle or offset-parent change can affect the next frame.
+                targets.forEach(element => element.style.removeProperty('translate'));
+                const scroll = window.scrollY;
+                const viewport = window.innerHeight;
+                const compact = window.innerWidth < 768;
+                if (rocket) {
+                    // Measure the stationary picture/section, not the scaling image.
+                    const picture = rocket.parentElement.getBoundingClientRect();
+                    const section = rocket.closest('section').getBoundingClientRect();
+                    const start = picture.top + scroll - viewport;
+                    const end = section.bottom + scroll - viewport;
+                    rocketRange = { start, distance: Math.max(1, end - start) };
+                }
+                // All items in a section must settle before its first action
+                // crosses the bottom edge, including staggered secondary links.
+                const actionDeadlines = new Map();
+                targets.filter(element => element.matches('.button-group > a')).forEach(element => {
+                    const section = element.closest('article, section');
+                    const deadline = element.getBoundingClientRect().top + scroll - viewport - 8;
+                    actionDeadlines.set(section, Math.min(actionDeadlines.get(section) ?? Infinity, deadline));
+                });
+                measurements = targets.map(element => {
+                    const documentTop = element.getBoundingClientRect().top + scroll;
+                    const isBadge = element.matches('.vitae-project-tag');
+                    const isAction = element.matches('.button-group > a');
+                    const isImage = element.matches('figure, picture');
+                    const sectionElement = element.closest('article, section');
+                    const section = sectionElement.id;
+                    let x = 0;
+                    let y = isImage ? 48 : 30;
+                    if (!compact) {
+                        if (section === 'project-vega') { x = isImage ? -48 : 32; y = 0; }
+                        if (section === 'project-avenapay' && !isImage) { x = 32; y = 0; }
+                        if (section === 'project-ledgerflow') { x = isImage ? 48 : -32; y = 0; }
+                        if (section === 'get-in-touch' && isImage) { x = 48; y = 0; }
+                    }
+                    const strength = isBadge ? .5 : isAction ? .7 : 1;
+                    const actionIndex = isAction ? [...element.parentElement.children].indexOf(element) : 0;
+                    const delay = actionIndex * 18;
+                    const distance = viewport * (isImage ? .4 : .32);
+                    const naturalStart = documentTop - viewport * .9 + delay;
+                    const end = Math.min(naturalStart + distance, actionDeadlines.get(sectionElement) ?? Infinity);
+                    return { element, x: x * strength, y: y * strength,
+                        start: end - distance, distance };
+                });
+                check();
+            };
+            const schedule = () => { if (!frame) frame = requestAnimationFrame(check); };
+            window.addEventListener('scroll', schedule, { passive: true });
+            window.addEventListener('resize', measure, { passive: true });
+            window.addEventListener('load', measure, { once: true });
+            window.addEventListener('pageshow', measure);
+            document.addEventListener('focusin', schedule);
+            document.addEventListener('focusout', schedule);
+            document.fonts?.ready.then(measure);
+            reducedMotion.addEventListener('change', measure);
+            if (typeof ResizeObserver === 'function') {
+                const observer = new ResizeObserver(measure);
+                observer.observe(document.querySelector('main.vitae'));
+            }
+            measure();
+        };
+
         const safelyInitialize = (name, initializer) => {
             try {
                 initializer();
@@ -1234,6 +1362,7 @@
         safelyInitialize('contact form enhancement', initializeContactForm);
         safelyInitialize('privacy preferences', initializeConsentBanner);
         safelyInitialize('vitae project index', initializeVitaeProjectIndex);
+        safelyInitialize('vitae section entrances', initializeVitaeEntrances);
         safelyInitialize('mobile navigation', initializeMobileNavigation);
         const { initializeLiquidGlassNavigation } = await import(`./glass/initializeLiquidGlassNavigation.mjs${moduleVersion}`);
         safelyInitialize('dock glass', initializeLiquidGlassNavigation);

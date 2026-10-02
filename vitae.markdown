@@ -36,14 +36,13 @@ description: "Selected product design leadership work spanning merchant operatio
             <article class="vitae-project-summary" id="project-{{ project_slug }}" aria-labelledby="{{ project_slug }}-title" data-search-section data-search-title="{{ project.name }}" data-search-category="Vitae" data-search-summary="{{ project.introduction }}" data-search-keywords="{{ project.keywords }}">
                 <header class="vitae-project-summary-copy" data-reveal="up">
                     <h2 class="h3 project-story-title" id="{{ project_slug }}-title"><a class="a project-story-title-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}">{{ project.headline }}</a></h2>
-                    <p class="p vitae-project-tag">{{ project.discipline }}</p>
                 </header>
                 <div class="vitae-project-summary-detail" data-reveal="up">
                     <p class="p project-story-intro">{% if project_slug == 'vega' %}{{ project.introduction | replace_first: 'Vega', '<strong class="vitae-intro-emphasis">Vega</strong>' }}{% elsif project_slug == 'avenapay' %}<strong class="vitae-intro-emphasis">AvenaPay</strong>–{{ project.introduction }}{% else %}{{ project.introduction }}{% endif %}</p>
                     <div class="button-group project-story-actions">
                         <a class="a button button-container secondary project-story-page-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}" aria-label="Explore project">Explore project<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Explore project</span></span></a>
                         {% if project.external_url %}
-                        <a class="a button button-container primary project-story-link" href="{{ project.external_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ project.external_label }}">{{ project.external_label }}<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">{{ project.external_label }} <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
+                        <a class="a vitae-editorial-link" href="{{ project.external_url }}" target="_blank" rel="noopener noreferrer">{{ project.external_label }} <span aria-hidden="true">↗</span></a>
                         {% endif %}
                     </div>
                 </div>
@@ -68,7 +67,7 @@ description: "Selected product design leadership work spanning merchant operatio
             </div>
             <div class="button-group vitae-contact-actions">
                 <a class="a button button-container secondary" href="{{ '/contact/' | relative_url }}" aria-label="Let’s talk">Let’s talk<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Let’s talk</span></span></a>
-                <a class="a button button-container primary about-me-linkedin-button" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="Let’s connect">Let’s connect<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><span class="about-me-linkedin-icon">{% include icon.html name="linked-in-cutout" %}</span>Let’s connect <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
+                <a class="a vitae-editorial-link" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">Let’s connect <span aria-hidden="true">↗</span></a>
             </div>
             </div>
         </div>

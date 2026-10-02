@@ -118,7 +118,7 @@
     .vitae-intro > .vitae-intro-title {
         grid-column: 1 / -1;
         max-width: 100%;
-        font-size: clamp(3.5rem, 10.5vw, 10rem);
+        font-size: clamp(3.25rem, 7.5vw, 7rem);
         line-height: 1.06;
         letter-spacing: -0.045em;
         text-wrap: initial;
@@ -150,6 +150,10 @@
 
 @media (min-width: 60rem) {
     .vitae-intro-title-finish { display: block; }
+
+    .vitae-intro-copy {
+        margin-top: 100px;
+    }
 
     .vitae-intro {
         overflow: visible;
@@ -188,7 +192,7 @@
 .vitae-intro-statement {
     animation: vitae-copy-reveal 0.9s 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
     color: var(--color-text-muted-on-dark);
-    font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
     margin: clamp(2rem, 5vw, 4rem) 0 0;
     max-width: 39rem;
 }
@@ -517,8 +521,8 @@
 }
 
 .vitae-project-summary + .vitae-project-summary {
-    border-top-color: rgba(255, 255, 255, 0.14);
-    margin-top: clamp(6rem, 11vw, 10rem);
+    border-top-color: transparent;
+    margin-top: clamp(5rem, 9vw, 8rem);
 }
 
 .vitae-project-summary-copy {
@@ -527,7 +531,7 @@
 }
 
 .vitae-project-summary .project-story-title {
-    font-size: clamp(2.4rem, 5.5vw, 5.5rem);
+    font-size: clamp(2.25rem, 4.5vw, 4.5rem);
     line-height: 1.08;
     letter-spacing: -0.04em;
     text-wrap: balance;
@@ -536,6 +540,33 @@
 .vitae-project-summary-detail {
     align-self: center;
     min-width: 0;
+}
+
+#project-ledgerflow {
+    grid-template-columns: minmax(0, 1fr);
+
+    .vitae-project-summary-copy {
+        grid-row: 1;
+        justify-self: center;
+        text-align: center;
+    }
+
+    .vitae-project-summary-visual {
+        grid-column: 1;
+        grid-row: 2;
+        width: min(100%, 32rem);
+        justify-self: center;
+    }
+
+    .vitae-project-summary-detail {
+        grid-column: 1;
+        grid-row: 3;
+        justify-self: center;
+        max-width: 32rem;
+        text-align: center;
+    }
+
+    .project-story-actions { justify-content: center; }
 }
 
 .vitae-project-tag {
@@ -547,7 +578,7 @@
     padding: 0.45rem 0.85rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 999px;
-    background: #292C30;
+    background: rgba(255, 255, 255, 0.05);
     color: #DADDE1;
     font-size: 0.75rem;
     font-weight: 600;
@@ -558,9 +589,39 @@
 
 .vitae-project-summary-detail .project-story-intro {
     margin-top: 0;
-    font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
     max-width: 32rem;
     text-wrap: pretty;
+}
+
+.vitae-editorial-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0.25rem 0.5rem;
+    color: var(--color-paper);
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.3);
+    text-underline-offset: 0.3em;
+    transition: text-decoration-color 0.2s ease;
+    &:hover { text-decoration-color: currentColor; }
+    &:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+}
+
+.vitae-project-summary .project-story-actions { align-items: center; }
+
+// The scroll controller owns motion; never stack a CSS entrance on top of it.
+.vitae-collection [data-reveal],
+.vitae-contact [data-reveal] {
+    animation: none;
+}
+.vitae .vitae-scroll-item {
+    // Hover decoration may ease, but scroll position must never trail a timer.
+    transition-property: color, background-color, border-color, box-shadow, text-shadow;
 }
 
 .vitae-project-summary-visual {
@@ -575,7 +636,7 @@
     mix-blend-mode: lighten;
     object-fit: contain;
     width: 100%;
-    max-height: 36rem;
+    max-height: 32rem;
 }
 
 .project-story {
@@ -1017,7 +1078,7 @@
 }
 
 .vitae-contact > div {
-    border-top: 1px solid rgba(255,255,255,.14);
+    border-top: 0;
     padding-top: clamp(3rem, 6vw, 5rem);
 }
 
@@ -1037,20 +1098,21 @@
     grid-column: 2;
     grid-row: 1 / span 2;
     position: relative;
-    aspect-ratio: 1 / 1.16;
-    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    // The enlarged image extends below this square; keep its reflection visible.
+    overflow: visible;
     margin-top: 0;
 }
 
 .vitae-contact-artwork img {
     display: block;
-    width: 200%;
+    width: 184%;
     max-width: none;
     height: auto;
     mix-blend-mode: lighten;
     position: absolute;
-    left: -50%;
-    top: -8%;
+    left: -42%;
+    top: -12%;
 }
 
 .vitae-contact-copy {
@@ -1090,7 +1152,7 @@
     z-index: 1;
     margin: 0;
     max-width: 12ch;
-    font-size: clamp(3rem, 10.5vw, 10rem);
+    font-size: clamp(2.75rem, 7.5vw, 7rem);
     letter-spacing: -0.045em;
     line-height: 1.06;
     text-wrap: balance;
@@ -1098,7 +1160,7 @@
 
 .vitae-contact-invitation {
     color: var(--color-text-muted-on-dark);
-    font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
     margin: 0 0 2rem;
     max-width: 32ch;
     text-wrap: pretty;
@@ -1108,6 +1170,7 @@
 
 .vitae-contact-actions {
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .vitae-summary-eyebrow {
@@ -1373,53 +1436,91 @@
 
     // Each project gets its own composition within the shared editorial system.
     #project-vega .vitae-project-summary-copy {
-        max-width: 68rem;
+        max-width: 76rem;
+    }
+
+    #project-vega .project-story-title {
+        font-size: clamp(3rem, 5.4vw, 5.25rem);
+        max-width: 20ch;
+    }
+
+    #project-vega .vitae-project-summary-detail {
+        align-self: center;
+        position: relative;
+        top: -50px;
+        padding-bottom: 0;
     }
 
     #project-avenapay {
-        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
         row-gap: 2.5rem;
+        grid-template-rows: auto 1fr;
         align-items: start;
     }
 
     #project-avenapay .vitae-project-summary-copy {
-        grid-column: 1;
+        grid-column: 2;
         grid-row: 1;
     }
 
     #project-avenapay .project-story-title {
-        font-size: clamp(3rem, 4.5vw, 4.75rem);
-        max-width: 18ch;
+        font-size: clamp(2.75rem, 3.8vw, 3.75rem);
+        max-width: 16ch;
         text-wrap: balance;
     }
 
     #project-avenapay .vitae-project-summary-detail {
-        grid-column: 1;
+        grid-column: 2;
         grid-row: 2;
         align-self: start;
     }
 
     #project-avenapay .vitae-project-summary-visual {
-        grid-column: 2;
+        grid-column: 1;
         grid-row: 1 / span 2;
         align-self: center;
+        width: 85%;
+        justify-self: center;
     }
 
     #project-avenapay .vitae-project-summary-visual img {
         aspect-ratio: 3 / 4;
-        max-height: 42rem;
+        max-height: 34rem;
+    }
+
+    #project-ledgerflow {
+        grid-template-columns: minmax(0, 1fr);
     }
 
     #project-ledgerflow .vitae-project-summary-copy {
-        justify-self: end;
-        text-align: right;
-        max-width: 58rem;
-        padding-right: 1.5rem;
+        justify-self: center;
+        text-align: center;
+        max-width: 55rem;
+        padding-right: 0;
+    }
+
+    #project-ledgerflow .project-story-title {
+        font-size: clamp(2.75rem, 4vw, 4rem);
+    }
+
+    #project-ledgerflow .vitae-project-summary-detail {
+        grid-column: 1;
+        grid-row: 3;
+        justify-self: center;
+        padding-right: 0;
+        max-width: 32rem;
     }
 
     #project-ledgerflow .vitae-project-summary-visual {
-        width: 86%;
+        grid-column: 1;
+        grid-row: 2;
+        width: min(100%, 32rem);
         justify-self: center;
+    }
+
+    #project-ledgerflow .vitae-project-summary-visual img {
+        aspect-ratio: 3 / 4;
+        max-height: 32rem;
     }
 
     .project-story-overview {
