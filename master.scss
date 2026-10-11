@@ -27,6 +27,7 @@
 
 // includes
 @import "includes/footer";
+@import "components/profile-preview";
 @import "includes/header";
 @import "includes/nav";
 
@@ -41,6 +42,8 @@
 @import "pages/vitae";
 @import "global/button-material-tokens";
 @import "components/material-buttons";
+@import "global/focus";
+@import "global/mobile-type";
 
 @media (forced-colors: active) {
     .a:focus-visible,

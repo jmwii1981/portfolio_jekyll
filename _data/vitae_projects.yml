@@ -63,11 +63,11 @@ vega:
     As design system lead and product design manager, I kicked off and led Vega’s creation and evolution across reusable components, accessibility standards, design tokens, documentation, governance, and Figma-to-code alignment. I partnered closely with engineering to reduce rework and help teams build better software with greater speed and confidence.
   cover: "/images/projects/vega/750x500 Project Cover.webp"
   cover_small: "/images/projects/vega/750x500 Project Cover-375w.webp"
-  vitae_cover: "/images/vitae/glass-laptop-v2.webp"
+  vitae_cover: "/images/vitae/glass-laptop.png"
   cover_alt: "Vega enterprise design system shown across product interfaces"
   keywords: "enterprise design system design systems components design tokens accessibility documentation governance Figma code global product teams"
   external_url: "https://vega.globalpayments.com/"
-  external_label: "Visit vega"
+  external_label: "Visit Vega"
   gallery:
     - "/images/projects/vega/Vega - 02.webp"
     - "/images/projects/vega/Vega - 03.webp"
@@ -201,7 +201,7 @@ ledgerflow:
   name: "LedgerFlow Payments and Invoicing"
   organization: "LedgerFlow"
   discipline: "Payments and invoicing"
-  headline: "One understandable flow from invoice to payment."
+  headline: "One intuitive flow from invoice to payment."
   introduction: >-
     Getting paid shouldn’t be a full-time job. LedgerFlow brings invoices, payments, and customer billing into one clear flow—with reminders, reporting, and mobile collection to keep things moving.
   challenge_heading: "The goal"

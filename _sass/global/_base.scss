@@ -7,13 +7,18 @@
     image-rendering: -webkit-optimize-contrast;
     justify-content: center;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     position: relative;
-    scrollbar-gutter: stable;
+    // Keep full-bleed sections flush with the viewport. Hide only the page
+    // scrollbar, not scrolling or scrollbars within menus and form fields.
+    scrollbar-gutter: auto;
+    scrollbar-width: none;
     -webkit-font-smoothing: antialiased;
     width: 100%;
     z-index: 0;
 }
+
+.html::-webkit-scrollbar { width: 0; }
 
 .body {
     align-items: flex-start;
@@ -27,20 +32,42 @@
 }
 
 .a.skip-link {
-    background: var(--color-ink);
-    color: var(--color-paper);
-    left: var(--site-frame-gutter);
-    padding: 0.75rem 1rem;
+    align-items: center;
+    background: linear-gradient(160deg, #505967, #303741);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        0 4px 12px rgba(25, 30, 38, 0.18);
+    color: #fff;
+    display: inline-flex;
+    font-size: calc((0.9375rem) * var(--mobile-text-scale, 1));
+    font-weight: 600;
+    line-height: 1.4;
+    left: max(1rem, var(--site-frame-gutter));
+    max-width: calc(100vw - 2 * max(1rem, var(--site-frame-gutter)));
+    min-height: 44px;
+    padding: 0.75rem 1.25rem;
     position: fixed;
-    top: 0.75rem;
+    text-decoration: none;
+    top: 1rem;
     transform: translateY(-200%);
     transition: transform 0.2s ease;
     z-index: 100;
 }
 
 .a.skip-link:focus-visible {
-    color: var(--color-paper);
+    border-radius: 999px;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        0 4px 12px rgba(25, 30, 38, 0.18);
+    color: #fff;
+    text-decoration: none;
     transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .a.skip-link {
+        transition: none;
+    }
 }
 
 #main-content:focus {

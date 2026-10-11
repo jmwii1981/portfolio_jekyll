@@ -57,7 +57,7 @@
 
 .post-title {
   animation: page-hero-reveal 0.9s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
-  font-size: var(--type-display-size);
+  font-size: calc((var(--type-display-size)) * var(--mobile-text-scale, 1));
   margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
   margin-top: 0;
   width: 100%;
@@ -67,7 +67,7 @@
   animation: page-hero-reveal 0.8s 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
   color: var(--color-text-soft);
   display: block;
-  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  font-size: calc((clamp(1.2rem, 2vw, 1.55rem)) * var(--mobile-text-scale, 1));
   letter-spacing: var(--type-lead-letter-spacing);
   line-height: 1.5;
   margin: clamp(1.75rem, 4vw, 3rem) 0 0;
@@ -100,7 +100,7 @@
 
 .medium-article-topics li {
   color: var(--color-text-muted);
-  font-size: 0.72rem;
+  font-size: calc((0.72rem) * var(--mobile-text-scale, 1));
   font-weight: 600;
   letter-spacing: 0.065em;
   line-height: 1.4;
@@ -114,7 +114,7 @@
 
 .post-meta .p {
   color: var(--color-text-soft);
-  font-size: 0.9rem;
+  font-size: calc((0.9rem) * var(--mobile-text-scale, 1));
   line-height: 1.45;
   margin: 0;
 }
@@ -158,7 +158,7 @@
 .medium-image-caption {
   color: var(--color-text-muted);
   display: block;
-  font-size: 0.8rem;
+  font-size: calc((0.8rem) * var(--mobile-text-scale, 1));
   line-height: 1.5;
   margin: 0.75rem 0 0;
 }
@@ -166,7 +166,7 @@
 .post-body {
   color: var(--color-text-soft);
   display: flow-root;
-  font-size: clamp(1.02rem, 1.35vw, 1.15rem);
+  font-size: calc((clamp(1.02rem, 1.35vw, 1.15rem)) * var(--mobile-text-scale, 1));
   line-height: var(--type-reading-line-height);
   margin-top: clamp(2rem, 3vw, 2.5rem);
   max-width: 42rem;
@@ -187,11 +187,11 @@
 }
 
 .post-body h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: calc((clamp(2rem, 4vw, 3rem)) * var(--mobile-text-scale, 1));
 }
 
 .post-body h3 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: calc((clamp(1.5rem, 3vw, 2rem)) * var(--mobile-text-scale, 1));
 }
 
 .post-body :where(a) {
@@ -265,7 +265,7 @@
 
 .medium-article-list-title {
   display: block;
-  font-size: 1rem;
+  font-size: calc((1rem) * var(--mobile-text-scale, 1));
   letter-spacing: var(--type-card-letter-spacing);
   line-height: 1.32;
   margin: 0;
@@ -308,7 +308,7 @@
 .medium-article-date {
   color: var(--color-text-muted);
   display: block;
-  font-size: 0.75rem;
+  font-size: calc((0.75rem) * var(--mobile-text-scale, 1));
   font-weight: 600;
   letter-spacing: 0.045em;
   line-height: 1.4;
@@ -319,7 +319,7 @@
 .medium-profile-link {
   align-items: center;
   display: inline-flex;
-  font-size: 0.82rem;
+  font-size: calc((0.82rem) * var(--mobile-text-scale, 1));
   gap: 0.4rem;
   letter-spacing: 0.075rem;
   margin-top: 2rem;

@@ -1,3 +1,18 @@
+// One owner for entrances. Important here deliberately overrides page-specific
+// legacy animation shorthands without changing their hover/interaction styling.
+.scroll-entrance-owned {
+    --entrance-opacity: 1;
+    --entrance-x: 0px;
+    --entrance-y: 0px;
+    animation: none !important;
+    opacity: var(--entrance-opacity, 1);
+    translate: var(--entrance-x, 0px) var(--entrance-y, 0px);
+    transition-property: color, background-color, border-color, box-shadow, text-shadow !important;
+}
+@media (prefers-reduced-motion: reduce) {
+    .scroll-entrance-owned { opacity: 1 !important; translate: none !important; }
+}
+
 @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
         [data-reveal] {

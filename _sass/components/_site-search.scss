@@ -204,9 +204,9 @@
 }
 
 .site-search-surface:focus-within {
-    border-color: var(--color-focus-ring);
-    outline: 0.125rem solid var(--color-focus-ring);
-    outline-offset: 0.125rem;
+    border-color: #424c5c;
+    // The focused control receives the shared ring; avoid a second outer ring.
+    outline: none;
 }
 
 .site-search-field {
@@ -255,7 +255,7 @@
     border: 0;
     color: var(--search-field-foreground);
     font-family: var(--font-sans);
-    font-size: clamp(1.2rem, 2.6vw, 1.45rem);
+    font-size: calc((clamp(1.2rem, 2.6vw, 1.45rem)) * var(--mobile-text-scale, 1));
     font-weight: 400;
     height: 3.5rem;
     line-height: 1.4;
@@ -296,7 +296,7 @@
     clip: auto;
     clip-path: none;
     color: var(--search-field-foreground);
-    font-size: 0.8rem;
+    font-size: calc((0.8rem) * var(--mobile-text-scale, 1));
     font-weight: 650;
     height: 2.5rem;
     letter-spacing: 0.06em;
@@ -388,7 +388,7 @@
 }
 
 .site-search-result-title {
-    font-size: 0.98rem;
+    font-size: calc((0.98rem) * var(--mobile-text-scale, 1));
     font-weight: 650;
     letter-spacing: var(--type-card-letter-spacing);
     line-height: 1.25;
@@ -397,7 +397,7 @@
 .site-search-result-category {
     color: var(--search-field-muted);
     flex: 0 0 auto;
-    font-size: 0.66rem;
+    font-size: calc((0.66rem) * var(--mobile-text-scale, 1));
     font-weight: 700;
     letter-spacing: 0.09em;
     text-transform: uppercase;
@@ -406,7 +406,7 @@
 .site-search-result-summary {
     color: var(--search-field-muted);
     display: -webkit-box;
-    font-size: 0.82rem;
+    font-size: calc((0.82rem) * var(--mobile-text-scale, 1));
     line-height: 1.45;
     margin: 0;
     overflow: hidden;
@@ -427,14 +427,14 @@
 
 .site-search-empty p {
     color: var(--search-field-muted);
-    font-size: 0.88rem;
+    font-size: calc((0.88rem) * var(--mobile-text-scale, 1));
     line-height: 1.5;
     margin: 0.35rem 0 0;
 }
 
 .site-search-empty .site-search-empty-title {
     color: var(--search-field-foreground);
-    font-size: 1rem;
+    font-size: calc((1rem) * var(--mobile-text-scale, 1));
     font-weight: 650;
     margin-top: 0;
 }
@@ -489,7 +489,7 @@
     }
 
     .site-search-input {
-        font-size: 1.25rem;
+        font-size: calc((1.25rem) * var(--mobile-text-scale, 1));
         height: 3rem;
         padding-block: 0.45rem;
     }

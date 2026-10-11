@@ -58,12 +58,12 @@ samp {
 }
 
 small {
-  font-size: 80%;
+  font-size: calc((80%) * var(--mobile-text-scale, 1));
 }
 
 sub,
 sup {
-  font-size: 75%;
+  font-size: calc((75%) * var(--mobile-text-scale, 1));
   line-height: 0;
   position: relative;
   vertical-align: baseline;
@@ -87,7 +87,7 @@ optgroup,
 select,
 textarea {
   font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
+  font-size: calc((100%) * var(--mobile-text-scale, 1)); /* 1 */
   line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
 }

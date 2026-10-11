@@ -20,18 +20,18 @@
 }
 
 .h1 {
-    font-size: 2rem;
+    font-size: calc((2rem) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-section-letter-spacing);
     line-height: var(--type-section-line-height);
 }
 
 .h2 {
-    font-size: 1.5rem;
+    font-size: calc((1.5rem) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-card-letter-spacing);
     line-height: var(--type-card-line-height);
 
     &.massive {
-        font-size: clamp(2.5rem, 6vw, 5.5rem);
+        font-size: calc((clamp(2.5rem, 6vw, 5.5rem)) * var(--mobile-text-scale, 1));
         font-weight: 600;
         letter-spacing: var(--type-section-letter-spacing);
         line-height: var(--type-section-line-height);
@@ -39,19 +39,19 @@
 }
 
 .h3 {
-    font-size: 1.25rem;
+    font-size: calc((1.25rem) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-card-letter-spacing);
     line-height: var(--type-card-line-height);
 }
 
 .h4 {
-    font-size: 1rem;
+    font-size: calc((1rem) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-card-letter-spacing);
     line-height: 1.25;
 }
 
 .p {
-    font-size: 1rem;
+    font-size: calc((1rem) * var(--mobile-text-scale, 1));
     font-weight: 400;
     line-height: var(--type-body-line-height);
 }
@@ -82,7 +82,7 @@
 
     &:focus-visible {
         border-radius: 0.2rem;
-        box-shadow: 0 0 0 0.2rem var(--color-focus-ring);
+        box-shadow: none;
         transition-duration: 0.25s;
         transition-timing-function: ease-out;
     }

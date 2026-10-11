@@ -33,7 +33,7 @@
 
 .consent-banner-copy {
     color: var(--color-text-soft);
-    font-size: 0.78rem;
+    font-size: calc((0.78rem) * var(--mobile-text-scale, 1));
     line-height: 1.55;
     margin: 0;
 }
@@ -41,7 +41,7 @@
 .consent-banner-link {
     align-self: flex-start;
     color: var(--color-ink);
-    font-size: 0.68rem;
+    font-size: calc((0.68rem) * var(--mobile-text-scale, 1));
     font-weight: 700;
     letter-spacing: 0.065rem;
     line-height: 1.35;

@@ -7,10 +7,9 @@ description: "Selected product design leadership work spanning merchant operatio
 ---
 <main class="main vitae" id="main-content" tabindex="-1">
     <section class="vitae-intro page-intro-frame" id="vitae-projects" aria-labelledby="vitae-intro-title" data-search-section data-search-title="Selected Projects" data-search-category="Vitae" data-search-summary="Products and systems I’ve moved forward through complete project narratives and product walkthroughs." data-search-keywords="portfolio vitae case studies product design systems teams">
-        <h1 class="h1 page-hero-title vitae-intro-title" id="vitae-intro-title">Leading, Shaping <span class="vitae-intro-title-finish">&amp; Shipping.</span></h1>
+        <h1 class="h1 page-hero-title vitae-intro-title" id="vitae-intro-title"><span class="vitae-intro-title-start">Leading, Shaping</span> <span class="vitae-intro-title-finish">&amp; Shipping.</span></h1>
         <div class="vitae-intro-copy">
-            <p class="p vitae-intro-statement">Leading through service to my team and the people around us, I create to show what’s possible and collaborate to explore what it could become—asking questions, offering perspective, and challenging assumptions along the way.</p>
-            <p class="p vitae-intro-statement">A clear vision, creative freedom, and shared determination turn that possibility into an <strong class="vitae-intro-emphasis">excellent product</strong>. I’m excited to share the outcomes of that work with you now.</p>
+            <p class="p vitae-intro-statement">Leading through service to my team and the people around us, I create to show what’s possible and collaborate to explore what it could become. A clear vision, creative freedom, and shared determination turn that possibility into an <strong class="vitae-intro-emphasis">excellent product</strong>.</p>
         </div>
         <picture class="vitae-intro-artwork" aria-hidden="true">
             <source type="image/webp" srcset="{{ '/images/vitae/glass-glasses.webp' | relative_url }}?v={{ site.asset_version }}">
@@ -44,12 +43,26 @@ description: "Selected product design leadership work spanning merchant operatio
                     <div class="button-group project-story-actions">
                         <a class="a button button-container secondary project-story-page-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}" aria-label="{{ project_button_label }}">{{ project_button_label }}<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">{{ project_button_label }}</span></span></a>
                         {% if project.external_url %}
-                        <a class="a vitae-editorial-link" href="{{ project.external_url }}" target="_blank" rel="noopener noreferrer">{{ project.external_label }} <span aria-hidden="true">↗</span></a>
+                        <a class="a vitae-editorial-link" href="{{ project.external_url }}" target="_blank" rel="noopener noreferrer"><span class="vitae-editorial-link-label">{{ project.external_label }}</span> <span aria-hidden="true">↗</span></a>
                         {% endif %}
                     </div>
                 </div>
-                <figure class="vitae-project-summary-visual" data-reveal="{% cycle 'right', 'left' %}">
-                    <img width="1448" height="1086" src="{{ project_preview | relative_url }}?v={{ site.asset_version }}" alt="{{ project.organization }} — {{ project_highlight.title }}" loading="lazy" decoding="async">
+                <figure class="vitae-project-summary-visual vitae-device-lineup" aria-label="{{ project.name }} — laptop, tablet, and smartphone">
+                    {% if project_slug == 'vega' %}
+                    {% assign vega_devices = 'laptop,tablet,phone,landscape' | split: ',' %}
+                    {% for device in vega_devices %}
+                    <span class="vitae-device vitae-device--{{ device }} vega-screen-device" role="group" aria-label="Vega {{ device }} demo">
+                        {% if device == 'laptop' %}{% assign frame = 'glass-laptop.png' %}{% elsif device == 'tablet' %}{% assign frame = 'glass-tablet.png' %}{% else %}{% assign frame = 'glass-smartphone.png' %}{% endif %}
+                        <img class="vega-device-frame" src="{{ '/images/vitae/' | append: frame | relative_url }}" alt="" loading="lazy" decoding="async">
+                        <span class="vega-screen-inset" data-vega-device="{{ device }}"><img class="vega-demo-fallback" src="{{ '/images/vitae/vega-screen-' | append: device | append: '-v3.png' | relative_url }}" alt="Vega {{ device }} dashboard concept with illustrative demo data" loading="lazy" decoding="async"></span>
+                    </span>
+                    {% endfor %}
+                    {% else %}
+                    <img class="vitae-device vitae-device--laptop" width="2858" height="1949" src="{{ '/images/vitae/glass-laptop.png' | relative_url }}?v=devices-20261004" alt="Glass laptop" loading="lazy" decoding="async">
+                    <img class="vitae-device vitae-device--tablet" width="1365" height="2025" src="{{ '/images/vitae/glass-tablet.png' | relative_url }}?v=devices-20261004" alt="Glass tablet" loading="lazy" decoding="async">
+                    <img class="vitae-device vitae-device--phone" width="522" height="998" src="{{ '/images/vitae/glass-smartphone.png' | relative_url }}?v=devices-20261004" alt="Glass smartphone" loading="lazy" decoding="async">
+                    <span class="vitae-device vitae-device--landscape" aria-hidden="true"><img src="{{ '/images/vitae/glass-smartphone.png' | relative_url }}?v=devices-20261004" width="522" height="998" alt="" loading="lazy" decoding="async"></span>
+                    {% endif %}
                 </figure>
             </article>
             {% endfor %}
@@ -58,20 +71,20 @@ description: "Selected product design leadership work spanning merchant operatio
 
     <section class="vitae-summary vitae-contact" id="get-in-touch" aria-labelledby="vitae-contact-title" data-search-section data-search-title="Get in touch" data-search-category="Contact" data-search-keywords="contact connect linkedin conversation">
         <div class="vitae-contact-layout" data-reveal="up">
-            <h2 class="h2 home-section-title" id="vitae-contact-title">Let’s launch something</h2>
             <picture class="vitae-contact-artwork" aria-hidden="true">
-                <source type="image/webp" srcset="{{ '/images/vitae/rocket-ship.webp' | relative_url }}?v={{ site.asset_version }}">
-                <img src="{{ '/images/vitae/rocket-ship.png' | relative_url }}?v={{ site.asset_version }}" width="1448" height="1086" alt="" loading="lazy" decoding="async">
+                <img src="{{ '/images/vitae/rocket-ship-alpha.png' | relative_url }}?v={{ site.asset_version }}" width="2358" height="1967" alt="" loading="lazy" decoding="async">
             </picture>
             <div class="vitae-contact-copy">
+            <h2 class="h2 home-section-title" id="vitae-contact-title"><span class="vitae-launch-phrase">Let’s launch</span> something</h2>
             <div>
                 <p class="p vitae-contact-invitation">Tell me what’s on your mind. It doesn’t need a working title.</p>
             </div>
             <div class="button-group vitae-contact-actions">
                 <a class="a button button-container secondary" href="{{ '/contact/' | relative_url }}" aria-label="Let’s talk">Let’s talk<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Let’s talk</span></span></a>
-                <a class="a vitae-editorial-link" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">Let’s connect <span aria-hidden="true">↗</span></a>
+                <a class="a vitae-editorial-link" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer"><span class="vitae-editorial-link-label">Let’s connect</span> <span aria-hidden="true">↗</span></a>
             </div>
             </div>
         </div>
     </section>
 </main>
+<script type="module" src="{{ '/scripts/vegaDemo.mjs' | relative_url }}"></script>

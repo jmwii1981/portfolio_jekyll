@@ -1,0 +1,19 @@
+// A reviewable mobile-only type increase; spacing remains in its existing units.
+@media (max-width: 47.999rem) {
+    :root { --mobile-text-scale: 1.333333; }
+
+    // Keep the testimonial section and footer at their approved type sizes.
+    .testimonials, footer, .footer { --mobile-text-scale: 1; }
+
+    .main.about #about-title,
+    .page-hero-title,
+    .header .tab,
+    .button,
+    .button-face {
+        white-space: normal;
+        overflow-wrap: break-word;
+    }
+    .main.about #about-title { max-width: 100%; }
+    .button { height: auto; }
+    .header .tab { min-width: 0; }
+}

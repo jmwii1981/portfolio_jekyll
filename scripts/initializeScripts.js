@@ -14,11 +14,244 @@
 
     document.documentElement.classList.replace('no-js', 'js');
 
+    // Vitae's device choreography has its own scroll controller below.
+    const { initializeContentScroll, scrollExit } = await import(`./contentScroll.mjs${moduleVersion}`);
+    initializeContentScroll();
+
+    const contactPortrait = document.querySelector('.contact-portrait-composition');
+    if (contactPortrait) {
+        const artwork = contactPortrait.querySelector('.contact-portrait-artwork');
+        const portrait = contactPortrait.querySelector('.contact-avatar');
+        const alignContactLinks = () => {
+            if (!artwork || !portrait) return;
+            const frame = contactPortrait.getBoundingClientRect();
+            const image = portrait.getBoundingClientRect();
+            const art = artwork.getBoundingClientRect();
+            contactPortrait.style.setProperty('--contact-links-offset', `${image.left + image.width / 2 - frame.left - frame.width / 2}px`);
+            contactPortrait.style.setProperty('--contact-links-gap', `${36 - (art.bottom - image.bottom)}px`);
+        };
+        const observer = new ResizeObserver(alignContactLinks);
+        observer.observe(contactPortrait);
+        if (portrait) observer.observe(portrait);
+        window.addEventListener('resize', alignContactLinks);
+        alignContactLinks();
+    }
+
+    const vitaeHero = document.querySelector('.main.vitae > .vitae-intro');
+    if (vitaeHero) {
+        const title = vitaeHero.querySelector('.vitae-intro-title');
+        const copy = vitaeHero.querySelector('.vitae-intro-copy');
+        const headingMeasure = document.createElement('canvas').getContext('2d');
+        vitaeHero.classList.add('vitae-fluid-hero');
+        const sizeGlasses = () => {
+            if (!title || !copy) return;
+            const frame = vitaeHero.getBoundingClientRect();
+            const style = getComputedStyle(vitaeHero);
+            const projectHeading = document.querySelector('#project-vega .project-story-title');
+            const headingLeft = projectHeading?.getBoundingClientRect().left ?? frame.left;
+            const left = Math.max(0, headingLeft - frame.left);
+            const contact = document.querySelector('.vitae-contact');
+            if (contact) contact.style.setProperty('--vitae-heading-inset', `${Math.max(0, headingLeft - contact.getBoundingClientRect().left)}px`);
+            const right = Math.min(frame.width - (parseFloat(style.paddingRight) || 0), innerWidth - frame.left - (innerWidth < 708 ? 60 : 88));
+            const available = Math.max(0, right - left);
+            const copyWidth = Math.min(640, available);
+            vitaeHero.style.setProperty('--glasses-copy-width', `${copyWidth}px`);
+            // Grow continuously instead of stepping up at the wide breakpoint.
+            // Fit the unbroken first line before measuring the artwork height.
+            const desiredSize = 83.2 + 12.8 * Math.max(0, Math.min(1, (innerWidth - 1280) / 640));
+            const titleStyle = getComputedStyle(title);
+            headingMeasure.font = `${titleStyle.fontWeight} ${desiredSize}px ${titleStyle.fontFamily}`;
+            const headingWidth = headingMeasure.measureText('Leading, Shaping').width;
+            title.style.fontSize = `${Math.min(desiredSize, desiredSize * copyWidth / headingWidth)}px`;
+            const top = title.offsetTop;
+            const bottom = copy.offsetTop + copy.offsetHeight;
+            // Visible glass spans roughly y=62..641 of the 882px source.
+            // Account for its existing subtle scale and empty image margins.
+            const height = (bottom - top + 30) / ((579 / 882) * .98262);
+            const width = height * 1218 / 882;
+            const subjectWidth = width * .9;
+            const compositionWidth = copyWidth + 24 + subjectWidth;
+            const copyLeft = left;
+            const subjectLeft = copyLeft + copyWidth + 24;
+            const retreat = Math.max(0, Math.min(1, (frame.left + subjectLeft + subjectWidth - innerWidth) / (subjectWidth / 4)));
+            const blend = retreat * retreat * (3 - 2 * retreat);
+            const settledLeft = copyLeft;
+            vitaeHero.style.setProperty('--glasses-copy-offset', `${settledLeft - (parseFloat(style.paddingLeft) || 0)}px`);
+            vitaeHero.style.setProperty('--glasses-opacity', `${1 - blend}`);
+            vitaeHero.classList.toggle('glasses-no-room', retreat >= 1);
+            vitaeHero.style.setProperty('--glasses-height', `${height}px`);
+            vitaeHero.style.setProperty('--glasses-top', `${top - 15 - height * (.5 * (1 - .98262) + 62 / 882 * .98262)}px`);
+            vitaeHero.style.setProperty('--glasses-left', `${subjectLeft + settledLeft - copyLeft - width * .06}px`);
+        };
+        const observer = new ResizeObserver(sizeGlasses);
+        observer.observe(vitaeHero);
+        if (title) observer.observe(title);
+        if (copy) observer.observe(copy);
+        document.fonts.ready.then(sizeGlasses);
+        window.addEventListener('resize', sizeGlasses);
+        sizeGlasses();
+    }
+
+    const homeHero = document.querySelector('.main.about > .hero');
+    if (homeHero) {
+        // Decide once, after fonts settle, before revealing the mark. Resizing
+        // and scrolling must never move it to the opposite edge afterward.
+        const placeInitialHeroBrand = () => {
+            const rail = homeHero.querySelector('.hero-brand-rail');
+            if (!rail) return;
+            const logoBottomOnPage = rail.getBoundingClientRect().bottom + window.scrollY;
+            homeHero.classList.toggle('hero-brand-at-top', logoBottomOnPage > window.innerHeight);
+            homeHero.classList.add('hero-brand-ready');
+        };
+        (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+            requestAnimationFrame(placeInitialHeroBrand);
+        });
+        const sizeHeroArtwork = () => {
+            const artwork = homeHero.querySelector('.image-wrapper');
+            const copy = homeHero.querySelector('.copy-wrapper');
+            const frame = homeHero.querySelector('.content-wrapper');
+            if (!artwork || !copy || !frame) return;
+            // The square asset includes transparent space around a tall subject.
+            const imageSize = Math.max(536, window.innerHeight - 75) * .75 / .74;
+            const subjectWidth = imageSize * .46;
+            const frameRect = frame.getBoundingClientRect();
+            const frameStyle = getComputedStyle(frame);
+            const contentLeft = frameRect.left + parseFloat(frameStyle.paddingLeft);
+            // Reserve the dock's widest footprint, including its expanded island.
+            const dockClearance = window.matchMedia('(max-width: 44.25rem)').matches ? 60 : 88;
+            const right = Math.min(frameRect.right - parseFloat(frameStyle.paddingRight), window.innerWidth - dockClearance);
+            const columnWidth = Math.min(736, Math.max(0, right - contentLeft));
+            // Center the visible rocks and copy as one composition, not as
+            // independently aligned columns separated by leftover whitespace.
+            const compositionGap = 48;
+            const compositionWidth = subjectWidth + compositionGap + columnWidth;
+            const availableWidth = right - contentLeft;
+            const subjectLeft = compositionWidth <= availableWidth
+                ? contentLeft + (availableWidth - compositionWidth) / 2
+                : right - compositionWidth;
+            const copyLeft = subjectLeft + subjectWidth + compositionGap;
+            // Ease into the centered text-only layout over a width range,
+            // rather than snapping its offset when the artwork disappears.
+            const retreat = Math.max(0, Math.min(1, -subjectLeft / (subjectWidth / 4)));
+            const blend = retreat * retreat * (3 - 2 * retreat);
+            const textOnlyLeft = contentLeft + (availableWidth - columnWidth) / 2;
+            const settledCopyLeft = copyLeft + (textOnlyLeft - copyLeft) * blend;
+            const artworkShift = settledCopyLeft - copyLeft;
+            const noRoom = retreat >= 1;
+            homeHero.style.setProperty('--hero-copy-width', `${columnWidth}px`);
+            homeHero.style.setProperty('--hero-copy-offset', `${settledCopyLeft - contentLeft}px`);
+            homeHero.style.setProperty('--hero-rock-size', `${imageSize}px`);
+            homeHero.style.setProperty('--hero-rock-center', `${subjectLeft + artworkShift + subjectWidth / 2 - frameRect.left}px`);
+            homeHero.style.setProperty('--hero-rock-opacity', `${1 - blend}`);
+            homeHero.classList.toggle('hero-rocks-no-room', noRoom);
+            const heading = homeHero.querySelector('.page-hero-title');
+            if (heading) {
+                const range = document.createRange();
+                range.selectNodeContents(heading);
+                const headingWidth = window.matchMedia('(max-width: 42.5rem)').matches
+                    ? columnWidth
+                    : Math.min(columnWidth, range.getBoundingClientRect().width);
+                homeHero.style.setProperty('--hero-heading-width', `${headingWidth}px`);
+            }
+        };
+        sizeHeroArtwork();
+        window.addEventListener('resize', sizeHeroArtwork, { passive: true });
+        window.addEventListener('load', sizeHeroArtwork, { once: true });
+        document.fonts?.ready.then(sizeHeroArtwork);
+        if (typeof ResizeObserver === 'function') {
+            const heroObserver = new ResizeObserver(sizeHeroArtwork);
+            heroObserver.observe(homeHero);
+            const copy = homeHero.querySelector('.copy-wrapper');
+            if (copy) heroObserver.observe(copy);
+        }
+    }
+
+    // Keep About's supporting illustrations at a stable size while the viewport
+    // trims their outside edge. Text settles gradually into a centered column.
+    const aboutCompositions = [
+        ['.help-intro', '.home-section-header', '.help-artwork', 'right', 560, 1],
+        ['.testimonials-intro', '.home-section-header', '.testimonials-artwork-shell', 'right', 520, 803 / 929],
+        ['.about-me-inner', '.about-me-next', '.about-me-artwork', 'left', 560, 1 / 1.035]
+    ].map(([selector, copySelector, artSelector, side, artWidth, ratio]) => {
+        const frame = document.querySelector(`.main.about ${selector}`);
+        if (!frame) return null;
+        return { frame, copy: frame.querySelector(copySelector), art: frame.querySelector(artSelector), side, artWidth, ratio };
+    }).filter(item => item?.copy && item.art);
+    const sizeAboutCompositions = () => {
+        aboutCompositions.forEach(({ frame, copy, art, side, artWidth, ratio }) => {
+            frame.classList.add('about-fluid-composition');
+            copy.classList.add('about-fluid-copy');
+            art.classList.add('about-fluid-art');
+            const rect = frame.getBoundingClientRect();
+            const available = Math.max(0, Math.min(rect.width, innerWidth - 60 - rect.left));
+            const copyWidth = Math.min(640, available);
+            const gap = 32;
+            const groupWidth = copyWidth + gap + artWidth;
+            const groupLeft = groupWidth <= available ? (available - groupWidth) / 2
+                : side === 'left' ? available - groupWidth : 0;
+            const initialCopy = side === 'left' ? groupLeft + artWidth + gap : groupLeft;
+            const artInset = art.matches('.testimonials-artwork-shell') ? -40 : 0;
+            const initialArt = (side === 'left' ? groupLeft : groupLeft + copyWidth + gap) + artInset;
+            const clipped = side === 'left' ? Math.max(0, -(rect.left + initialArt))
+                : Math.max(0, rect.left + initialArt + artWidth - innerWidth);
+            const progress = Math.min(1, clipped / (artWidth / 4));
+            const blend = progress * progress * (3 - 2 * progress);
+            const copyLeft = initialCopy + ((available - copyWidth) / 2 - initialCopy) * blend;
+            const artLeft = side === 'left' ? Math.min(initialArt, copyLeft - gap - artWidth)
+                : Math.max(initialArt, copyLeft + copyWidth + gap + artInset);
+            frame.style.setProperty('--composition-copy-width', `${copyWidth}px`);
+            frame.style.setProperty('--composition-copy-left', `${copyLeft}px`);
+            frame.style.setProperty('--composition-art-left', `${artLeft}px`);
+            frame.style.setProperty('--composition-art-width', `${artWidth}px`);
+            frame.style.setProperty('--composition-art-height', `${artWidth * ratio}px`);
+            frame.style.setProperty('--composition-art-opacity', `${1 - blend}`);
+            frame.style.setProperty('--composition-min-height', `${artWidth * ratio * (1 - blend)}px`);
+            art.style.visibility = progress >= 1 ? 'hidden' : '';
+        });
+    };
+    if (aboutCompositions.length) {
+        sizeAboutCompositions();
+        window.addEventListener('resize', sizeAboutCompositions, { passive: true });
+        document.fonts?.ready.then(sizeAboutCompositions);
+    }
+
+    // Keep keyboard focus visible without drawing rings after pointer clicks,
+    // including the programmatic focus transfer into/out of the menu.
+    const focusRoot = document.documentElement;
+    document.addEventListener('pointerdown', () => {
+        focusRoot.dataset.focusInput = 'pointer';
+    }, true);
+    document.addEventListener('keydown', (event) => {
+        if (['Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'Escape'].includes(event.key)) {
+            focusRoot.dataset.focusInput = 'keyboard';
+        }
+    }, true);
+
     try {
         const initializeContactForm = () => {
             const form = document.querySelector('[data-contact-form]');
 
             if (!form) return;
+
+            const begin = form.querySelector('#contact-begin');
+            const ready = form.querySelector('#contact-ready');
+            const validateTimeline = () => {
+                if (!begin || !ready) return;
+                [begin, ready].forEach((field) => { field.dataset.empty = String(!field.value); });
+                ready.min = begin.value || '';
+                ready.setCustomValidity(begin.value && ready.value && ready.value < begin.value
+                    ? 'Choose a handoff or launch date on or after the start date.' : '');
+            };
+            [begin, ready].forEach((field) => field?.addEventListener('input', () => {
+                validateTimeline();
+                // Choosing kickoff must not flag an untouched launch field.
+                // Only update errors already revealed by a submit attempt.
+                if (ready?.getAttribute('aria-invalid') === 'true') {
+                    setFieldError(ready, getFieldErrorMessage(ready));
+                }
+            }));
+            form.addEventListener('reset', () => requestAnimationFrame(validateTimeline));
+            validateTimeline();
 
             const submitButton = form.querySelector('[type="submit"]');
             const buttonFace = submitButton?.querySelector('.button-face');
@@ -26,7 +259,7 @@
                 node.nodeType === Node.TEXT_NODE && node.textContent.trim()
             ));
             const status = form.querySelector('[data-contact-status]');
-            const requiredFields = Array.from(form.querySelectorAll('[required]'));
+            const requiredFields = Array.from(form.querySelectorAll('input.contact-input, select.contact-input, textarea.contact-input'));
 
             if (!submitButton || !buttonFace || !buttonTextNode || !status || typeof window.fetch !== 'function') return;
 
@@ -65,7 +298,10 @@
             const getFieldErrorMessage = (field) => {
                 const fieldName = getFieldName(field);
 
+                if (field.validity.customError) return field.validationMessage;
+
                 if (field.required && !field.value.trim()) {
+                    if (field.tagName === 'SELECT') return 'Choose a budget, or select “Let’s figure it out.”';
                     return `Enter your ${fieldName}.`;
                 }
 
@@ -143,12 +379,15 @@
                 setStatus('Sending your message…', 'pending');
 
                 try {
+                    const submission = new FormData(form);
+                    // Prefix only the outgoing subject, never the visible field.
+                    submission.set('subject', `PROJECT INQUIRY– ${submission.get('subject') || ''}`);
                     const { data, response } = await fetchJsonWithTimeout(form.action, {
                         method: 'POST',
                         headers: {
                             Accept: 'application/json'
                         },
-                        body: new FormData(form)
+                        body: submission
                     }, { timeoutMs: 15000 });
 
                     if (!response.ok || data?.success !== true) {
@@ -440,9 +679,10 @@
                 const isStuck = !isBottomDocked && Math.abs(currentTop - stickyTop) < 1.5;
 
                 projectIndex.classList.toggle('is-stuck', isStuck);
-                // Reveal at the same boundary that starts the rounded/glass morph.
+                // Reveal 100px before reaching the sticky boundary.
                 // Keep layout measurable while excluding hidden navigation from input.
-                const isAvailable = desktopDockingQuery.matches && isStuck;
+                const beforeExit = projectSummaries.getBoundingClientRect().bottom > stickyTop + projectIndexRect.height + 100;
+                const isAvailable = desktopDockingQuery.matches && !isBottomDocked && currentTop <= stickyTop + 100 && beforeExit;
                 projectIndex.classList.toggle('is-in-view', isAvailable);
                 projectIndex.inert = !isAvailable;
                 projectIndex.setAttribute('aria-hidden', String(!isAvailable));
@@ -550,16 +790,70 @@
             const toggle = container?.querySelector('.nav-toggle');
             const nav = container?.querySelector('.nav');
             if (!toggle || !nav) return;
+            container.addEventListener('pointerdown', event => {
+                document.documentElement.dataset.navInput = event.pointerType;
+            }, true);
+            container.addEventListener('pointermove', event => {
+                if (event.pointerType === 'mouse') document.documentElement.dataset.navInput = 'mouse';
+            }, { passive: true });
             // Cancel Safari's pressure-triggered preview/Look Up without
             // interfering with normal clicks, taps, or island pointer dragging.
             container.addEventListener('webkitmouseforcewillbegin', (event) => {
                 event.preventDefault();
             }, { capture: true, passive: false });
             const panel = container.querySelector('.nav-panel');
+            const menuHoverMotion = window.matchMedia('(min-width: 48rem) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+            nav.querySelectorAll('.tab-container').forEach((row) => {
+                const link = row.querySelector('.tab');
+                if (!link) return;
+                const reset = () => {
+                    link.style.removeProperty('--menu-hover-x');
+                    link.style.removeProperty('--menu-hover-y');
+                };
+                row.addEventListener('pointermove', (event) => {
+                    if (!menuHoverMotion.matches || event.pointerType === 'touch') return;
+                    // Measure the stationary row, not the moving link.
+                    const rect = row.getBoundingClientRect();
+                    const offset = (position, start, size) => Math.max(-1, Math.min(1, (position - start) / size * 2 - 1)) * 4;
+                    link.style.setProperty('--menu-hover-x', `${offset(event.clientX, rect.left, rect.width).toFixed(2)}px`);
+                    link.style.setProperty('--menu-hover-y', `${offset(event.clientY, rect.top, rect.height).toFixed(2)}px`);
+                }, { passive: true });
+                row.addEventListener('pointerleave', reset);
+                row.addEventListener('pointercancel', reset);
+                link.addEventListener('blur', reset);
+                menuHoverMotion.addEventListener('change', reset);
+            });
+            const lockedElements = new Map();
+            const lockBackground = () => {
+                for (const control of toggle.parentElement.children) {
+                    if (control !== toggle && !lockedElements.has(control)) {
+                        lockedElements.set(control, control.inert);
+                        control.inert = true;
+                    }
+                }
+                // Lock siblings along the ancestor chain, never an ancestor of
+                // the menu itself. Retain pre-existing inert states on restore.
+                let branch = container;
+                while (branch && branch !== document.body) {
+                    for (const sibling of branch.parentElement.children) {
+                        if (sibling !== branch && !lockedElements.has(sibling)) {
+                            lockedElements.set(sibling, sibling.inert);
+                            sibling.inert = true;
+                        }
+                    }
+                    branch = branch.parentElement;
+                }
+            };
+            const unlockBackground = () => {
+                lockedElements.forEach((wasInert, element) => { element.inert = wasInert; });
+                lockedElements.clear();
+            };
+            const menuTargets = () => [...nav.querySelectorAll('a[href], button:not([disabled]), [tabindex="0"]')]
+                .filter(element => !element.closest('[inert], [hidden]') && element.getClientRects().length);
             const mobileDock = window.matchMedia('(max-width: 47.999rem)');
             const syncIslandAvailability = () => {
                 const island = container.querySelector('.dock-dots');
-                if (island) island.inert = mobileDock.matches && container.classList.contains('is-open');
+                if (island) island.inert = !mobileDock.matches && container.classList.contains('is-open');
             };
             mobileDock.addEventListener('change', syncIslandAvailability);
             const fitPanel = () => {
@@ -580,28 +874,64 @@
                 panelObserver.observe(panel);
             }
             const setOpen = (open, restoreFocus = false) => {
+                const wasOpen = toggle.getAttribute('aria-expanded') === 'true';
                 if (open) fitPanel();
                 container.classList.toggle('is-open', open);
                 syncIslandAvailability();
                 toggle.setAttribute('aria-expanded', String(open));
                 toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
                 nav.inert = !open;
-                if (restoreFocus) toggle.focus();
+                if (open) {
+                    lockBackground();
+                    (menuTargets()[0] || toggle).focus({ preventScroll: true });
+                    // Opening styles can keep the panel hidden during its
+                    // stroke animation; focus once that reveal has started.
+                    window.setTimeout(() => {
+                        if (toggle.getAttribute('aria-expanded') === 'true' && document.activeElement === toggle) {
+                            (menuTargets()[0] || toggle).focus({ preventScroll: true });
+                        }
+                    }, 230);
+                } else {
+                    unlockBackground();
+                    syncIslandAvailability();
+                    if (restoreFocus || wasOpen) toggle.focus({ preventScroll: true });
+                }
             };
-            toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+            toggle.addEventListener('click', event => {
+                if (event.isTrusted && performance.now() < suppressTouchClickUntil) return;
+                setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+            });
             nav.addEventListener('click', (event) => {
                 if (event.target.closest('a')) setOpen(false);
             });
-            document.addEventListener('pointerdown', (event) => {
-                if (!nav.contains(event.target) && !toggle.contains(event.target)) setOpen(false);
-            });
+            // Dismiss on the completed click, keeping the background inert
+            // throughout the gesture so the same click cannot activate it.
+            document.addEventListener('click', (event) => {
+                if (event.isTrusted && performance.now() < suppressTouchClickUntil) return;
+                if (toggle.getAttribute('aria-expanded') !== 'true' ||
+                    panel.contains(event.target) || toggle.contains(event.target)) return;
+                event.preventDefault();
+                event.stopPropagation();
+                setOpen(false, true);
+            }, true);
             document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+                if (toggle.getAttribute('aria-expanded') !== 'true') return;
+                if (event.key === 'Escape') {
+                    event.preventDefault();
                     setOpen(false, true);
+                } else if (event.key === 'Tab') {
+                    const targets = [...menuTargets(), toggle];
+                    const index = targets.indexOf(document.activeElement);
+                    const next = (index + (event.shiftKey ? -1 : 1) + targets.length) % targets.length;
+                    event.preventDefault();
+                    targets[next].focus({ preventScroll: true });
                 }
             });
-            container.addEventListener('focusout', (event) => {
-                if (!container.contains(event.relatedTarget)) setOpen(false);
+            document.addEventListener('focusin', (event) => {
+                if (toggle.getAttribute('aria-expanded') === 'true' &&
+                    !nav.contains(event.target) && event.target !== toggle) {
+                    (menuTargets()[0] || toggle).focus({ preventScroll: true });
+                }
             });
             setOpen(false);
             const topButton = container.querySelector('.dock-top');
@@ -610,6 +940,21 @@
             const bottomButton = controls.querySelector('.dock-bottom');
             const bottomSlot = controls.querySelector('.dock-bottom-slot');
             const dotGroup = controls.querySelector('.dock-dots');
+            const toggleHome = document.createComment('Desktop menu position');
+            toggle.before(toggleHome);
+            const arrangeIsland = () => {
+                if (container.classList.contains('is-open')) setOpen(false);
+                if (mobileDock.matches) {
+                    dotGroup.prepend(toggle, topButton);
+                    dotGroup.append(bottomButton);
+                } else {
+                    toggleHome.after(toggle);
+                    topSlot.append(topButton);
+                    bottomSlot.append(bottomButton);
+                }
+                syncIslandAvailability();
+            };
+            mobileDock.addEventListener('change', arrangeIsland);
             const main = document.querySelector('main');
             // Search landmarks describe full content sections (including Vitae
             // project articles), not nested cards, galleries, or form fields.
@@ -647,6 +992,7 @@
                 dotGroup.append(link);
             });
             const sectionLinks = Array.from(container.querySelectorAll('.dock-dot'));
+            arrangeIsland();
             const syncSections = () => {
                 if (!pageSections.length) return;
                 let index = -1;
@@ -682,8 +1028,25 @@
             // the page or navigating through every section under the thumb.
             let islandPointer = null;
             let touchCandidate = null;
+            let openedDuringTouch = false;
+            // Real pointer hover expands the same tray as a touch gesture;
+            // avoid sticky, emulated :hover after a finger leaves the screen.
+            dotGroup.addEventListener('pointerenter', event => {
+                if (mobileDock.matches && event.pointerType !== 'touch' && !dotGroup.inert) {
+                    dotGroup.classList.add('is-hover-active');
+                }
+            });
+            dotGroup.addEventListener('pointerleave', () => dotGroup.classList.remove('is-hover-active'));
+            window.addEventListener('blur', () => dotGroup.classList.remove('is-hover-active'));
+            mobileDock.addEventListener('change', () => dotGroup.classList.remove('is-hover-active'));
+            const touchControls = [toggle, topButton, ...sectionLinks.filter(link => !link.classList.contains('dock-dot-endpoint')), bottomButton];
+            // Non-passive cancellation complements touch-action for Safari and
+            // prevents a second finger from scrolling during an island gesture.
+            document.addEventListener('touchmove', event => {
+                if (islandPointer !== null) event.preventDefault();
+            }, { passive: false });
             const clearTouchPreview = () => {
-                sectionLinks.forEach(link => link.classList.remove('is-touch-target'));
+                touchControls.forEach(link => link.classList.remove('is-touch-target'));
                 touchCandidate = null;
             };
             const previewTouch = (event) => {
@@ -692,13 +1055,18 @@
                 if (event.clientX < bounds.left - 15 || event.clientX > bounds.right + 15
                     || event.clientY < bounds.top - 15 || event.clientY > bounds.bottom + 15) return;
                 let distance = Infinity;
-                sectionLinks.forEach(link => {
+                touchControls.forEach(link => {
+                    if (link.inert) return;
                     const rect = link.getBoundingClientRect();
                     if (!rect.height) return;
                     const delta = Math.abs(event.clientY - (rect.top + rect.height / 2));
                     if (delta < distance) { distance = delta; touchCandidate = link; }
                 });
                 touchCandidate?.classList.add('is-touch-target');
+                if (touchCandidate === toggle && !container.classList.contains('is-open')) {
+                    openedDuringTouch = true;
+                    setOpen(true);
+                }
             };
             const endIslandTouch = (event, select = false) => {
                 if (event.pointerId !== islandPointer) return;
@@ -709,12 +1077,14 @@
                 clearTouchPreview();
                 dotGroup.classList.remove('is-touch-active');
                 if (dotGroup.hasPointerCapture(event.pointerId)) dotGroup.releasePointerCapture(event.pointerId);
-                selection?.click();
+                if (!(selection === toggle && openedDuringTouch)) selection?.click();
             };
             dotGroup.addEventListener('pointerdown', event => {
                 if (!mobileDock.matches || event.pointerType !== 'touch' || !event.isPrimary || islandPointer !== null || dotGroup.inert) return;
                 event.preventDefault();
                 islandPointer = event.pointerId;
+                dotGroup.classList.remove('is-hover-active');
+                openedDuringTouch = false;
                 dotGroup.setPointerCapture(event.pointerId);
                 dotGroup.classList.add('is-touch-active');
                 previewTouch(event);
@@ -735,7 +1105,7 @@
                 const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4
                     || (bottomSection && bottomSection.getBoundingClientRect().top < window.innerHeight - 24);
                 controls.classList.toggle('at-bottom', Boolean(atBottom));
-                bottomButton.tabIndex = atBottom ? -1 : 0;
+                bottomButton.tabIndex = !mobileDock.matches && atBottom ? -1 : 0;
                 if (atBottom && document.activeElement === bottomButton) toggle.focus({ preventScroll: true });
                 bottomSlot.inert = Boolean(atBottom);
                 bottomSlot.setAttribute('aria-hidden', String(Boolean(atBottom)));
@@ -743,7 +1113,7 @@
                 const visible = window.scrollY > Math.max(320, window.innerHeight * .65);
                 const focusedControl = document.activeElement;
                 controls.classList.toggle('has-top', visible);
-                topButton.tabIndex = visible ? 0 : -1;
+                topButton.tabIndex = mobileDock.matches || visible ? 0 : -1;
                 if (!visible && focusedControl === topButton) toggle.focus({ preventScroll: true });
                 topSlot.inert = !visible;
                 topSlot.setAttribute('aria-hidden', String(!visible));
@@ -759,7 +1129,10 @@
             });
             bottomButton?.addEventListener('click', () => {
                 setOpen(false);
-                window.scrollTo({ top: document.documentElement.scrollHeight, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+                const lastSection = pageSections[pageSections.length - 1] || document.querySelector('footer');
+                if (!lastSection) return;
+                const destination = window.scrollY + lastSection.getBoundingClientRect().top - 75;
+                window.scrollTo({ top: Math.max(0, destination), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
             });
             const syncDotOverflow = () => {
                 const horizontal = getComputedStyle(dotGroup).flexDirection === 'row';
@@ -1266,7 +1639,7 @@
                 '.vitae-project-summary .vitae-project-tag',
                 '.vitae-project-summary .project-story-intro',
                 '.vitae-project-summary .project-story-actions > a',
-                '.vitae-project-summary-visual',
+                '.vitae-project-summary-visual .vitae-device',
                 '.vitae-contact #vitae-contact-title',
                 '.vitae-contact-invitation',
                 '.vitae-contact-actions > a'
@@ -1276,6 +1649,8 @@
             let measurements = [];
             const rocket = document.querySelector('.vitae-contact-artwork img');
             let rocketRange = null;
+            const glasses = document.querySelector('.vitae-intro-artwork-image');
+            let glassesRange = null;
             let frame = 0;
             const interactiveTargets = new Set(targets.filter(element =>
                 element.matches('a, button, input, select, textarea, [tabindex]') ||
@@ -1294,26 +1669,33 @@
             const check = () => {
                 frame = 0;
                 const scroll = Math.max(0, window.scrollY);
+                if (glasses && glassesRange) {
+                    const progress = reducedMotion.matches ? 0 : Math.max(0, Math.min(1,
+                        (scroll - glassesRange.start) / glassesRange.distance));
+                    const eased = progress * progress * (3 - 2 * progress);
+                    // A barely perceptible turn, not a layout shift or an exit flyout.
+                    glasses.style.transform = `perspective(1200px) rotateY(${-4 * eased}deg) rotateZ(${.7 * eased}deg) scale(${.98262 - .012 * eased})`;
+                    glasses.style.opacity = String(1 - .12 * eased);
+                }
                 if (rocket && rocketRange) {
                     const progress = Math.max(0, Math.min(1,
                         (scroll - rocketRange.start) / rocketRange.distance));
                     rocket.style.transform = reducedMotion.matches ? 'none' : `scale(${1 + .2 * progress})`;
                 }
-                measurements.forEach(({ element, start, distance, x, y }) => {
-                    if (reducedMotion.matches) {
+                measurements.forEach(({ element, start, distance, x, y, bottom }) => {
+                    if (reducedMotion.matches || element.matches(':focus-within')) {
                         element.style.removeProperty('translate');
                         element.style.removeProperty('opacity');
                         setInteractive(element, true);
                         return;
                     }
-                    // One fixed entrance range in document space. After its
-                    // end, progress stays at 1 even when the item leaves above
-                    // the viewport. Only crossing that range upward reverses it.
+                    // Both edges scrub directly with scrolling, including reversal.
                     const progress = Math.max(0, Math.min(1, (scroll - start) / distance));
                     const eased = progress * progress * (3 - 2 * progress);
                     const remaining = 1 - eased;
-                    element.style.translate = `${x * remaining}px ${y * remaining}px`;
-                    element.style.opacity = String(eased);
+                    const exit = scrollExit(scroll, bottom, window.innerHeight, interactiveTargets.has(element));
+                    element.style.translate = `${x * (remaining - exit * .5)}px ${y * remaining - 10 * exit}px`;
+                    element.style.opacity = String(eased * (1 - exit));
                     setInteractive(element, eased >= .9);
                 });
             };
@@ -1324,6 +1706,10 @@
                 const scroll = window.scrollY;
                 const viewport = window.innerHeight;
                 const compact = window.innerWidth < 768;
+                if (glasses) {
+                    const hero = glasses.closest('section').getBoundingClientRect();
+                    glassesRange = { start: hero.top + scroll, distance: Math.max(1, hero.height * .85) };
+                }
                 if (rocket) {
                     // Measure the stationary picture/section, not the scaling image.
                     const picture = rocket.parentElement.getBoundingClientRect();
@@ -1344,24 +1730,32 @@
                     const documentTop = element.getBoundingClientRect().top + scroll;
                     const isBadge = element.matches('.vitae-project-tag');
                     const isAction = element.matches('.button-group > a');
-                    const isImage = element.matches('figure, picture');
+                    const isDevice = element.matches('.vitae-device');
+                    const isImage = isDevice || element.matches('figure, picture');
                     const sectionElement = element.closest('article, section');
                     const section = sectionElement.id;
                     let x = 0;
                     let y = isImage ? 48 : 30;
                     if (!compact) {
-                        if (section === 'project-vega') { x = isImage ? -48 : 32; y = 0; }
-                        if (section === 'project-avenapay' && !isImage) { x = 32; y = 0; }
-                        if (section === 'project-ledgerflow') { x = isImage ? 48 : -32; y = 0; }
+                        // All portfolio stories share Vega's entrance direction.
+                        if (sectionElement.matches('.vitae-project-summary') && !isImage) {
+                            x = 32;
+                            y = 0;
+                        }
                         if (section === 'get-in-touch' && isImage) { x = 48; y = 0; }
                     }
                     const strength = isBadge ? .5 : isAction ? .7 : 1;
                     const actionIndex = isAction ? [...element.parentElement.children].indexOf(element) : 0;
-                    const delay = actionIndex * 18;
+                    const deviceIndex = isDevice ? [...element.parentElement.children].indexOf(element) : 0;
+                    if (isDevice) { x = 0; y = 24; }
+                    const delay = isDevice ? deviceIndex * 28 : actionIndex * 18;
                     const distance = viewport * (isImage ? .4 : .32);
-                    const naturalStart = documentTop - viewport * .9 + delay;
-                    const end = Math.min(naturalStart + distance, actionDeadlines.get(sectionElement) ?? Infinity);
+                    const entranceTop = isDevice ? element.parentElement.getBoundingClientRect().top + scroll : documentTop;
+                    const naturalStart = entranceTop - viewport * .9 + delay;
+                    const deadline = (actionDeadlines.get(sectionElement) ?? Infinity) - (isDevice ? (2 - deviceIndex) * 28 : 0);
+                    const end = Math.min(naturalStart + distance, deadline);
                     return { element, x: x * strength, y: y * strength,
+                        bottom: element.getBoundingClientRect().bottom + scroll,
                         start: end - distance, distance };
                 });
                 check();
@@ -1395,6 +1789,8 @@
         safelyInitialize('vitae project index', initializeVitaeProjectIndex);
         safelyInitialize('vitae section entrances', initializeVitaeEntrances);
         safelyInitialize('mobile navigation', initializeMobileNavigation);
+        const { initializeProfilePreview } = await import(`./profilePreview.mjs${moduleVersion}`);
+        safelyInitialize('profile preview', initializeProfilePreview);
         const { initializeLiquidGlassNavigation } = await import(`./glass/initializeLiquidGlassNavigation.mjs${moduleVersion}`);
         safelyInitialize('dock glass', initializeLiquidGlassNavigation);
         safelyInitialize('dock reflections', initializeDockReflections);

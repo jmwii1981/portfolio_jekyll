@@ -1,0 +1,29 @@
+// One keyboard-focus treatment for native controls, links, interactive media,
+// and custom tabindex targets. Outlines preserve component elevation shadows
+// and follow each element's existing corner radius without changing layout.
+// Important is intentional: legacy component focus rules must not override it.
+:focus-visible:not(#main-content),
+html[data-focus-input="keyboard"] :focus:not(#main-content) {
+    outline: var(--focus-ring-width) solid var(--color-focus-ring) !important;
+    outline-offset: 0 !important;
+}
+
+// Text inputs may match :focus-visible even after a mouse click. Suppress only
+// the ring in pointer mode; retain field borders, validation and hover states.
+html[data-focus-input="pointer"] :focus {
+    outline: none !important;
+}
+
+// Translucent colors are not dependable in forced-color environments.
+@media (forced-colors: active) {
+    :focus-visible:not(#main-content),
+    html[data-focus-input] :focus:not(#main-content) {
+        outline: 2px solid CanvasText !important;
+        outline-offset: 2px !important;
+    }
+}
+
+// Only the menu links and its close toggle are interactive while expanded.
+.nav-container.is-open .nav-controls > :not(.nav-toggle):not(.dock-dots) {
+    pointer-events: none !important;
+}

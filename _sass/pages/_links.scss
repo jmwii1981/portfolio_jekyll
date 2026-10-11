@@ -98,7 +98,7 @@
 
 .links-name {
     display: block;
-    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-size: calc((clamp(1rem, 2vw, 1.2rem)) * var(--mobile-text-scale, 1));
     font-weight: 700;
     letter-spacing: 0.08em;
     line-height: 1.3;
@@ -109,7 +109,7 @@
 .links-intro {
     color: var(--color-text-muted-light);
     display: block;
-    font-size: clamp(1.125rem, 2.4vw, 1.35rem);
+    font-size: calc((clamp(1.125rem, 2.4vw, 1.35rem)) * var(--mobile-text-scale, 1));
     font-weight: 400;
     letter-spacing: -0.012em;
     line-height: 1.4;
@@ -145,7 +145,7 @@
 .links-contact-link {
     align-items: center;
     display: inline-flex;
-    font-size: 0.925rem;
+    font-size: calc((0.925rem) * var(--mobile-text-scale, 1));
     min-height: var(--links-contact-pill-height);
     text-decoration: none;
 }
@@ -268,7 +268,7 @@
     border: 0.0625rem solid var(--color-border-subtle);
     color: var(--color-ink);
     display: flex;
-    font-size: 0.75rem;
+    font-size: calc((0.75rem) * var(--mobile-text-scale, 1));
     font-weight: 700;
     justify-content: center;
     letter-spacing: 0.08em;
@@ -313,7 +313,7 @@
 }
 
 .link-card-title {
-    font-size: 1rem;
+    font-size: calc((1rem) * var(--mobile-text-scale, 1));
     font-weight: 600;
     letter-spacing: var(--type-card-letter-spacing);
     line-height: 1.25;
@@ -321,7 +321,7 @@
 
 .link-card-description {
     color: var(--color-text-muted);
-    font-size: 0.875rem;
+    font-size: calc((0.875rem) * var(--mobile-text-scale, 1));
     font-weight: 400;
     line-height: 1.4;
     margin-top: 0.15rem;
@@ -373,7 +373,7 @@
     }
 
     .link-card-description {
-        font-size: 0.8125rem;
+        font-size: calc((0.8125rem) * var(--mobile-text-scale, 1));
     }
 }
 

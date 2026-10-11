@@ -46,7 +46,7 @@
                 id="about-link"
                 class="a tab {% if page.url == '/' %}active{% endif %}"
                 {% if page.url == '/' %}aria-current="page"{% endif %}
-                href="{{ '/' | relative_url }}" aria-label="About"><span class="menu-hand-icon" aria-hidden="true"></span><span>About</span></a>
+                href="{{ '/' | relative_url }}" aria-label="About"><img class="menu-emoji" src="{{ '/images/ui/emoji-waving-hand.png' | relative_url }}" width="26" height="26" alt="" aria-hidden="true"><span>About</span></a>
         </li>
         {% endunless %}
         {% unless page.url == '/vitae/' %}
@@ -57,7 +57,7 @@
                 id="vitae"
                 class="a tab {% if page.url == '/vitae/' or page.layout == 'project' %}active{% endif %}"
                 {% if page.url == '/vitae/' or page.layout == 'project' %}aria-current="page"{% endif %}
-                href="{{ '/vitae/' | relative_url }}" aria-label="Vitae"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="3"/><path d="M8 7V4h8v3M3 12a24 24 0 0 0 18 0M12 12v3"/></svg><span>Vitae</span></a>
+                href="{{ '/vitae/' | relative_url }}" aria-label="View work"><img class="menu-emoji" src="{{ '/images/ui/emoji-briefcase.png' | relative_url }}" width="26" height="26" alt="" aria-hidden="true"><span>View work</span></a>
         </li>
         {% endunless %}
         {% unless page.url == '/perspectives/' %}
@@ -68,7 +68,7 @@
                     id="perspectives"
                     class="a tab {% if page.url == '/perspectives/' %}active{% endif %}"
                     {% if page.url == '/perspectives/' %}aria-current="page"{% endif %}
-                    href="{{ '/perspectives/' | relative_url }}" aria-label="Perspectives"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v13H9l-5 4V4ZM8 8h8M8 12h5"/></svg><span>Perspectives</span></a>
+                    href="{{ '/perspectives/' | relative_url }}" aria-label="Perspectives"><img class="menu-emoji" src="{{ '/images/ui/emoji-chat-bubble.png' | relative_url }}" width="26" height="26" alt="" aria-hidden="true"><span>Perspectives</span></a>
         </li>
         {% endunless %}
         {% unless page.url == '/contact/' %}
@@ -78,9 +78,14 @@
                 <a id="contact"
                    class="a tab {% if page.url == '/contact/' %}active{% endif %}"
                    {% if page.url == '/contact/' %}aria-current="page"{% endif %}
-                   href="{{ '/contact/' | relative_url }}" aria-label="Contact Me"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg><span>Contact Me</span></a>
+                   href="{{ '/contact/' | relative_url }}" aria-label="Contact me"><img class="menu-emoji" src="{{ '/images/ui/emoji-envelope.png' | relative_url }}" width="26" height="26" alt="" aria-hidden="true"><span>Contact me</span></a>
         </li>
         {% endunless %}
+        <li id="follow-tab" class="tab-container">
+            <a id="follow-link" class="a tab" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="Follow me on LinkedIn (opens in a new tab)">
+                <span class="menu-emoji menu-linkedin-tile" aria-hidden="true"><img class="menu-linkedin-icon" src="{{ '/images/ui/linkedin-icon.png' | relative_url }}" width="22" height="22" alt=""></span><span>Follow me</span>
+            </a>
+        </li>
     </ul>
     </div>
 </nav>

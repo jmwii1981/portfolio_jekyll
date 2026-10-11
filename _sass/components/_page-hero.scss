@@ -37,7 +37,7 @@ main.main > section.page-hero {
 .page-hero-title {
     animation: page-hero-reveal 0.9s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
     display: block;
-    font-size: var(--type-display-size);
+    font-size: calc((var(--type-display-size)) * var(--mobile-text-scale, 1));
     font-kerning: normal;
     font-weight: 600;
     letter-spacing: var(--type-display-letter-spacing);
@@ -52,7 +52,7 @@ main.main > section.page-hero {
 
 .page-intro-support {
     display: block;
-    font-size: clamp(1.125rem, 1.5vw, 1.4rem);
+    font-size: calc((clamp(1.125rem, 1.5vw, 1.4rem)) * var(--mobile-text-scale, 1));
     font-weight: 500;
     letter-spacing: -0.012em;
     line-height: 1.5;
@@ -93,7 +93,7 @@ main.main > section.page-hero {
     }
 
     .page-hero-title {
-        font-size: var(--type-display-size-mobile);
+        font-size: calc((var(--type-display-size-mobile)) * var(--mobile-text-scale, 1));
     }
 }
 

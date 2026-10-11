@@ -6,7 +6,7 @@ body:not(:has(.main.vitae)),
         --material-press: var(--button-material-press);
         --material-ease: var(--button-material-ease);
 
-        font-size: var(--type-control-size);
+        font-size: calc((var(--type-control-size)) * var(--mobile-text-scale, 1));
         font-weight: 500;
         letter-spacing: 0;
         line-height: 1.25rem;

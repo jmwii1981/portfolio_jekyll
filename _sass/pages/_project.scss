@@ -19,7 +19,7 @@
     align-items: center;
     color: var(--color-text-muted-on-dark);
     display: inline-flex;
-    font-size: 0.72rem;
+    font-size: calc((0.72rem) * var(--mobile-text-scale, 1));
     font-weight: 700;
     gap: 0.55rem;
     letter-spacing: 0.09em;
@@ -57,7 +57,7 @@
 
 .project-detail-closing .h2 {
     display: block;
-    font-size: clamp(2rem, 3.5vw, 3.15rem);
+    font-size: calc((clamp(2rem, 3.5vw, 3.15rem)) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-feature-letter-spacing);
     line-height: var(--type-feature-line-height);
     margin: 0;
@@ -87,7 +87,7 @@
 
 .project-detail-brief .h3 {
     display: block;
-    font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+    font-size: calc((clamp(1.15rem, 1.8vw, 1.5rem)) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-card-letter-spacing);
     line-height: var(--type-card-line-height);
     margin: 0;
@@ -96,7 +96,7 @@
 .project-detail-brief .p {
     color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: clamp(1rem, 1.35vw, 1.12rem);
+    font-size: calc((clamp(1rem, 1.35vw, 1.12rem)) * var(--mobile-text-scale, 1));
     line-height: var(--type-reading-line-height);
     margin: 0;
     max-width: 38rem;
@@ -130,7 +130,7 @@
 
 .project-detail-gallery .project-screen-caption .h3 {
     display: block;
-    font-size: clamp(1.35rem, 2.2vw, 1.9rem);
+    font-size: calc((clamp(1.35rem, 2.2vw, 1.9rem)) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-card-letter-spacing);
     line-height: var(--type-card-line-height);
     margin: 0;
@@ -155,7 +155,7 @@
 .project-detail-closing > div > .p:not(.project-detail-context) {
     color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: clamp(1rem, 1.35vw, 1.12rem);
+    font-size: calc((clamp(1rem, 1.35vw, 1.12rem)) * var(--mobile-text-scale, 1));
     line-height: var(--type-reading-line-height);
     margin: 1.5rem 0 0;
     max-width: 38rem;
@@ -265,14 +265,14 @@
 
 .project-detail-pagination-copy > span {
     color: var(--color-text-muted-on-dark);
-    font-size: 0.68rem;
+    font-size: calc((0.68rem) * var(--mobile-text-scale, 1));
     font-weight: 700;
     letter-spacing: 0.1em;
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 .project-detail-pagination-copy strong {
-    font-size: clamp(1.05rem, 1.7vw, 1.25rem);
+    font-size: calc((clamp(1.05rem, 1.7vw, 1.25rem)) * var(--mobile-text-scale, 1));
     font-weight: 600;
     margin-top: 0.35rem;
 }
@@ -281,7 +281,7 @@
     align-items: center;
     color: var(--color-text-muted-on-dark);
     display: flex;
-    font-size: 0.75rem;
+    font-size: calc((0.75rem) * var(--mobile-text-scale, 1));
     font-weight: 700;
     justify-content: center;
     letter-spacing: 0.09em;
@@ -289,7 +289,7 @@
     text-align: center;
     text-decoration-color: transparent;
     text-underline-offset: 0.3em;
-    text-transform: uppercase;
+    text-transform: none;
     transition: color 0.2s ease, text-decoration-color 0.2s ease;
     width: max-content;
 }

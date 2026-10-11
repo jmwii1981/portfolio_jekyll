@@ -252,7 +252,7 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
     .nav-controls .dock-dots:has(.dock-dot:focus-visible) .dock-dot::after { left: -7.5px; right: -7.5px; }
     .nav-controls .dock-dots:hover .dock-dot:not([aria-current="location"]),
     .nav-controls .dock-dots:has(.dock-dot:focus-visible) .dock-dot:not([aria-current="location"]) { pointer-events: auto; }
-    .nav-controls .dock-dots:not(:hover):not(:has(.dock-dot:focus-visible)) .dock-dot::before { translate: 10.5px 0; }
+    .nav-controls .dock-dots:not(:hover):not(:has(.dock-dot:focus-visible)) .dock-dot::before { translate: 0 0; }
     .nav-controls .dock-dots:hover::before,
     .nav-controls .dock-dots:has(.dock-dot:focus-visible)::before { left: -1px; right: -1px; pointer-events: auto; }
     // Forgiveness is available only after entering a dot target; the idle
@@ -282,7 +282,7 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
     box-shadow: 0 3px 12px rgba(26,36,50,.1);
-    font-size: 13px;
+    font-size: calc((13px) * var(--mobile-text-scale, 1));
     font-weight: 500;
     font-family: inherit;
     line-height: 1.5;
@@ -297,7 +297,7 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
 }
 @media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
     .dock-dot .dock-dot-label {
-        font-size: 14px;
+        font-size: calc((14px) * var(--mobile-text-scale, 1));
     }
 }
 .dock-dot:not([aria-current="location"]):hover .dock-dot-label, .dock-dot:focus-visible .dock-dot-label,
@@ -464,7 +464,7 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
 .header .is-open .nav-panel {
     opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(-50%);
     // Enter when the strokes start rotating, after the lower line expands.
-    transition-delay: .18s;
+    transition-delay: .18s, .18s, 0s;
 }
 .header .nav {
     display: flex;
@@ -481,18 +481,34 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     list-style: none;
 }
 .header .tab-container { flex-shrink: 0; list-style: none; margin: 0; padding: 0; }
-.menu-hand-icon {
-    flex: none; width: 25px; height: 25px;
-    margin-inline: -1.5px;
-    background: currentColor;
-    -webkit-mask: url('/images/ui/hand-waving.svg') center / contain no-repeat;
-    mask: url('/images/ui/hand-waving.svg') center / contain no-repeat;
+.menu-emoji {
+    flex: 0 0 26px;
+    display: block;
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+.menu-linkedin-tile {
+    display: grid;
+    place-items: center;
+    background: #2867b2;
+    border-radius: 2px;
+}
+.menu-linkedin-icon {
+    display: block;
+    width: 22px;
+    height: 22px;
+    // Back only the transparent lettering, not the tile's outer corners.
+    background: linear-gradient(#fff, #fff) center / 80% 80% no-repeat;
+    border-radius: 2px;
+    object-fit: cover;
+    object-position: left center;
 }
 .header .tab {
     display: flex; align-items: center; justify-content: flex-start; gap: 14px;
     position: relative;
     min-height: 52px; padding: 10px 14px; box-sizing: border-box;
-    border-radius: 13px; color: var(--dock-ink); font-size: 18px;
+    border-radius: 13px; color: var(--dock-ink); font-size: calc((18px) * var(--mobile-text-scale, 1));
     font-weight: 500; text-decoration: none;
     transition: background-color .15s ease, color .15s ease;
     svg { flex-shrink: 0; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
@@ -500,6 +516,29 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     &[aria-current="page"] { background: var(--dock-selected); color: var(--dock-selected-ink); }
     &:hover, &:focus-visible { background: rgba(128,134,145,.12); }
     &:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }
+}
+// Reference-style lift and pointer drift, with stable row hit areas.
+@media (min-width: 48rem) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .header .nav { padding: 12px; }
+    .header .tab-container { position: relative; }
+    .header .tab {
+        transform: translate(var(--menu-hover-x, 0px), var(--menu-hover-y, 0px));
+        scale: 1;
+        transition: transform .15s ease, scale .5s ease, background-color .5s ease;
+    }
+    .header .tab > .menu-emoji,
+    .header .tab > span { transition: translate .5s ease; }
+    .header .tab-container:hover { z-index: 1; }
+    .header .tab-container:hover .tab {
+        scale: 1.07;
+        background-color: rgba(128,134,145,.18);
+        transition-duration: .15s;
+    }
+    .header .tab-container:hover .tab > .menu-emoji,
+    .header .tab-container:hover .tab > span {
+        translate: 6px 0;
+        transition-duration: .15s;
+    }
 }
 @media (max-width: 47.999rem) {
     body:has(main.contact) .nav-controls .dock-dots,
@@ -813,18 +852,22 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
             inset 0 0 0 2px rgba(160,180,200,.10),
             0 .625rem 1.75rem rgba(0,0,0,.12);
     }
-    .body--vitae .header.has-orb-lenses .menu-glass,
-    .body--vitae .header.has-orb-lenses .nav-controls > .dock-glass {
+    .body--vitae .header.has-orb-lenses .menu-glass {
         background: transparent;
         -webkit-backdrop-filter: var(--dock-refraction-filter) saturate(115%);
         backdrop-filter: var(--dock-refraction-filter) saturate(115%);
     }
+    .body--vitae .header.has-orb-lenses .nav-controls > .dock-glass {
+        background: rgba(8, 11, 16, .56);
+        -webkit-backdrop-filter: var(--dock-refraction-filter) saturate(85%);
+        backdrop-filter: var(--dock-refraction-filter) saturate(85%);
+    }
     .body--vitae .header .nav-controls {
         --dock-ink: #fff;
         > .dock-glass {
-            background: rgba(5,5,6,.12);
-            -webkit-backdrop-filter: blur(8px) saturate(115%);
-            backdrop-filter: blur(8px) saturate(115%);
+            background: rgba(8,11,16,.56);
+            -webkit-backdrop-filter: blur(8px) saturate(85%);
+            backdrop-filter: blur(8px) saturate(85%);
             border-color: rgba(172,184,196,.28);
             // Two distinct contours surround a clear, unfilled bevel.
             box-shadow: inset 0 1px 1px rgba(224,232,240,.18),
@@ -863,8 +906,13 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
         }
         .dock-control {
             --glass-inner-highlight-height: 10%;
+            // Dock-sized controls need only a soft contact shadow, not the
+            // heavier elevation used by full-sized page buttons.
+            --material-shadow: 0 1px 2px rgba(0,0,0,.18), 0 3px 6px rgba(0,0,0,.12);
+            --material-shadow-hover: 0 1px 2px rgba(0,0,0,.20), 0 4px 8px rgba(0,0,0,.14);
+            --material-shadow-pressed: 0 1px 2px rgba(0,0,0,.12);
             // Only the surface is translucent; never fade the control or icons.
-            background: rgba(5,5,6,.05);
+            background: rgba(5,8,12,.28);
             -webkit-backdrop-filter: blur(8px);
             backdrop-filter: blur(8px);
             border: .75px solid var(--material-edge);
@@ -878,13 +926,13 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
                     transparent 280deg 360deg);
             }
             &:hover, &:focus-visible {
-                background: rgba(5,5,6,.05);
+                background: rgba(5,8,12,.36);
                 box-shadow: var(--material-bevel), var(--material-shadow-hover);
             }
             &:active { box-shadow: var(--material-bevel-pressed), var(--material-shadow-pressed); }
         }
         .nav-toggle-line, .dock-house-icon { filter: drop-shadow(0 0 2px rgba(255,255,255,.3)); }
-        .dock-dot::before { background: #363A40; opacity: 1; }
+        .dock-dot::before { background: #737b85; opacity: 1; }
         .dock-dot:not([aria-current="location"]):hover::before,
         .dock-dot:focus-visible::before,
         .dock-dot.is-touch-target::before { background: #fff; }
@@ -935,4 +983,110 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     .header .nav-panel::before, .header .nav-panel::after, .header .nav-panel-shadow { display: none; }
     .dock-control, .body--vitae .dock-control, .header .tab { background: Canvas; color: ButtonText; border-color: ButtonText; box-shadow: none; }
     .dock-control::before, .dock-stepper button::before { display: none; }
+}
+
+// One mobile island: stable hit areas, with compact dots becoming controls.
+@media (max-width: 47.999rem) {
+    .header .nav-controls > .dock-glass { display: none; }
+    .header .nav-controls { height: 0; width: 0; }
+    .header .nav-controls .dock-dots {
+        display: flex;
+        right: calc(12px + env(safe-area-inset-right, 0px));
+        width: 30px;
+        max-height: calc(100dvh - 48px);
+        padding: 8px 0;
+        row-gap: 0;
+        box-sizing: border-box;
+        border-radius: 22px;
+        pointer-events: auto;
+        transform: translateY(-50%);
+        &::before {
+            inset: -1px;
+            border: 1px solid rgba(111,123,137,.22);
+            background: rgba(248,249,251,.92);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.85), 0 3px 12px rgba(30,42,58,.10);
+        }
+        &::after { display: none; }
+        .dock-dot-endpoint { display: none !important; }
+        .dock-dot { width: 30px; height: 32px; min-height: 32px; pointer-events: auto; }
+        .dock-dot::before { translate: 0 0; }
+        .dock-dot::after { inset: 0; }
+        .dock-control {
+            flex: none;
+            position: relative; inset: auto;
+            width: 30px; height: 32px; margin: 0;
+            border-radius: 50%;
+            opacity: 1; visibility: visible; pointer-events: auto;
+            transform: none;
+            svg { width: 16px; height: 16px; animation: none; }
+        }
+        .dock-menu-icon { scale: .7; }
+    }
+    .header .nav-controls .dock-dots:not(.is-touch-active):not(.is-hover-active):not(:has(:focus-visible)):not(:has(.nav-toggle[aria-expanded="true"])) {
+        .dock-control {
+            background: transparent; border-color: transparent; box-shadow: none;
+            // A transparent button still paints a circular patch when its
+            // backdrop blur samples the tray. Collapsed controls are dots only.
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+            > :not(.dock-dot-label) { visibility: hidden; }
+            &::before {
+                content: ''; position: absolute; inset: 50% auto auto 50%;
+                transform: translate(-50%, -50%);
+                width: 7px; height: 7px; padding: 0;
+                border-radius: 50%; opacity: 1; mask: none; -webkit-mask: none;
+                background: #e1d2c0; mix-blend-mode: normal;
+            }
+            &::after { display: none; }
+            &.nav-toggle::before { background: #adb6bf; }
+        }
+    }
+    .header .nav-controls .dock-dots.is-touch-active,
+    .header .nav-controls .dock-dots.is-hover-active,
+    .header .nav-controls .dock-dots:has(:focus-visible),
+    .header .nav-controls .dock-dots:has(.nav-toggle[aria-expanded="true"]) {
+        width: 44px;
+        padding: 8px 0;
+        row-gap: 8px;
+        // Expanded buttons need breathing room; dots need less visual space.
+        .dock-control { width: 30px; height: 30px; }
+        .dock-dot { height: 20px; min-height: 20px; }
+    }
+    .header .nav-controls .dock-dots .dock-control.is-touch-target {
+        filter: brightness(1.1);
+    }
+    .header .nav-panel {
+        position: fixed;
+        top: 50%; bottom: auto;
+        right: calc(66px + env(safe-area-inset-right, 0px));
+        width: min(280px, calc(100vw - 84px));
+        transform: translateY(-50%);
+    }
+    .header .is-open .nav-panel { transform: translateY(-50%); }
+    .body--vitae .header .nav-controls .dock-dots:not(.is-touch-active):not(.is-hover-active):not(:has(:focus-visible)):not(:has(.nav-toggle[aria-expanded="true"])) .dock-control::before {
+        background: rgba(240,247,255,.8);
+    }
+    .body--vitae .header .nav-controls .dock-dots::before {
+        background: rgba(14,16,19,.94);
+        border-color: rgba(220,231,243,.2);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.09), 0 3px 12px rgba(0,0,0,.3);
+    }
+    .header .nav-controls .dock-dots .dock-dot:not([aria-current="location"])::before {
+        width: 6px; height: 6px;
+    }
+    .header .nav-controls .dock-dots .dock-dot.is-touch-target:not([aria-current="location"])::before {
+        width: 9px; height: 9px;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+        .header .nav-controls .dock-dots {
+            transition: width .22s ease, transform .22s ease;
+        }
+    }
+}
+// Pointer type, rather than sticky :hover, decides touch tooltip visibility.
+html[data-nav-input="touch"] .nav-container .dock-dot-label {
+    display: none !important;
+}
+@media (hover: none) {
+    .nav-container .dock-dot-label { display: none !important; }
 }

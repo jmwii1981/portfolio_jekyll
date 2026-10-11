@@ -19,7 +19,7 @@ button,
     cursor: pointer;
     display: inline-block;
     font-family: inherit;
-    font-size: 0.875rem;
+    font-size: calc((0.875rem) * var(--mobile-text-scale, 1));
     font-weight: 400;
     isolation: isolate;
     letter-spacing: 0.02em;

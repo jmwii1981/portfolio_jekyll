@@ -1,4 +1,5 @@
 .main.about {
+    --about-dock-clearance: 88px;
     --help-accent-size: clamp(12.5rem, 22.4vw, 16.5rem);
     padding: 0;
     row-gap: 0;
@@ -7,6 +8,32 @@
 .main.about > section {
     padding-left: 0;
     padding-right: 0;
+    // Fill the window with room for a 75px glimpse of the prior section.
+    // Content remains free to exceed this minimum on smaller screens.
+    box-sizing: border-box;
+    min-height: calc(100vh - 75px);
+    min-height: calc(100dvh - 75px);
+}
+
+.main.about > .hero {
+    --hero-peek: clamp(24px, calc(5.73vw + 1.65px), 75px);
+    --hero-top-offset: var(--site-top-gutter);
+    min-height: calc(100vh - var(--hero-peek) - var(--hero-top-offset));
+    min-height: calc(100dvh - var(--hero-peek) - var(--hero-top-offset));
+    padding-block: clamp(50px, 5.86vw, 75px);
+}
+
+.main.about > .hero > .content-wrapper {
+    align-self: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 0;
+    padding-block: 0;
+}
+
+.main.about > section:not(.hero) {
+    // Dock navigation leaves a glimpse of the preceding section above.
+    scroll-margin-top: 75px;
 }
 
 .main.about > section + section {
@@ -31,12 +58,12 @@
 .main.about > section.testimonials,
 .main.about > section.about-me {
     padding-left: var(--site-frame-gutter);
-    padding-right: var(--site-frame-gutter);
+    padding-right: max(var(--site-frame-gutter), calc(var(--about-dock-clearance) - (100vw - 100%) / 2));
 }
 
 .main.about .section-label {
     color: #6E7E9C;
-    font-size: var(--type-label-font-size);
+    font-size: calc((var(--type-label-font-size)) * var(--mobile-text-scale, 1));
     font-weight: 700;
     letter-spacing: var(--type-label-letter-spacing);
     line-height: var(--type-label-line-height);
@@ -59,7 +86,7 @@
 
 .home-section-title {
     display: block;
-    font-size: clamp(2rem, 9vw, 3rem);
+    font-size: calc((clamp(2rem, 9vw, 3rem)) * var(--mobile-text-scale, 1));
     font-weight: 700;
     letter-spacing: var(--type-section-letter-spacing);
     line-height: var(--type-section-line-height);
@@ -73,7 +100,7 @@
 
 .main.about #about-title {
     font-weight: 700;
-    font-size: min(7rem, 13cqi);
+    font-size: calc((min(7rem, 13cqi)) * var(--mobile-text-scale, 1));
     letter-spacing: -.04em;
     line-height: 1.06;
     white-space: nowrap;
@@ -97,14 +124,14 @@
     z-index: 1;
 }
 
-// Independent of the image/copy columns. The sticky mark follows the viewport's
-// lower edge only until its absolutely positioned hero rail runs out of room.
+// Anchor to the section rather than following the viewport during scrolling.
 .hero-brand-rail {
     position: absolute;
-    top: 0;
+    top: auto;
     bottom: 24px;
     left: calc(24px - max(var(--site-outer-gutter), (100vw - var(--site-max-width)) / 2));
     width: 40px;
+    height: 40px;
     pointer-events: none;
     z-index: 2;
 }
@@ -112,10 +139,18 @@
 .hero-brand-mark {
     --color-ink: #9FA2A8;
     display: block;
-    position: sticky;
-    top: calc(100dvh - 64px - env(safe-area-inset-bottom, 0px));
+    position: static;
     width: 40px;
     height: 40px;
+}
+
+.hero.hero-brand-at-top .hero-brand-rail {
+    top: 16px;
+    bottom: auto;
+}
+
+.html:not(.no-js) .hero:not(.hero-brand-ready) .hero-brand-rail {
+    visibility: hidden;
 }
 
 .hero::before {
@@ -184,7 +219,7 @@
 
 .hero .h3 {
     animation: home-copy-reveal 0.9s 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
-    font-size: 1.05rem;
+    font-size: calc((1.05rem) * var(--mobile-text-scale, 1));
     font-weight: 700;
     letter-spacing: 0;
     line-height: 1.35;
@@ -267,7 +302,7 @@
     }
 
     .hero .h3 {
-        font-size: clamp(1.2rem, calc(1.47vw + 0.58rem), 1.4rem);
+        font-size: calc((clamp(1.2rem, calc(1.47vw + 0.58rem), 1.4rem)) * var(--mobile-text-scale, 1));
     }
 
 }
@@ -275,6 +310,7 @@
 @media (min-width: 42.5625rem) and (max-width: 59.9999rem) {
     .main.about > .hero {
         // Offset the page inset and the artwork's built-in upper whitespace.
+        --hero-top-offset: calc(var(--site-top-gutter) - 3rem);
         margin-top: -3rem;
     }
 
@@ -319,17 +355,17 @@
     }
 
     .hero .page-hero-title {
-        font-size: clamp(2.5rem, 5.9vw, 3.5rem);
+        font-size: calc((clamp(2.5rem, 5.9vw, 3.5rem)) * var(--mobile-text-scale, 1));
     }
 
     .hero .about-me-statement {
-        font-size: clamp(1rem, 2vw, 1.2rem);
+        font-size: calc((clamp(1rem, 2vw, 1.2rem)) * var(--mobile-text-scale, 1));
         margin-bottom: 2rem;
         margin-top: 2rem;
     }
 
     .home-section-description {
-        font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+        font-size: calc((clamp(1.05rem, 2.2vw, 1.3rem)) * var(--mobile-text-scale, 1));
         margin-bottom: 2rem;
         margin-top: 2rem;
     }
@@ -342,7 +378,7 @@
     }
 
     .hero .h3 {
-        font-size: clamp(1.4rem, calc(1.15vw + 0.75rem), 1.65rem);
+        font-size: calc((clamp(1.4rem, calc(1.15vw + 0.75rem), 1.65rem)) * var(--mobile-text-scale, 1));
         margin-bottom: 1.8rem;
         margin-top: 1.4rem;
     }
@@ -373,7 +409,7 @@
 
     .hero .about-me-statement,
     .home-section-description {
-        font-size: 1.25rem;
+        font-size: calc((1.25rem) * var(--mobile-text-scale, 1));
         margin-bottom: 2.625rem;
         margin-top: 2rem;
         max-width: 36rem;
@@ -384,7 +420,7 @@
     }
 
     .hero .page-hero-title {
-        font-size: var(--type-display-size);
+        font-size: calc((var(--type-display-size)) * var(--mobile-text-scale, 1));
     }
 
     .hero .image-wrapper {
@@ -402,9 +438,63 @@
 
     .hero .image-wrapper .image {
         object-fit: cover;
-        object-position: center 52%;
-        transform: translateY(-75px) scale(1.3);
+        object-position: center;
+        transform: translateZ(0);
     }
+}
+
+@media (min-width: 42.5625rem) {
+    .main.about .hero .image-wrapper {
+        width: var(--hero-rock-size);
+        height: var(--hero-rock-size);
+        top: 50%;
+        bottom: auto;
+        left: var(--hero-rock-center);
+        margin: 0;
+        transform: translate(-50%, -50%);
+    }
+    .main.about .hero .image-wrapper .image {
+        object-fit: contain;
+        transform: none;
+    }
+    .main.about .hero.hero-rocks-no-room .image-wrapper {
+        visibility: hidden;
+    }
+}
+
+// Keep one readable column and reserve a clear lane for the fixed dock.
+.main.about .hero .copy-wrapper {
+    flex: 0 0 auto;
+    align-self: flex-start;
+    margin-top: 0;
+    left: 0;
+    width: var(--hero-copy-width, 100%);
+    max-width: 100%;
+    margin-left: var(--hero-copy-offset, 0px);
+}
+
+.main.about .hero .about-me-statement {
+    max-width: min(100%, var(--hero-heading-width, 100%));
+}
+
+.main.about .hero .image-wrapper {
+    display: block;
+    position: absolute;
+    width: var(--hero-rock-size);
+    height: var(--hero-rock-size);
+    top: 50%;
+    bottom: auto;
+    left: var(--hero-rock-center);
+    margin: 0;
+    transform: translate(-50%, -50%);
+}
+
+.main.about .hero.hero-rocks-no-room .image-wrapper {
+    visibility: hidden;
+}
+
+.main.about .hero .image-wrapper .image {
+    opacity: var(--hero-rock-opacity, 1);
 }
 
 @keyframes home-copy-reveal {
@@ -431,7 +521,7 @@
 
 @media (min-width: 68rem) {
     .hero .page-hero-title {
-        font-size: var(--type-display-size);
+        font-size: calc((var(--type-display-size)) * var(--mobile-text-scale, 1));
     }
 }
 
@@ -441,11 +531,11 @@
         max-width: none;
         // Bring the copy into the artwork's empty right margin without
         // changing the headline fit or the text column's line lengths.
-        left: -40px;
+        left: 0;
     }
 
     .hero .h3 {
-        font-size: 1.65rem;
+        font-size: calc((1.65rem) * var(--mobile-text-scale, 1));
         line-height: 1.25;
         margin-bottom: 2rem;
         margin-top: 1.55rem;
@@ -459,11 +549,11 @@
 
 @media (min-width: 42.0625rem) {
     .home-section-title {
-        font-size: clamp(2.5rem, 5.5vw, 5.5rem);
+        font-size: calc((clamp(2.5rem, 5.5vw, 5.5rem)) * var(--mobile-text-scale, 1));
     }
 
     .help-intro .home-section-title {
-        font-size: clamp(2.5rem, 5vw, 5rem);
+        font-size: calc((clamp(2.5rem, 5vw, 5rem)) * var(--mobile-text-scale, 1));
     }
 }
 
@@ -518,6 +608,9 @@
     .help-accent--top {
         top: 0;
         transform: translateY(-100%);
+        // Extend only the straight join into the matching section. Keep the
+        // circular cutout and its tangent at their original coordinates.
+        box-shadow: 0 1px 0 var(--help-background);
     }
 
     .help-accent--top::before {
@@ -527,6 +620,7 @@
     .help-accent--bottom {
         bottom: 0;
         transform: translateY(100%);
+        box-shadow: 0 -1px 0 var(--help-background);
         // Leave the inside of the curve clear so the artwork can sit beneath it.
         background: radial-gradient(circle var(--help-accent-size) at left bottom,
             transparent calc(100% - 0.5px), var(--help-background) 100%);
@@ -619,7 +713,7 @@
         > .p:last-child {
             color: var(--color-link);
             font-family: inherit;
-            font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+            font-size: calc((clamp(1.5rem, 2.5vw, 2.25rem)) * var(--mobile-text-scale, 1));
             font-style: normal;
             font-weight: 600;
             letter-spacing: var(--type-card-letter-spacing);
@@ -631,7 +725,7 @@
         h3 {
             color: var(--color-section-label);
             font-family: inherit;
-            font-size: var(--type-label-font-size);
+            font-size: calc((var(--type-label-font-size)) * var(--mobile-text-scale, 1));
             font-style: normal;
             font-weight: 700;
             letter-spacing: var(--type-label-letter-spacing);
@@ -698,6 +792,7 @@
 }
 
 .testimonials {
+    padding-block: 75px;
     // Clip the video compositor to the same viewport-edge curve painted above.
     // Stacking order alone can let Safari's video layer cover that corner.
     clip-path: inset(0 calc((100% - 100vw) / 2) -100vmax round 0 var(--help-accent-size) 0 0);
@@ -727,8 +822,10 @@
     .testimonials-intro {
         align-items: center;
         display: grid;
-        gap: clamp(2rem, 4vw, 5rem);
+        gap: clamp(1.5rem, 2vw, 2rem);
         grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+        max-width: 76rem;
+        margin-inline: auto;
         width: 100%;
     }
     .testimonials-intro .home-section-header {
@@ -783,6 +880,7 @@
             (var(--testimonials-stack-gap) * -1)
             + var(--testimonial-logo-visual-offset)
             - var(--testimonial-divider-block-size)
+            + 25px
         );
         position: relative;
         width: 100%;
@@ -811,6 +909,14 @@
         justify-content: center;
         min-height: 4.25rem;
         padding: 0.625rem 1.25rem;
+    }
+
+    .company-logo-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        text-decoration: none;
     }
 
     .company-logo {
@@ -960,7 +1066,7 @@
         );
     }
     .testimonial-divider--top {
-        margin: 0 auto 2rem;
+        margin: 75px auto 2rem;
     }
 
     .recommendation-item {
@@ -994,7 +1100,7 @@
     }
     .recommendation-quote {
         color: var(--color-text-muted-light);
-        font-size: 1.35rem;
+        font-size: calc((1.35rem) * var(--mobile-text-scale, 1));
         font-style: italic;
         font-weight: 400;
         letter-spacing: 0;
@@ -1004,7 +1110,7 @@
     }
     .recommendation-attribution {
         color: var(--color-text-muted);
-        font-size: 0.95rem;
+        font-size: calc((0.95rem) * var(--mobile-text-scale, 1));
         font-style: italic;
         font-weight: 400;
         line-height: 1.2;
@@ -1097,6 +1203,8 @@
     --about-me-background: #D4D8E0;
 
     background-color: var(--about-me-background);
+    display: flex;
+    flex-direction: column;
     box-sizing: border-box;
     isolation: isolate;
     margin: 0;
@@ -1128,6 +1236,7 @@
     right: calc((100vw - 100%) / -2);
     top: 0;
     transform: translateY(-100%);
+    box-shadow: 0 1px 0 var(--about-me-background);
     width: var(--about-me-accent-size);
     z-index: -1;
 }
@@ -1148,7 +1257,7 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    margin: 0 auto;
+    margin: auto;
     max-width: var(--site-max-width);
     padding-top: 6.25rem;
     width: 100%;
@@ -1160,18 +1269,27 @@
     }
 }
 
+.main.about ~ .footer-divider,
 .main.about ~ .footer {
-    --color-link: #4C5463;
+    --footer-ink: #4C5463;
+}
+.main.about ~ .footer {
 
     background-color: #D4D8E0;
     box-shadow: 0 0 0 100vmax #D4D8E0;
-    clip-path: inset(0 -100vmax);
+    clip-path: inset(-1px -100vmax);
     padding-top: 1.5rem;
 
-    .footer-brand {
-        // Solid blend of the previous logo color with 20% of the footer background.
-        color: #727988;
-    }
+}
+
+// The divider occupies its own row. Paint its gutters too, so the white
+// body cannot show through between the full-bleed section and footer.
+.main.about ~ .footer-divider {
+    border-top-color: #B1B6BF;
+    box-shadow: 0 0 0 100vmax #D4D8E0;
+    clip-path: inset(0 -100vmax);
+    position: relative;
+    z-index: 1;
 }
 
 .about-me-artwork {
@@ -1184,6 +1302,7 @@
     width: 100%;
 }
 .about-me-invitation .keep-together { white-space: nowrap; }
+.help-intro .home-section-title .keep-together { white-space: nowrap; }
 
 .about-me-artwork::after {
     background:
@@ -1215,6 +1334,21 @@
     width: 100%;
 }
 .about-me-artwork-video { position: absolute; inset: 0; }
+// Enlarge only the two middle editorial headlines by one sixth.
+.main.about .help-intro .home-section-title,
+.main.about .testimonials-intro .home-section-title {
+    font-size: calc((clamp(2.916667rem, 6.416667vw, 6.416667rem)) * var(--mobile-text-scale, 1));
+}
+.main.about .help-intro .home-section-title {
+    font-size: calc((clamp(2.916667rem, 5.833333vw, 5.833333rem)) * var(--mobile-text-scale, 1));
+}
+@media (max-width: 42.5rem) {
+    .main.about .help-intro .home-section-title,
+    .main.about .testimonials-intro .home-section-title {
+        font-size: calc((calc(var(--type-display-size-mobile) * 1.166667)) * var(--mobile-text-scale, 1));
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .about-me-artwork-video, .testimonials-artwork-video, .help .help-artwork-video { display: none; }
     .help .help-artwork:has(.is-video-ready) .help-artwork-poster { visibility: visible; }
@@ -1251,7 +1385,7 @@
 .about-me-eyebrow {
     color: var(--color-section-label);
     display: block;
-    font-size: 0.8rem;
+    font-size: calc((0.8rem) * var(--mobile-text-scale, 1));
     font-weight: 700;
     letter-spacing: 0.11em;
     line-height: var(--type-label-line-height);
@@ -1266,7 +1400,7 @@
 .about-me-statement {
     color: var(--color-text-soft);
     display: block;
-    font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+    font-size: calc((clamp(1.05rem, 1.8vw, 1.45rem)) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-lead-letter-spacing);
     line-height: var(--type-lead-line-height);
     margin: clamp(1.75rem, 4vw, 3rem) 0 0;
@@ -1274,7 +1408,16 @@
 }
 
 .hero .about-me-statement {
-    font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+    font-size: calc((clamp(1.05rem, 1.8vw, 1.45rem)) * var(--mobile-text-scale, 1));
+}
+
+.hero .about-me-statement .hero-greeting-emoji {
+    display: inline-block;
+    width: calc(1em + 2px);
+    height: calc(1em + 2px);
+    margin-inline-end: 0.2em;
+    vertical-align: calc(-0.12em - 1px);
+    object-fit: contain;
 }
 
 .about-me-next {
@@ -1318,7 +1461,7 @@
 .about-me-invitation {
     color: #4C5463;
     display: block;
-    font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+    font-size: calc((clamp(1.05rem, 1.8vw, 1.45rem)) * var(--mobile-text-scale, 1));
     font-weight: 400;
     letter-spacing: var(--type-lead-letter-spacing);
     line-height: var(--type-lead-line-height);
@@ -1395,7 +1538,7 @@
     }
 
     .about-me-next > .home-section-title {
-        font-size: clamp(2.5rem, 17cqw, 5.5rem);
+        font-size: calc((clamp(2.5rem, 17cqw, 5.5rem)) * var(--mobile-text-scale, 1));
     }
 
     .about-me-actions {
@@ -1441,7 +1584,9 @@
 
     .main.about > .hero {
         box-sizing: border-box;
-        min-height: 33.5rem;
+        --hero-top-offset: 0px;
+        min-height: max(33.5rem, calc(100vh - var(--hero-peek)));
+        min-height: max(33.5rem, calc(100dvh - var(--hero-peek)));
         padding-top: 4.5rem;
         padding-bottom: 4.5rem;
     }
@@ -1527,7 +1672,7 @@
 
     .main.about .hero .page-hero-title,
     .main.about .home-section-title {
-        font-size: var(--type-display-size-mobile);
+        font-size: calc((var(--type-display-size-mobile)) * var(--mobile-text-scale, 1));
         overflow-wrap: anywhere;
     }
 
@@ -1551,6 +1696,11 @@
 }
 
 @media (max-width: 44.25rem) {
+    .main.about { --about-dock-clearance: 60px; }
+    .main.about .help-intro .home-section-title {
+        font-size: min(calc(var(--type-display-size-mobile) * 1.166667 * var(--mobile-text-scale, 1)), 14.6vw);
+        overflow-wrap: normal;
+    }
     .about-me-next {
         width: 100%;
     }
@@ -1572,6 +1722,108 @@
 
     .about-me-actions .button {
         width: auto;
+    }
+}
+
+// Desktop-size typography trial: let columns wrap, not resize the type.
+.main.about {
+    .hero #about-title {
+        font-size: 5.2rem;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+    .help-intro .home-section-title { font-size: 5.833333rem; }
+    .testimonials-intro .home-section-title { font-size: 6.416667rem; }
+    .about-me-next > .home-section-title { font-size: 5.5rem; }
+    .home-section-title { overflow-wrap: anywhere; }
+    .hero .about-me-statement,
+    .home-section-description,
+    .about-me-invitation {
+        font-size: 1.45rem;
+        line-height: 1.55;
+    }
+    .button, .button-face {
+        font-size: 1rem;
+        line-height: 1.25;
+    }
+}
+
+// At the full desktop width, match the corresponding Vitae display headings.
+@media (min-width: 101.5rem) {
+    .main.about .hero #about-title { font-size: 6rem; }
+    .main.about .about-me-next > .home-section-title { font-size: 7rem; }
+}
+
+// One continuous responsive model instead of illustration show/hide breakpoints.
+body:has(.main.about) { overflow-x: clip; }
+
+@media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+        .main.about :is(.help-intro, .testimonials-intro) > .home-section-header[data-reveal] {
+            animation-name: about-copy-from-left;
+        }
+        .main.about .about-me-next[data-reveal] {
+            animation-name: about-copy-from-right;
+        }
+    }
+}
+@keyframes about-copy-from-left {
+    from { opacity: 0; transform: translateX(-1.25rem); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes about-copy-from-right {
+    from { opacity: 0; transform: translateX(1.25rem); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+    .main.about :is(.help-intro, .testimonials-intro, .about-me-inner) > .about-copy-entrance[data-reveal] {
+        animation: none;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1);
+        &.about-me-next { transform: translateX(20px); }
+        &.about-copy-entered { opacity: 1; transform: translateX(0); }
+        &:focus-within { opacity: 1; transform: none; transition: none; }
+    }
+}
+
+// Keep both decorative compositions behind their accompanying copy,
+// including when responsive positioning lets the artwork overlap it.
+.main.about :is(.help-intro, .testimonials-intro) {
+    isolation: isolate;
+    > .home-section-header { position: relative; z-index: 2; }
+    > :is(.help-artwork, .testimonials-artwork-shell) { z-index: 0; }
+}
+
+.main.about .about-fluid-composition {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0;
+    max-width: 76rem;
+    width: 100%;
+    margin-inline: auto;
+    min-height: var(--composition-min-height, 0px);
+
+    > .about-fluid-copy {
+        flex: none;
+        width: var(--composition-copy-width);
+        max-width: 100%;
+        margin-left: var(--composition-copy-left);
+    }
+
+    > .about-fluid-art {
+        display: block;
+        position: absolute;
+        left: var(--composition-art-left);
+        top: 50%;
+        translate: 0 -50%;
+        width: var(--composition-art-width);
+        height: var(--composition-art-height);
+        filter: unquote("opacity(var(--composition-art-opacity, 1))");
+        pointer-events: none;
     }
 }
 

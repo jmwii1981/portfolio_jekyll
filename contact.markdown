@@ -7,13 +7,22 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
 <main class="main contact" id="main-content" tabindex="-1">
     <section class="page-hero page-intro-frame contact-hero" id="contact-jan" aria-labelledby="contact-heading" data-search-section data-search-title="Contact Jan Michael Wallace II" data-search-category="Contact" data-search-keywords="email phone cell message leadership opportunity conversation collaboration">
         <div class="content-wrapper page-hero-content">
-            <h1 class="h1 page-hero-title" id="contact-heading">Let’s create a clear path forward, together.</h1>
+            <h1 class="h1 page-hero-title" id="contact-heading">Let’s create a clear path forward, <span class="contact-heading-together">together</span>.</h1>
         </div>
+        <div class="contact-portrait-composition">
+          <div class="contact-portrait-artwork">
         <picture class="contact-avatar">
             <source type="image/avif" srcset="{{ '/images/headshots/bio-pic-512.avif' | relative_url }}?v={{ site.asset_version }}">
             <source type="image/webp" srcset="{{ '/images/headshots/bio-pic-512.webp' | relative_url }}?v={{ site.asset_version }}">
             <img src="{{ '/images/headshots/bio-pic-512.png' | relative_url }}?v={{ site.asset_version }}" width="512" height="512" alt="Portrait of Jan Michael Wallace II" decoding="async">
         </picture>
+          </div>
+          <div class="contact-direct-links" aria-label="Reach out directly">
+            <a href="https://www.linkedin.com/in/jmwii1981/" class="contact-direct-pill" target="_blank" rel="noopener noreferrer" aria-label="Message me on LinkedIn (opens in a new tab)"><img src="{{ '/images/ui/emoji-paper-plane.png' | relative_url }}" width="26" height="26" alt="">Message me on LinkedIn</a>
+            <a href="mailto:hello@janmichael.io" class="contact-direct-pill"><img src="{{ '/images/ui/emoji-envelope.png' | relative_url }}" width="26" height="26" alt="">hello@janmichael.io</a>
+            <a href="tel:+14155069867" class="contact-direct-pill"><img src="{{ '/images/ui/emoji-telephone-receiver.png' | relative_url }}" width="26" height="26" alt="">+1.415.506.9867</a>
+          </div>
+        </div>
     </section>
 
     <section class="contact-section" id="send-a-message" aria-label="Send a message" data-search-section data-search-title="Send Jan Michael Wallace II a message" data-search-category="Contact" data-search-keywords="contact form email phone cell message">
@@ -22,7 +31,6 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
             <input type="hidden" name="from_name" value="janmichael.io Contact Form">
             <input class="contact-botcheck" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-            <p class="p contact-required-note" id="contact-required-note">Fields marked with an asterisk (*) are required.</p>
 
             <div class="contact-name-fields">
                 <div class="contact-field">
@@ -44,6 +52,42 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
                 <p class="p contact-field-error" id="contact-email-error" data-contact-error hidden></p>
             </div>
 
+            <section class="contact-project-details" aria-labelledby="contact-project-detail-heading">
+                <h2 class="contact-project-detail-heading" id="contact-project-detail-heading">Project Detail</h2>
+            <div class="contact-timeline">
+                <div class="contact-timeline-dates">
+                    <div class="contact-field">
+                        <label class="contact-label contact-date-label" for="contact-begin">Planned kick off</label>
+                        <input class="contact-input" id="contact-begin" name="Preferred start date" type="date" required aria-describedby="contact-begin-error">
+                        <p class="p contact-field-error" id="contact-begin-error" data-contact-error hidden></p>
+                    </div>
+                    <div class="contact-field">
+                        <label class="contact-label contact-date-label" for="contact-ready">Target launch</label>
+                        <input class="contact-input" id="contact-ready" name="Handoff or launch date" type="date" required aria-describedby="contact-ready-error">
+                        <p class="p contact-field-error" id="contact-ready-error" data-contact-error hidden></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-field">
+                <label class="contact-label" for="contact-budget">Budget</label>
+                <div class="contact-select-wrap">
+                <select class="contact-input contact-select" id="contact-budget" name="Budget" required aria-describedby="contact-budget-error">
+                    <option value="" disabled selected>Select a range</option>
+                    <option>$5k+</option>
+                    <option>$10k+</option>
+                    <option>$25k+</option>
+                    <option>$50k+</option>
+                    <option>$100k+</option>
+                    <option>$250k+</option>
+                    <option>Let’s figure it out</option>
+                </select>
+                <span class="contact-select-toggle" aria-hidden="true"><img src="{{ '/images/ui/vega/arrow-right.svg' | relative_url }}" width="16" height="16" alt=""></span>
+                </div>
+                <p class="p contact-field-error" id="contact-budget-error" data-contact-error hidden></p>
+            </div>
+            </section>
+
             <div class="contact-field">
                 <label class="contact-label" for="contact-subject">Subject</label>
                 <input class="contact-input" id="contact-subject" name="subject" type="text" maxlength="120" required aria-describedby="contact-subject-error">
@@ -58,13 +102,10 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
 
             <div class="contact-actions">
                 <button class="button button-container primary contact-submit" type="submit" aria-label="Send message">Send message<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Send message</span></span></button>
+                <p class="p contact-required-note" id="contact-required-note">Fields marked with an asterisk (*) are required.</p>
                 <p class="p contact-form-status" id="contact-form-status" data-contact-status role="status" aria-live="polite" aria-atomic="true"></p>
-                <p class="p contact-direct-email" id="contact-direct-email">If you’re having trouble with the form or prefer to reach out directly, please feel free to email me at <a class="a" href="mailto:hello@janmichael.io">hello@janmichael.io</a> or call or text my personal cell at <a class="a" href="tel:+14155069867">415.506.9867</a>.</p>
             </div>
         </form>
-        <picture class="contact-stones" aria-hidden="true">
-            <source type="image/webp" srcset="{{ '/images/contact/stonehenge.webp' | relative_url }}?v=20260930-transparent">
-            <img src="{{ '/images/contact/stonehenge.png' | relative_url }}?v=20260930-transparent" width="1254" height="1254" alt="" loading="lazy" decoding="async">
-        </picture>
     </section>
 </main>
+<script type="module" src="{{ '/scripts/contactCalendar.mjs' | relative_url }}"></script>

@@ -1,3 +1,11 @@
+@font-face { font-family: VegaInter; src: url('/fonts/vega-inter-regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: VegaInter; src: url('/fonts/vega-inter-500.ttf') format('truetype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: VegaInter; src: url('/fonts/vega-inter-600.ttf') format('truetype'); font-weight: 600; font-display: swap; }
+@font-face { font-family: VegaInter; src: url('/fonts/vega-inter-700.ttf') format('truetype'); font-weight: 700 900; font-display: swap; }
+
+.html:has(.body--vitae) {
+    background-color: var(--color-ink);
+}
 .body--vitae {
     --color-selection: rgba(180, 180, 180, 0.35);
     --vitae-project-index-glass-background:
@@ -18,13 +26,13 @@
 
 .body--vitae .logo.large path { stroke: var(--color-paper); }
 
-.body--vitae .footer,
 .body--vitae .main.vitae {
     --color-link: var(--color-paper);
     --color-text: var(--color-paper);
 }
 
 .main.vitae {
+    --vitae-dock-clearance: 88px;
     --vitae-project-index-height: 3.25rem;
     --vitae-project-index-sticky-top: 10px;
 
@@ -40,9 +48,9 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    min-height: calc(100vh - var(--site-top-gutter));
-    min-height: calc(100svh - var(--site-top-gutter));
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100svh;
     overflow: visible;
     padding-bottom: 3rem;
     position: relative;
@@ -108,8 +116,8 @@
 
 @media (min-width: 42.5625rem) {
     .vitae-intro {
-        align-content: start;
-        align-items: start;
+        align-content: center;
+        align-items: center;
         display: grid;
         gap: clamp(2.5rem, 5vw, 4.5rem) clamp(1.5rem, 3vw, 3rem);
         grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
@@ -118,7 +126,7 @@
     .vitae-intro > .vitae-intro-title {
         grid-column: 1 / -1;
         max-width: 100%;
-        font-size: clamp(3.25rem, 7.5vw, 7rem);
+        font-size: calc((clamp(3.25rem, 7.5vw, 7rem)) * var(--mobile-text-scale, 1));
         line-height: 1.06;
         letter-spacing: -0.045em;
         text-wrap: initial;
@@ -130,6 +138,7 @@
 
     .vitae-intro-artwork {
         justify-self: end;
+        align-self: center;
         margin-top: 0;
         width: 100%;
     }
@@ -151,29 +160,52 @@
 @media (min-width: 60rem) {
     .vitae-intro-title-finish { display: block; }
 
+    .vitae-intro > .vitae-intro-title,
+    .vitae-intro > .vitae-intro-copy {
+        top: -50px;
+    }
+
+    .vitae-intro > .vitae-intro-title {
+        grid-column: 1;
+        grid-row: 1;
+        font-size: clamp(3.25rem, 5.4vw, 6rem);
+        align-self: end;
+    }
+
     .vitae-intro-copy {
-        margin-top: 100px;
+        margin-top: 0;
+        grid-column: 1;
+        grid-row: 2;
+        align-self: start;
     }
 
     .vitae-intro {
         overflow: visible;
+        row-gap: 2rem;
     }
 
     main.main > .vitae-intro.page-intro-frame {
-        padding-top: clamp(3.5rem, 5.5vw, 6rem);
+        padding-block: clamp(3.5rem, 5.5vw, 6rem);
     }
 
     .vitae-intro-artwork {
+        grid-column: 2;
+        grid-row: 1 / span 2;
         width: 108%;
         max-width: none;
         justify-self: start;
-        align-self: start;
-        margin-top: -3.5rem;
+        align-self: center;
+        height: auto;
+        aspect-ratio: 1218 / 882;
+        margin-top: 0;
         margin-left: calc(-1.5rem + 26px);
     }
 
     .vitae-intro-artwork-image {
+        position: static;
+        height: 100%;
         transform: scale(0.98262);
+        transform-origin: right center;
     }
 }
 
@@ -192,7 +224,7 @@
 .vitae-intro-statement {
     animation: vitae-copy-reveal 0.9s 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
     color: var(--color-text-muted-on-dark);
-    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    font-size: calc((clamp(1.05rem, 1.5vw, 1.25rem)) * var(--mobile-text-scale, 1));
     margin: clamp(2rem, 5vw, 4rem) 0 0;
     max-width: 39rem;
 }
@@ -445,7 +477,7 @@
     align-items: center;
     box-sizing: border-box;
     display: flex;
-    font-size: 0.78rem;
+    font-size: calc((0.78rem) * var(--mobile-text-scale, 1));
     font-weight: 600;
     gap: 0.75rem;
     justify-content: center;
@@ -455,7 +487,7 @@
     overflow: hidden;
     padding: 0.75rem clamp(0.75rem, 1.25vw, 1.25rem);
     text-align: center;
-    text-transform: uppercase;
+    text-transform: none;
     transition: color 0.28s ease, text-shadow 0.2s ease;
 }
 
@@ -479,7 +511,7 @@
 
 .vitae-project-index-list .a span {
     color: var(--color-text-muted-on-dark);
-    font-size: 0.68rem;
+    font-size: calc((0.68rem) * var(--mobile-text-scale, 1));
     font-variant-numeric: tabular-nums;
     transition: color 0.28s ease;
 }
@@ -504,7 +536,7 @@
 
 .vitae-project-summaries::after {
     content: "";
-    flex: 0 0 clamp(5rem, 10vw, 9rem);
+    flex: 0 0 calc(clamp(5rem, 10vw, 9rem) + clamp(3rem, 6vw, 6rem));
     pointer-events: none;
 }
 
@@ -522,7 +554,7 @@
 
 .vitae-project-summary + .vitae-project-summary {
     border-top-color: transparent;
-    margin-top: clamp(5rem, 9vw, 8rem);
+    margin-top: calc(clamp(5rem, 9vw, 8rem) + clamp(3rem, 6vw, 6rem));
 }
 
 .vitae-project-summary-copy {
@@ -531,7 +563,7 @@
 }
 
 .vitae-project-summary .project-story-title {
-    font-size: clamp(2.25rem, 4.5vw, 4.5rem);
+    font-size: calc((clamp(2.25rem, 4.5vw, 4.5rem)) * var(--mobile-text-scale, 1));
     line-height: 1.08;
     letter-spacing: -0.04em;
     text-wrap: balance;
@@ -580,7 +612,7 @@
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.05);
     color: #DADDE1;
-    font-size: 0.75rem;
+    font-size: calc((0.75rem) * var(--mobile-text-scale, 1));
     font-weight: 600;
     line-height: 1.4;
     letter-spacing: 0.09em;
@@ -589,7 +621,7 @@
 
 .vitae-project-summary-detail .project-story-intro {
     margin-top: 0;
-    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    font-size: calc((clamp(1.05rem, 1.5vw, 1.25rem)) * var(--mobile-text-scale, 1));
     max-width: 32rem;
     text-wrap: pretty;
 }
@@ -602,13 +634,16 @@
     min-height: 44px;
     padding: 0.25rem 0.5rem;
     color: var(--color-paper);
-    font-size: 1rem;
+    font-size: calc((1rem) * var(--mobile-text-scale, 1));
     font-weight: 500;
-    text-decoration: underline;
-    text-decoration-color: rgba(255, 255, 255, 0.3);
-    text-underline-offset: 0.3em;
-    transition: text-decoration-color 0.2s ease;
-    &:hover { text-decoration-color: currentColor; }
+    text-decoration: none;
+    &:hover,
+    &:focus-visible { text-decoration: none; }
+    .vitae-editorial-link-label {
+        text-decoration: underline;
+        text-decoration-color: rgba(255, 255, 255, 0.3);
+        text-underline-offset: 0.3em;
+    }
     &:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 }
 
@@ -616,13 +651,13 @@
 body:has(.vitae-intro) {
     --vitae-control-ink: rgba(238, 241, 246, 0.95);
 
-    a:not(.button-container),
+    a:not(.button-container):not(.footer a),
     button:not(.button-container) {
         color: var(--vitae-control-ink);
     }
 
-    a:not(.button-container):hover,
-    a:not(.button-container):focus-visible,
+    a:not(.button-container):not(.footer a):hover,
+    a:not(.button-container):not(.footer a):focus-visible,
     button:not(.button-container):hover,
     button:not(.button-container):focus-visible {
         color: #fff;
@@ -631,7 +666,7 @@ body:has(.vitae-intro) {
 
 .vitae-intro ~ section .vitae-editorial-link {
     color: var(--vitae-control-ink, rgba(238, 241, 246, 0.88));
-    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+    transition: color 0.2s ease;
 
     &:hover,
     &:focus-visible { color: #fff; }
@@ -677,7 +712,7 @@ body:has(.vitae-intro) {
 .project-story-meta {
     color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: 0.8rem;
+    font-size: calc((0.8rem) * var(--mobile-text-scale, 1));
     font-weight: 700;
     letter-spacing: 0.1em;
     line-height: 1.4;
@@ -692,7 +727,7 @@ body:has(.vitae-intro) {
 
 .project-story-title {
     display: block;
-    font-size: clamp(2rem, 4vw, 3.75rem);
+    font-size: calc((clamp(2rem, 4vw, 3.75rem)) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-feature-letter-spacing);
     line-height: var(--type-feature-line-height);
     margin: 0;
@@ -730,7 +765,7 @@ body:has(.vitae-intro) {
 .project-story-intro {
     color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-size: calc((clamp(1rem, 1.5vw, 1.25rem)) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-lead-letter-spacing);
     line-height: var(--type-lead-line-height);
     margin: clamp(1.75rem, 4vw, 3rem) 0 0;
@@ -791,7 +826,7 @@ body:has(.vitae-intro) {
 
 .project-story-details .h4 {
     display: block;
-    font-size: 0.78rem;
+    font-size: calc((0.78rem) * var(--mobile-text-scale, 1));
     font-weight: 700;
     letter-spacing: 0.11em;
     line-height: 1.4;
@@ -802,7 +837,7 @@ body:has(.vitae-intro) {
 .project-story-details .p {
     color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: clamp(1rem, 1.35vw, 1.15rem);
+    font-size: calc((clamp(1rem, 1.35vw, 1.15rem)) * var(--mobile-text-scale, 1));
     letter-spacing: -0.005em;
     line-height: var(--type-reading-line-height);
     margin: 0;
@@ -824,7 +859,7 @@ body:has(.vitae-intro) {
 
 .project-story-copy-panel .project-screen-caption .h4 {
     border-top: 0.0625rem solid rgba(255, 255, 255, 0.14);
-    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    font-size: calc((clamp(1.5rem, 2.5vw, 2.25rem)) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-card-letter-spacing);
     line-height: var(--type-card-line-height);
     padding-top: 1.25rem;
@@ -1000,7 +1035,7 @@ body:has(.vitae-intro) {
     align-self: stretch;
     color: var(--color-text-muted-on-dark);
     display: flex;
-    font-size: 0.8rem;
+    font-size: calc((0.8rem) * var(--mobile-text-scale, 1));
     font-variant-numeric: tabular-nums;
     margin: 0;
     min-width: 3.25rem;
@@ -1059,7 +1094,7 @@ body:has(.vitae-intro) {
 
 .project-screen-caption .h4 {
     display: block;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-size: calc((clamp(1.2rem, 2vw, 1.6rem)) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-card-letter-spacing);
     line-height: 1.25;
     margin: 0;
@@ -1068,7 +1103,7 @@ body:has(.vitae-intro) {
 .project-screen-caption .p {
     color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: clamp(1rem, 1.35vw, 1.15rem);
+    font-size: calc((clamp(1rem, 1.35vw, 1.15rem)) * var(--mobile-text-scale, 1));
     line-height: var(--type-body-line-height);
     margin: 0;
     max-width: 48rem;
@@ -1076,7 +1111,7 @@ body:has(.vitae-intro) {
 
 .project-screen-caption .project-screen-outcome {
     border-left: 0.125rem solid var(--color-paper);
-    font-size: 0.9rem;
+    font-size: calc((0.9rem) * var(--mobile-text-scale, 1));
     margin-top: 0.5rem;
     padding-left: 1rem;
 }
@@ -1084,7 +1119,7 @@ body:has(.vitae-intro) {
 .project-screen-outcome strong {
     color: var(--color-paper);
     display: block;
-    font-size: 0.72rem;
+    font-size: calc((0.72rem) * var(--mobile-text-scale, 1));
     letter-spacing: 0.08em;
     margin-bottom: 0.25rem;
     text-transform: uppercase;
@@ -1108,20 +1143,26 @@ body:has(.vitae-intro) {
 }
 
 .vitae-contact-layout {
+    isolation: isolate;
     mix-blend-mode: lighten;
     display: grid;
-    align-items: start;
-    gap: 2rem clamp(2rem, 5vw, 5rem);
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    grid-template-rows: auto 1fr;
+    align-items: center;
+    gap: 2rem clamp(1rem, 2vw, 2rem);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    max-width: 64rem;
+    margin-left: var(--vitae-heading-inset, 0px);
+    margin-right: 0;
+    width: calc(100% - var(--vitae-heading-inset, 0px));
 }
 
 .vitae-contact-artwork {
+    z-index: 0;
+    pointer-events: none;
     display: block;
     min-width: 0;
     mix-blend-mode: lighten;
     grid-column: 2;
-    grid-row: 1 / span 2;
+    grid-row: 1;
     position: relative;
     aspect-ratio: 1 / 1;
     // The enlarged image extends below this square; keep its reflection visible.
@@ -1131,19 +1172,19 @@ body:has(.vitae-intro) {
 
 .vitae-contact-artwork img {
     display: block;
-    width: 184%;
+    width: 145%;
     max-width: none;
     height: auto;
     mix-blend-mode: lighten;
     position: absolute;
-    left: -42%;
-    top: -12%;
+    left: -52%;
+    top: calc(-12% + 50px);
 }
 
 .vitae-contact-copy {
     min-width: 0;
     grid-column: 1;
-    grid-row: 2;
+    grid-row: 1;
     position: relative;
     z-index: 1;
     padding-top: 0;
@@ -1152,7 +1193,7 @@ body:has(.vitae-intro) {
 @media (max-width: 42.5rem) {
     .vitae-contact-layout {
         grid-template-columns: minmax(0, 1fr);
-        grid-template-rows: auto auto auto;
+        grid-template-rows: auto auto;
     }
 
     .vitae-contact-artwork {
@@ -1160,14 +1201,16 @@ body:has(.vitae-intro) {
         max-width: 28rem;
         justify-self: center;
         grid-column: 1;
-        grid-row: 3;
+        grid-row: 2;
         margin-top: 0;
     }
 
     .vitae-contact-copy {
-        grid-row: 2;
+        grid-row: 1;
         padding-top: 0;
     }
+
+    .vitae-contact-artwork img { left: -30%; }
 }
 
 .vitae-contact .home-section-title {
@@ -1175,9 +1218,9 @@ body:has(.vitae-intro) {
     grid-row: 1;
     position: relative;
     z-index: 1;
-    margin: 0;
+    margin: 0 0 2rem;
     max-width: 12ch;
-    font-size: clamp(2.75rem, 7.5vw, 7rem);
+    font-size: calc((clamp(2.75rem, 7.5vw, 7rem)) * var(--mobile-text-scale, 1));
     letter-spacing: -0.045em;
     line-height: 1.06;
     text-wrap: balance;
@@ -1185,13 +1228,14 @@ body:has(.vitae-intro) {
 
 .vitae-contact-invitation {
     color: var(--color-text-muted-on-dark);
-    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    font-size: calc((clamp(1.05rem, 1.5vw, 1.25rem)) * var(--mobile-text-scale, 1));
     margin: 0 0 2rem;
     max-width: 32ch;
     text-wrap: pretty;
 }
 
 .vitae-contact-invitation .keep-together { white-space: nowrap; }
+.vitae-launch-phrase { white-space: nowrap; }
 
 .vitae-contact-actions {
     flex-wrap: wrap;
@@ -1201,7 +1245,7 @@ body:has(.vitae-intro) {
 .vitae-summary-eyebrow {
     color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: 0.8rem;
+    font-size: calc((0.8rem) * var(--mobile-text-scale, 1));
     font-weight: 700;
     letter-spacing: 0.11em;
     line-height: 1.4;
@@ -1211,7 +1255,7 @@ body:has(.vitae-intro) {
 
 .vitae-summary-title {
     display: block;
-    font-size: clamp(2.75rem, 5.25vw, 5rem);
+    font-size: calc((clamp(2.75rem, 5.25vw, 5rem)) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-feature-letter-spacing);
     line-height: var(--type-feature-line-height);
     margin: 0;
@@ -1221,7 +1265,7 @@ body:has(.vitae-intro) {
 .vitae-summary-statement {
     color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+    font-size: calc((clamp(1.05rem, 1.8vw, 1.45rem)) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-lead-letter-spacing);
     line-height: var(--type-lead-line-height);
     margin: clamp(1.75rem, 4vw, 3rem) 0 0;
@@ -1249,7 +1293,7 @@ body:has(.vitae-intro) {
 .vitae-summary-number {
     color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: 0.75rem;
+    font-size: calc((0.75rem) * var(--mobile-text-scale, 1));
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.08em;
     margin: 0 0 1.25rem;
@@ -1257,7 +1301,7 @@ body:has(.vitae-intro) {
 
 .vitae-summary-principles .h3 {
     display: block;
-    font-size: var(--type-label-font-size);
+    font-size: calc((var(--type-label-font-size)) * var(--mobile-text-scale, 1));
     font-weight: 700;
     letter-spacing: var(--type-label-letter-spacing);
     line-height: var(--type-label-line-height);
@@ -1269,7 +1313,7 @@ body:has(.vitae-intro) {
 .vitae-summary-principles li > .p:last-child {
     color: var(--color-text-muted-on-dark);
     display: block;
-    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    font-size: calc((clamp(1.5rem, 2.5vw, 2.25rem)) * var(--mobile-text-scale, 1));
     font-weight: 600;
     letter-spacing: var(--type-card-letter-spacing);
     line-height: var(--type-card-line-height);
@@ -1287,7 +1331,7 @@ body:has(.vitae-intro) {
 
 .vitae-summary-next > div:first-child .h3 {
     display: block;
-    font-size: clamp(2.75rem, 5.25vw, 5rem);
+    font-size: calc((clamp(2.75rem, 5.25vw, 5rem)) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-section-letter-spacing);
     line-height: 1.05;
     margin: 0;
@@ -1465,7 +1509,7 @@ body:has(.vitae-intro) {
     }
 
     #project-vega .project-story-title {
-        font-size: clamp(3rem, 5.4vw, 5.25rem);
+        font-size: calc((clamp(3rem, 5.4vw, 5.25rem)) * var(--mobile-text-scale, 1));
         max-width: 20ch;
     }
 
@@ -1489,7 +1533,7 @@ body:has(.vitae-intro) {
     }
 
     #project-avenapay .project-story-title {
-        font-size: clamp(2.75rem, 3.8vw, 3.75rem);
+        font-size: calc((clamp(2.75rem, 3.8vw, 3.75rem)) * var(--mobile-text-scale, 1));
         max-width: 16ch;
         text-wrap: balance;
     }
@@ -1525,7 +1569,7 @@ body:has(.vitae-intro) {
     }
 
     #project-ledgerflow .project-story-title {
-        font-size: clamp(2.75rem, 4vw, 4rem);
+        font-size: calc((clamp(2.75rem, 4vw, 4rem)) * var(--mobile-text-scale, 1));
     }
 
     #project-ledgerflow .vitae-project-summary-detail {
@@ -1643,4 +1687,306 @@ body:has(.vitae-intro) {
     .project-story-title-link {
         transition: none;
     }
+}
+
+// A shared product stage, with the established editorial headings retained.
+.vega-live-screen { display: block; position: absolute; inset: 0; }
+.main.vitae #project-vega .vega-screen-inset.is-interactive { pointer-events: auto; }
+.main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+    container-type: inline-size;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    row-gap: clamp(2rem, 4vw, 3.5rem);
+
+    .vitae-project-summary-copy {
+        grid-column: 1;
+        grid-row: 2;
+        width: 100%;
+        max-width: 52rem;
+        justify-self: start;
+        min-width: 0;
+        text-align: left;
+        box-sizing: border-box;
+        padding-left: 0;
+    }
+
+    .project-story-title {
+        max-width: none;
+        margin: 0;
+        font-size: clamp(2.375rem, 4.5vw, 4rem);
+        line-height: 1.08;
+        letter-spacing: -0.04em;
+        text-wrap: balance;
+    }
+
+    .vitae-project-summary-detail {
+        grid-column: 1;
+        grid-row: 3;
+        top: auto;
+        padding: 0;
+        justify-self: start;
+        width: min(100%, 38rem);
+        max-width: 38rem;
+        text-align: left;
+    }
+
+    .project-story-intro { max-width: none; }
+    .project-story-actions { justify-content: flex-start; }
+
+    .vitae-device-lineup {
+        grid-column: 1;
+        grid-row: 1;
+        display: flex;
+        align-items: flex-end;
+        justify-self: center;
+        width: 100%;
+        max-width: 76rem;
+        overflow: visible;
+        isolation: isolate;
+        mix-blend-mode: lighten;
+    }
+
+    .vitae-device {
+        flex-shrink: 0;
+        height: auto;
+        max-height: none;
+        aspect-ratio: auto;
+        object-fit: contain;
+        mix-blend-mode: normal;
+        // These tightly cropped originals need their glass edges intact.
+        mask-image: none;
+        -webkit-mask-image: none;
+    }
+
+    .vitae-device--laptop { width: 58%; margin-right: 3%; }
+    .vitae-device--tablet { width: 27%; }
+    // 2.7% of the stage is exactly 10% of the tablet's 27% width.
+    .vitae-device--phone { width: 14.7%; margin-left: -2.7%; z-index: 1; }
+}
+
+// Reference composition: a single story column beside a bottom-aligned stage.
+@media (min-width: 75rem) {
+    .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+        width: calc(100% - 4rem);
+        margin-inline: auto;
+        min-height: calc(100svh - 75px);
+        align-content: center;
+        padding-block: 5rem;
+        box-sizing: border-box;
+        grid-template-columns: minmax(0, 0.32fr) minmax(0, 0.68fr);
+        grid-template-rows: auto auto;
+        column-gap: clamp(1.5rem, 2vw, 2.5rem);
+        row-gap: 2.75rem;
+
+        .vitae-project-summary-copy { grid-column: 1; grid-row: 1; align-self: start; }
+        .project-story-title { font-size: clamp(2.375rem, 3.4vw, 4rem); text-wrap: balance; }
+        .project-story-intro { font-size: clamp(1.125rem, 1.3vw, 1.5rem); }
+        .project-story-actions { font-size: clamp(1rem, 1.1vw, 1.25rem); }
+        .vitae-project-summary-detail {
+            grid-column: 1;
+            grid-row: 2;
+            align-self: start;
+            width: 100%;
+            max-width: none;
+            box-sizing: border-box;
+            padding: 0;
+        }
+        .vitae-device-lineup { grid-column: 2; grid-row: 1 / span 2; align-self: end; }
+    }
+}
+
+.main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+    .vitae-device-lineup {
+        position: relative;
+        display: block;
+        aspect-ratio: 1.85;
+    }
+    .vitae-device { position: absolute; margin: 0; }
+    .vitae-device--laptop { width: 70%; left: 0; bottom: 7%; }
+    .vitae-device--tablet { width: 30%; right: 0; bottom: 9%; }
+    .vitae-device--phone { width: 17%; left: 62%; bottom: 7%; z-index: 2; }
+    .vitae-device--landscape {
+        width: 34%; left: 33%; bottom: 0; aspect-ratio: 998 / 522; z-index: 3;
+        > img {
+            position: absolute;
+            width: 52.305%; height: 191.188%; max-height: none;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%) rotate(-90deg);
+            aspect-ratio: auto;
+            mask-image: none; -webkit-mask-image: none;
+        }
+    }
+}
+
+@media (min-width: 75rem) {
+    .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+        position: relative;
+        .vitae-device-lineup {
+            position: absolute;
+            width: 87%; max-width: none;
+            left: 30.5%; top: 50%;
+            translate: 0 -50%;
+            grid-column: auto; grid-row: auto;
+        }
+    }
+}
+
+.main.vitae > .vitae-collection {
+    clip-path: inset(-10000px calc((100vw - 100%) / -2));
+}
+
+@media (max-width: 74.999rem) {
+    .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+        padding-top: clamp(3rem, 22vw, 10rem);
+        row-gap: 3rem;
+        .vitae-project-summary-copy { grid-row: 1; max-width: 32rem; }
+        .project-story-title { font-size: clamp(2.375rem, 10vw, 4rem); }
+        .vitae-project-summary-detail { grid-row: 2; max-width: 30rem; }
+        .project-story-intro { font-size: clamp(1.375rem, 3.8vw, 1.5rem); }
+        .vitae-device-lineup { grid-row: 3; width: 110%; margin-top: 2rem; }
+    }
+}
+
+@media (max-width: 42.5rem) {
+    .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+        .vitae-project-summary-copy { padding-left: 0; }
+        .vitae-device-lineup {
+            aspect-ratio: .54;
+            width: min(calc(100% + 5rem), calc(100vw - 2rem));
+        }
+        .vitae-device--laptop { width: 100%; left: 0; top: 0; bottom: auto; }
+        .vitae-device--tablet { width: 44%; left: 10%; right: auto; top: 44%; bottom: auto; }
+        .vitae-device--phone { width: 25%; left: 66%; top: 48%; bottom: auto; }
+        .vitae-device--landscape { width: 48%; left: 28%; bottom: 0; }
+    }
+}
+
+@media (max-width: 44.25rem) {
+    .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+        .project-story-title { font-size: clamp(2.375rem, 10.25vw, 4rem); }
+        .vitae-project-summary-detail { width: 100%; }
+    }
+}
+
+// Bookend headings match About; paragraphs retain the project-section scale.
+.main.vitae {
+    --vitae-story-body-size: clamp(1.125rem, 1.3vw, 1.5rem);
+    .vitae-intro > .vitae-intro-title { font-size: 5.2rem; }
+    .vitae-contact .home-section-title { font-size: 5.5rem; }
+    .vitae-intro-statement,
+    .vitae-contact-invitation {
+        font-size: var(--vitae-story-body-size);
+    }
+}
+@media (max-width: 74.999rem) {
+    .main.vitae {
+        --vitae-story-body-size: clamp(1.375rem, 3.8vw, 1.5rem);
+    }
+}
+@media (min-width: 101.5rem) {
+    .main.vitae .vitae-intro > .vitae-intro-title { font-size: 6rem; }
+    .main.vitae .vitae-contact .home-section-title { font-size: 7rem; }
+}
+
+// Let the glasses retain their text-relative scale and bleed off the right edge.
+.main.vitae .vitae-fluid-hero {
+    .vitae-intro-title-start { white-space: nowrap; }
+    .vitae-intro-title-finish { display: block; }
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2rem;
+    > .vitae-intro-title, > .vitae-intro-copy {
+        top: 0;
+        align-self: auto;
+        width: var(--glasses-copy-width);
+        max-width: none;
+        margin: 0 0 0 var(--glasses-copy-offset, 0px);
+    }
+    .vitae-intro-statement { margin-top: 0; }
+    .vitae-intro-artwork {
+        position: absolute;
+        grid-column: auto;
+        grid-row: auto;
+        top: var(--glasses-top, 0);
+        left: var(--glasses-left, 52%);
+        height: var(--glasses-height, 480px);
+        width: auto;
+        max-width: none;
+        margin: 0;
+        aspect-ratio: 1218 / 882;
+        filter: unquote("opacity(var(--glasses-opacity, 1))");
+        pointer-events: none;
+        transition: height .25s ease-out, top .25s ease-out, left .25s ease-out;
+    }
+    .vitae-intro-artwork-image { max-width: none; }
+    &.glasses-no-room .vitae-intro-artwork { visibility: hidden; }
+}
+body:has(.main.vitae) { overflow-x: clip; }
+@media (prefers-reduced-motion: reduce) {
+    .main.vitae .vitae-fluid-hero .vitae-intro-artwork { transition: none; }
+}
+
+// Screen concepts sit inside the original glass bezels; each wrapper still
+// participates in the existing independent scroll reveal.
+.main.vitae #project-vega .vega-screen-device {
+    display: block;
+    img { max-height: none; aspect-ratio: auto; mix-blend-mode: normal; }
+    > .vega-device-frame { display: block; width: 100%; height: auto; }
+    .vega-screen-inset {
+        position: absolute;
+        overflow: hidden;
+        display: block;
+        background: #f7f9fc;
+        filter: brightness(.88);
+        pointer-events: none;
+        &.is-interactive { pointer-events: auto; }
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            border-radius: inherit;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 12% 0%, rgba(255,255,255,.26), transparent 66%),
+                linear-gradient(125deg, transparent 12%, rgba(255,255,255,.04) 28%, rgba(255,255,255,.21) 43%, rgba(255,255,255,.055) 58%, transparent 76%);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,.28);
+        }
+        > img { display: block; width: 100%; height: 100%; object-fit: cover; mask-image: none; -webkit-mask-image: none; }
+    }
+    &.vitae-device--laptop {
+        aspect-ratio: 2858 / 1949;
+        .vega-screen-inset { left: 11.2%; right: 11.1%; top: 2.7%; bottom: 19%; border-radius: 1% / 1.5%; }
+        .vega-screen-inset::after {
+            // Broad upper-right light, with a soft diagonal reflection across the glass.
+            background:
+                radial-gradient(ellipse at 108% -12%, rgba(255,255,255,.42) 0%, rgba(255,255,255,.16) 32%, transparent 70%),
+                linear-gradient(145deg, transparent 28%, rgba(255,255,255,.035) 43%, rgba(255,255,255,.23) 59%, rgba(255,255,255,.06) 72%, transparent 88%);
+            box-shadow: inset -1px 1px 2px rgba(255,255,255,.36);
+        }
+    }
+    &.vitae-device--tablet {
+        aspect-ratio: 1365 / 2025;
+        .vega-screen-inset { inset: 1.8% 3.4% 2%; border-radius: 4.7% / 3.1%; }
+    }
+    &.vitae-device--phone {
+        aspect-ratio: 522 / 998;
+        .vega-screen-inset { inset: 1.6% 5.6% 2.4% 5.75%; border-radius: 12% / 5.8%; }
+    }
+    &.vitae-device--landscape {
+        aspect-ratio: 998 / 522;
+        > .vega-device-frame { width: 52.305%; height: 191.188%; }
+        .vega-screen-inset { inset: 5.75% 2.4% 5.6% 1.6%; border-radius: 5.8% / 12%; }
+    }
+}
+
+// Reserve a consistent content lane beside the fixed dock without altering it.
+.main.vitae > :is(.vitae-intro, .vitae-collection, .vitae-summary) {
+    padding-right: max(var(--site-frame-gutter), calc(var(--vitae-dock-clearance) - (100vw - 100%) / 2));
+}
+
+@media (max-width: 44.25rem) {
+    .main.vitae { --vitae-dock-clearance: 60px; }
 }

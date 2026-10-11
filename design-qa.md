@@ -1,296 +1,154 @@
-# Vitae principle cards — scoped visual review
+# Contact page — Frame 67 implementation review
 
-Source: user-supplied Screenshot 2026-09-13 at 10.37.11 PM.png (1480 × 696), showing the existing homepage help cards. The source is a cropped, high-density reference, not a complete viewport.
+## Vega screen revision 3 — local review
 
-Implementation: http://127.0.0.1:4000/vitae/#design-leadership-principles. Browser screenshots were returned inline; no local screenshot path was provided.
+- Reviewed two Dribbble dashboard presentations and the official Vega gallery; stronger sales hierarchy and coordinated light/dark views.
+- Replaced only four Vega screen concepts. Preserved lineup, other projects, dock styling and original frames.
+- Calibrated laptop inner-bevel bounds, tablet opening and elliptical phone corners.
+- Jekyll build passed. Desktop 1857×942 and stacked 634px screenshots reviewed; 390×844 checked with no horizontal document overflow. All four assets load. Desktop device bleed remains intentional; mock text is not all readable at small presentation sizes.
+- Evidence: `vega-v3-desktop.png`, `vega-v3-mobile.png`, `vega-v3-narrow.png` in the thread visualization directory. The mobile full-section capture includes a testing-focus skip-link overlay, not part of the artwork.
+- Local only; no publication.
 
-## Review
+Source visual truth: `/Users/jmwii1981/Downloads/Frame 67.png` (1483 × 1410).
 
-- Typography: reused homepage label size, weight, tracking, and line height; body uses the same responsive size and 600 weight. Preserved all Vitae wording, numbering, and foreground colors.
-- Spacing: reused 20px radius, 24px/25.6px/48px padding, 288px minimum height, and responsive gap. Wider screens use two columns; smaller screens use one.
-- Colors: transparent card backgrounds and the subnav's white 12%-opacity border. These intentionally differ from the source's white background and colored text.
-- Assets: no new imagery or icons are required.
-- Earlier finding: three columns made long body copy too narrow relative to the reference. Changed to two columns above 897px.
+Implementation: `http://127.0.0.1:4000/contact/`.
 
-## Verification limits
+Evidence directory: `/Users/jmwii1981/.codex/visualizations/2026/09/12/01a09402-094d-7d53-96b4-b83132322fc2/`.
 
-Inline captures show the revised cards at 709 CSS px and an earlier three-column version at 1091 CSS px. The browser viewport changed during verification. The revised two-column layout has not yet received a matching-viewport screenshot comparison, and no combined source/implementation image was saved. Mobile-width review also remains outstanding.
+- Initial capture: `contact-frame67-v1.png`.
+- Final desktop capture: `contact-frame67-final.png` (1483 × 1383).
+- Mobile capture: `contact-frame67-mobile.png` (390px wide).
+- Desktop viewport: 1483 × 1000 CSS pixels, device scale factor 1. Source and implementation compared together at native pixel density in the same image output. Additional 1024 × 900 and 390 × 844 viewports inspected.
+- State: empty form, closed navigation. No actual message submitted.
 
-final result: blocked
+## Comparison history
 
-Remaining gate: capture the revised two-column and mobile layouts at stable viewports and compare with the source's intended card proportions. This is a visual-verification limitation, not a build failure.
+1. P1: Background pseudo-element exceeded viewport width. Limited it to the remaining viewport; final document scroll width equals viewport width (1483).
+2. P2: Artwork and pills were 16px left of reference, and form 6px too low. Start-aligned composition and reduced form top gap. Final capture re-compared with the source together.
+3. P1: Existing compact contact navigation was hidden by a no-section-dots rule. Scoped display correction restores its menu button. Menu opened successfully at 390px and Follow me was visible; Escape closed it.
 
----
+## Required fidelity surfaces
 
-# Dock refraction regression — 2026-09-30
+- Typography: same existing Heebo heading, 83.2px/700 at desktop with matching four-line wrapping, tight tracking and line height. Existing form text preserved; pill labels bold 16px.
+- Layout: heading and form begin at x185.5; split at approximately x779.5; portrait at approximately x822 and y30. Warm portrait panel has a 280px top-left curve; white form panel ends in a 140px bottom-right curve. Bubble and direct-link pills follow reference placement. Mobile stacks the composition and form without horizontal overflow.
+- Colors: warm off-white #f5f2ef, white form panel and pills, original neutral input borders, warm gray pill labels. Footer divider removed on contact only.
+- Image fidelity: reused original portrait and generated transparent clay bubble from the reference; envelope PNG reused, Apple-style phone receiver PNG added. No replacement illustration or synthetic portrait.
+- Copy: heading, field labels, email and telephone match the mock. Required-fields note now beside submit on desktop. Telephone uses tel:+14155069867; email uses mailto:hello@janmichael.io.
+- Focused review: form labels/inputs, note/submit alignment, portrait/bubble overlap and pill icons were readable in the native-resolution comparison and inspected there.
 
-Scope: fix the disappearance of live backdrop refraction when the homepage tray
-grows to include its return-to-top arrow. Preserve the approved tray, clay
-controls, 20% white frosting, section dots, and restrained menu motion.
+## Interactions and checks
 
-## Confirmed cause and repair
+- Empty form submission shows all five required-field errors; no external submission made.
+- Direct-contact hrefs verified.
+- Mobile menu opens and closes; navigation retained intentionally although absent from supplied mock.
+- No browser console errors observed.
+- Jekyll build and git diff whitespace check pass.
 
-The arrow's `::before` grain uses `mix-blend-mode: multiply`. The compact
-homepage arrow has no transform and had no isolated stacking context. Its blend
-layer interfered with the sibling `.dock-glass` SVG backdrop rendering in both
-Chrome and the Codex in-app browser. This was not a tray sampling-height issue.
+## Follow-up polish / P3
 
-Reversible controls on the actual homepage (in a temporary same-origin iframe):
+- Existing footer remains functional and its responsive spacing differs slightly from the static mock (full page 27px shorter). Existing dock intentionally retained.
+- Minor raster/font antialiasing and pill width differences remain; main layout and hierarchy match.
+- Live successful message delivery was not tested, to avoid sending a test message.
 
-- Preserve the tall grid and remove only the arrow element: refraction returns.
-- Preserve the tall grid and visible arrow, set only `isolation: isolate` on
-  the arrow: refraction returns. Change it back to `auto`: failure returns.
-- Change only the arrow grain's blend mode to `normal`: refraction returns.
-- Hiding the arrow with `visibility: hidden` does not resolve the failure.
-- Remove Gaussian blur from the diagnostic filter: diagonal reference lines
-  still bend at the perimeter with isolation enabled, proving displacement
-  rather than just a blurred backdrop or decorative border.
+final result: passed
 
-Repair: isolate each `.dock-control` so its clay grain cannot blend with the
-tray. Restore the arrow's normal scroll threshold and remove hidden-arrow
-diagnostic rules. The temporary diagnostic page was removed after testing.
+## Vitae project composition — Frame 72, October 10
 
-## Verification completed
+- Source: `/Users/jmwii1981/Downloads/Frame 72.png` (1857 × 942).
+- Implementation: `/Users/jmwii1981/.codex/visualizations/2026/09/12/01a09402-094d-7d53-96b4-b83132322fc2/vitae-frame72-desktop.png` (1857 × 942, CSS viewport 1857 × 942, density 1).
+- State: Vega project, settled layout with reduced motion used for static comparison. Reference and implementation displayed together in the same comparison tool result.
+- First pass P2: story copy undersized, devices too high, heading wrapping differed. Fixed by increasing desktop paragraph scale, balancing headline wrapping, adding centered section spacing and narrowing the composition slightly.
+- Second comparison: matching left story column and right device grouping, phone layered over tablet's left side, device baseline aligned with actions. No remaining actionable P0/P1/P2 differences for the requested “something like” adaptation.
+- Typography: existing site font and weights retained; headline approximately 63px and paragraph 24px at reference width. Existing button sizes retained rather than raster mock scaling (P3 difference).
+- Layout: reference composition retained; small device-position differences intentional responsive adaptation. Desktop composition changes to a single story column above the imagery below 1200px to prevent narrow copy columns.
+- Colors: existing dark page and muted text tokens unchanged.
+- Assets: original glass PNGs reused, no resampling or replacement; overlap changed to match reference.
+- Copy: all project wording and CTA labels preserved.
+- Mobile: 390px screenshot inspected; heading, copy/actions, then vertically stacked laptop/tablet/phone. No horizontal overflow.
+- Full-size comparison was readable, so separate focused crops were unnecessary.
+- Existing navigation and actions were not changed; build passes. No deployment performed.
 
-- Chrome and Codex in-app browser: reproducible broken/fixed comparisons with
-  tray geometry unchanged, including the visible arrow.
-- Chrome native desktop viewport, 1007 × 629 CSS px: 20 visual scroll checks
-  from scroll 0 through 2971, covering arrow appearance, both tray heights,
-  section boundaries, content cards, illustrations, and the footer.
-- Actual homepage in a responsive iframe: 320, 390, 480, 767, and 768 CSS px
-  widths; short/expanded horizontal trays and the desktop breakpoint. Used a
-  high-contrast diagonal backdrop to inspect edge displacement directly.
-- Height stress checks at 178, 222, and 300 CSS px; short and tall production
-  trays are 178 and 222 px, respectively. Horizontal equivalents also pass.
-- Desktop and 390px mobile: expanded menu, Escape close, return to top, and
-  shrinking back to the short tray. No layout redesign was introduced.
-- Contact and Vitae shared-dock smoke checks, including the arrow-present tray.
-- Jekyll build, both changed-script syntax checks, and `git diff --check` pass.
-  The broader site audit still reports existing stale assertions: it expects
-  `logo-container` instead of `footer-brand`, `.tab.active` instead of the
-  current `aria-current` styling, and an older static-fallback selector. Those
-  same source patterns exist in HEAD and are unrelated to this repair; the
-  audit was not changed as part of the glass fix.
+final result: passed
 
-## Repeatable regression check
+## Vitae responsive compositions — updated Frames 72, 73, 74
 
-1. On the homepage, scroll past the arrow threshold, then cross a curved
-   white/gray section boundary beneath the dock. Check actual background
-   distortion and frosting, not merely the white rim.
-2. Return to the top and repeat, ensuring the smaller tray also refracts.
-3. Repeat below 768px with the horizontal dock, and open/close the menu.
-4. For an unambiguous diagnostic, put diagonal high-contrast stripes behind
-   the real dock in a local-only fixture. Disable Gaussian blur temporarily to
-   distinguish displacement from frosting. Keep tray size/position fixed while
-   testing `isolation: auto` versus `isolate` on the arrow.
+- Applied to Vega, AvenaPay, and LedgerFlow only. Existing copy, colors, hero, docks, and button behavior retained.
+- References: Frame 72 (1857 × 942), Frame 73 (1151 × 1569), Frame 74 (634 × 1976), from Downloads. Reference and implementation images compared visually at corresponding viewport sizes.
+- Wide: unified story column beside an oversized layered device stage with intentional right-edge cropping. Medium: story above the overlapping stage. Narrow: laptop above a tablet/portrait-phone row, with landscape phone centered below.
+- Original glass PNGs reused without optimization. Landscape phone uses a rotated copy of the existing phone asset and its own entrance wrapper.
+- Corrected P2 findings during comparison: wide artwork stretching the text rows; medium/narrow typography too small; narrow stage spacing too compressed. Final layouts follow the three reference compositions.
+- Typography and colors retain existing site families and tokens; headline and paragraph scale match the reference hierarchy. Existing desktop button sizing is preserved (minor P3 difference from the mock).
+- Captures: vitae-responsive-wide.png, vitae-responsive-medium.png, vitae-responsive-narrow.png in /Users/jmwii1981/.codex/visualizations/2026/09/12/01a09402-094d-7d53-96b4-b83132322fc2/.
+- Additional 390 × 844 check: readable wrapping, no horizontal page overflow; visible actions fully opaque. All three projects have four device items. Static comparisons used reduced motion; normal media preference restored afterward.
+- No actionable P0/P1/P2 layout differences remain in the inspected states. Existing scroll logic preserved, not redesigned or exhaustively re-tested in this layout pass. No deployment performed.
 
-Limits: these are verified Chromium rendering results, not a claim about every
-browser/GPU combination or a physical iPhone. Other engines retain the existing
-CSS fallback. Refraction remains active over flat backgrounds, but displacement
-has no visible detail to bend there. No public deployment was performed.
+final result: passed
+# Vega screen concepts — October 10
 
----
+final result: passed
 
-# Dock glass refinement — 2026-09-30
+- Source visual: `/Users/jmwii1981/Desktop/Working Assets/Screenshot 2026-09-22 at 12.02.04 AM.png` (1250 × 834). This is an art-direction reference, not an exact viewport target.
+- Implementation: `http://127.0.0.1:4000/vitae/#project-vega`.
+- Evidence: `/Users/jmwii1981/.codex/visualizations/2026/09/12/01a09402-094d-7d53-96b4-b83132322fc2/vega-screen-concepts-desktop.png` and `vega-screen-concepts-mobile.png`.
+- Browser checks at 1857 × 942, 634 × 1000, and 390 × 844; CSS pixels at 1× density. Full section screenshots include offscreen content. Source and mobile rendering opened together for visual comparison; generated individual screens inspected at native resolution for detail.
+- Typography: crisp sans-serif hierarchy retained in generated screens; small interface text is illustrative at portfolio device scale, not interactive UI.
+- Spacing: screens contained within original glass bezels. Laptop, tablet, and both phone orientations retain their preexisting responsive arrangement.
+- Colors: reference's electric blue, navy, white, pale gray and mint chart accents retained.
+- Assets: four generated static concept screens, independently tailored to device orientation. Original device images unchanged; no custom icon approximations.
+- Content: illustrative demo workspace data, not shipped Vega product claims. Accessible device descriptions identify concepts.
+- First pass found inherited image aspect ratio, max-height and lighten blending causing frame mismatch and washed-out UI. Fixed those properties for Vega screen images only. Second desktop capture and mobile comparison confirm correction.
+- No browser console errors observed; Jekyll build and diff whitespace checks passed.
+- Other projects and surrounding copy unchanged. Existing scroll-reveal wrappers remain; mock interface controls are intentionally noninteractive raster artwork.
+- Follow-up: generated mock screens are a visual direction for user review, not a source-of-truth product UI or functional dashboard.
 
-Scope: refine the approved glass only. Preserve control materials, geometry,
-spacing, menu styling, and the confirmed `.dock-control` isolation repair.
+## Vega revision 2 and dock shadow refinement
 
-## Material and geometry changes
+final result: passed
 
-- Interior frosting stage: `stdDeviation` 4 → 2; white tint remains 20%.
-- Bevel frosting: 0.65 → 0.0325 and white wash 20% → 1%, each 5% of its
-  previous strength. Optical highlight and shadow opacity remains unchanged.
-- The live filter now applies these separate tints through a rounded interior
-  mask generated from the displacement map's contour. The mask's existing
-  1.5px feather is retained, without a separate blending/backdrop layer.
-- Bevel width: displacement band 9 → 8px, interior inset 6 → 5px, and inset
-  rim/shadow extents narrowed by 1px. Corner radius and displacement amplitude
-  are unchanged.
-- Tray inset: 4 → 6px on all sides. Measured at the same desktop viewport:
-  the tall tray changed from 58 × 222 to 62 × 226 CSS px, expanding 2px in each
-  direction. All control bounding rectangles remained exactly unchanged.
-  Short trays are now 62 × 182px; horizontal equivalents are 182/226 × 62px.
+- Sources: official Vega Components and Design pages, Color guidance, Button example. Captured official gallery at `vega-components-reference.png` in the existing visualization directory.
+- Evidence: `vega-v2-desktop.png` (1857 × 942) and `vega-v2-mobile.png` (634px-wide full section). Browser CSS viewports 1857 × 942 and 634 × 1000 at 1× density. Reference gallery and mobile implementation opened in the same comparison call; individual generated screens inspected at native resolution. Comparison is style-based, not an exact documentation-page clone.
+- Typography: restrained Inter-like raster typography, larger and less dense than revision 1. Intended as miniature screen artwork, not functional controls.
+- Spacing: expanded portrait/tablet screen openings, orientation-specific rounded corners, cover fit without letterboxing. All artwork remains inside device bezels. Existing art arrangement retained, including intentional desktop right-edge bleed.
+- Colors: blue-violet pill actions and teal status chips follow observed Vega component styling; neutral flat surfaces replace decorative navy/blue panels.
+- Asset quality: four orientation-specific generated PNGs; no stretching. Phone islands included as permitted. Original glass frame assets unchanged.
+- Content: consistent primary sample-account metrics across devices; generated transaction details vary and remain conceptual. Accessible descriptions identify demo concepts.
+- Dock: rest outer shadows reduced from 85%/65% black to 18%/12%, with smaller offsets and blur. Hover and pressed shadows also reduced. Actual computed styles verified in browser; glass bevel retained.
+- Build successful; no browser console errors observed. No publication. No remaining blocking screen-fit issues in reviewed sizes.
 
-## Rendered verification
+## Vega native Figma reconstruction — 2026-10-11
 
-- Chrome at 1007 × 685 CSS px: 20 screenshots from scroll 0 through 2916,
-  covering illustrations, cards, curved section boundaries, and the footer.
-  The short and arrow-present trays both retained live refraction.
-- Chrome responsive homepage iframe at 320, 390, 480, 767, and 768px widths:
-  checked short and expanded trays at each width, including the horizontal /
-  vertical breakpoint. No visible clipping or overflow introduced.
-- High-contrast diagonal reference backdrop: before/after visual comparison,
-  plus filter enabled/disabled comparison, verified real background bending
-  separately from frosting and decorative rim highlights. An oversized
-  62 × 326px tray also passed.
-- Codex in-app browser: desktop at 1422 × 800 and a 390px responsive iframe,
-  short and expanded trays with the reference backdrop, retained refraction.
-- Actual unmodified page backgrounds: desktop and 390px menu open/close,
-  Escape, keyboard focus, and return to top. Repeated desktop return-to-top
-  checks returned scroll to 0 and restored the 62 × 182px tray. Escape returned
-  focus to the menu button. Filter resources remained bounded at two (the
-  template plus the current size-specific filter).
-- Contact and Vitae: shared-dock smoke checks with the arrow present and menu
-  open/closed. Vitae's separate glass-control styling is preserved. Chrome
-  reported no captured warnings or errors during these checks.
-- Temporary diagnostic page and test backdrop removed after verification.
-- Final Jekyll build, JavaScript syntax checks, five network tests, search-index
-  tests (45 records / 11 queries), and `git diff --check` passed. The full site
-  audit reports only the same pre-existing logo, active-page, and static-fallback
-  assertions documented above; no new audit category appeared. Confirmed the
-  removed diagnostic page is also absent from the generated site.
+<!-- Contact slider QA is appended below; existing Vega evidence retained. -->
 
-Limits: responsive checks use the actual homepage in same-origin iframes,
-not physical mobile devices. These results cover Chrome and the Codex in-app
-browser, not every browser/GPU. Existing reduced-motion and non-Chromium CSS
-fallback paths were preserved. The broader audit's pre-existing assertions
-listed above remain outside this refinement's scope. No commit or publication.
+- Replaced the four generated screen images at runtime with native, shadow-scoped UI based on Figma frame 40000010:290. Original icons and illustrations exported from the source; Inter loaded locally. Existing glass frames and device composition preserved.
+- Desktop dashboard follows the supplied Payments Manager+ screen. Mobile and tablet layouts, secondary pages, and interactive forms are adaptations rather than supplied production components.
+- Verified at 1857px and 390px widths: four native screens initialized, no internal horizontal overflow, no page horizontal overflow at 390px. Captured `vega-native-devices.png` and `vega-native-mobile.png` in the task visualization folder.
+- Checked reporting-period changes, sample payment creation and records, quick-action management, task creation, dialog dismissal and focus return. Expanded preview makes the miniature UI usable at reading size.
+- Touch-only emulation: screens inert, pointer events disabled, expanded-demo button hidden. Cursor interaction restored after test. Temporary viewport overrides cleared.
+- JavaScript syntax check and Jekyll build pass. No browser console errors observed. Sample data is memory-only; no real transactions or external submissions. Local review only; not committed or published.
 
----
+## Contact budget slider — 2026-10-11
 
-# Approved glass version restored
+### Superseding iteration: budget selector and timeline
 
-At the user's request, removed the subsequent Home-button design experiment
-and all of its size/spacing changes. Restored the single 24px return arrow,
-its original position, scroll-triggered visibility, and mobile layout. The
-approved glass refinement documented above and the isolation repair remain
-intact. Unrelated working-tree changes were preserved.
+- Replaced amount/slider with required native select: $5k+, $10k+, $25k+, $50k+, $100k+, $250k+, Let’s figure it out. Empty initial selection; subtle ballpark helper.
+- Added optional start and handoff/launch date inputs in a Timeline fieldset. Browser calendar controls use existing warm field styling. Side-by-side on desktop; stacked on narrow screens. These use native browser popup styling, not a custom calendar overlay.
+- Validated start 2026-11-01 / end 2026-10-30 shows inline error; end 2026-12-15 clears it. Optional dates are included in existing pre-submit validation. No actual message submitted.
+- Evidence: contact-budget-timeline.png in task visualization directory. Desktop and 390px layouts inspected; no horizontal overflow. Build and syntax checks passed; no browser console errors. Test entries reset and emulation cleared.
+- final result: passed
 
----
+### Follow-up: precise amount input and revised upper endpoint
 
-# Dock centering during size changes — 2026-09-30
+- Added synchronized exact currency input beneath the slider, including cents. Invalid values below $5,000 block form validation and show an inline correction; no forced value replacement mid-entry. $12,345.67 remains exact while the slider approximates its position in $100 steps.
+- Latest user direction supersedes infinity: final position is $250,000+, preceded by $250,000. Browser verified both endpoints. Input supports the same top-end value.
+- Helper uses required-note typography/color. Thumb reuses primary button surface, edge and bevel tokens with smaller shadows; 44px-high slider interaction area. Preserved existing field styling.
+- Desktop evidence: `contact-budget-input-desktop.png` and `contact-budget-input-detail.png` in the task visualization directory. Visually checked at 1483px and 390px; no narrow overflow. Syntax/build checks pass and no browser console errors. No form submitted.
+- Guidance consulted: NN/g Slider Design: Rules of Thumb and W3C APG Slider Pattern, for precise-entry alternative, native keyboard operation and meaningful value announcements.
+- final result: passed
 
-- Removed the fixed homepage header offset and unused grid tracks. The header
-  now centers the visible tray: vertically on desktop, horizontally on mobile.
-  Only visible controls occupy tracks; the existing 6px glass inset is symmetric.
-- Preserved the approved tray dimensions, control sizes/gaps, glass treatment,
-  and refraction isolation. The desktop menu remains aligned with its toggle;
-  the mobile popup is centered above the dock without an obsolete fixed offset.
-- In-app-browser check on the actual homepage: tall tray center error improved
-  from about 82px to 0.11px; returning to top also remained centered.
-- Responsive same-origin iframe checks for Home, Contact, and Vitae at widths
-  320, 390, 767, 768, and 1121px, height 640px: two short/tall cycles per width,
-  with 24 animation-frame samples per state. Maximum measured center error was
-  0.28px (subpixel/browser zoom rounding), across all 60 state checks. Verified
-  both horizontal and vertical layouts; 768px remained horizontal at the test
-  browser's zoom, while 1121px exercised the vertical layout.
-- Visually inspected desktop and mobile short/tall docks, live glass over
-  content, menu placement, Escape dismissal, and return-to-top behavior. No
-  warnings/errors were captured for the homepage. No physical-device claim.
-- Removed the temporary diagnostic page. Final Jekyll build, navigation-script
-  syntax checks, and diff whitespace checks passed. Local only; not published.
-
-## Introduction-dot to return-arrow transition — 2026-09-30
-
-- Homepage controls now share a fixed first-section slot. The arrow grows
-  from 7px to its existing 24px diameter about the dot center, with a 240ms
-  ease-out and crossfade. The existing scroll threshold is unchanged.
-- No extra row/column is inserted: the homepage tray remains 62 × 182px on
-  desktop and 182 × 62px horizontally. Its centering and current 80% interior
-  tint, bevel, refraction, and button material settings are preserved.
-- Actual-homepage iframe checks at 320, 390, and 1121px sampled 32 frames in
-  each direction: scale grew monotonically from 0.291667 to 1, tray dimensions
-  stayed constant, and arrow/dot centers differed by less than 0.005px.
-- Verified focus transfers Introduction → Back to top and back when scrolling
-  across the threshold; the covered link becomes inert, aria-hidden, and is
-  removed from the tab sequence. The inactive arrow has tabindex -1.
-- Desktop/mobile screenshots and return-button clicks checked; desktop menu
-  opening and Escape dismissal still work. Reduced-motion CSS disables the
-  growth/crossfade without changing the shared center. Other pages retain
-  their existing independent return button.
-- Removed the temporary check page; build, script syntax, and whitespace
-  checks passed. Local preview only; no commit or publication.
-
-### Follow-up: remove the Introduction control
-
-Removed the Introduction link entirely rather than showing it before the arrow.
-The reserved arrow slot and pop-in animation remain; How I help,
-Recommendations, and Scroll to bottom are always present. The last control now
-scrolls to the document bottom. No section is marked current while the hero
-alone is active. The hidden arrow stays out of the tab order, with focus
-returning to the hamburger if it disappears while focused. Glass styling and
-fixed desktop/mobile geometry are unchanged.
-
-## Dock Progressions implementation — 2026-09-30
-
-Supersedes the reserved-slot geometry above. Reference:
-`/Users/jmwii1981/Desktop/Dock Progressions.png`. Compared the full reference
-at 270px wide beside the rendered local site in the browser. Screenshots were
-reviewed inline in this task (not saved as a permanent screenshot artifact).
-
-- Layout/spacing: retained the existing hamburger size; Home is 34px and both
-  arrows are 24px. Initial state has no top-dot or reserved arrow gap. The tray
-  expands when the up-arrow appears and includes Home only away from `/`.
-- Typography/copy: existing site typography preserved; meaningful section names
-  supply accessible names and hover labels. No new visible marketing copy.
-- Colors/surfaces: existing 80% white interior and isolated refractive bevel
-  preserved. Found and corrected low-contrast white control ink on Vitae's
-  live white lens, without changing its dark fallback treatment.
-- Icons/assets: existing up-arrow reused and rotated for down; official filled
-  Font Awesome house asset, not a redrawn illustration. Other artwork unchanged.
-- Responsive behavior: checked 72 initial/scrolled/returned states across Home,
-  Vitae, Contact, Perspectives, Vega, and Terms at 320, 390, 769, and 1121px wide
-  with 640px height. All trays contained; maximum measured center error 0.167px.
-  Intermediate dots: Home 2, Vitae 3, Contact/Perspectives/Vega 0, Terms 14.
-- Interactions: verified AvenaPay navigation/active state, Home return, document
-  bottom arrival (within 0.34px), top return, menu Escape, and accessing the last
-  Terms dot through its narrow scrollable strip. Hidden top control is inert
-  and excluded from tab order; reduced-motion styles skip size/pop transitions.
-- Found and corrected a menu-clipping edge case on tall desktop trays. Recheck
-  at 769px placed the entire menu below the viewport top (18.26px).
-- Glass filter stays attached through tray changes; visually checked desktop
-  and mobile surfaces against page content. Physical-device Safari and assistive
-  technology testing were not performed in this pass.
-
-Build, JavaScript syntax, and diff whitespace checks pass. Temporary comparison
-files removed. Local preview only; no commit, push, or publication.
-
-Final result: passed for the tested local scope.
-
-### Follow-up: hide down-arrow in the bottom region
-
-The down-arrow now becomes hidden/inert as the last section enters the viewport
-with a 24px inset, or the document bottom is reached. Its slot collapses, including
-the adjacent gap; it returns when scrolling away. Focus returns to the hamburger
-if the arrow was focused when hidden. Reduced motion disables the transition.
-Verified Home down/up round trip in the local browser and both vertical and
-horizontal collapse: slot height/width reached zero, with centered tray alignment.
-Glass treatment unchanged. Build, syntax, and whitespace checks passed.
-
-### Contact artwork video — 2026-09-30
-
-Replaced the displayed floating-stones artwork with the supplied shaking-rocks.mov,
-losslessly remuxed to images/contact/shaking-rocks.mp4 (H.264, no audio). Retained
-the existing image as poster/reduced-motion fallback and preserved the wrapper,
-crop, edge fades, and small-screen artwork hiding. The video loops while visible
-and pauses off-screen, in hidden tabs, or with reduced motion requested.
-Browser verification: readyState 4, paused false and advancing playback on desktop;
-tablet keeps artwork visible; narrow layout hides artwork and pauses playback.
-The existing document reports horizontal overflow at the tested responsive widths;
-this was not broadened into unrelated layout work (the narrow video is hidden).
-Build, JavaScript syntax, and whitespace checks pass. Local only.
-
-### Follow-up: scroll-scrub the contact video
-
-Removed looping playback. The paused video's timeline maps from artwork entering
-the viewport to the document bottom, reverses with upward scrolling, and resets
-to frame zero above the entry point. Loading starts 200px before entry. Reduced
-motion retains the still; hidden/mobile artwork is not scrubbed. Scroll work is
-coalesced with animation frames and seeks are serialized.
-Observed local browser: paused at time 0 before entry (art top 1385.75px against
-762px viewport), time 0.4899 at intermediate scroll, and time 1.1928 near the
-bottom of a 1.209-second video. All observed states stayed paused.
-
-### Pop-out glass reconstruction
-
-Replaced separate masked face/rim/shadow shapes and asymmetric pointer padding
-with a rounded glass surface and equal 6px panel insets. Menu item typography,
-icons, padding, spacing, and interaction styles remain unchanged. The shared
-refraction renderer creates independent maps/filter IDs for tray and menu;
-the menu uses a narrower 4px displacement band and 2.5px interior inset, with
-one 1px border and no stacked rim rings. Dock parameters remain unchanged.
-Desktop/mobile screenshots on Vitae checked: thin edge and aligned content.
-Computed panel insets: 5.998px on every side. Filter rebuilt for mobile width;
-Escape dismissal checked. Build, module syntax, and whitespace checks passed.
-Local review only.
+- Source: `/Users/jmwii1981/Downloads/Frame 1000003223.png` (551 × 641). Implementation: `/Users/jmwii1981/.codex/visualizations/2026/09/12/01a09402-094d-7d53-96b4-b83132322fc2/contact-budget-desktop.png` (1483 × 1409, 1× density). Compared 551 × 650 form crop at the same 494px form width alongside source.
+- Typography and colors: preserved existing warm labels and fields; thin warm-neutral track and 25px slate thumb match supplied styling. Budget label and $5,000 / ∞ endpoints present. Default thumb intentionally starts at minimum instead of mock's unspecified intermediate value.
+- Spacing: first pass found Subject and remaining fields 10px too high relative to mock; added 10px beneath slider and recaptured. Final form rhythm matches. No new raster assets; removed speech-bubble markup and retained its file.
+- Interaction: Home gives $5,000; End announces no upper limit; previous steps give $100,000 then $99,900. Selected value appears on focus/hover. Hidden Budget field maintained for existing form submission; reset listener restores default. No live message submitted.
+- Responsive: 390px viewport has 390px document width and a 269px slider; no horizontal overflow. Existing form typography retained. JavaScript syntax and Jekyll build pass, no observed browser console errors. Viewport override cleared.
+- Findings: no remaining P0/P1/P2 issues in scoped change. Existing page design unchanged outside requested bubble removal. Real delivery not tested to avoid sending a message.
+- final result: passed

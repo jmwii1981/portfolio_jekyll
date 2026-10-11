@@ -1,6 +1,6 @@
 .page-section-title {
     display: block;
-    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    font-size: calc((clamp(2.5rem, 6vw, 5.5rem)) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-section-letter-spacing);
     line-height: var(--type-section-line-height);
     margin: 0;

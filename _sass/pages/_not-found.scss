@@ -29,7 +29,7 @@
 .not-found-kicker {
     color: var(--color-text-muted);
     display: block;
-    font-size: var(--type-label-font-size);
+    font-size: calc((var(--type-label-font-size)) * var(--mobile-text-scale, 1));
     font-weight: 700;
     letter-spacing: var(--type-label-letter-spacing);
     line-height: var(--type-label-line-height);
@@ -39,7 +39,7 @@
 
 .not-found-title {
     display: block;
-    font-size: clamp(2.75rem, 7vw, 6.25rem);
+    font-size: calc((clamp(2.75rem, 7vw, 6.25rem)) * var(--mobile-text-scale, 1));
     margin: clamp(1.25rem, 3vw, 2rem) 0 0;
     max-width: 11ch;
 }
@@ -47,7 +47,7 @@
 .not-found-message {
     color: var(--color-text-soft);
     display: block;
-    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    font-size: calc((clamp(1.05rem, 1.6vw, 1.3rem)) * var(--mobile-text-scale, 1));
     letter-spacing: var(--type-lead-letter-spacing);
     line-height: var(--type-lead-line-height);
     margin: clamp(1.5rem, 4vw, 2.5rem) 0 0;

@@ -1,3 +1,30 @@
+.footer-divider,
+.footer {
+    --footer-ink: #4C5463;
+    --color-link: var(--footer-ink);
+    color: var(--footer-ink);
+}
+.body--vitae .footer-divider,
+.body--vitae .footer {
+    --footer-ink: var(--color-text-muted-on-dark);
+    --color-link: var(--footer-ink);
+}
+.footer-divider {
+    border: 0;
+    border-top: 1px solid currentColor;
+    height: 0;
+    padding: 0;
+    margin: 0 auto;
+    width: calc(min(100% - (var(--site-content-gutter) * 2), 27.5rem) * 17 / 18);
+}
+.main.about ~ .footer-divider,
+.main.contact ~ .footer-divider,
+.main.perspectives ~ .footer-divider {
+    border-top-color: var(--color-border-subtle);
+}
+body:has(.main.vitae) .footer-divider {
+    border-top-color: rgba(224, 233, 246, .07);
+}
 .footer {
     align-items: center;
     box-sizing: border-box;
@@ -31,7 +58,7 @@
         text-decoration: none;
 
         &:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
-        &:hover { opacity: .8; }
+        &:hover { opacity: 1; }
     }
 
     .footer-brand-mark {
@@ -292,6 +319,9 @@
 }
 
 @media (min-width: 50.0625rem) {
+    .footer-divider {
+        width: calc(min(100% - (var(--site-outer-gutter) * 2), var(--site-max-width)) * 17 / 18);
+    }
     .footer {
         column-gap: clamp(1.5rem, 4vw, 4rem);
         grid-template-columns: max-content minmax(0, 1fr);
