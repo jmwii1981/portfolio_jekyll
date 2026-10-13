@@ -1,0 +1,30 @@
+- id: outcomes
+  label: Outcomes
+  title: Lead with what matters.
+  description: Recovery, loss, and pending value belong in the same conversation. The outcomes dashboard connects performance over time with the money behind it, helping merchants see where results are improving and where a closer look is needed.
+  try: Try changing the reporting period or isolating an outcome in the filters.
+- id: volume
+  label: Volume
+  title: Give every spike context.
+  description: More disputes do not always tell the whole story. Volume, transaction activity, card mix, and channel trends sit together so teams can distinguish a change in business activity from a change in dispute risk.
+  try: Switch between count and amount, then compare a specific card brand.
+- id: cases
+  label: Case details
+  title: Bring the evidence to the decision.
+  description: A case is more than its status. The detail view brings the amount, deadline, supporting documents, and recommended next steps into one place. A probability score provides context—not a guarantee—while the evidence stays available for human review.
+  try: Explore the case tabs, review the evidence, and prepare a sample response.
+- id: alerts
+  label: Alerts
+  title: Direct attention. Reduce noise.
+  description: Meaningful thresholds make it easier to notice a rise in dispute volume, a falling win rate, or an approaching deadline. The alert center separates active signals from history and gives teams control over what they monitor.
+  try: Pause a rule or create a sample alert with your own threshold.
+- id: reports
+  label: Reporting
+  title: Turn activity into a clear story.
+  description: The executive overview brings recovery, risk, and operational performance into a single report. Reusable widgets let teams focus the view on the questions they need to answer without assembling another spreadsheet from scratch.
+  try: Choose a quarter, show or hide report widgets, and save the sample view.
+- id: ai
+  label: Ask AI
+  title: Start with a better question.
+  description: Natural-language analysis gives merchants another way to explore dispute data. Answers pair a concise explanation with supporting measures and follow-up questions, so an emerging concern can become a focused investigation.
+  try: Choose a suggested question or ask about win rate, fraud, or recovery. Answers are scripted for this demo.

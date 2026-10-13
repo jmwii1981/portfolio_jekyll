@@ -89,6 +89,11 @@
     -webkit-user-drag: none;
 }
 
+:where(img, picture, video, canvas, svg) {
+    // Suppress the native long-press save sheet where the browser supports it.
+    -webkit-touch-callout: none;
+}
+
 // Editable content stays usable even when nested in an interface component.
 :where(input:not([type]), input[type="text"], input[type="search"],
     input[type="email"], input[type="tel"], input[type="url"],

@@ -372,11 +372,13 @@
     <script type="module" src="{{ '/scripts/initializeScripts.js' | relative_url }}?v={{ site.asset_version }}" data-site-entry></script>
 
 </head>
-<body class="body{% if page.url == '/vitae/' or page.layout == 'project' %} body--vitae{% endif %}">
+<body class="body{% if page.url == '/vitae/' or page.layout == 'project' or page.layout == 'avenapay' %} body--vitae{% endif %}">
 <a class="a skip-link" href="#main-content">Skip to main content</a>
-{% unless page.url == '/links/' %}
+{% if page.url == '/links/' %}
+<div class="links-mobile-navigation">{% include header.html %}</div>
+{% else %}
 {% include header.html %}
-{% endunless %}
+{% endif %}
 
 {{ content }}
 

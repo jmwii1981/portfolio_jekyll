@@ -1930,7 +1930,7 @@ body:has(.main.vitae) { overflow-x: clip; }
 
 // Screen concepts sit inside the original glass bezels; each wrapper still
 // participates in the existing independent scroll reveal.
-.main.vitae #project-vega .vega-screen-device {
+.main.vitae :is(#project-vega, #project-ledgerflow) .vega-screen-device {
     display: block;
     img { max-height: none; aspect-ratio: auto; mix-blend-mode: normal; }
     > .vega-device-frame { display: block; width: 100%; height: auto; }

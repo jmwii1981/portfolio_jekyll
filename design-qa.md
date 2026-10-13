@@ -1,3 +1,77 @@
+# About closing section progression — 2026-10-12
+
+## Phone progression follow-up
+
+final result: passed
+
+- New source: `/Users/jmwii1981/Downloads/ChatGPT Image Oct 12, 2026, 07_57_19 PM.png` (390×844).
+- Render: `/tmp/phone-progress-final.png`; combined comparison `/tmp/phone-progress-compare.png` at 390×844, density 1. Implementation scroll settled 34px farther down: compare relative to section top (reference y74, implementation y40), not absolute page y.
+- Scoped fidelity: natural two-line heading, 19px paragraph and stacked 17px buttons match phone endpoint; existing colors and source rock video retained. Video pose differs naturally. Footer/dock remain existing site components, not redesigned.
+- Fixed initial 12px copy offset and 20px artwork horizontal offset; recaptured comparison confirms endpoint composition. No further P0/P1/P2 issues in scoped composition. Full view is readable; no detail crop required.
+- Intermediate checks at 390/480/599/600/680/780/910px confirm continuous headline 48–88px and artwork 450–560px interpolation, including across former 600px type-size jump. Buttons stack below 600px. Wide desktop layout remains unchanged.
+- Supersedes earlier fixed-size phone behavior below; this is the user's newly requested gradual progression. Physical device testing remains unperformed.
+
+final result: passed
+
+- Source: `/Users/jmwii1981/Desktop/mobile progression/Screenshot 2026-10-12 at 7.45.48 PM 1.png` and `Frame 1000003226.png` in the same folder.
+- Implementation: `/tmp/progression-desktop.png`, `/tmp/progression-right-final.png`; local About page.
+- Comparisons: `/tmp/progression-compare.png` and `/tmp/right-comparison.png`, source and implementation side by side. 1215×750 and 910×750 CSS pixels, density 1. Source bottom 2px cropped for equal-height comparison.
+- Typography: existing Heebo, 88px display and 24.2px paragraph retained in reference progression. Heading is plain text, width 100%, max-width 450px; paragraph max-width 450px. Matching natural two-line wraps.
+- Spacing: desktop group moves left without scaling, then swaps artwork to right below 920px. Phone typography switches below 600px. Fixed media dimensions throughout. Reference composition preserved at matched widths.
+- Colors: existing charcoal and blue-gray tokens retained. Image: existing video/poster, no regenerated assets; animation frame variation expected.
+- Copy: unchanged; forced heading spans removed. Existing links unchanged.
+- Iteration: initial right-side artwork was 33px too far right; corrected its offset from 420px to 387px and recaptured. Final comparison confirms matching placement. No remaining P0/P1/P2 findings in scoped composition.
+- P3: roughly 4px vertical difference from source; dock position differs because existing dock behavior is outside this edit. Full-view comparison is readable enough that no additional crop is necessary.
+- Phone checked at 390px for natural wrapping. No physical-device check performed.
+
+# AvenaPay interactive project sections — 2026-10-11
+
+Final result: passed
+
+## Scope and visual truth
+
+- Local route: `http://127.0.0.1:4000/vitae/avenapay/`. Six separate sections replace this project's carousel only. Other project layouts, Vitae device demos, Contact and Perspectives are unchanged. Existing challenge/approach copy and previous/next project links remain available.
+- Sources: the six 1600×1200 WebP mockups in `images/projects/avena/`: Dashboard - Outcomes, Dashboard - Volume, My Cases _ Case Details, Alerts and Notifications, Reports _ Q2 Exec Overview, and Ask AI. The existing Vitae page supplies the black editorial section treatment.
+- Intentional adaptation: recreate the primary UI and interactions, not the blue photographic laptop setting. Responsive live screens use a restrained dark frame, larger readable UI type and simplified panels rather than rasterized screenshots. Filters collapse into an expandable panel; secondary maps, marketing banners, global search, and account controls are not recreated. Brand is set as text, not claimed to be the original logo. These are focused mocks, not a full production application.
+
+## Verification and evidence
+
+- Rendered at 1280×900 desktop, 820×1180 tablet and 390×844 mobile. Document width equals viewport width at tablet and phone sizes; all six app shells fit. Dense tables retain internal horizontal scrolling at phone width rather than squeezing labels. No carousel or range slider is used.
+- Evidence directory: `/Users/jmwii1981/.codex/visualizations/2026/09/12/01a09402-094d-7d53-96b4-b83132322fc2/`. Six `avena-{outcomes,volume,cases,alerts,reports,ai}-desktop.png` section captures, six matching mobile captures, `avena-outcomes-tablet.png`, and `avena-intro-desktop.png`. Captures are CSS-pixel scale, DPR 1, with natural section heights. Reference photographs and live content have different framing; comparison is component hierarchy/palette and readability, not a pixel-identical photo reconstruction.
+- All six source/implementation pairs were opened together for comparison. Native-size screen components were readable in those captures; mobile case details and tablet Outcomes were also inspected directly.
+- Tested outcomes period and outcome filtering; Volume count/amount, card brand and period; case Documents/receipt, Notes, draft and prepare; alert pause/resume and create; report quarter, widget visibility and save; Ask AI suggested and unsupported questions. All sample changes remain in memory. No external submission, AI service, or financial action occurs.
+- Keyboard focus remains on a case tab or report checkbox after rerender; expanded customization panels stay open. Controls use native labels, focus-visible outlines, status announcements, and nonanimated charts. Full screen-reader certification and physical touch-device testing were not performed.
+- Initial initialization error was fixed; all six screens initialize. Console review after the fix showed only the retained historical error, no new errors. Module syntax, Jekyll build and whitespace checks pass.
+
+## Comparison history and required fidelity surfaces
+
+- P1 corrected: shared main styles introduced white gutters and removed page padding. Scoped main geometry and existing dark body theme restore an edge-to-edge dark page; desktop/mobile checked again.
+- P2 corrected: an early breakpoint stacked KPI cards too soon on desktop. Adjusted screen container breakpoint and rechecked the four-card desktop row.
+- P2 corrected: shared inline-block heading/paragraph styling put closing labels beside their paragraphs. Scoped block display restores normal editorial flow; intro and closing rechecked in-browser.
+- P2 corrected: mobile paragraph rule reduced the probability score to body size; score-specific type now retains hierarchy. Mobile recaptured.
+- Fonts: existing site heading/body families outside the mocks; local Inter regular/600/700 inside, an inferred match to the source UI. Desktop controls 10–12px; narrow-screen controls enlarged. No clipped headings observed.
+- Spacing: generous Vitae-style separation, copy left / mock right on desktop, stacked below 1200px. App contents reflow rather than scaling down as a bitmap.
+- Colors: source-inspired blue actions, near-white surfaces, light gray borders, green/red/amber/purple outcome states; site black and gray editorial palette outside.
+- Assets: existing Tabler icon files and Chart.js data visualizations; original screenshots retained as no-script fallback. No synthetic photographs or substitute illustrations.
+- Copy: screen explanations follow the existing case-study facts. Recreated/confidential-work disclosure retained. Sample, historical-date and scripted-AI notices distinguish the preview from a live product.
+
+No remaining P0/P1/P2 findings for this scoped interactive adaptation. P3: additional source widgets and closer original-logo fidelity can be a later refinement; not a claim of complete screen-by-screen production parity. Local only, not committed or published.
+
+# LedgerFlow device mocks — 2026-10-11
+
+Result: passed for local review. Not deployed.
+
+- Scope: four embedded LedgerFlow sample interfaces on Vitae; surrounding composition, glass frames, screen sheen and Vega demos preserved.
+- References: supplied PeopleOS dashboard, calendar and table screenshots. Adapted their light surfaces, orange accents, fine borders, quiet cards and status badges to invoicing and payments; this is an adaptation, not an exact HR-screen reproduction. Inter is an inferred type choice. Existing Tabler icons reused.
+- Laptop opens the dashboard, tablet opens reminders, portrait phone opens mobile collection, and landscape phone opens payment links. Laptop navigation also exposes invoices, customers and reporting. Customer portal and a full case-study experience remain outside this pass.
+- Real browser review: 1280×900, 820×1180 and 390×844. Narrow document has no horizontal overflow. Screen insets fit the existing frames; desktop device bleed and foreground overlap remain intentional. Small presentation text and inherited screen dimming are intentional.
+- Fixed P1: host width/height overrode screen insets, extending content beyond bezels. Removed those dimensions and rechecked rendered frames.
+- Fixed P2: transformed canvas measurements shrank charts during resizing. Canvas sizing now uses untransformed parent dimensions, with bounded grid tracks; final donut canvas and parent both measure 120px.
+- Fixed P2: condensed laptop cards/charts to expose the invoice table preview without changing the exterior composition.
+- Verified: invoice creation, overdue filter, customer search, reporting period toggle, reminder confirmation, sample payment success and sample payment-link creation. All data is illustrative and in-memory; no payment or email is sent. Cursor-capable devices enable interaction; touch-only devices retain visual previews.
+- Compared source screenshots alongside implementation captures. Evidence in `/Users/jmwii1981/.codex/visualizations/2026/09/12/01a09402-094d-7d53-96b4-b83132322fc2/`: `ledger-desktop-final.png`, `ledger-laptop-detail.png`, `ledger-tablet-final.png`, `ledger-mobile.png`.
+- Jekyll build and module syntax checks pass. Browser console showed no errors. No outstanding P0/P1/P2 findings in this scoped mock pass.
+
 # Contact page — Frame 67 implementation review
 
 ## Vega screen revision 3 — local review

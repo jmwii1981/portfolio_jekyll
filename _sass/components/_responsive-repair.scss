@@ -1,0 +1,423 @@
+// Small-screen containment. Desktop compositions remain owned by their page styles.
+.screen-enlarge, .screen-viewer, .screen-tools { display: none; }
+.links-mobile-navigation { display: none; }
+// Carry the approved mobile type treatment onto About's desktop composition,
+// without changing its display sizes, alignment, or illustration layout.
+@media (min-width: 48rem) {
+    .main.about {
+        .hero #about-title,
+        .help-intro .home-section-title,
+        .testimonials-intro .home-section-title,
+        .about-me-next > .home-section-title {
+            font-weight: 500;
+            color: #292A2B;
+            text-wrap: balance;
+        }
+        .hero .about-me-statement,
+        .home-section-description,
+        .about-me-invitation {
+            font-size: 1.5125rem;
+            text-wrap: pretty;
+        }
+        .about-me-next .about-me-invitation { color: #424956; }
+        .hero .button, .hero .button-face,
+        .about-me-actions .button, .about-me-actions .button-face {
+            font-size: 17px;
+        }
+    }
+}
+.vitae-editorial-link > .button-external-icon {
+    width: 1em; height: 1em; flex: 0 0 1em;
+    stroke: currentColor; stroke-width: 1.5;
+    stroke-linecap: round; stroke-linejoin: round;
+}
+@media (max-width: 63.999rem) {
+    // Hidden decorative art must not contribute an invisible scrollable width.
+    .main.about .art-no-room,
+    .main.vitae .glasses-no-room .vitae-intro-artwork { visibility: hidden; }
+    :root { --mobile-text-scale: 1; }
+    .main.about { --about-dock-clearance: 72px; }
+    .main.perspectives .perspectives-page,
+    .main.project-detail { padding-right: max(var(--site-frame-gutter), 72px); }
+    .main.contact {
+        width: calc(100% - 96px);
+        margin-left: 24px;
+        margin-right: 72px;
+        padding-inline: 0;
+    }
+    .main.contact > .contact-section { padding: 24px 16px; }
+    .main.contact .page-hero-title, .main.perspectives .post-title {
+        font-size: clamp(2.25rem, 7vw, 4rem);
+        overflow-wrap: anywhere;
+    }
+    .contact-project-details { min-width: 0; }
+    .contact-input { min-width: 0; font-size: 16px; }
+    .contact-calendar-nav button,
+    .contact-calendar-top button,
+    .contact-calendar-bottom button,
+    .contact-calendar-jump select,
+    .contact-calendar-grid button,
+    .contact-budget-menu button { min-height: 44px; }
+    .main.terms { padding-right: max(var(--site-frame-gutter), 72px); }
+    .main.vitae .vitae-contact { padding-right: 72px; }
+    .main.vitae .vitae-contact-layout { min-width: 0; }
+    .main.vitae .vitae-contact-artwork img { max-width: 145%; }
+    .screen-enlarge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 8px 12px;
+        margin: 8px 4px 0 0;
+        border: 1px solid currentColor;
+        border-radius: 12px;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+    .screen-tools { display: block; grid-column: 1 / -1; grid-row: 4; color: #d6d8dd; }
+    .screen-viewer[open] {
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 24px);
+        height: calc(100dvh - 24px);
+        max-width: none;
+        max-height: none;
+        box-sizing: border-box;
+        padding: 16px;
+        border: 1px solid #68717e;
+        border-radius: 16px;
+        background: #111318;
+        color: #f0f1f3;
+    }
+    .screen-viewer::backdrop { background: rgba(0,0,0,.8); }
+    .screen-viewer-bar { display:flex; justify-content:space-between; gap:16px; align-items:center; }
+    .screen-viewer-bar h2 { font-size: 1.125rem; margin:0; }
+    .screen-viewer p { font-size: 1rem; margin:12px 0; }
+    .screen-viewer-pan { overflow: auto; flex: 1; min-height: 0; touch-action: pan-x pan-y; }
+    .screen-viewer-pan > img { display:block; width: 1100px; max-width:none; height:auto; }
+    .screen-viewer-pan .vega-screen-inset {
+        display:block; position:relative; inset:auto; max-width:none;
+        border-radius:0; transform:none; filter:none; opacity:1;
+    }
+}
+@media (max-width: 47.999rem) {
+    .main.about {
+        --site-frame-gutter: 16px;
+        --about-dock-clearance: 16px;
+    }
+    body:has(.main.about) .header .nav-controls .dock-dots { top: 60%; }
+    .main.about ~ .footer {
+        width: calc(100% - 32px);
+        margin-inline: 16px;
+    }
+    .main.about > section:not(.hero) {
+        min-height: 0;
+        height: auto;
+    }
+    .main.about .help .content-wrapper { padding-block: 98px; }
+    .main.about .help-intro > .help-artwork,
+    .main.about .about-me-inner > .about-me-artwork {
+        display: block;
+        position: relative;
+        inset: auto;
+        translate: none;
+        width: min(100%, 420px);
+        height: auto;
+        aspect-ratio: 1;
+        margin: 32px auto 0;
+        visibility: visible;
+        filter: none;
+    }
+    .main.about .about-me-inner > .about-me-artwork {
+        display: block;
+        position: absolute;
+        aspect-ratio: 3 / 2;
+        margin: 0;
+        width: 560px;
+        height: calc(560px / 1.035);
+        max-width: none;
+        // Align the visible lower-left rock to the copy, not the viewport edge.
+        left: calc(var(--closing-copy-width, 208px) - 120px);
+        right: auto;
+        top: 50%;
+        translate: 0 -50%;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+        filter: none;
+    }
+    .main.about .about-me-inner {
+        isolation: isolate;
+        clip-path: inset(0 -100vw);
+    }
+    .main.about .about-me-next .about-me-invitation { color: #424956; }
+    .main.about .about-me-inner > .about-me-next,
+    .main.about .about-me-inner > .about-me-actions {
+        position: relative;
+        z-index: 2;
+    }
+    .main.about .about-me-artwork > .about-me-artwork-image {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 132.75%;
+        max-width: none;
+        height: 100%;
+        transform: translateX(-50%);
+        object-fit: cover;
+    }
+    .main.about .about-me-inner > .about-me-actions {
+        order: 2;
+        align-self: flex-start;
+        flex-direction: column;
+        align-items: stretch;
+        width: max-content;
+        max-width: 100%;
+        gap: 14px;
+        margin: 24px 0 0;
+        > .button { width: 100%; box-sizing: border-box; }
+        &.closing-actions-inline {
+            flex-direction: row;
+            flex-wrap: nowrap;
+            > .button { width: auto; flex: none; }
+        }
+    }
+    .main.about > .testimonials { padding-block: 98px 82px; }
+    .main.about .testimonials .content-wrapper { padding-top: 0; }
+    .main.about > .testimonials + .about-me { margin-top: 32px; }
+    .main.about .about-me-inner { padding-block: 82px 50px; }
+    .main.about > .hero {
+        min-height: 0;
+        height: auto;
+        padding-top: 138px;
+        padding-bottom: 118px;
+    }
+    .main.about .hero .hero-brand-rail {
+        top: 16px;
+        bottom: auto;
+        left: 16px;
+    }
+    .main.about .hero .copy-wrapper { margin-top: 0; }
+    .main.about .hero #about-title,
+    .main.about .about-me-next > .home-section-title {
+        font-size: clamp(3rem, 12.3vw, 4.5rem);
+    }
+    .main.about .hero #about-title {
+        margin-bottom: 22px;
+        line-height: 1.06;
+        letter-spacing: -.04em;
+        color: #292A2B;
+    }
+    .main.about .hero .about-me-statement { margin-top: 0; margin-bottom: 28px; }
+    .main.about {
+        #about-title, .home-section-title {
+            text-align: center;
+            font-weight: 500;
+            text-wrap: balance;
+        }
+        .help-intro .home-section-title,
+        .testimonials-intro .home-section-title,
+        .about-me-next > .home-section-title {
+            width: 100%;
+            margin-inline: auto;
+            text-align: center;
+            color: #292A2B;
+        }
+        .hero .about-me-statement, .home-section-description, .about-me-invitation {
+            font-size: clamp(1.1875rem, calc(2.7vw + 1px), 1.5125rem);
+            width: 100%;
+            max-width: 30rem;
+            margin-inline: auto;
+            text-align: center;
+            text-wrap: pretty;
+        }
+        .hero .button-group, .about-me-next .button-group {
+            align-self: center;
+            justify-content: center;
+        }
+        .hero .button, .hero .button-face,
+        .about-me-actions .button, .about-me-actions .button-face {
+            font-size: 17px;
+        }
+    }
+    .main.about .about-me-inner > .about-me-next {
+        width: max(190px, 58%);
+        align-self: flex-start;
+    }
+    .main.about .about-me-next > .home-section-title,
+    .main.about .about-me-next > .about-me-invitation {
+        text-align: left;
+        margin-inline: 0;
+        text-wrap: pretty;
+    }
+    .main.about .about-me-invitation .keep-together { white-space: normal; }
+    .main.about .about-me-next > .home-section-title {
+        width: max-content;
+        max-width: calc(100vw - 32px);
+    }
+    .main.about .about-me-next > .home-section-title .closing-title-start {
+        display: block;
+        white-space: nowrap;
+    }
+    .main.about .about-me-next > .home-section-title .closing-title-end {
+        display: block;
+        white-space: nowrap;
+    }
+    .main.about, .main.vitae { width: 100%; }
+    .links-mobile-navigation { display: block; }
+    .header .nav-panel { max-height: calc(100dvh - 32px); overflow-y: auto; }
+    .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+        .vitae-device-lineup { width: 100%; }
+        .project-story-title { font-size: clamp(2.625rem, 10.5vw, 3rem); }
+        .project-story-intro { font-size: 1.125rem; }
+    }
+    .main.vitae { --vitae-story-body-size: 1.125rem; }
+}
+
+// Closing composition: one mobile layout, one desktop layout. Keep the
+// artwork's actual rendered dimensions identical on both sides of the switch.
+.main.about > section.about-me:not(.hero) {
+    padding: 0;
+    width: 100vw;
+    max-width: none;
+    margin: 0 calc(50% - 50vw);
+    height: auto;
+    min-height: 0;
+    --about-me-accent-size: 160px;
+}
+.main.about .about-me-inner.about-fluid-composition {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    box-sizing: border-box;
+    width: 1232px;
+    max-width: none;
+    min-height: 760px;
+    height: 760px;
+    padding: 82px 0 50px;
+    margin-left: calc(clamp(380px, 100vw - 630px, 50vw - 24px) - 592px);
+    margin-right: 0;
+    gap: 0;
+    isolation: isolate;
+    > .about-me-next.about-fluid-copy {
+        width: 640px;
+        max-width: none;
+        margin: 0 0 0 592px;
+        padding: 0;
+        border: 0;
+        flex: none;
+        align-self: auto;
+        z-index: 2;
+        transform: none;
+        transition: none;
+        > .home-section-title {
+            font-size: 88px;
+            line-height: 1.06;
+            font-weight: 500;
+            color: #292a2b;
+            width: 100%;
+            max-width: 450px;
+            text-align: left;
+            margin-inline: 0;
+            margin-block: 0 32px;
+            letter-spacing: -.04em;
+            white-space: normal;
+            overflow-wrap: normal;
+            text-wrap: wrap;
+        }
+        > .about-me-invitation {
+            font-size: 24.2px;
+            text-align: left;
+            width: 100%;
+            max-width: 450px;
+            margin-inline: 0;
+            margin-block: 0;
+            line-height: 1.55;
+            .keep-together { white-space: normal; }
+        }
+        .about-me-actions {
+            display: flex;
+            align-self: flex-start;
+            justify-self: start;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            width: max-content;
+            gap: 14px;
+            margin: 24px 0 0;
+            .button { width: auto; }
+            .button, .button-face { font-size: 17px; }
+        }
+    }
+    > .about-me-artwork.about-fluid-art {
+        position: absolute;
+        display: block;
+        width: 560px;
+        height: 541.0628px;
+        max-width: none;
+        aspect-ratio: auto;
+        left: 0;
+        right: auto;
+        top: 50%;
+        margin: 0;
+        translate: 0 -50%;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        z-index: 0;
+        > .about-me-artwork-image {
+            position: absolute;
+            inset: 0;
+            width: 560px;
+            max-width: none;
+            height: 541.0628px;
+            transform: none;
+            object-fit: cover;
+        }
+    }
+}
+@media (max-width: 57.499rem) {
+    .main.about .about-me-inner.about-fluid-composition {
+        width: min(750px, calc(100% - 32px));
+        margin-left: max(16px, calc((100vw - 750px) / 2));
+        margin-right: 0;
+        padding: 0;
+        height: clamp(536px, calc(57.436vw + 312px), 760px);
+        min-height: clamp(536px, calc(57.436vw + 312px), 760px);
+        > .about-me-next.about-fluid-copy {
+            margin-left: 0;
+            width: 100%;
+            top: clamp(-12px, calc(3.0769vw - 24px), 0px);
+            > .home-section-title {
+                font-size: clamp(48px, calc(10.2564vw + 8px), 88px);
+                width: 100%;
+                max-width: clamp(260px, calc(48.718vw + 70px), 450px);
+                margin-bottom: clamp(24px, calc(2.0513vw + 16px), 32px);
+            }
+            > .about-me-invitation {
+                font-size: clamp(19px, calc(1.3333vw + 13.8px), 24.2px);
+                max-width: clamp(208px, calc(62.0513vw - 34px), 450px);
+            }
+        }
+        > .about-me-artwork.about-fluid-art {
+            left: clamp(144px, calc(62.3077vw - 99px), 387px);
+            width: clamp(450px, calc(28.2051vw + 340px), 560px);
+            height: clamp(434.783px, calc(27.2513vw + 328.503px), 541.063px);
+            > .about-me-artwork-image { width: 100%; height: 100%; }
+        }
+    }
+}
+@media (max-width: 37.499rem) {
+    .main.about .about-me-inner.about-fluid-composition {
+        > .about-me-next.about-fluid-copy {
+            .about-me-actions {
+                flex-direction: column;
+                align-items: stretch;
+                .button { width: 100%; }
+            }
+        }
+    }
+}

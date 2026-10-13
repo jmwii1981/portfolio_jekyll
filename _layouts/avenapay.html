@@ -1,0 +1,48 @@
+---
+layout: page
+---
+{% assign project = site.data.vitae_projects.avenapay %}
+<link rel="stylesheet" href="{{ '/styles/avena-story.css' | relative_url }}">
+<main class="main vitae avena-story" id="main-content" tabindex="-1">
+  <section class="avena-intro" id="avena-intro" aria-labelledby="avena-intro-title">
+    <a class="a vitae-editorial-link" href="{{ '/vitae/' | relative_url }}">Return to work</a>
+    <p class="p avena-eyebrow">AvenaPay · Disputes analytics</p>
+    <h1 class="h1" id="avena-intro-title">Turning dispute complexity into actionable clarity.</h1>
+    <p class="p">A clearer view of what changed, what needs attention, and where the strongest recovery opportunities are. Explore six connected parts of the experience below.</p>
+    <p class="avena-disclosure">Representative work, recreated to protect confidential information. These interactive examples use illustrative data; no real cases are changed.</p>
+    <nav class="avena-chapters" aria-label="AvenaPay screens">
+      {% for screen in site.data.avena_screens %}<a href="#avena-{{ screen.id }}">{{ screen.label }}</a>{% endfor %}
+    </nav>
+  </section>
+  {% for screen in site.data.avena_screens %}
+  <section class="avena-section" id="avena-{{ screen.id }}" aria-labelledby="avena-title-{{ screen.id }}">
+    <div class="avena-copy">
+      <p class="p avena-eyebrow">0{{ forloop.index }} / {{ screen.label }}</p>
+      <h2 class="h2 project-story-title" id="avena-title-{{ screen.id }}">{{ screen.title }}</h2>
+      <p class="p">{{ screen.description }}</p>
+      <p class="avena-instruction">{{ screen.try }}</p>
+    </div>
+    <div class="avena-demo-frame">
+      <div data-avena-screen="{{ screen.id }}" role="group" aria-label="Interactive {{ screen.label }} example">
+        <img src="{{ project.gallery[forloop.index0] | relative_url }}" width="1600" height="1200" alt="{{ screen.label }} source mockup" loading="lazy">
+      </div>
+      <p class="avena-demo-caption">Interactive example · Sample data only</p>
+    </div>
+  </section>
+  {% endfor %}
+  <section class="avena-closing" aria-labelledby="avena-closing-title">
+    <p class="p avena-eyebrow">From signals to decisions</p>
+    <h2 class="h2" id="avena-closing-title">A clearer path through complex work.</h2>
+    <h3 class="h3">{{ project.challenge_heading }}</h3>
+    <p class="p">{{ project.challenge }}</p>
+    <h3 class="h3">{{ project.response_heading }}</h3>
+    <p class="p">{{ project.response }}</p>
+    <a class="a vitae-editorial-link" href="{{ '/contact/' | relative_url }}">Let’s talk <span aria-hidden="true">↗</span></a>
+    <nav class="avena-chapters" aria-label="More projects">
+      <a href="{{ '/vitae/' | append: project.previous_slug | append: '/' | relative_url }}">Previous: {{ project.previous_name }}</a>
+      <a href="{{ '/vitae/' | relative_url }}">View all work</a>
+      <a href="{{ '/vitae/' | append: project.next_slug | append: '/' | relative_url }}">Next: {{ project.next_name }}</a>
+    </nav>
+  </section>
+</main>
+<script type="module" src="{{ '/scripts/avenaDemo.mjs' | relative_url }}"></script>

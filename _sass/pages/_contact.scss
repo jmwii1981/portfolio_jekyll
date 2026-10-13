@@ -949,6 +949,19 @@ body:has(.main.contact) {
     left: var(--contact-links-offset, 0px);
 }
 
+@media (max-width: 63.999rem) {
+    .main.contact .contact-direct-links {
+        left: 0;
+        max-width: 100%;
+    }
+    .contact-direct-pill {
+        box-sizing: border-box;
+        max-width: 100%;
+        font-size: 1rem;
+        overflow-wrap: anywhere;
+    }
+}
+
 .main.contact .page-hero-title {
     animation-name: contact-heading-reveal;
 }

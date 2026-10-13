@@ -14,9 +14,39 @@
 
     document.documentElement.classList.replace('no-js', 'js');
 
+    // Discourage casual media saving; public media remains downloadable over HTTP.
+    // Keep ordinary link/text menus and keyboard shortcuts available.
+    const mediaSelector = 'img, picture, video, canvas, svg';
+    const targetsMedia = event => event.composedPath().some(node =>
+        node instanceof Element && node.matches(mediaSelector));
+    document.addEventListener('dragstart', event => {
+        if (targetsMedia(event)) event.preventDefault();
+    }, true);
+    document.addEventListener('contextmenu', event => {
+        if (targetsMedia(event)) event.preventDefault();
+    }, true);
+    const discourageMediaSaving = root => {
+        const media = [...root.querySelectorAll('img, video')];
+        if (root.matches?.('img, video')) media.push(root);
+        media.forEach(element => {
+            element.draggable = false;
+            if (element.matches('video')) element.controlsList?.add('nodownload');
+        });
+    };
+    discourageMediaSaving(document);
+    new MutationObserver(records => records.forEach(record => {
+        record.addedNodes.forEach(node => {
+            if (node instanceof Element) discourageMediaSaving(node);
+        });
+    })).observe(document.documentElement, {childList: true, subtree: true});
+
     // Vitae's device choreography has its own scroll controller below.
     const { initializeContentScroll, scrollExit } = await import(`./contentScroll.mjs${moduleVersion}`);
     initializeContentScroll();
+    // A nonessential screen viewer must never prevent navigation/form setup.
+    import(`./screenEnlargement.mjs${moduleVersion}`)
+        .then(({ initializeScreenEnlargement }) => initializeScreenEnlargement())
+        .catch(error => console.warn('Screen enlargement unavailable', error));
 
     const contactPortrait = document.querySelector('.contact-portrait-composition');
     if (contactPortrait) {
@@ -37,6 +67,24 @@
         alignContactLinks();
     }
 
+    // Resize selects a state; elapsed time, not window width, runs the exit.
+    const artworkStates = new WeakMap();
+    const transitionArtwork = (element, hidden, side) => {
+        if (!element) return;
+        const previous = artworkStates.get(element);
+        if (previous === hidden) return;
+        artworkStates.set(element, hidden);
+        element.getAnimations().filter(animation => animation.id === 'responsive-art').forEach(animation => animation.cancel());
+        if (previous === undefined || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const base = getComputedStyle(element).transform;
+        const rest = base === 'none' ? '' : base;
+        const outside = `${rest} translateX(${side === 'left' ? -100 : 100}px)`;
+        const frames = [{visibility: 'visible', opacity: 1, transform: rest || 'none'},
+            {visibility: 'visible', opacity: 0, transform: outside}];
+        element.animate(hidden ? frames : frames.slice().reverse(), {
+            id: 'responsive-art', duration: 280, easing: 'cubic-bezier(.22,.61,.36,1)'
+        });
+    };
     const vitaeHero = document.querySelector('.main.vitae > .vitae-intro');
     if (vitaeHero) {
         const title = vitaeHero.querySelector('.vitae-intro-title');
@@ -62,7 +110,7 @@
             const titleStyle = getComputedStyle(title);
             headingMeasure.font = `${titleStyle.fontWeight} ${desiredSize}px ${titleStyle.fontFamily}`;
             const headingWidth = headingMeasure.measureText('Leading, Shaping').width;
-            title.style.fontSize = `${Math.min(desiredSize, desiredSize * copyWidth / headingWidth)}px`;
+            title.style.fontSize = `${innerWidth < 768 ? Math.max(42, Math.min(48, innerWidth * .11)) : Math.min(desiredSize, desiredSize * copyWidth / headingWidth)}px`;
             const top = title.offsetTop;
             const bottom = copy.offsetTop + copy.offsetHeight;
             // Visible glass spans roughly y=62..641 of the 882px source.
@@ -74,11 +122,12 @@
             const copyLeft = left;
             const subjectLeft = copyLeft + copyWidth + 24;
             const retreat = Math.max(0, Math.min(1, (frame.left + subjectLeft + subjectWidth - innerWidth) / (subjectWidth / 4)));
-            const blend = retreat * retreat * (3 - 2 * retreat);
+            const blend = retreat >= 1 ? 1 : 0;
             const settledLeft = copyLeft;
             vitaeHero.style.setProperty('--glasses-copy-offset', `${settledLeft - (parseFloat(style.paddingLeft) || 0)}px`);
-            vitaeHero.style.setProperty('--glasses-opacity', `${1 - blend}`);
+            vitaeHero.style.setProperty('--glasses-opacity', '1');
             vitaeHero.classList.toggle('glasses-no-room', retreat >= 1);
+            transitionArtwork(vitaeHero.querySelector('.vitae-intro-artwork'), retreat >= 1, 'right');
             vitaeHero.style.setProperty('--glasses-height', `${height}px`);
             vitaeHero.style.setProperty('--glasses-top', `${top - 15 - height * (.5 * (1 - .98262) + 62 / 882 * .98262)}px`);
             vitaeHero.style.setProperty('--glasses-left', `${subjectLeft + settledLeft - copyLeft - width * .06}px`);
@@ -117,8 +166,8 @@
             const frameRect = frame.getBoundingClientRect();
             const frameStyle = getComputedStyle(frame);
             const contentLeft = frameRect.left + parseFloat(frameStyle.paddingLeft);
-            // Reserve the dock's widest footprint, including its expanded island.
-            const dockClearance = window.matchMedia('(max-width: 44.25rem)').matches ? 60 : 88;
+            // Mobile copy uses equal gutters; the floating dock may overlap it.
+            const dockClearance = window.matchMedia('(max-width: 47.999rem)').matches ? 0 : 88;
             const right = Math.min(frameRect.right - parseFloat(frameStyle.paddingRight), window.innerWidth - dockClearance);
             const columnWidth = Math.min(736, Math.max(0, right - contentLeft));
             // Center the visible rocks and copy as one composition, not as
@@ -133,7 +182,7 @@
             // Ease into the centered text-only layout over a width range,
             // rather than snapping its offset when the artwork disappears.
             const retreat = Math.max(0, Math.min(1, -subjectLeft / (subjectWidth / 4)));
-            const blend = retreat * retreat * (3 - 2 * retreat);
+            const blend = retreat >= 1 ? 1 : 0;
             const textOnlyLeft = contentLeft + (availableWidth - columnWidth) / 2;
             const settledCopyLeft = copyLeft + (textOnlyLeft - copyLeft) * blend;
             const artworkShift = settledCopyLeft - copyLeft;
@@ -142,8 +191,9 @@
             homeHero.style.setProperty('--hero-copy-offset', `${settledCopyLeft - contentLeft}px`);
             homeHero.style.setProperty('--hero-rock-size', `${imageSize}px`);
             homeHero.style.setProperty('--hero-rock-center', `${subjectLeft + artworkShift + subjectWidth / 2 - frameRect.left}px`);
-            homeHero.style.setProperty('--hero-rock-opacity', `${1 - blend}`);
+            homeHero.style.setProperty('--hero-rock-opacity', '1');
             homeHero.classList.toggle('hero-rocks-no-room', noRoom);
+            transitionArtwork(artwork, noRoom, 'left');
             const heading = homeHero.querySelector('.page-hero-title');
             if (heading) {
                 const range = document.createRange();
@@ -182,8 +232,71 @@
             frame.classList.add('about-fluid-composition');
             copy.classList.add('about-fluid-copy');
             art.classList.add('about-fluid-art');
+            if (art.matches('.about-me-artwork')) {
+                const actions = frame.querySelector('.about-me-actions');
+                if (actions && actions.parentElement !== copy) copy.append(actions);
+                // This composition has exactly two CSS layouts. Do not measure
+                // copy, reparent controls, or rescale its media during resize.
+                art.style.visibility = '';
+                art.classList.remove('art-no-room');
+                art.getAnimations().filter(animation => animation.id === 'responsive-art').forEach(animation => animation.cancel());
+                return;
+            }
             const rect = frame.getBoundingClientRect();
-            const available = Math.max(0, Math.min(rect.width, innerWidth - 60 - rect.left));
+            if (innerWidth < 768 && art.matches('.help-artwork, .about-me-artwork')) {
+                frame.style.setProperty('--composition-copy-width', '100%');
+                frame.style.setProperty('--composition-copy-left', '0px');
+                frame.style.setProperty('--composition-min-height', '0px');
+                if (art.matches('.about-me-artwork')) {
+                    const actions = frame.querySelector('.about-me-actions');
+                    const sizeClosingRocks = () => {
+                        frame.style.setProperty('--closing-rocks-height', `${artWidth * ratio}px`);
+                        frame.style.setProperty('--closing-copy-width', `${copy.offsetWidth}px`);
+                    };
+                    actions?.classList.add('closing-actions-inline');
+                    sizeClosingRocks();
+                    if (actions) {
+                        // Approximate the bottom-left rock's visible silhouette in
+                        // the source video, excluding its transparent outer margins.
+                        // Evaluate on resize, not every video frame, to avoid flicker.
+                        const videoBounds = art.getBoundingClientRect();
+                        const rockLeft = videoBounds.left + videoBounds.width * .24;
+                        const rockWidth = videoBounds.width * .24;
+                        const connectRight = actions.lastElementChild.getBoundingClientRect().right;
+                        const fits = connectRight <= rockLeft + rockWidth * .1
+                            && connectRight <= innerWidth - 16;
+                        actions.classList.toggle('closing-actions-inline', fits);
+                        if (!fits) sizeClosingRocks();
+                    }
+                }
+                art.style.visibility = '';
+                art.classList.remove('art-no-room');
+                art.getAnimations().filter(animation => animation.id === 'responsive-art').forEach(animation => animation.cancel());
+                return;
+            }
+            const available = Math.max(0, Math.min(rect.width, innerWidth - (innerWidth < 768 ? 0 : 60) - rect.left));
+            if (art.matches('.about-me-artwork')) {
+                // Preserve the illustration's scale: spend outside space first,
+                // then switch sides once a third would leave the viewport.
+                const desktopGap = 32;
+                const desktopArtWidth = artWidth;
+                let desktopCopyWidth = Math.min(640, available);
+                const groupWidth = desktopArtWidth + desktopGap + desktopCopyWidth;
+                const groupStart = groupWidth <= available ? (available - groupWidth) / 2 : available - groupWidth;
+                const switchSides = innerWidth < 1136;
+                if (switchSides) desktopCopyWidth = Math.min(640, available * .58);
+                frame.style.setProperty('--composition-copy-width', `${desktopCopyWidth}px`);
+                frame.style.setProperty('--composition-copy-left', `${switchSides ? 0 : groupStart + desktopArtWidth + desktopGap}px`);
+                frame.style.setProperty('--composition-art-left', `${switchSides ? desktopCopyWidth - 120 : groupStart}px`);
+                frame.style.setProperty('--composition-art-width', `${desktopArtWidth}px`);
+                frame.style.setProperty('--composition-art-height', `${desktopArtWidth * ratio}px`);
+                frame.style.setProperty('--composition-art-opacity', '1');
+                frame.style.setProperty('--composition-min-height', `${desktopArtWidth * ratio}px`);
+                art.style.visibility = '';
+                art.classList.remove('art-no-room');
+                art.getAnimations().filter(animation => animation.id === 'responsive-art').forEach(animation => animation.cancel());
+                return;
+            }
             const copyWidth = Math.min(640, available);
             const gap = 32;
             const groupWidth = copyWidth + gap + artWidth;
@@ -195,18 +308,22 @@
             const clipped = side === 'left' ? Math.max(0, -(rect.left + initialArt))
                 : Math.max(0, rect.left + initialArt + artWidth - innerWidth);
             const progress = Math.min(1, clipped / (artWidth / 4));
-            const blend = progress * progress * (3 - 2 * progress);
+            const blend = progress >= 1 ? 1 : 0;
             const copyLeft = initialCopy + ((available - copyWidth) / 2 - initialCopy) * blend;
             const artLeft = side === 'left' ? Math.min(initialArt, copyLeft - gap - artWidth)
                 : Math.max(initialArt, copyLeft + copyWidth + gap + artInset);
             frame.style.setProperty('--composition-copy-width', `${copyWidth}px`);
             frame.style.setProperty('--composition-copy-left', `${copyLeft}px`);
-            frame.style.setProperty('--composition-art-left', `${artLeft}px`);
+            const closingRocks = art.matches('.about-me-artwork');
+            frame.style.setProperty('--composition-art-left', `${closingRocks ? Math.max(artLeft, -artWidth * .25) : artLeft}px`);
             frame.style.setProperty('--composition-art-width', `${artWidth}px`);
             frame.style.setProperty('--composition-art-height', `${artWidth * ratio}px`);
-            frame.style.setProperty('--composition-art-opacity', `${1 - blend}`);
+            frame.style.setProperty('--composition-art-opacity', '1');
             frame.style.setProperty('--composition-min-height', `${artWidth * ratio * (1 - blend)}px`);
-            art.style.visibility = progress >= 1 ? 'hidden' : '';
+            const hideArtwork = progress >= 1 && !closingRocks;
+            art.style.visibility = hideArtwork ? 'hidden' : '';
+            art.classList.toggle('art-no-room', hideArtwork);
+            transitionArtwork(art, hideArtwork, side);
         });
     };
     if (aboutCompositions.length) {

@@ -1,5 +1,5 @@
 ---
-layout: project
+layout: avenapay
 project: avenapay
 title: "AvenaPay Disputes Analytics"
 permalink: /vitae/avenapay/

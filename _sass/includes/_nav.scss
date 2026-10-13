@@ -541,8 +541,7 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     }
 }
 @media (max-width: 47.999rem) {
-    body:has(main.contact) .nav-controls .dock-dots,
-    body:has(main.perspectives) .nav-controls .dock-dots { display: none; }
+    // All routes use the same mobile island, including single-section pages.
     .nav-container {
         width: max-content;
         margin-left: auto;
@@ -1002,9 +1001,6 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
         transform: translateY(-50%);
         &::before {
             inset: -1px;
-            border: 1px solid rgba(111,123,137,.22);
-            background: rgba(248,249,251,.92);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,.85), 0 3px 12px rgba(30,42,58,.10);
         }
         &::after { display: none; }
         .dock-dot-endpoint { display: none !important; }
@@ -1065,11 +1061,6 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     .header .is-open .nav-panel { transform: translateY(-50%); }
     .body--vitae .header .nav-controls .dock-dots:not(.is-touch-active):not(.is-hover-active):not(:has(:focus-visible)):not(:has(.nav-toggle[aria-expanded="true"])) .dock-control::before {
         background: rgba(240,247,255,.8);
-    }
-    .body--vitae .header .nav-controls .dock-dots::before {
-        background: rgba(14,16,19,.94);
-        border-color: rgba(220,231,243,.2);
-        box-shadow: inset 0 1px 0 rgba(255,255,255,.09), 0 3px 12px rgba(0,0,0,.3);
     }
     .header .nav-controls .dock-dots .dock-dot:not([aria-current="location"])::before {
         width: 6px; height: 6px;

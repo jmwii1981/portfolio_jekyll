@@ -43,7 +43,7 @@ description: "Selected product design leadership work spanning merchant operatio
                     <div class="button-group project-story-actions">
                         <a class="a button button-container secondary project-story-page-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}" aria-label="{{ project_button_label }}">{{ project_button_label }}<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">{{ project_button_label }}</span></span></a>
                         {% if project.external_url %}
-                        <a class="a vitae-editorial-link" href="{{ project.external_url }}" target="_blank" rel="noopener noreferrer"><span class="vitae-editorial-link-label">{{ project.external_label }}</span> <span aria-hidden="true">↗</span></a>
+                        <a class="a vitae-editorial-link" href="{{ project.external_url }}" target="_blank" rel="noopener noreferrer"><span class="vitae-editorial-link-label">{{ project.external_label }}</span> <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></a>
                         {% endif %}
                     </div>
                 </div>
@@ -55,6 +55,15 @@ description: "Selected product design leadership work spanning merchant operatio
                         {% if device == 'laptop' %}{% assign frame = 'glass-laptop.png' %}{% elsif device == 'tablet' %}{% assign frame = 'glass-tablet.png' %}{% else %}{% assign frame = 'glass-smartphone.png' %}{% endif %}
                         <img class="vega-device-frame" src="{{ '/images/vitae/' | append: frame | relative_url }}" alt="" loading="lazy" decoding="async">
                         <span class="vega-screen-inset" data-vega-device="{{ device }}"><img class="vega-demo-fallback" src="{{ '/images/vitae/vega-screen-' | append: device | append: '-v3.png' | relative_url }}" alt="Vega {{ device }} dashboard concept with illustrative demo data" loading="lazy" decoding="async"></span>
+                    </span>
+                    {% endfor %}
+                    {% elsif project_slug == 'ledgerflow' %}
+                    {% assign ledger_devices = 'laptop,tablet,phone,landscape' | split: ',' %}
+                    {% for device in ledger_devices %}
+                    <span class="vitae-device vitae-device--{{ device }} vega-screen-device" role="group" aria-label="LedgerFlow {{ device }} sample interface">
+                        {% if device == 'laptop' %}{% assign frame = 'glass-laptop.png' %}{% assign frame_width = 2858 %}{% assign frame_height = 1949 %}{% elsif device == 'tablet' %}{% assign frame = 'glass-tablet.png' %}{% assign frame_width = 1365 %}{% assign frame_height = 2025 %}{% else %}{% assign frame = 'glass-smartphone.png' %}{% assign frame_width = 522 %}{% assign frame_height = 998 %}{% endif %}
+                        <img class="vega-device-frame" src="{{ '/images/vitae/' | append: frame | relative_url }}" width="{{ frame_width }}" height="{{ frame_height }}" alt="" loading="lazy" decoding="async">
+                        <span class="vega-screen-inset" data-ledger-device="{{ device }}"></span>
                     </span>
                     {% endfor %}
                     {% else %}
@@ -81,10 +90,11 @@ description: "Selected product design leadership work spanning merchant operatio
             </div>
             <div class="button-group vitae-contact-actions">
                 <a class="a button button-container secondary" href="{{ '/contact/' | relative_url }}" aria-label="Let’s talk">Let’s talk<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face">Let’s talk</span></span></a>
-                <a class="a vitae-editorial-link" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer"><span class="vitae-editorial-link-label">Let’s connect</span> <span aria-hidden="true">↗</span></a>
+                <a class="a vitae-editorial-link" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer"><span class="vitae-editorial-link-label">Let’s connect</span> <svg class="button-external-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></a>
             </div>
             </div>
         </div>
     </section>
 </main>
 <script type="module" src="{{ '/scripts/vegaDemo.mjs' | relative_url }}"></script>
+<script type="module" src="{{ '/scripts/ledgerDemo.mjs' | relative_url }}"></script>
