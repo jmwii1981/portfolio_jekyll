@@ -5,7 +5,7 @@ description: "Fractional product design leadership for growing companies navigat
 ---
 
 <main class="main about" id="main-content" tabindex="-1">
-    <section class="hero" id="about" aria-labelledby="about-title" data-dock-label="To the top" data-search-section data-search-title="About Jan Michael Wallace II" data-search-category="About" data-search-summary="Fractional product design leadership for growing companies turning ambiguity into clear strategy, scalable systems, and durable shipped work." data-search-keywords="fractional product design leader portfolio product strategy leadership">
+    <section class="hero" id="about" aria-labelledby="about-title" data-dock-label="To the top" data-nav-section data-nav-title="About Jan Michael Wallace II">
         <div class="hero-brand-rail" aria-hidden="true">
             {% include site-logo.svg class="hero-brand-mark" %}
         </div>
@@ -33,13 +33,13 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
         </div>
     </section>
-    <section class="help" id="how-i-help" data-dock-label="My approach" data-search-section data-search-title="How I Help" data-search-category="Services" data-search-keywords="clarify collaborate scale lead coaching strategy design systems team leadership">
+    <section class="help" id="how-i-help" data-dock-label="How I help" data-nav-section data-nav-title="How I Help">
         <span class="help-accent help-accent--top" aria-hidden="true"></span>
         <span class="help-accent help-accent--bottom" aria-hidden="true"></span>
         <div class="content-wrapper">
             <div class="help-intro">
                 <header class="home-section-header" data-reveal="left">
-                    <h2 class="h2 home-section-title">Leadership that <span class="keep-together">brings innovation</span> into focus.</h2>
+                    <h2 class="h2 home-section-title">A focus on <em>innovation.</em></h2>
                     <p class="p about-me-statement home-section-description">Every good idea starts with a spark, needs space to grow, and a few nudges to help it take form. I help teams explore possibilities, make sense of tradeoffs, and turn shared ambition into delightful products.</p>
                 </header>
                 <div class="help-artwork" aria-hidden="true" data-reveal="right">
@@ -55,11 +55,11 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
         </div>
     </section>
-    <section class="testimonials" id="recommendations" data-dock-label="My role" data-search-section data-search-title="Recommendations and Companies" data-search-category="Experience" data-search-keywords="testimonials recommendations trusted companies clients colleagues global payments tsys worldpay humana adapt health">
+    <section class="testimonials my-approach" id="my-approach" data-dock-label="My approach" data-nav-section data-nav-title="My approach">
         <div class="content-wrapper">
             <div class="testimonials-intro">
                 <header class="home-section-header" data-reveal="left">
-                    <h2 class="h2 home-section-title">The strongest work is built together.</h2>
+                    <h2 class="h2 home-section-title">The strongest work is built <em>together</em>.</h2>
                     <p class="p about-me-statement home-section-description">Human nature is to ask questions, have a distinct perspective, and a healthy sense of curiosity. My role is to bring those elements together to support individual growth and excellent outcomes.</p>
                 </header>
                 <div class="testimonials-artwork-shell" aria-hidden="true" data-reveal="right">
@@ -70,8 +70,18 @@ description: "Fractional product design leadership for growing companies navigat
                     </picture>
                 </div>
             </div>
-            <div class="recommendations" data-reveal="up">
-                <hr class="testimonial-company-divider testimonial-divider--top" aria-hidden="true">
+        </div>
+    </section>
+    <section class="testimonials testimonial-section" id="testimonials" data-dock-label="Testimonials" data-nav-section data-nav-title="Testimonials" aria-labelledby="testimonial-heading">
+        <span class="testimonial-section-accent testimonial-section-accent--top" aria-hidden="true"></span>
+        <span class="testimonial-section-accent testimonial-section-accent--bottom" aria-hidden="true"></span>
+        <div class="content-wrapper">
+            <div class="recommendations" id="recommendations" data-reveal="up">
+                <div class="recommendation-title-row">
+                    <h2 class="h2 home-section-title recommendation-heading" id="testimonial-heading">Testimonials</h2>
+                    <img class="recommendation-title-art" src="{{ '/images/contact/clay-speech-bubble.png' | relative_url }}" width="1280" height="1280" alt="" aria-hidden="true">
+                </div>
+                <div class="recommendation-quote-shell">
                 <ul class="recommendation-list" id="recommendation-list" aria-live="polite" aria-atomic="true">
                     <li class="recommendation-item">
                         <blockquote class="recommendation-quote">“Jan taught our team the product design process with patience and professionalism, helping us craft products that met stakeholder and user needs.”</blockquote>
@@ -170,8 +180,18 @@ description: "Fractional product design leadership for growing companies navigat
                         <p class="recommendation-attribution"><span class="recommendation-mark">–</span> Brittany Robinson, <span class="recommendation-role">Sr. Designer</span></p>
                     </li>
                 </ul>
-                <hr class="testimonial-company-divider">
+                <a class="a button button-container primary about-me-linkedin-button recommendation-more" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="See more on LinkedIn (opens in a new tab)">See more<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><span class="about-me-linkedin-icon">{% include icon.html name="linked-in-cutout" %}</span>See more <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
+                <div class="recommendation-controls" aria-label="Testimonial navigation">
+                    <button class="recommendation-previous" type="button" aria-label="Previous testimonial" aria-controls="recommendation-list"><img src="{{ '/images/ui/vega/chevron-down.svg' | relative_url }}" alt="" width="18" height="18"></button>
+                    <button class="recommendation-next" type="button" aria-label="Next testimonial" aria-controls="recommendation-list"><img src="{{ '/images/ui/vega/chevron-down.svg' | relative_url }}" alt="" width="18" height="18"></button>
+                </div>
+                </div>
             </div>
+        </div>
+    </section>
+    <section class="testimonials company-section" id="companies" data-dock-label="Trusted by" data-nav-section data-nav-title="Trusted by" aria-labelledby="company-heading">
+        <div class="content-wrapper">
+            <h2 class="h2 home-section-title company-heading" id="company-heading">Trusted by...</h2>
             <div class="logo-carousel" data-reveal="up">
                 <div class="logo-carousel-viewport">
                     <div class="logo-carousel-track" id="company-logo-track">
@@ -243,7 +263,7 @@ description: "Fractional product design leadership for growing companies navigat
 
         </div>
     </section>
-    <section class="about-me" id="beyond-the-work" data-dock-label="Get in touch" data-search-section data-search-title="Get in Touch" data-search-category="Contact" data-search-summary="Tell Jan Michael Wallace II what you're working on." data-search-keywords="contact connect linkedin product team challenge conversation">
+    <section class="about-me" id="beyond-the-work" data-dock-label="Get in touch" data-nav-section data-nav-title="Get in Touch">
         <span class="about-me-accent" aria-hidden="true"></span>
         <div class="about-me-inner">
             <div class="about-me-next" data-reveal="right">

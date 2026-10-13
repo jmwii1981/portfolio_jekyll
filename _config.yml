@@ -26,7 +26,5 @@ exclude:
   - LICENSE
   - scripts/README.md
   - scripts/audit-site.rb
-  - scripts/build-search-index.rb
   - scripts/network.test.mjs
-  - scripts/search/searchIndex.test.cjs
   - design-assets

@@ -4,7 +4,7 @@ layout: page
 {% assign project = site.data.vitae_projects[page.project] %}
 {% assign previous_project = site.data.vitae_projects[project.previous_slug] %}
 {% assign next_project = site.data.vitae_projects[project.next_slug] %}
-<main class="main vitae project-detail" id="main-content" tabindex="-1" data-search-keywords="{{ project.keywords }}">
+<main class="main vitae project-detail" id="main-content" tabindex="-1">
     <div class="content-wrapper project-detail-shell">
         <div class="project-detail-return">
             <a class="a" href="{{ '/vitae/' | relative_url }}"><span aria-hidden="true">←</span> Return to vitae</a>

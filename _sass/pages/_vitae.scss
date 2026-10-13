@@ -1693,6 +1693,7 @@ body:has(.vitae-intro) {
 .vega-live-screen { display: block; position: absolute; inset: 0; }
 .main.vitae #project-vega .vega-screen-inset.is-interactive { pointer-events: auto; }
 .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+    --project-heading-size: clamp(42px, calc(2.5vw + 32.25px), 64px);
     container-type: inline-size;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto auto auto;
@@ -1713,7 +1714,7 @@ body:has(.vitae-intro) {
     .project-story-title {
         max-width: none;
         margin: 0;
-        font-size: clamp(2.375rem, 4.5vw, 4rem);
+        font-size: var(--project-heading-size);
         line-height: 1.08;
         letter-spacing: -0.04em;
         text-wrap: balance;
@@ -1773,14 +1774,14 @@ body:has(.vitae-intro) {
         align-content: center;
         padding-block: 5rem;
         box-sizing: border-box;
-        grid-template-columns: minmax(0, 0.32fr) minmax(0, 0.68fr);
+        grid-template-columns: minmax(0, 450px) minmax(0, 1fr);
         grid-template-rows: auto auto;
         column-gap: clamp(1.5rem, 2vw, 2.5rem);
         row-gap: 2.75rem;
 
         .vitae-project-summary-copy { grid-column: 1; grid-row: 1; align-self: start; }
-        .project-story-title { font-size: clamp(2.375rem, 3.4vw, 4rem); text-wrap: balance; }
-        .project-story-intro { font-size: clamp(1.125rem, 1.3vw, 1.5rem); }
+        .project-story-title { font-size: var(--project-heading-size); text-wrap: balance; }
+        .project-story-intro { font-size: var(--editorial-body-size); }
         .project-story-actions { font-size: clamp(1rem, 1.1vw, 1.25rem); }
         .vitae-project-summary-detail {
             grid-column: 1;
@@ -1824,7 +1825,7 @@ body:has(.vitae-intro) {
         .vitae-device-lineup {
             position: absolute;
             width: 87%; max-width: none;
-            left: 30.5%; top: 50%;
+            left: 482px; top: 50%;
             translate: 0 -50%;
             grid-column: auto; grid-row: auto;
         }
@@ -1840,9 +1841,9 @@ body:has(.vitae-intro) {
         padding-top: clamp(3rem, 22vw, 10rem);
         row-gap: 3rem;
         .vitae-project-summary-copy { grid-row: 1; max-width: 32rem; }
-        .project-story-title { font-size: clamp(2.375rem, 10vw, 4rem); }
+        .project-story-title { font-size: var(--project-heading-size); }
         .vitae-project-summary-detail { grid-row: 2; max-width: 30rem; }
-        .project-story-intro { font-size: clamp(1.375rem, 3.8vw, 1.5rem); }
+        .project-story-intro { font-size: var(--editorial-body-size); }
         .vitae-device-lineup { grid-row: 3; width: 110%; margin-top: 2rem; }
     }
 }
@@ -1863,16 +1864,16 @@ body:has(.vitae-intro) {
 
 @media (max-width: 44.25rem) {
     .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
-        .project-story-title { font-size: clamp(2.375rem, 10.25vw, 4rem); }
+        .project-story-title { font-size: var(--project-heading-size); }
         .vitae-project-summary-detail { width: 100%; }
     }
 }
 
 // Bookend headings match About; paragraphs retain the project-section scale.
 .main.vitae {
-    --vitae-story-body-size: clamp(1.125rem, 1.3vw, 1.5rem);
-    .vitae-intro > .vitae-intro-title { font-size: 5.2rem; }
-    .vitae-contact .home-section-title { font-size: 5.5rem; }
+    --vitae-story-body-size: var(--editorial-body-size);
+    .vitae-intro > .vitae-intro-title { font-size: var(--editorial-display-size); }
+    .vitae-contact .home-section-title { font-size: var(--editorial-display-size); }
     .vitae-intro-statement,
     .vitae-contact-invitation {
         font-size: var(--vitae-story-body-size);
@@ -1880,12 +1881,12 @@ body:has(.vitae-intro) {
 }
 @media (max-width: 74.999rem) {
     .main.vitae {
-        --vitae-story-body-size: clamp(1.375rem, 3.8vw, 1.5rem);
+        --vitae-story-body-size: var(--editorial-body-size);
     }
 }
 @media (min-width: 101.5rem) {
-    .main.vitae .vitae-intro > .vitae-intro-title { font-size: 6rem; }
-    .main.vitae .vitae-contact .home-section-title { font-size: 7rem; }
+    .main.vitae .vitae-intro > .vitae-intro-title { font-size: var(--editorial-display-size); }
+    .main.vitae .vitae-contact .home-section-title { font-size: var(--editorial-display-size); }
 }
 
 // Let the glasses retain their text-relative scale and bleed off the right edge.

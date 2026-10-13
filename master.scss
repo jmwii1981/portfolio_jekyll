@@ -46,6 +46,9 @@
 @import "global/mobile-type";
 @import "components/responsive-repair";
 
+// One deliberate site-wide heading rhythm, including page-specific headings.
+:is(h1, h2, h3, h4, h5, h6) { line-height: .9 !important; }
+
 @media (forced-colors: active) {
     .a:focus-visible,
     .button:focus-visible,

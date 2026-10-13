@@ -1,4 +1,28 @@
+# About hero progression — 2026-10-13
+
+- Scope: About hero at widths >=768px only. Phone layout preserved.
+- Source: `/Users/jmwii1981/Desktop/hero progression/`, Frame 1000003228.png and Screenshot 2026-10-13 at 9.28.31 AM 1–5.png (filenames use a narrow no-break space before AM).
+- Implementation: local Chrome at http://127.0.0.1:4000/. Screenshots `hero-1531.png`, `hero-989.png`, `hero-864.png` in `/Users/jmwii1981/.codex/visualizations/2026/09/12/01a09402-094d-7d53-96b4-b83132322fc2/`.
+- Comparison: source and implementation images reviewed together at 1531×691, 989×691 and 864×691, 1 CSS px per image pixel, deviceScaleFactor 1. All are the settled hero at scroll position zero. Full-view images show legible typography and artwork; separate detail crops were unnecessary.
+- Typography/content: existing font and copy retained; 88px headline, 24.2px paragraph, stable three-line paragraph, same button labels and sizes. Headline remains one line through the desktop/tablet range.
+- Layout: 740px square artwork and 608px copy column remain constant. Measured widths 1531,1345,1209,1071,989,920,919,864,768; no horizontal document overflow. Single exit boundary at 920px. Copy positions match references at wide, clipped and centered states.
+- Colors/assets: existing text colors, buttons and original transparent rocks reused. No asset generation or image degradation. Existing dock and logo placement retained rather than changing unrelated site chrome omitted from some reference crops.
+- Iteration: first sweep found a legacy -48px top margin below 960px and fluid paragraph sizing; desktop hero now overrides both. Post-fix 864px comparison confirms copy top 214.1px, matching wide state, with rocks fully hidden after transition. Rechecked 989px against source with fully opaque clipped rocks.
+- Phone regression: at 390×844, before/after geometry and font sizes identical for hero, copy, title, paragraph and buttons. No phone rules edited.
+- Interaction: hero links retained, resize exit/re-entry exercised; Chrome error log empty. Build and whitespace checks passed. Physical Safari not tested.
+- Findings: no actionable P0/P1/P2 differences in scoped progression. Existing logo/dock placement is intentionally outside scope.
+- final result: passed
+
 # About closing section progression — 2026-10-12
+
+## Stage-one responsive review after checkpoint 5b349d8
+
+- Scope: remaining About sections and Vitae only. Closing About composition retained; Contact, Perspectives, project pages, footer and testimonial-item typography unchanged.
+- Consolidated discontinuous heading/body sizes onto continuous CSS measures. Removed forced heading spans and obsolete closing resize branches. About middle artwork stacks beneath copy below 1100px; Vitae keeps its existing device layout transitions with a wider desktop copy column.
+- Chrome measurement sweep: About 390,480,600,767,768,920,1023,1024,1099,1100,1280,1440; Vitae additionally 679,680,681,1199,1200. No horizontal document overflow; Vitae heading bounds stayed inside viewport. Type scales continuous across checked boundaries.
+- Visual checks: About hero at 1440×900 and 390×650; middle sections at 390×844, 768×700 and 1440×900. Vitae phone hero, Vega, closing rocket at 390×844; LedgerFlow at 768×700; Vega at 1280×900. Desktop Vega first pass had cramped wrapping; widened copy track to 450px, then recaptured and reviewed.
+- Evidence: `/Users/jmwii1981/.codex/visualizations/2026/09/12/01a09402-094d-7d53-96b4-b83132322fc2/responsive-repair/about-stage-one.png`; additional screenshots reviewed inline in the task. Chrome logged no errors in final About inspection.
+- Review limitations: not a physical iOS Safari check; no fresh exhaustive interaction, keyboard, or reduced-motion regression suite. Those behaviors were not intentionally changed. Stage one is for user review, not publication or a claim of site-wide completion.
 
 ## Phone progression follow-up
 

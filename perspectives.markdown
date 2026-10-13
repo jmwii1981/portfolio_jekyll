@@ -7,7 +7,7 @@ description: "Perspectives from Jan Michael Wallace II on product design leaders
 <main class="main perspectives" id="main-content" tabindex="-1">
     <section class="perspectives-page page-intro-frame" id="latest-perspectives" aria-labelledby="perspectives-page-title" data-medium-runtime-feed>
         <div class="perspectives-layout">
-            <article class="medium-latest-article post-content-wrapper" id="latest-medium-article" data-search-section data-search-title="Latest Perspectives" data-search-category="Perspectives" data-search-keywords="articles writing Medium product design leadership">
+            <article class="medium-latest-article post-content-wrapper" id="latest-medium-article" data-nav-section data-nav-title="Latest Perspectives">
                 <header class="medium-article-header">
                     <h1 class="h2 page-hero-title post-title" id="perspectives-page-title">Perspectives</h1>
                     <div class="perspectives-feed-fallback" data-feed-fallback>
@@ -39,7 +39,7 @@ description: "Perspectives from Jan Michael Wallace II on product design leaders
                 </div>
             </article>
 
-            <section class="perspectives-sidebar" id="read-more-on-medium" aria-label="About the author and recent articles" data-search-section data-search-title="Recent Perspectives on Medium" data-search-category="Perspectives" data-search-keywords="recent articles archive Medium author biography">
+            <section class="perspectives-sidebar" id="read-more-on-medium" aria-label="About the author and recent articles" data-nav-section data-nav-title="Recent Perspectives on Medium">
                 <section class="medium-author-card" aria-labelledby="medium-author-label" data-reveal="left">
                     <div class="medium-author-copy">
                         <p class="p section-label medium-sidebar-label" id="medium-author-label">About Jan Michael</p>

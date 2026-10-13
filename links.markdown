@@ -6,8 +6,8 @@ description: "Follow Jan Michael Wallace II for product design leadership, selec
 date_modified: "2026-08-30T10:01:40-04:00"
 ---
 
-<main class="main links-page" id="main-content" tabindex="-1" data-search-keywords="Jan Michael Wallace II links portfolio LinkedIn Medium GitHub Figma Dribbble contact">
-    <section class="links-profile" id="links" aria-labelledby="links-heading" data-search-section data-search-title="Jan Michael Wallace II’s Links" data-search-category="Links" data-search-summary="I shape how people, processes, products, and strategies work together to create happier teams, sustainable systems, and lasting value." data-search-keywords="links link in bio portfolio profiles product design leadership contact email phone">
+<main class="main links-page" id="main-content" tabindex="-1">
+    <section class="links-profile" id="links" aria-labelledby="links-heading" data-nav-section data-nav-title="Jan Michael Wallace II’s Links">
         <picture class="links-profile-art" aria-hidden="true">
             <source type="image/avif" srcset="{{ '/images/links/links-profile-swirls-to-white.avif' | relative_url }}?v={{ site.asset_version }}">
             <source type="image/webp" srcset="{{ '/images/links/links-profile-swirls-to-white.webp' | relative_url }}?v={{ site.asset_version }}">
@@ -30,7 +30,7 @@ date_modified: "2026-08-30T10:01:40-04:00"
 
     <section class="links-directory" aria-label="Links">
         <div class="content-wrapper links-directory-inner">
-            <div class="links-group" id="start-here" aria-labelledby="start-here-heading" data-search-section data-search-title="Start Here" data-search-category="Links" data-search-summary="Visit janmichael.io, the portfolio of product design leader Jan Michael Wallace II." data-search-keywords="janmichael.io portfolio homepage product design leadership">
+            <div class="links-group" id="start-here" aria-labelledby="start-here-heading" data-nav-section data-nav-title="Start Here">
                 <h2 class="h2 section-label links-group-heading" id="start-here-heading">Start here</h2>
                 <ul class="link-tree-list">
                     <li class="link-tree-item">
@@ -46,7 +46,7 @@ date_modified: "2026-08-30T10:01:40-04:00"
                 </ul>
             </div>
 
-            <div class="links-group" id="around-the-web" aria-labelledby="around-the-web-heading" data-search-section data-search-title="Around the Web" data-search-category="Links" data-search-summary="Jan Michael Wallace II’s professional and creative profiles across LinkedIn, Medium, GitHub, Figma, and Dribbble." data-search-keywords="social profiles LinkedIn Medium GitHub Figma Dribbble">
+            <div class="links-group" id="around-the-web" aria-labelledby="around-the-web-heading" data-nav-section data-nav-title="Around the Web">
                 <h2 class="h2 section-label links-group-heading" id="around-the-web-heading">Around the web</h2>
                 <ul class="link-tree-list">
                     <li class="link-tree-item">

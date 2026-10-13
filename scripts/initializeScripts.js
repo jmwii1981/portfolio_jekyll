@@ -89,7 +89,6 @@
     if (vitaeHero) {
         const title = vitaeHero.querySelector('.vitae-intro-title');
         const copy = vitaeHero.querySelector('.vitae-intro-copy');
-        const headingMeasure = document.createElement('canvas').getContext('2d');
         vitaeHero.classList.add('vitae-fluid-hero');
         const sizeGlasses = () => {
             if (!title || !copy) return;
@@ -104,13 +103,7 @@
             const available = Math.max(0, right - left);
             const copyWidth = Math.min(640, available);
             vitaeHero.style.setProperty('--glasses-copy-width', `${copyWidth}px`);
-            // Grow continuously instead of stepping up at the wide breakpoint.
-            // Fit the unbroken first line before measuring the artwork height.
-            const desiredSize = 83.2 + 12.8 * Math.max(0, Math.min(1, (innerWidth - 1280) / 640));
-            const titleStyle = getComputedStyle(title);
-            headingMeasure.font = `${titleStyle.fontWeight} ${desiredSize}px ${titleStyle.fontFamily}`;
-            const headingWidth = headingMeasure.measureText('Leading, Shaping').width;
-            title.style.fontSize = `${innerWidth < 768 ? Math.max(42, Math.min(48, innerWidth * .11)) : Math.min(desiredSize, desiredSize * copyWidth / headingWidth)}px`;
+            // CSS owns the fluid type scale; measure its naturally wrapped copy.
             const top = title.offsetTop;
             const bottom = copy.offsetTop + copy.offsetHeight;
             // Visible glass spans roughly y=62..641 of the 882px source.
@@ -160,6 +153,14 @@
             const copy = homeHero.querySelector('.copy-wrapper');
             const frame = homeHero.querySelector('.content-wrapper');
             if (!artwork || !copy || !frame) return;
+            // Desktop/tablet progression is CSS-owned: fixed-size composition,
+            // one artwork exit, then centered copy. Preserve the phone sizing.
+            if (window.innerWidth >= 768) {
+                const noRoom = window.innerWidth < 920;
+                homeHero.classList.toggle('hero-rocks-no-room', noRoom);
+                transitionArtwork(artwork, noRoom, 'left');
+                return;
+            }
             // The square asset includes transparent space around a tall subject.
             const imageSize = Math.max(536, window.innerHeight - 75) * .75 / .74;
             const subjectWidth = imageSize * .46;
@@ -220,7 +221,7 @@
     // trims their outside edge. Text settles gradually into a centered column.
     const aboutCompositions = [
         ['.help-intro', '.home-section-header', '.help-artwork', 'right', 560, 1],
-        ['.testimonials-intro', '.home-section-header', '.testimonials-artwork-shell', 'right', 520, 803 / 929],
+        ['.testimonials-intro', '.home-section-header', '.testimonials-artwork-shell', 'left', 520, 803 / 929],
         ['.about-me-inner', '.about-me-next', '.about-me-artwork', 'left', 560, 1 / 1.035]
     ].map(([selector, copySelector, artSelector, side, artWidth, ratio]) => {
         const frame = document.querySelector(`.main.about ${selector}`);
@@ -243,61 +244,37 @@
                 return;
             }
             const rect = frame.getBoundingClientRect();
-            if (innerWidth < 768 && art.matches('.help-artwork, .about-me-artwork')) {
+            if (art.matches('.help-artwork')) {
+                const copyWidth = 520;
+                const gap = 32;
+                const groupWidth = copyWidth + gap + artWidth;
+                const groupLeft = Math.max(0, (rect.width - groupWidth) / 2);
+                const artLeft = groupLeft + copyWidth + gap;
+                const clipped = Math.max(0, rect.left + artLeft + artWidth - innerWidth);
+                const stacked = innerWidth < 768 || clipped >= artWidth / 4;
+                frame.classList.toggle('help-is-stacked', stacked);
+                frame.style.setProperty('--composition-copy-width', `${copyWidth}px`);
+                frame.style.setProperty('--composition-copy-left', `${groupLeft}px`);
+                frame.style.setProperty('--composition-art-left', `${artLeft}px`);
+                frame.style.setProperty('--composition-art-width', `${artWidth}px`);
+                frame.style.setProperty('--composition-art-height', `${artWidth}px`);
+                frame.style.setProperty('--composition-min-height', stacked ? '0px' : `${artWidth}px`);
+                art.style.visibility = '';
+                art.classList.remove('art-no-room');
+                art.getAnimations().filter(animation => animation.id === 'responsive-art').forEach(animation => animation.cancel());
+                return;
+            }
+            if (innerWidth < 1100 && art.matches('.help-artwork, .testimonials-artwork-shell')) {
                 frame.style.setProperty('--composition-copy-width', '100%');
                 frame.style.setProperty('--composition-copy-left', '0px');
                 frame.style.setProperty('--composition-min-height', '0px');
-                if (art.matches('.about-me-artwork')) {
-                    const actions = frame.querySelector('.about-me-actions');
-                    const sizeClosingRocks = () => {
-                        frame.style.setProperty('--closing-rocks-height', `${artWidth * ratio}px`);
-                        frame.style.setProperty('--closing-copy-width', `${copy.offsetWidth}px`);
-                    };
-                    actions?.classList.add('closing-actions-inline');
-                    sizeClosingRocks();
-                    if (actions) {
-                        // Approximate the bottom-left rock's visible silhouette in
-                        // the source video, excluding its transparent outer margins.
-                        // Evaluate on resize, not every video frame, to avoid flicker.
-                        const videoBounds = art.getBoundingClientRect();
-                        const rockLeft = videoBounds.left + videoBounds.width * .24;
-                        const rockWidth = videoBounds.width * .24;
-                        const connectRight = actions.lastElementChild.getBoundingClientRect().right;
-                        const fits = connectRight <= rockLeft + rockWidth * .1
-                            && connectRight <= innerWidth - 16;
-                        actions.classList.toggle('closing-actions-inline', fits);
-                        if (!fits) sizeClosingRocks();
-                    }
-                }
                 art.style.visibility = '';
                 art.classList.remove('art-no-room');
                 art.getAnimations().filter(animation => animation.id === 'responsive-art').forEach(animation => animation.cancel());
                 return;
             }
             const available = Math.max(0, Math.min(rect.width, innerWidth - (innerWidth < 768 ? 0 : 60) - rect.left));
-            if (art.matches('.about-me-artwork')) {
-                // Preserve the illustration's scale: spend outside space first,
-                // then switch sides once a third would leave the viewport.
-                const desktopGap = 32;
-                const desktopArtWidth = artWidth;
-                let desktopCopyWidth = Math.min(640, available);
-                const groupWidth = desktopArtWidth + desktopGap + desktopCopyWidth;
-                const groupStart = groupWidth <= available ? (available - groupWidth) / 2 : available - groupWidth;
-                const switchSides = innerWidth < 1136;
-                if (switchSides) desktopCopyWidth = Math.min(640, available * .58);
-                frame.style.setProperty('--composition-copy-width', `${desktopCopyWidth}px`);
-                frame.style.setProperty('--composition-copy-left', `${switchSides ? 0 : groupStart + desktopArtWidth + desktopGap}px`);
-                frame.style.setProperty('--composition-art-left', `${switchSides ? desktopCopyWidth - 120 : groupStart}px`);
-                frame.style.setProperty('--composition-art-width', `${desktopArtWidth}px`);
-                frame.style.setProperty('--composition-art-height', `${desktopArtWidth * ratio}px`);
-                frame.style.setProperty('--composition-art-opacity', '1');
-                frame.style.setProperty('--composition-min-height', `${desktopArtWidth * ratio}px`);
-                art.style.visibility = '';
-                art.classList.remove('art-no-room');
-                art.getAnimations().filter(animation => animation.id === 'responsive-art').forEach(animation => animation.cancel());
-                return;
-            }
-            const copyWidth = Math.min(640, available);
+            const copyWidth = Math.min(640, available * .5);
             const gap = 32;
             const groupWidth = copyWidth + gap + artWidth;
             const groupLeft = groupWidth <= available ? (available - groupWidth) / 2
@@ -314,13 +291,12 @@
                 : Math.max(initialArt, copyLeft + copyWidth + gap + artInset);
             frame.style.setProperty('--composition-copy-width', `${copyWidth}px`);
             frame.style.setProperty('--composition-copy-left', `${copyLeft}px`);
-            const closingRocks = art.matches('.about-me-artwork');
-            frame.style.setProperty('--composition-art-left', `${closingRocks ? Math.max(artLeft, -artWidth * .25) : artLeft}px`);
+            frame.style.setProperty('--composition-art-left', `${artLeft}px`);
             frame.style.setProperty('--composition-art-width', `${artWidth}px`);
             frame.style.setProperty('--composition-art-height', `${artWidth * ratio}px`);
             frame.style.setProperty('--composition-art-opacity', '1');
             frame.style.setProperty('--composition-min-height', `${artWidth * ratio * (1 - blend)}px`);
-            const hideArtwork = progress >= 1 && !closingRocks;
+            const hideArtwork = progress >= 1;
             art.style.visibility = hideArtwork ? 'hidden' : '';
             art.classList.toggle('art-no-room', hideArtwork);
             transitionArtwork(art, hideArtwork, side);
@@ -413,6 +389,7 @@
             };
 
             const getFieldErrorMessage = (field) => {
+                if (field.disabled) return '';
                 const fieldName = getFieldName(field);
 
                 if (field.validity.customError) return field.validationMessage;
@@ -455,6 +432,22 @@
             const clearFieldErrors = () => {
                 requiredFields.forEach((field) => setFieldError(field));
             };
+
+            const projectDetails = form.querySelector('#contact-project-details');
+            const projectChoices = form.querySelectorAll('[name="Have a project?"]');
+            const syncProjectDetails = () => {
+                if (!projectDetails) return;
+                const hasProject = form.querySelector('[name="Have a project?"]:checked')?.value === 'Yes';
+                projectDetails.hidden = !hasProject;
+                projectDetails.querySelectorAll('input, select, textarea').forEach((field) => {
+                    field.disabled = !hasProject;
+                    field.required = hasProject;
+                    if (!hasProject) setFieldError(field);
+                });
+            };
+            projectChoices.forEach((choice) => choice.addEventListener('change', syncProjectDetails));
+            form.addEventListener('reset', () => requestAnimationFrame(syncProjectDetails));
+            syncProjectDetails();
 
             requiredFields.forEach((field) => {
                 field.addEventListener('invalid', () => {
@@ -1073,14 +1066,14 @@
             };
             mobileDock.addEventListener('change', arrangeIsland);
             const main = document.querySelector('main');
-            // Search landmarks describe full content sections (including Vitae
+            // Navigation landmarks describe full content sections (including Vitae
             // project articles), not nested cards, galleries, or form fields.
             // Pages can explicitly opt into a different set of dock landmarks.
             const explicitSections = Array.from(main?.querySelectorAll('[data-dock-section]') || []);
-            const searchSections = Array.from(main?.querySelectorAll('[data-search-section]') || []);
+            const navigationSections = Array.from(main?.querySelectorAll('[data-nav-section]') || []);
             const outerSections = Array.from(main?.querySelectorAll('section') || [])
                 .filter(section => !section.parentElement.closest('section'));
-            const pageSections = (explicitSections.length ? explicitSections : searchSections.length >= 2 ? searchSections : outerSections)
+            const pageSections = (explicitSections.length ? explicitSections : navigationSections.length >= 2 ? navigationSections : outerSections)
                 .filter(section => !section.closest('[hidden]'));
             // The mobile dot/dock island includes both endpoints; desktop hides
             // those links and retains its existing middle-section navigation.
@@ -1094,7 +1087,7 @@
                 const labelledBy = section.getAttribute('aria-labelledby')?.split(/\s+/)
                     .map(id => document.getElementById(id)?.textContent.trim()).filter(Boolean).join(' ');
                 const label = section.dataset.dockLabel || section.getAttribute('aria-label')
-                    || section.dataset.searchTitle || labelledBy
+                    || section.dataset.navTitle || labelledBy
                     || section.querySelector('h2, h1, h3')?.textContent.trim() || `Section ${index + 1}`;
                 const link = document.createElement('a');
                 link.className = 'dock-dot';
@@ -1426,7 +1419,9 @@
             const items = Array.from(carousel.querySelectorAll('.recommendation-item'));
             const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
             const intervalMs = 10000;
-            let currentIndex = 0;
+            const mobileRecommendations = window.matchMedia('(max-width: 47.999rem)');
+            let currentIndex = mobileRecommendations.matches
+                ? Math.max(0, items.findIndex(item => item.textContent.includes('Jessica Longley'))) : 0;
             let timerId = null;
 
             if (items.length < 2) return;
@@ -1453,7 +1448,7 @@
                 window.clearTimeout(timerId);
                 timerId = null;
 
-                if (document.hidden || reducedMotionQuery.matches) return;
+                if (document.hidden || reducedMotionQuery.matches || mobileRecommendations.matches) return;
 
                 timerId = window.setTimeout(showNextItem, intervalMs);
             };
@@ -1474,6 +1469,42 @@
             };
 
             carousel.classList.add('is-controlled');
+            carousel.tabIndex = 0;
+            carousel.setAttribute('aria-label', 'Testimonials. Swipe left or right, or use the left and right arrow keys, to change quote.');
+            const showPreviousItem = () => {
+                activateItem((currentIndex - 1 + items.length) % items.length, true);
+                queueNextItem();
+            };
+            let swipeStart = null;
+            // Pointer capture supports both real phone swipes and dragging a
+            // narrow desktop preview, even when the gesture ends outside the card.
+            carousel.addEventListener('pointerdown', event => {
+                if (!mobileRecommendations.matches || !event.isPrimary || event.button !== 0) return;
+                swipeStart = { x: event.clientX, y: event.clientY, id: event.pointerId };
+                carousel.setPointerCapture(event.pointerId);
+            });
+            carousel.addEventListener('pointerup', event => {
+                const start = swipeStart;
+                swipeStart = null;
+                if (!start || start.id !== event.pointerId || !mobileRecommendations.matches) return;
+                const dx = event.clientX - start.x;
+                const dy = event.clientY - start.y;
+                if (Math.abs(dx) < 32 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+                if (dx < 0) showNextItem();
+                else showPreviousItem();
+            });
+            carousel.addEventListener('pointercancel', () => { swipeStart = null; });
+            carousel.addEventListener('lostpointercapture', () => { swipeStart = null; });
+            carousel.addEventListener('keydown', event => {
+                if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+                event.preventDefault();
+                if (event.key === 'ArrowLeft') showPreviousItem();
+                else showNextItem();
+            });
+            const recommendations = carousel.closest('.recommendations');
+            recommendations.querySelector('.recommendation-previous')?.addEventListener('click', showPreviousItem);
+            recommendations.querySelector('.recommendation-next')?.addEventListener('click', showNextItem);
+            mobileRecommendations.addEventListener('change', syncAutomaticAdvance);
             activateItem(currentIndex);
             queueNextItem();
 

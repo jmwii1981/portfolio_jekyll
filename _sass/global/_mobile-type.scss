@@ -26,18 +26,18 @@
         .help-intro .home-section-title,
         .testimonials-intro .home-section-title,
         .about-me-next > .home-section-title {
-            font-size: clamp(2.625rem, 11vw, 4rem);
+            font-size: var(--about-heading-size);
             overflow-wrap: normal;
             white-space: normal;
         }
         .home-section-title .keep-together,
         .about-me-invitation .keep-together { white-space: normal; }
         .hero .about-me-statement, .home-section-description, .about-me-invitation {
-            font-size: clamp(1.125rem, 2.7vw, 1.45rem);
+            font-size: var(--editorial-body-size);
         }
     }
     .main.vitae .vitae-contact .home-section-title {
-        font-size: clamp(2.625rem, 11vw, 4rem);
+        font-size: var(--editorial-display-size);
         overflow-wrap: normal;
     }
     .main.vitae .vitae-launch-phrase,

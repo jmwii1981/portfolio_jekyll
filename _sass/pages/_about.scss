@@ -1179,16 +1179,16 @@
 
     .testimonials .testimony-list {
         background: transparent;
-        column-gap: 0.5rem;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        column-gap: 1.5rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         padding: 0;
-        row-gap: 0.25rem;
+        row-gap: 1.25rem;
     }
 
     .testimonials .testimony-item {
         background: var(--color-paper);
-        min-height: 3.25rem;
-        padding: 0.5rem 0.75rem;
+        min-height: 4rem;
+        padding: 0.75rem;
     }
 }
 
@@ -1728,18 +1728,18 @@
 // Desktop-size typography trial: let columns wrap, not resize the type.
 .main.about {
     .hero #about-title {
-        font-size: 5.2rem;
+        font-size: var(--editorial-display-size);
         white-space: normal;
         overflow-wrap: anywhere;
     }
-    .help-intro .home-section-title { font-size: 5.833333rem; }
-    .testimonials-intro .home-section-title { font-size: 6.416667rem; }
+    .help-intro .home-section-title { font-size: var(--about-heading-size); }
+    .testimonials-intro .home-section-title { font-size: var(--about-heading-size); }
     .about-me-next > .home-section-title { font-size: 5.5rem; }
     .home-section-title { overflow-wrap: anywhere; }
     .hero .about-me-statement,
     .home-section-description,
     .about-me-invitation {
-        font-size: 1.45rem;
+        font-size: var(--editorial-body-size);
         line-height: 1.55;
     }
     .button, .button-face {
@@ -1750,7 +1750,7 @@
 
 // At the full desktop width, match the corresponding Vitae display headings.
 @media (min-width: 101.5rem) {
-    .main.about .hero #about-title { font-size: 6rem; }
+    .main.about .hero #about-title { font-size: var(--editorial-display-size); }
     .main.about .about-me-next > .home-section-title { font-size: 7rem; }
 }
 

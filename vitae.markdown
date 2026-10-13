@@ -6,8 +6,8 @@ selected_projects: [vega, avenapay, ledgerflow]
 description: "Selected product design leadership work spanning merchant operations, enterprise design systems, fintech workflows, and scalable product foundations."
 ---
 <main class="main vitae" id="main-content" tabindex="-1">
-    <section class="vitae-intro page-intro-frame" id="vitae-projects" aria-labelledby="vitae-intro-title" data-search-section data-search-title="Selected Projects" data-search-category="Vitae" data-search-summary="Products and systems I’ve moved forward through complete project narratives and product walkthroughs." data-search-keywords="portfolio vitae case studies product design systems teams">
-        <h1 class="h1 page-hero-title vitae-intro-title" id="vitae-intro-title"><span class="vitae-intro-title-start">Leading, Shaping</span> <span class="vitae-intro-title-finish">&amp; Shipping.</span></h1>
+    <section class="vitae-intro page-intro-frame" id="vitae-projects" aria-labelledby="vitae-intro-title" data-nav-section data-nav-title="Selected Projects">
+        <h1 class="h1 page-hero-title vitae-intro-title" id="vitae-intro-title">Leading, Shaping &amp; Shipping.</h1>
         <div class="vitae-intro-copy">
             <p class="p vitae-intro-statement">Leading through service to my team and the people around us, I create to show what’s possible and collaborate to explore what it could become. A clear vision, creative freedom, and shared determination turn that possibility into an <strong class="vitae-intro-emphasis">excellent product</strong>.</p>
         </div>
@@ -34,7 +34,7 @@ description: "Selected product design leadership work spanning merchant operatio
             {% assign project_highlight = project.highlights | first %}
             {% assign project_button_label = 'Explore project' %}
             {% if project_slug == 'vega' %}{% assign project_button_label = 'Explore Vega' %}{% elsif project_slug == 'avenapay' %}{% assign project_button_label = 'Introducing AvenaPay' %}{% elsif project_slug == 'ledgerflow' %}{% assign project_button_label = 'Discover LedgerFlow' %}{% endif %}
-            <article class="vitae-project-summary" id="project-{{ project_slug }}" aria-labelledby="{{ project_slug }}-title" data-search-section data-search-title="{{ project.name }}" data-search-category="Vitae" data-search-summary="{{ project.introduction }}" data-search-keywords="{{ project.keywords }}">
+            <article class="vitae-project-summary" id="project-{{ project_slug }}" aria-labelledby="{{ project_slug }}-title" data-nav-section data-nav-title="{{ project.name }}">
                 <header class="vitae-project-summary-copy" data-reveal="up">
                     <h2 class="h3 project-story-title" id="{{ project_slug }}-title"><a class="a project-story-title-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}">{{ project.headline }}</a></h2>
                 </header>
@@ -78,13 +78,13 @@ description: "Selected product design leadership work spanning merchant operatio
         </div>
     </section>
 
-    <section class="vitae-summary vitae-contact" id="get-in-touch" aria-labelledby="vitae-contact-title" data-search-section data-search-title="Get in touch" data-search-category="Contact" data-search-keywords="contact connect linkedin conversation">
+    <section class="vitae-summary vitae-contact" id="get-in-touch" aria-labelledby="vitae-contact-title" data-nav-section data-nav-title="Get in touch">
         <div class="vitae-contact-layout" data-reveal="up">
             <picture class="vitae-contact-artwork" aria-hidden="true">
                 <img src="{{ '/images/vitae/rocket-ship-alpha.png' | relative_url }}?v={{ site.asset_version }}" width="2358" height="1967" alt="" loading="lazy" decoding="async">
             </picture>
             <div class="vitae-contact-copy">
-            <h2 class="h2 home-section-title" id="vitae-contact-title"><span class="vitae-launch-phrase">Let’s launch</span> something</h2>
+            <h2 class="h2 home-section-title" id="vitae-contact-title">Let’s launch something</h2>
             <div>
                 <p class="p vitae-contact-invitation">Tell me what’s on your mind. It doesn’t need a working title.</p>
             </div>

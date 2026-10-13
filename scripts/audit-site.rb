@@ -167,13 +167,11 @@ end
 layout_source = source_root.join("_layouts", "page.html").read
 main_script = source_root.join("scripts", "initializeScripts.js").read
 network_script = source_root.join("scripts", "network.mjs").read
-search_script = source_root.join("scripts", "search", "initializeSiteSearch.mjs").read
 perspectives_fetch_script = source_root.join("scripts", "perspectives", "fetchPost.mjs").read
 quality_workflow = source_root.join(".github", "workflows", "quality.yml").read
 liquid_gl_license = source_root.join("scripts", "third-party", "liquidGL.LICENSE.txt")
 deployed_liquid_gl_license = site_root.join("scripts", "third-party", "liquidGL.LICENSE.txt")
 nav_styles = source_root.join("_sass", "includes", "_nav.scss").read
-search_styles = source_root.join("_sass", "components", "_site-search.scss").read
 logo_styles = source_root.join("_sass", "components", "_logo.scss").read
 
 failures << "page layout: no-js state must not be removed by an inline head script" if layout_source.match?(/classList\.replace\([^\n]*no-js/i)
@@ -187,7 +185,6 @@ failures << "initializeScripts.js: purely visual Web Animations API usage must r
 failures << "initializeScripts.js: obsolete scripted visual initializer remains" if main_script.match?(/initialize(?:LogoAnimation|ScrollReveals)/)
 failures << "network: bounded request helper is missing" unless network_script.include?("controller.abort(timeoutError)")
 failures << "contact form: submission does not use the bounded JSON request helper" unless main_script.include?("fetchJsonWithTimeout(form.action")
-failures << "search: index request does not retry after transient failure" unless search_script.include?("createRetryableRequest(async")
 failures << "Perspectives: feed requests do not use the bounded JSON request helper" unless perspectives_fetch_script.scan(/fetchJsonWithTimeout\(/).length >= 2
 failures << "quality workflow: network regression tests are missing" unless quality_workflow.include?("node scripts/network.test.mjs")
 failures << "quality workflow: Liquid Glass module syntax check is missing" unless quality_workflow.include?('for file in scripts/glass/*.mjs; do node --check "$file"; done')
@@ -198,9 +195,6 @@ failures << "logo: CSS path animation must be feature-gated behind @supports" un
 failures << "navigation: removed underline markup has returned" if source_root.join("_includes", "nav.html").read.include?('class="nav-indicator"')
 failures << "navigation: removed underline initializer is enabled" if main_script.include?("safelyInitialize('desktop navigation indicator'")
 failures << "navigation: active-page styling is missing" unless nav_styles.match?(/&\[aria-current="page"\]\s*\{[^}]*background:\s*var\(--dock-selected\)/)
-failures << "site search: control is missing its successful-initialization gate" unless search_script.include?("classList.add('is-ready')")
-failures << "site search: control must be hidden before its enhancement is ready" unless search_styles.match?(/\.site-search\s*\{.*?display:\s*none;/m)
-failures << "site search: ready control is not revealed" unless search_styles.match?(/\.site-search\.is-ready\s*\{.*?display:\s*flex;/m)
 failures << "navigation: static fallback is missing when enhancement initialization fails" unless nav_styles.match?(/\.html:not\(\.navigation-ready\):not\(\.navigation-pending\) \.header\s*\{.*?\.nav-controls\s*\{\s*display:\s*none;.*?\.nav-panel\s*\{[^}]*opacity:\s*1;[^}]*visibility:\s*visible;[^}]*pointer-events:\s*auto;/m)
 
 contact = site_root.join("contact", "index.html")
@@ -277,57 +271,6 @@ if sitemap.file?
   failures << "sitemap.xml: sixteen-by-nine profile portrait is missing" unless contents.include?("https://janmichael.io/images/headshots/jan-michael-wallace-ii-profile-16x9.png")
 else
   failures << "sitemap.xml: missing from build output"
-end
-
-search_index = site_root.join("search-index.json")
-if search_index.file?
-  begin
-    payload = JSON.parse(search_index.read)
-    records = payload["records"]
-
-    if payload["version"] != 1
-      failures << "search-index.json: unsupported or missing version"
-    end
-
-    unless records.is_a?(Array) && records.length >= 5
-      failures << "search-index.json: expected records for every public page"
-      records = []
-    end
-
-    duplicate_record_ids = records.filter_map { |record| record["id"] }.tally.select { |_, count| count > 1 }.keys
-    duplicate_record_ids.each do |id|
-      failures << "search-index.json: duplicate record id #{id.inspect}"
-    end
-
-    records.each_with_index do |record, index|
-      %w[id title url category summary content keywords priority].each do |field|
-        failures << "search-index.json: record #{index} is missing #{field}" unless record.key?(field)
-      end
-
-      url = record["url"].to_s
-      unless url.start_with?("/")
-        failures << "search-index.json: record #{index} must use an internal URL"
-        next
-      end
-
-      path, anchor = url.split("#", 2)
-      destination = site_root.join(path.delete_prefix("/"))
-      destination = destination.join("index.html") if path.end_with?("/")
-
-      unless destination.file?
-        failures << "search-index.json: record #{index} points to missing page #{url}"
-        next
-      end
-
-      if anchor && !destination.read.match?(/\bid=(['"])#{Regexp.escape(anchor)}\1/i)
-        failures << "search-index.json: record #{index} points to missing anchor #{url}"
-      end
-    end
-  rescue JSON::ParserError => error
-    failures << "search-index.json: invalid JSON (#{error.message})"
-  end
-else
-  failures << "search-index.json: missing from build output"
 end
 
 home = site_root.join("index.html")
@@ -471,4 +414,4 @@ if failures.any?
   exit 1
 end
 
-puts "Site audit passed: progressive enhancement, structure, ARIA references, image delivery, contact fallback, metadata, static search, external-link safety, JSON-LD/XML, and sitemap checks."
+puts "Site audit passed: progressive enhancement, structure, ARIA references, image delivery, contact fallback, metadata, external-link safety, JSON-LD/XML, and sitemap checks."

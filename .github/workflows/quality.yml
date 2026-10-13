@@ -19,16 +19,12 @@ jobs:
           bundler-cache: true
       - name: Build site
         run: bundle exec jekyll build
-      - name: Verify static search database
-        run: bundle exec ruby scripts/build-search-index.rb --check
       - name: Check JavaScript syntax
         run: |
           node --check scripts/initializeScripts.js
           for file in scripts/glass/*.mjs; do node --check "$file"; done
           for file in scripts/perspectives/*.mjs; do node --check "$file"; done
-          for file in scripts/search/*.mjs; do node --check "$file"; done
           node --input-type=module --check < scripts/third-party/liquidGL.js
           node scripts/network.test.mjs
-          node scripts/search/searchIndex.test.cjs
       - name: Audit generated HTML
         run: bundle exec ruby scripts/audit-site.rb

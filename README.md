@@ -2,7 +2,7 @@
 
 Source for [janmichael.io](https://janmichael.io), the personal portfolio of Jan Michael Wallace II. The site presents selected product-design work, professional experience, perspectives, recommendations, and contact information.
 
-The site is static, lightweight, and progressively enhanced. Its content and navigation remain available without JavaScript; scripts add search, form feedback, consent handling, navigation behavior, and other optional interactions.
+The site is static, lightweight, and progressively enhanced. Its content and navigation remain available without JavaScript; scripts add form feedback, consent handling, navigation behavior, and other optional interactions.
 
 Durable design, accessibility, content, engineering, privacy, and release standards are maintained privately outside the published repository.
 
@@ -22,7 +22,7 @@ There is no application server, database, JavaScript framework, npm build, or cl
 
 - Ruby 3.3.5, matching the GitHub Actions environment
 - Bundler
-- Node.js for JavaScript syntax and search tests
+- Node.js for JavaScript syntax and network tests
 
 Install the Ruby dependencies:
 
@@ -58,15 +58,11 @@ Follow-up check (September 12, 2026): with the automatic workspace connected, a 
 
 ### Production build
 
-Content changes require a two-pass build because the committed search database is generated from rendered pages:
+Build the static site:
 
 ```bash
 bundle exec jekyll build
-bundle exec ruby scripts/build-search-index.rb
-bundle exec jekyll build
 ```
-
-The first build renders the current content, the generator refreshes `search-index.json`, and the second build includes the refreshed index in `_site/`.
 
 ## Project Structure
 
@@ -90,7 +86,6 @@ The first build renders the current content, the generator refreshes `search-ind
 ├── contact.markdown         # Contact form and direct contact options
 ├── terms.markdown           # Terms of use and privacy policy
 ├── master.scss              # Sass entry point
-├── search-index.json        # Generated, committed search database
 ├── sitemap.xml              # Authored canonical sitemap
 └── llms.txt                 # Public machine-readable site summary
 ```
@@ -134,14 +129,6 @@ The baseline HTML must remain usable without JavaScript. Script-dependent contro
 
 The Perspectives page retrieves recent Medium content at runtime. Its authored fallback remains visible when the request or JavaScript fails, and remote markup is sanitized before rendering.
 
-## Static Search
-
-`search-index.json` is a generated, committed database of meaningful public content. It excludes navigation, controls, decorative media, hidden interface text, and the dynamically retrieved Medium article body. The browser requests the database only when search is opened.
-
-Add `data-search-section` to an anchored container when it deserves a focused result. Optional `data-search-title`, `data-search-category`, `data-search-summary`, and `data-search-keywords` attributes can improve presentation and ranking.
-
-After changing searchable content, run the production build sequence above and commit the resulting `search-index.json` update.
-
 ## External Services and Privacy
 
 | Service | Purpose | Boundary |
@@ -155,7 +142,7 @@ After changing searchable content, run the production build sequence above and c
 
 Browser-visible service identifiers are not secrets. Private keys, credentials, restricted source material, and personal or client data must never be committed.
 
-Material changes to data handling, third-party services, attribution, confidentiality language, or portfolio disclosure require a corresponding review of `terms.markdown`, its effective date and `date_modified`, and the generated search index.
+Material changes to data handling, third-party services, attribution, confidentiality language, or portfolio disclosure require a corresponding review of `terms.markdown`, its effective date and `date_modified`.
 
 ## Quality Checks
 
@@ -163,17 +150,14 @@ Run the same release checks used by GitHub Actions:
 
 ```bash
 bundle exec jekyll build
-bundle exec ruby scripts/build-search-index.rb --check
 node --check scripts/initializeScripts.js
 for file in scripts/perspectives/*.mjs; do node --check "$file"; done
-for file in scripts/search/*.mjs; do node --check "$file"; done
 node scripts/network.test.mjs
-node scripts/search/searchIndex.test.cjs
 bundle exec ruby scripts/audit-site.rb
 git diff --check
 ```
 
-The audit covers progressive enhancement, page structure, ARIA references, image delivery, contact fallbacks, metadata, static search, external-link safety, structured data, XML, sitemap integrity, and the required legal sections.
+The audit covers progressive enhancement, page structure, ARIA references, image delivery, contact fallbacks, metadata, external-link safety, structured data, XML, sitemap integrity, and the required legal sections.
 
 Responsive changes should also be reviewed at narrow, transitional, and wide viewport sizes, with attention to keyboard use, reduced motion, forced colors, zoom, JavaScript-disabled behavior, and content overlap.
 
@@ -196,11 +180,7 @@ GitHub Pages publishes from the `gh-pages` branch. A typical release is:
 
 ```bash
 bundle exec jekyll build
-bundle exec ruby scripts/build-search-index.rb
-bundle exec jekyll build
-bundle exec ruby scripts/build-search-index.rb --check
 node scripts/network.test.mjs
-node scripts/search/searchIndex.test.cjs
 bundle exec ruby scripts/audit-site.rb
 git diff --check
 git status --short
@@ -212,7 +192,7 @@ git push origin vX.Y.Z
 gh release create vX.Y.Z --title "vX.Y.Z" --generate-notes
 ```
 
-Review the staged diff before committing. Do not commit `_site/`, `.jekyll-cache/`, `.DS_Store`, temporary exports, local environment files, or credentials. `search-index.json` is the intentional generated-file exception.
+Review the staged diff before committing. Do not commit `_site/`, `.jekyll-cache/`, `.DS_Store`, temporary exports, local environment files, or credentials.
 
 ## Legal and Confidentiality
 

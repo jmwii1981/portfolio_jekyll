@@ -5,9 +5,9 @@ permalink: /contact/
 description: "Contact Jan Michael Wallace II about fractional product design leadership, product strategy, design systems, or team development."
 ---
 <main class="main contact" id="main-content" tabindex="-1">
-    <section class="page-hero page-intro-frame contact-hero" id="contact-jan" aria-labelledby="contact-heading" data-search-section data-search-title="Contact Jan Michael Wallace II" data-search-category="Contact" data-search-keywords="email phone cell message leadership opportunity conversation collaboration">
+    <section class="page-hero page-intro-frame contact-hero" id="contact-jan" aria-labelledby="contact-heading" data-nav-section data-nav-title="Contact Jan Michael Wallace II">
         <div class="content-wrapper page-hero-content">
-            <h1 class="h1 page-hero-title" id="contact-heading">Let’s create a clear path forward, <span class="contact-heading-together">together</span>.</h1>
+            <h1 class="h1 page-hero-title" id="contact-heading">Where should we begin?</h1>
         </div>
         <div class="contact-portrait-composition">
           <div class="contact-portrait-artwork">
@@ -25,7 +25,7 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
         </div>
     </section>
 
-    <section class="contact-section" id="send-a-message" aria-label="Send a message" data-search-section data-search-title="Send Jan Michael Wallace II a message" data-search-category="Contact" data-search-keywords="contact form email phone cell message">
+    <section class="contact-section" id="send-a-message" aria-label="Send a message" data-nav-section data-nav-title="Send Jan Michael Wallace II a message">
         <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" data-contact-form aria-label="Email contact form" aria-describedby="contact-required-note contact-form-status">
             <input type="hidden" name="access_key" value="8b2e7fb6-b67b-4e97-8bd9-b4786d165afc">
             <input type="hidden" name="from_name" value="janmichael.io Contact Form">
@@ -52,18 +52,24 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
                 <p class="p contact-field-error" id="contact-email-error" data-contact-error hidden></p>
             </div>
 
-            <section class="contact-project-details" aria-labelledby="contact-project-detail-heading">
+            <label class="contact-project-question" for="contact-has-project">
+                <span class="contact-label">Have a project?</span>
+                <input id="contact-has-project" type="checkbox" role="switch" name="Have a project?" value="Yes" aria-controls="contact-project-details">
+                <span class="contact-project-switch" aria-hidden="true"></span>
+            </label>
+
+            <section class="contact-project-details" id="contact-project-details" aria-labelledby="contact-project-detail-heading" hidden>
                 <h2 class="contact-project-detail-heading" id="contact-project-detail-heading">Project Detail</h2>
             <div class="contact-timeline">
                 <div class="contact-timeline-dates">
                     <div class="contact-field">
                         <label class="contact-label contact-date-label" for="contact-begin">Planned kick off</label>
-                        <input class="contact-input" id="contact-begin" name="Preferred start date" type="date" required aria-describedby="contact-begin-error">
+                        <input class="contact-input" id="contact-begin" name="Preferred start date" type="date" aria-describedby="contact-begin-error">
                         <p class="p contact-field-error" id="contact-begin-error" data-contact-error hidden></p>
                     </div>
                     <div class="contact-field">
                         <label class="contact-label contact-date-label" for="contact-ready">Target launch</label>
-                        <input class="contact-input" id="contact-ready" name="Handoff or launch date" type="date" required aria-describedby="contact-ready-error">
+                        <input class="contact-input" id="contact-ready" name="Handoff or launch date" type="date" aria-describedby="contact-ready-error">
                         <p class="p contact-field-error" id="contact-ready-error" data-contact-error hidden></p>
                     </div>
                 </div>
@@ -72,7 +78,7 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
             <div class="contact-field">
                 <label class="contact-label" for="contact-budget">Budget</label>
                 <div class="contact-select-wrap">
-                <select class="contact-input contact-select" id="contact-budget" name="Budget" required aria-describedby="contact-budget-error">
+                <select class="contact-input contact-select" id="contact-budget" name="Budget" aria-describedby="contact-budget-error">
                     <option value="" disabled selected>Select a range</option>
                     <option>$5k+</option>
                     <option>$10k+</option>

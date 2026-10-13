@@ -1,6 +1,330 @@
 // Small-screen containment. Desktop compositions remain owned by their page styles.
 .screen-enlarge, .screen-viewer, .screen-tools { display: none; }
 .links-mobile-navigation { display: none; }
+.main.contact #contact-heading,
+.main #perspectives-page-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 500;
+    -webkit-text-stroke: .25px currentColor;
+}
+.main.contact #contact-heading { color: #292a2b; }
+.main #perspectives-page-title { color: #000; }
+@media (min-width: 48rem) {
+    .main #perspectives-page-title { font-size: calc(var(--type-display-size) * .9); }
+}
+.main.about :is(.page-hero-title, .home-section-title) {
+    font-family: Georgia, 'Times New Roman', serif;
+    -webkit-text-stroke: .25px currentColor;
+}
+.main.about > :is(.my-approach, .testimonial-section, .company-section) {
+    min-height: 0;
+    padding-block: 75px;
+    > .content-wrapper { padding-block: 0; }
+    .recommendations { margin-top: 0; }
+}
+.main.about > .company-section {
+    clip-path: none;
+    > .content-wrapper { padding-top: 0; gap: 32px; }
+    .logo-carousel { margin-top: 0; }
+    .company-heading {
+        width: 100%;
+        max-width: none;
+        box-sizing: border-box;
+        // Align to the widest visible mark in the first desktop logo column.
+        padding-left: max(0px, calc((100% - 1.5rem) / 8 - 2.613rem));
+        margin: 0;
+        text-align: left;
+        font-size: var(--about-heading-size);
+        line-height: 1.08;
+        font-weight: 500;
+        letter-spacing: -.03em;
+        color: #292a2b;
+    }
+}
+.main.about > .testimonial-section {
+    --testimonial-section-background: #f5f2ef;
+    isolation: isolate;
+    clip-path: none;
+    background: var(--testimonial-section-background);
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0 calc((100% - 100vw) / 2);
+        background: var(--testimonial-section-background);
+        z-index: -1;
+        pointer-events: none;
+    }
+    > .content-wrapper { padding-top: 0; }
+    .testimony-item { background: transparent; }
+    &#testimonials .recommendations .testimonial-divider--top { margin-top: 0; }
+    .testimonial-section-accent {
+        position: absolute;
+        right: calc((100vw - 100%) / -2);
+        width: var(--help-accent-size);
+        height: var(--help-accent-size);
+        pointer-events: none;
+        z-index: -1;
+    }
+    .testimonial-section-accent--top {
+        bottom: 100%;
+        background: radial-gradient(circle var(--help-accent-size) at left top, transparent calc(100% - .5px), var(--testimonial-section-background) 100%);
+        box-shadow: 0 1px 0 var(--testimonial-section-background);
+    }
+    .testimonial-section-accent--bottom {
+        top: 100%;
+        background: radial-gradient(circle var(--help-accent-size) at left bottom, transparent calc(100% - .5px), var(--testimonial-section-background) 100%);
+        box-shadow: 0 -1px 0 var(--testimonial-section-background);
+    }
+}
+.recommendation-heading, .recommendation-controls { display: none; }
+    .main.about .testimonials .recommendations {
+        --testimonial-art-size: 180px;
+        --testimonial-title-box-gap: 32px;
+        text-align: left;
+        padding: 0;
+        .testimonial-company-divider { width: 100%; margin: 20px 0 0; border-color: #dfe3e9; }
+        .testimonial-divider--top { margin: 75px 0 24px; }
+        .recommendation-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            height: calc(var(--about-heading-size) * .9);
+            margin-bottom: var(--testimonial-title-box-gap);
+        }
+        .recommendation-title-art {
+            position: relative;
+            z-index: 2;
+            width: var(--testimonial-art-size);
+            min-width: 0;
+            height: auto;
+            flex-shrink: 0;
+            // Keep the artwork attached to the title, independently of the gap
+            // below their group. Moving the quote box must not move the bubble.
+            transform: translateY(calc(var(--about-heading-size) * .9 + 9px - var(--testimonial-art-size) * .916));
+        }
+        .recommendation-title-row .recommendation-heading {
+            width: auto;
+            flex: 0 0 auto;
+            margin: 0;
+            text-align: left;
+            min-width: 0;
+        }
+        .recommendation-heading {
+            display: block;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 32px;
+            text-align: center;
+            font-size: var(--about-heading-size);
+            line-height: 1.08;
+            font-weight: 500;
+            letter-spacing: -.03em;
+            text-transform: none;
+            text-wrap: balance;
+            color: #292a2b;
+        }
+        .recommendation-quote-shell {
+            position: relative;
+            margin-top: 0;
+        }
+        .recommendation-more {
+            position: absolute;
+            right: 40px;
+            bottom: 28px;
+            z-index: 2;
+            margin: 0;
+            width: max-content;
+        }
+        .recommendation-list {
+            position: relative;
+            z-index: 1;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 26px 32px 24px 24px;
+            border: 1px solid #eceef3;
+            border-radius: 18px;
+            background: #f5f7fa;
+            box-shadow: 0 7px 16px rgba(54, 69, 91, .09), 0 1px 2px rgba(54, 69, 91, .04);
+        }
+        // All quotes share one grid cell so the tallest reserves space without
+        // exposing inactive quotes visually or to assistive technology.
+        .recommendation-list.is-controlled {
+            display: grid;
+            .recommendation-item {
+                display: flex;
+                grid-area: 1 / 1;
+                visibility: hidden;
+                pointer-events: none;
+                align-items: stretch;
+                justify-content: flex-start;
+                gap: 14px;
+                min-height: 0;
+            }
+            .recommendation-item.is-active { visibility: visible; pointer-events: auto; }
+        }
+        .recommendation-quote { font-size: 20px; line-height: 1.3; color: #46566d; font-weight: 400; text-align: left; }
+        .recommendation-attribution { font-size: 16px; line-height: 1.4; color: #202936; font-style: normal; text-align: left; }
+        .recommendation-mark { color: #52647c; margin-right: 5px; }
+        .recommendation-role { color: #52647c; font-style: italic; font-weight: 400; }
+        .recommendation-controls {
+            position: absolute;
+            left: 40px;
+            bottom: 32px;
+            z-index: 2;
+            display: flex;
+            justify-content: flex-start;
+            gap: 16px;
+            margin: 0;
+            button {
+                position: relative;
+                display: grid;
+                place-items: center;
+                width: 36px;
+                height: 36px;
+                padding: 0;
+                border: 0;
+                border-radius: 50%;
+                background: rgba(223, 208, 187, .1);
+                -webkit-backdrop-filter: blur(12px) saturate(115%);
+                backdrop-filter: blur(12px) saturate(115%);
+                box-shadow: 0 2px 4px rgba(40,45,50,.16), 0 4px 8px rgba(40,45,50,.08);
+                cursor: pointer;
+                &:hover { background: rgba(207, 189, 165, .1); }
+                &:focus-visible { outline: 2px solid #52647c; outline-offset: 4px; }
+                &::before { content: ''; position: absolute; inset: -4px; }
+            }
+            img { display: block; width: 18px; height: 18px; }
+            .recommendation-previous img { transform: rotate(90deg); }
+            .recommendation-next img { transform: rotate(-90deg); }
+        }
+    }
+@media (min-width: 48rem) {
+    .main.about .testimonials .recommendations {
+        max-width: 54rem;
+        margin-inline: auto;
+        .recommendation-list { padding: 32px 40px 104px; }
+        .recommendation-quote { font-size: 24px; line-height: 1.4; }
+        .recommendation-attribution { font-size: 18px; }
+    }
+}
+.main.about .recommendation-list:focus-visible {
+    outline: 2px solid #52647c;
+    outline-offset: 4px;
+}
+@media (max-width: 47.999rem) {
+    .main.about .testimonials .recommendations {
+        --testimonial-art-size: 108.8889px;
+        --testimonial-title-box-gap: 22px;
+        .recommendation-title-row { justify-content: flex-start; gap: 10px; }
+        .recommendation-title-art {
+            scale: none;
+            transform-origin: left center;
+            transform: translateY(calc(var(--about-heading-size) * .9 + 5px - var(--testimonial-art-size) * .916));
+        }
+        .recommendation-controls { display: none; }
+        .recommendation-list {
+            touch-action: pan-y pinch-zoom;
+            user-select: none;
+            -webkit-user-select: none;
+            cursor: grab;
+            &:active { cursor: grabbing; }
+        }
+        .recommendation-more {
+            position: relative;
+            right: auto;
+            bottom: auto;
+            display: block;
+            // Match the visible content-to-button gap: 28px plus the optical
+            // breathing room below the other sections' paragraph baselines.
+            margin: 36px auto 0;
+        }
+    }
+}
+@media (max-width: 68.749rem) {
+    .main.about .company-section .company-heading { text-align: left; }
+}
+@media (max-width: 42.5rem) {
+    .main.about .company-section .company-heading {
+        padding-left: 0;
+        text-align: center;
+    }
+}
+// Shared continuous measures: layout breakpoints do not change type scale.
+.main.about, .main.vitae {
+    --editorial-display-size: clamp(3rem, calc(3.5vw + 34.35px), 6rem);
+    --editorial-body-size: clamp(19px, calc(.5vw + 17.05px), 24.2px);
+    --about-heading-size: clamp(42px, calc(4.5vw + 24.45px), 96px);
+}
+.main.about .hero { --about-heading-size: var(--editorial-display-size); }
+// Reference progression: fixed scale, edge clipping, then one text-only state.
+// Phone rules below 768px retain their existing layout and type sizes.
+@media (min-width: 48rem) {
+    .main.about > .hero {
+        --about-heading-size: 88px;
+        --editorial-body-size: 24.2px;
+        margin-top: 0;
+        min-height: max(692px, calc(100dvh - 107px));
+        padding-block: 75px;
+        > .content-wrapper {
+            width: 100%;
+            max-width: none;
+            padding: 0;
+        }
+        .copy-wrapper {
+            width: 608px;
+            max-width: none;
+            margin-left: calc(min(50vw - 179px, 100vw - 715px) - (100vw - 100%) / 2);
+        }
+        #about-title { font-size: 88px; line-height: 1.06; width: 100%; max-width: 608px; }
+        .about-me-statement {
+            font-size: 24.2px;
+            line-height: 1.55;
+            width: 608px;
+            max-width: 608px;
+            margin: 32px 0 42px;
+        }
+        .image-wrapper {
+            width: 740px;
+            height: 740px;
+            left: calc(min(50vw - 179px, 100vw - 715px) - (100vw - 100%) / 2 - 218px);
+        }
+    }
+}
+@media (min-width: 48rem) and (max-width: 57.499rem) {
+    .main.about > .hero .copy-wrapper { margin-inline: auto; align-self: center; }
+}
+@media (max-width: 68.749rem) {
+    .main.about :is(.help-intro, .testimonials-intro).about-fluid-composition {
+        min-height: 0;
+        > .home-section-header.about-fluid-copy {
+            width: 100%;
+            max-width: 640px;
+            margin-inline: auto;
+            text-align: center;
+        }
+        .home-section-title { width: 100%; max-width: 600px; margin-inline: auto; text-align: center; }
+        .home-section-description { max-width: 480px; margin-inline: auto; text-align: center; }
+        > :is(.help-artwork, .testimonials-artwork-shell).about-fluid-art {
+            display: block;
+            position: relative;
+            inset: auto;
+            width: min(100%, 420px);
+            height: auto;
+            aspect-ratio: 1;
+            margin: 32px auto 0;
+            translate: none;
+            transform: none;
+            visibility: visible;
+        }
+    }
+}
+@media (max-width: 68.749rem) {
+    .main.about .testimonials-intro.about-fluid-composition > .testimonials-artwork-shell.about-fluid-art {
+        order: 1;
+        margin: 32px auto 0;
+    }
+}
 // Carry the approved mobile type treatment onto About's desktop composition,
 // without changing its display sizes, alignment, or illustration layout.
 @media (min-width: 48rem) {
@@ -16,7 +340,7 @@
         .hero .about-me-statement,
         .home-section-description,
         .about-me-invitation {
-            font-size: 1.5125rem;
+            font-size: var(--editorial-body-size);
             text-wrap: pretty;
         }
         .about-me-next .about-me-invitation { color: #424956; }
@@ -40,9 +364,9 @@
     .main.perspectives .perspectives-page,
     .main.project-detail { padding-right: max(var(--site-frame-gutter), 72px); }
     .main.contact {
-        width: calc(100% - 96px);
+        width: calc(100% - 48px);
         margin-left: 24px;
-        margin-right: 72px;
+        margin-right: 24px;
         padding-inline: 0;
     }
     .main.contact > .contact-section { padding: 24px 16px; }
@@ -203,7 +527,7 @@
     .main.about .hero .copy-wrapper { margin-top: 0; }
     .main.about .hero #about-title,
     .main.about .about-me-next > .home-section-title {
-        font-size: clamp(3rem, 12.3vw, 4.5rem);
+        font-size: var(--editorial-display-size);
     }
     .main.about .hero #about-title {
         margin-bottom: 22px;
@@ -227,7 +551,7 @@
             color: #292A2B;
         }
         .hero .about-me-statement, .home-section-description, .about-me-invitation {
-            font-size: clamp(1.1875rem, calc(2.7vw + 1px), 1.5125rem);
+            font-size: var(--editorial-body-size);
             width: 100%;
             max-width: 30rem;
             margin-inline: auto;
@@ -271,10 +595,54 @@
     .header .nav-panel { max-height: calc(100dvh - 32px); overflow-y: auto; }
     .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
         .vitae-device-lineup { width: 100%; }
-        .project-story-title { font-size: clamp(2.625rem, 10.5vw, 3rem); }
-        .project-story-intro { font-size: 1.125rem; }
+        .project-story-title { font-size: var(--project-heading-size); }
+        .project-story-intro { font-size: var(--editorial-body-size); }
     }
-    .main.vitae { --vitae-story-body-size: 1.125rem; }
+    .main.vitae { --vitae-story-body-size: var(--editorial-body-size); }
+}
+
+// Optical section rhythm: remove legacy spacer bands and account for the
+// illustrations' empty canvas, rather than applying equal padding to every box.
+.main.about > :is(#how-i-help, #my-approach, #testimonials, #companies) {
+    min-height: 0;
+    margin-top: 0;
+    padding-top: 75px;
+    padding-bottom: 75px;
+    > .content-wrapper { padding-top: 0; padding-bottom: 0; }
+}
+.main.about #testimonials .recommendation-title-row { align-items: flex-start; }
+.main.about #testimonials .recommendation-controls { margin-bottom: 0; }
+.main.about > #testimonials { padding-bottom: 95px; }
+.main.about > #companies { padding-bottom: 95px; }
+@media (min-width: 68.75rem) {
+    .main.about > #how-i-help { padding-top: 15px; padding-bottom: 22px; }
+    .main.about > #my-approach { padding-bottom: 63px; }
+    .main.about > :is(#testimonials, #companies) { padding-top: 100px; }
+}
+@media (max-width: 68.749rem) {
+    .main.about .testimonials-intro.about-fluid-composition > .testimonials-artwork-shell.about-fluid-art {
+        aspect-ratio: auto;
+    }
+    .main.about > #how-i-help {
+        padding-bottom: calc(95px - min(420px, 100vw - 32px) * .131);
+    }
+    .main.about > #my-approach {
+        padding-bottom: calc(95px - min(420px, 100vw - 32px) * .053);
+    }
+}
+@media (max-width: 47.999rem) {
+    .main.about > :is(#how-i-help, #my-approach, #testimonials, #companies) {
+        padding-top: 98px;
+        padding-bottom: 102px;
+    }
+    .main.about > #how-i-help { padding-bottom: calc(102px - min(420px, 100vw - 32px) * .131); }
+    .main.about > #my-approach { padding-bottom: calc(102px - min(420px, 100vw - 32px) * .053); }
+}
+.main.about #beyond-the-work .about-me-inner.about-fluid-composition {
+    margin-top: -80px;
+    // The composition starts 80px above its section. Clip that overhang while
+    // preserving the section's separate rounded accent and full-bleed sides.
+    clip-path: inset(80px -100vw 0);
 }
 
 // Closing composition: one mobile layout, one desktop layout. Keep the
@@ -347,7 +715,7 @@
             flex-wrap: nowrap;
             width: max-content;
             gap: 14px;
-            margin: 24px 0 0;
+            margin: 42px 0 0;
             .button { width: auto; }
             .button, .button-face { font-size: 17px; }
         }
@@ -420,4 +788,54 @@
             }
         }
     }
+}
+
+@media (max-width: 47.999rem) {
+    .main.about .about-me-inner.about-fluid-composition > .about-me-next.about-fluid-copy .about-me-actions {
+        margin-top: 28px;
+    }
+}
+
+// Match the hero's title-to-copy rhythm without changing copy-to-button gaps.
+// Keep the notes beside the copy until a quarter of their canvas is clipped.
+@media (min-width: 48rem) {
+    .main.about #how-i-help:has(.help-intro:not(.help-is-stacked)) {
+        padding-top: 15px;
+        padding-bottom: 22px;
+    }
+    .main.about .help-intro.about-fluid-composition:not(.help-is-stacked) {
+        min-height: var(--composition-min-height);
+        > .home-section-header.about-fluid-copy {
+            width: var(--composition-copy-width);
+            max-width: none;
+            margin-left: var(--composition-copy-left);
+            margin-right: 0;
+            text-align: left;
+        }
+        .home-section-title, .home-section-description {
+            margin-inline: 0;
+            text-align: left;
+        }
+        > .help-artwork.about-fluid-art {
+            position: absolute;
+            inset: auto;
+            left: var(--composition-art-left);
+            top: 50%;
+            translate: 0 -50%;
+            width: var(--composition-art-width);
+            height: var(--composition-art-height);
+            margin: 0;
+        }
+    }
+}
+
+.main.about { --about-title-copy-gap: 32px; }
+.main.about :is(#about, #how-i-help, #my-approach, #beyond-the-work) {
+    :is(#about-title, .home-section-title) { margin-bottom: 0; }
+    :is(.about-me-statement, .home-section-description, .about-me-invitation) {
+        margin-top: var(--about-title-copy-gap);
+    }
+}
+@media (max-width: 47.999rem) {
+    .main.about { --about-title-copy-gap: 22px; }
 }

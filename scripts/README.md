@@ -1,6 +1,6 @@
 # Site scripts
 
-`initializeScripts.js` is the browser entry point. It progressively enhances static site search, contact-form validation and submission, consent and analytics loading, the fixed header, mobile navigation, project galleries, recommendations, and the Perspectives feed. Company logos remain a static, responsive grid and do not depend on JavaScript.
+`initializeScripts.js` is the browser entry point. It progressively enhances contact-form validation and submission, consent and analytics loading, the fixed header, mobile navigation, project galleries, recommendations, and the Perspectives feed. Company logos remain a static, responsive grid and do not depend on JavaScript.
 
 `glass/initializeLiquidGlassNavigation.mjs` enhances the fixed dock with a live
 SVG backdrop filter in Chromium when reduced motion is not requested. It builds
@@ -19,7 +19,7 @@ Pages with fewer than two section landmarks use the footer as the bottom region.
 The top button grows in over 240ms beyond the existing scroll threshold; its
 slot collapses completely at the top. The tray grows about its center vertically
 on desktop and horizontally on mobile. Reduced motion skips the transition.
-Section discovery uses explicit `data-dock-section` landmarks, then search
+Section discovery uses explicit `data-dock-section` landmarks, then navigation
 landmarks, then outermost sections; the first and last are excluded from dots.
 Long dot lists scroll within the available viewport space, and the active dot
 is brought into view. The menu is clamped within the desktop viewport.
@@ -40,22 +40,17 @@ the compositing arrangement. See the dock regression checks in `design-qa.md`.
 
 `network.mjs` provides bounded fetch requests and retryable request caching for network-dependent enhancements. `network.test.mjs` verifies timeout, response-body, retry, and in-flight request behavior without adding an npm dependency.
 
-`build-search-index.rb` reads the rendered public pages in `_site/` and generates the committed `search-index.json` database. It indexes meaningful page text and non-empty image alternatives, creates precise records for anchored `data-search-section` containers, and removes interface/decorative content before indexing. The Medium article body remains a dynamic browser enhancement and is not copied into this static database.
-
 The `perspectives/` modules fetch the latest Medium item once, convert it into a structured object, sanitize externally supplied markup, and render it into the reserved article container. If the module or request fails—or JavaScript is unavailable—the static Medium fallback remains visible.
 
 `audit-site.rb` checks generated HTML after a Jekyll build:
 
 ```bash
 bundle exec jekyll build
-ruby scripts/build-search-index.rb --check
 node --check scripts/initializeScripts.js
 for file in scripts/glass/*.mjs; do node --check "$file"; done
 for file in scripts/perspectives/*.mjs; do node --check "$file"; done
-for file in scripts/search/*.mjs; do node --check "$file"; done
 node --input-type=module --check < scripts/third-party/liquidGL.js
 node scripts/network.test.mjs
-node scripts/search/searchIndex.test.cjs
 ruby scripts/audit-site.rb
 ```
 
