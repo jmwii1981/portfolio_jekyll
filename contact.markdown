@@ -18,9 +18,9 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
         </picture>
           </div>
           <div class="contact-direct-links" aria-label="Reach out directly">
-            <a href="https://www.linkedin.com/in/jmwii1981/" class="contact-direct-pill" target="_blank" rel="noopener noreferrer" aria-label="Message me on LinkedIn (opens in a new tab)"><img src="{{ '/images/ui/emoji-paper-plane.png' | relative_url }}" width="26" height="26" alt="">Message me on LinkedIn</a>
-            <a href="mailto:hello@janmichael.io" class="contact-direct-pill"><img src="{{ '/images/ui/emoji-envelope.png' | relative_url }}" width="26" height="26" alt="">hello@janmichael.io</a>
-            <a href="tel:+14155069867" class="contact-direct-pill"><img src="{{ '/images/ui/emoji-telephone-receiver.png' | relative_url }}" width="26" height="26" alt="">+1.415.506.9867</a>
+            <a href="https://www.linkedin.com/in/jmwii1981/" class="contact-direct-pill" target="_blank" rel="noopener noreferrer" aria-label="Message me on LinkedIn (opens in a new tab)"><img src="{{ '/images/ui/speech-bubble.svg' | relative_url }}" width="26" height="26" alt="">Message me on LinkedIn</a>
+            <a href="mailto:hello@janmichael.io" class="contact-direct-pill"><img src="{{ '/images/ui/emoji-envelope.svg' | relative_url }}" width="26" height="26" alt="">hello@janmichael.io</a>
+            <a href="tel:+14155069867" class="contact-direct-pill"><img src="{{ '/images/ui/emoji-telephone-receiver.svg' | relative_url }}" width="26" height="26" alt="">+1.415.506.9867</a>
           </div>
         </div>
     </section>
@@ -58,18 +58,18 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
                 <span class="contact-project-switch" aria-hidden="true"></span>
             </label>
 
-            <section class="contact-project-details" id="contact-project-details" aria-labelledby="contact-project-detail-heading" hidden>
+            <section class="contact-project-details" id="contact-project-details" aria-labelledby="contact-project-detail-heading">
                 <h2 class="contact-project-detail-heading" id="contact-project-detail-heading">Project Detail</h2>
             <div class="contact-timeline">
                 <div class="contact-timeline-dates">
                     <div class="contact-field">
                         <label class="contact-label contact-date-label" for="contact-begin">Planned kick off</label>
-                        <input class="contact-input" id="contact-begin" name="Preferred start date" type="date" aria-describedby="contact-begin-error">
+                        <input class="contact-input" id="contact-begin" name="Preferred start date" type="date" aria-required="true" aria-describedby="contact-begin-error">
                         <p class="p contact-field-error" id="contact-begin-error" data-contact-error hidden></p>
                     </div>
                     <div class="contact-field">
                         <label class="contact-label contact-date-label" for="contact-ready">Target launch</label>
-                        <input class="contact-input" id="contact-ready" name="Handoff or launch date" type="date" aria-describedby="contact-ready-error">
+                        <input class="contact-input" id="contact-ready" name="Handoff or launch date" type="date" aria-required="true" aria-describedby="contact-ready-error">
                         <p class="p contact-field-error" id="contact-ready-error" data-contact-error hidden></p>
                     </div>
                 </div>
@@ -78,7 +78,7 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
             <div class="contact-field">
                 <label class="contact-label" for="contact-budget">Budget</label>
                 <div class="contact-select-wrap">
-                <select class="contact-input contact-select" id="contact-budget" name="Budget" aria-describedby="contact-budget-error">
+                <select class="contact-input contact-select" id="contact-budget" name="Budget" aria-required="true" aria-describedby="contact-budget-error">
                     <option value="" disabled selected>Select a range</option>
                     <option>$5k+</option>
                     <option>$10k+</option>

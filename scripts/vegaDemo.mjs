@@ -12,7 +12,7 @@ const nav = [['Dashboard','dashboard'],['Payments and Estimates','navpayments'],
 const actions = [['payment','Take a payment'],['estimate','Estimate a job'],['payments','View and manage payments'],['invoices','View and manage invoices'],['schedule','Schedule appointment']];
 const products = ['Watering Can','Gardening Gloves','Wheelbarrow','Shovel','Rake'];
 const services = ['Lawn care','Cleaning Services','Landscaping','Pruning and Planting','Power Washing'];
-const state = {payments:[{name:'Nicole McDowell',amount:318.75,status:'Failed'},{name:'James Wilson',amount:2258,status:'Paid'},{name:'Morgan Taylor',amount:480,status:'Paid'}],tasks:[],appointments:[]};
+const state = {payments:[{name:'Sample customer 01',amount:318.75,status:'Failed'},{name:'James Wilson',amount:2258,status:'Paid'},{name:'Morgan Taylor',amount:480,status:'Paid'}],tasks:[],appointments:[]};
 const views = new Set();
 const cursor = matchMedia('(any-hover: hover) and (any-pointer: fine)');
 const widths = {laptop:1280,tablet:800,phone:400,landscape:850};
@@ -21,6 +21,7 @@ const heights = {laptop:880,tablet:1226,phone:828,landscape:435};
 class VegaDemo {
   constructor(host, device) {
     this.host=host; this.device=device; this.page='Dashboard';
+    this.embedded=host.parentElement.hasAttribute('data-vega-embedded');
     this.period='7'; this.branch='Hillview Branch'; this.hiddenActions=new Set();
     this.root=host.attachShadow({mode:'open'});
     this.root.innerHTML=`<link rel="stylesheet" href="${url('styles/vega-demo.css')}"><div class="stage ${device}"></div>`;
@@ -33,12 +34,20 @@ class VegaDemo {
     views.add(this); this.render(); this.fit(); this.access();
   }
   fit() {
+    if(this.embedded) {
+      const width=this.host.clientWidth;
+      this.stage.className='stage embedded '+(width<760?'phone':width<1050?'tablet':'laptop');
+      this.stage.style.width='100%';
+      this.stage.style.height='100%';
+      this.stage.style.transform='none';
+      return;
+    }
     const w=widths[this.device], scale=this.host.clientWidth/w;
     this.stage.style.width=`${w}px`;
     this.stage.style.height=`${this.host.clientHeight / Math.max(scale,.001)}px`;
     this.stage.style.transform=`scale(${scale})`;
   }
-  access() { this.stage.inert=!cursor.matches; this.host.closest('.vega-screen-inset')?.classList.toggle('is-interactive',cursor.matches); }
+  access() { this.stage.inert=!this.embedded&&!cursor.matches; this.host.closest('.project-screen-inset')?.classList.toggle('is-interactive',cursor.matches); }
   render() {
     const previous=this.root.activeElement?.dataset;
     const scroll=this.root.querySelector('.app')?.scrollTop||0;
@@ -54,6 +63,17 @@ class VegaDemo {
       <main>${this.page==='Dashboard'?this.dashboard():this.listPage()}</main></div>
       <footer><p class="demo-note">Portfolio reconstruction · Sample data · No real transactions</p></footer>
       </div><div class="modal-layer" hidden></div><div class="toast" role="status" aria-live="polite"></div>`;
+    // An embedded application must not introduce a second document main or h1.
+    if(this.embedded) {
+      const main=this.root.querySelector('main');
+      if(main){main.setAttribute('role','region');main.setAttribute('aria-label','Dashboard workspace');}
+      this.root.querySelectorAll('h1').forEach(heading=>{
+        const replacement=document.createElement('h3');
+        replacement.className='embedded-page-title';
+        replacement.innerHTML=heading.innerHTML;
+        heading.replaceWith(replacement);
+      });
+    }
     this.root.querySelector('.app').scrollTop=scroll;
     if(previous?.action)this.root.querySelector(`[data-action="${CSS.escape(previous.action)}"]`)?.focus({preventScroll:true});
     else if(previous?.period)this.root.querySelector(`[data-period="${CSS.escape(previous.period)}"]`)?.focus({preventScroll:true});
@@ -71,10 +91,10 @@ class VegaDemo {
     return `<section class="card chart-card">${this.cardHead(distribution?'Gross Sales Distribution':'Gross Sales by Method')}${this.periods()}<div class="bar-chart ${distribution?'distribution':''}" role="img" aria-label="${distribution?'Revenue distribution':'Sales by payment method'} for ${this.period==='custom'?'selected dates':`last ${this.period} days`}">${rows.map(([name,value,color,change])=>`<button class="bar-row" data-detail="${name}" data-value="${money(value*factor)}"><span class="bar-label">${name}<small class="${change==='No change'?'unchanged':color}">${change==='No change'?'':icon(color==='red'?'trend-down':'trend-up')}${change}</small></span><span class="bar-track"><span class="bar ${color}" style="width:${Math.max(4,value/16000*100)}%"></span><span class="bar-value ${color}" style="left:${Math.min(69,Math.max(6,value/16000*100+2))}%">${money(value*factor)}</span></span></button>`).join('')}<div class="axis"><span>$0.00</span><span>${money(8000*factor)}</span><span>${money(16000*factor)}</span></div></div></section>`;
   }
   trending(product){return `<section class="card trending">${this.cardHead(product?'Trending Products':'Trending Services',product?'products':'services','View All')}${this.periods()}<ol>${(product?products:services).map((name,i)=>`<li><button data-detail="${name}" data-value="${product?[200,172,166,52,25][i]+' units sold':'Rank '+(i+1)+' service'}"><span>${i+1}</span><b>${name}</b>${product?`<span class="units">${[200,172,166,52,25][i]}</span>`:''}<small class="change ${i===2?'red':'teal'}">${icon(i===2?'trend-down':'trend-up')}${i===2?'1':'2'}</small></button></li>`).join('')}</ol></section>`;}
-  tasks(){return `<section class="card tasks">${this.cardHead('Today’s Tasks','tasks','View all')}<div class="task-content"><h3>${icon('attention')}Needs Your Attention</h3><div class="task-alert"><b>You have transactions you need to review</b><p>There are <strong>10 failed payments</strong> to review</p>${btn('failed','Take action'+arrow())}</div><img class="divider" src="${url('images/ui/vega/figma/divider.svg')}" alt=""><h3>${icon('next')}What’s Next</h3><div class="task-next"><b>Nicole McDowell is now ready to bill!</b><p>Nicole had <strong>2 jobs completed.</strong></p>${btn('invoices','View invoice'+arrow())}</div><img class="divider" src="${url('images/ui/vega/figma/divider.svg')}" alt=""><h3>${icon('checklist')}Your Checklist</h3>${state.tasks.length?`<ul class="checklist">${state.tasks.map((t,i)=>`<li><label><input type="checkbox" data-task="${i}" ${t.done?'checked':''}><span>${esc(t.title)}</span></label></li>`).join('')}</ul>`:`<img class="completed" src="${url('images/ui/vega/figma/completed.svg')}" alt=""><div class="all-done"><b>Congrats! You’re all done!</b><p>You’ve completed all of your personal tasks for <u>today</u>. Feel free to add more, or take a break.</p><small>Taking a break sounds good, doesn’t it?</small></div>`}${btn('add-task','Add new task'+arrow(),'add-task')}</div></section>`;}
+  tasks(){return `<section class="card tasks">${this.cardHead('Today’s Tasks','tasks','View all')}<div class="task-content"><h3>${icon('attention')}Needs Your Attention</h3><div class="task-alert"><b>You have transactions you need to review</b><p>There are <strong>10 failed payments</strong> to review</p>${btn('failed','Take action'+arrow())}</div><img class="divider" src="${url('images/ui/vega/figma/divider.svg')}" alt=""><h3>${icon('next')}What’s Next</h3><div class="task-next"><b>Sample customer 01 is now ready to bill!</b><p>This customer had <strong>2 jobs completed.</strong></p>${btn('invoices','View invoice'+arrow())}</div><img class="divider" src="${url('images/ui/vega/figma/divider.svg')}" alt=""><h3>${icon('checklist')}Your Checklist</h3>${state.tasks.length?`<ul class="checklist">${state.tasks.map((t,i)=>`<li><label><input type="checkbox" data-task="${i}" ${t.done?'checked':''}><span>${esc(t.title)}</span></label></li>`).join('')}</ul>`:`<img class="completed" src="${url('images/ui/vega/figma/completed.svg')}" alt=""><div class="all-done"><b>Congrats! You’re all done!</b><p>You’ve completed all of your personal tasks for <u>today</u>. Feel free to add more, or take a break.</p><small>Taking a break sounds good, doesn’t it?</small></div>`}${btn('add-task','Add new task'+arrow(),'add-task')}</div></section>`;}
   listPage(){
     const payment=this.page==='Payments and Estimates';
-    const list=this.page==='Products'?products:this.page==='Services'?services:this.page==='Customers'?[...new Set(state.payments.map(p=>p.name))]:[...state.appointments,'Nicole McDowell — Lawn care','James Wilson — Landscaping','Morgan Taylor — Cleaning Services'];
+    const list=this.page==='Products'?products:this.page==='Services'?services:this.page==='Customers'?[...new Set(state.payments.map(p=>p.name))]:[...state.appointments,'Sample customer 01 — Lawn care','James Wilson — Landscaping','Morgan Taylor — Cleaning Services'];
     return `<section class="card list-page"><div class="page-heading"><h1>${esc(this.page)}</h1>${btn('dashboard','Back to dashboard'+arrow())}</div><p class="muted">Illustrative demo records — explore without changing real data.</p>${payment?`${btn('payment','Take a payment','primary')}<div class="record-list">${state.payments.map(p=>`<button class="record" data-detail="${esc(p.name)}" data-value="${money(p.amount)} · ${p.status}"><b>${esc(p.name)}</b><span>${money(p.amount)}</span><small class="${p.status==='Failed'?'red':'teal'}">${p.status}</small>${arrow()}</button>`).join('')}</div>`:`<div class="record-list">${list.map((name,i)=>`<button class="record" data-detail="${esc(name)}" data-value="Sample ${this.page.toLowerCase()} record ${i+1}"><b>${esc(name)}</b>${arrow()}</button>`).join('')}</div>`}</section>`;
   }
   navigate(page){this.page=page;this.render();this.root.querySelector('.app').scrollTop=0;}
@@ -95,7 +115,7 @@ class VegaDemo {
     if(a==='manage'){this.modal('Manage quick actions',actions.map(([id,label])=>`<label class="choice"><input type="checkbox" data-quick="${id}" ${this.hiddenActions.has(id)?'':'checked'}>${label}</label>`).join(''));return;}
     if(a==='payment'||a==='estimate'||a==='schedule'){
       const title={payment:'Take a payment',estimate:'Estimate a Job',schedule:'Schedule Appointment'}[a];
-      this.modal(title,`<p class="muted">Demo only. Please use the sample customer; no information is sent.</p><form data-form="${a}"><label>Customer<select name="customer"><option>Nicole McDowell</option><option>James Wilson</option><option>Morgan Taylor</option></select></label>${a==='schedule'?'<label>Date<input type="date" name="date" required></label><label>Service<select name="service"><option>Lawn care</option><option>Cleaning Services</option><option>Landscaping</option></select></label>':'<label>Amount ($)<input type="number" name="amount" min="0.01" max="99999" step="0.01" value="125.00" required></label>'}<button class="primary" type="submit">${a==='payment'?'Simulate payment':a==='estimate'?'Create sample estimate':'Schedule sample appointment'}</button></form>`);return;
+      this.modal(title,`<p class="muted">Demo only. Please use the sample customer; no information is sent.</p><form data-form="${a}"><label>Customer<select name="customer"><option>Sample customer 01</option><option>James Wilson</option><option>Morgan Taylor</option></select></label>${a==='schedule'?'<label>Date<input type="date" name="date" required></label><label>Service<select name="service"><option>Lawn care</option><option>Cleaning Services</option><option>Landscaping</option></select></label>':'<label>Amount ($)<input type="number" name="amount" min="0.01" max="99999" step="0.01" value="125.00" required></label>'}<button class="primary" type="submit">${a==='payment'?'Simulate payment':a==='estimate'?'Create sample estimate':'Schedule sample appointment'}</button></form>`);return;
     }
     if(a==='custom'){this.modal('Custom reporting period','<form data-form="custom"><label>Start date<input type="date" name="start" required></label><label>End date<input type="date" name="end" required></label><button type="submit" class="primary">Apply dates</button></form>');return;}
     if(a==='add-task'){this.modal('Add a personal task','<form data-form="task"><label>Task<input name="task" maxlength="80" value="Review this week’s invoices" required></label><button class="primary" type="submit">Add task</button></form>');return;}
@@ -107,11 +127,19 @@ class VegaDemo {
   modal(title,body){
     this.returnFocus=this.root.activeElement;
     const layer=this.root.querySelector('.modal-layer');
-    layer.innerHTML=`<section class="modal" role="dialog" aria-modal="true" aria-label="${esc(title)}"><header><h2>${esc(title)}</h2>${btn('close','<span aria-hidden="true">×</span><span class="sr">Close dialog</span>','close')}</header>${body}</section>`;
+    const tag=this.embedded?'dialog':'section';
+    layer.innerHTML=`<${tag} class="modal" role="dialog" aria-modal="true" aria-label="${esc(title)}"><header><h2>${esc(title)}</h2>${btn('close','<span aria-hidden="true">×</span><span class="sr">Close dialog</span>','close')}</header>${body}</${tag}>`;
     layer.hidden=false;this.root.querySelector('.app').inert=true;
+    if(this.embedded){
+      this.previousOverflow=document.body.style.overflow;
+      document.body.style.overflow='hidden';
+      const dialog=layer.querySelector('dialog');
+      dialog.addEventListener('cancel',event=>{event.preventDefault();this.close();});
+      dialog.showModal();
+    }
     layer.querySelector('input,select,button')?.focus();
   }
-  close(){const layer=this.root.querySelector('.modal-layer');layer.hidden=true;layer.innerHTML='';this.root.querySelector('.app').inert=false;this.returnFocus?.focus({preventScroll:true});if(this.actionsChanged){this.actionsChanged=false;this.render();}}
+  close(){const layer=this.root.querySelector('.modal-layer');const dialog=layer.querySelector('dialog');if(dialog){dialog.close();document.body.style.overflow=this.previousOverflow||'';}layer.hidden=true;layer.innerHTML='';this.root.querySelector('.app').inert=false;this.returnFocus?.focus({preventScroll:true});if(this.actionsChanged){this.actionsChanged=false;this.render();}}
   keydown(e){
     const layer=this.root.querySelector('.modal-layer');if(layer.hidden)return;
     if(e.key==='Escape'){e.preventDefault();e.stopPropagation();this.close();}
@@ -145,6 +173,7 @@ async function initialize(host){
   const sheet=view.root.querySelector('link');
   const ready=()=>{host.querySelector('.vega-demo-fallback')?.remove();host.classList.add('is-ready');};
   sheet.addEventListener('load',ready,{once:true});if(sheet.sheet)ready();
+  sheet.addEventListener('error',()=>{view.destroy();live.remove();delete host.dataset.ready;},{once:true});
 }
 const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){initialize(entry.target);observer.unobserve(entry.target);}}),{rootMargin:'500px'});
 hosts.forEach(host=>observer.observe(host));

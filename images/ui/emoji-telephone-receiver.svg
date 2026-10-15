@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1254" height="1254" viewBox="0 0 160 160">
+  <defs>
+    <linearGradient id="silver" x1=".1" y1=".8" x2=".8" y2=".15"><stop stop-color="#737e88"/><stop offset=".26" stop-color="#a5adb6"/><stop offset=".44" stop-color="#e1e6eb"/><stop offset=".61" stop-color="#a5aeb8"/><stop offset=".8" stop-color="#ced5dc"/><stop offset="1" stop-color="#929ca7"/></linearGradient>
+    <linearGradient id="cap" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#e0e5e9"/><stop offset=".42" stop-color="#a5aeb8"/><stop offset=".68" stop-color="#c8cfd6"/><stop offset="1" stop-color="#7f8994"/></linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".6"/><stop offset=".5" stop-color="#fff" stop-opacity=".1"/><stop offset="1" stop-color="#fff" stop-opacity=".35"/></linearGradient>
+  </defs>
+  <path d="M38 6c-7-3-26 9-30 20-8 20 13 53 42 83s65 52 84 45c9-3 23-21 20-28-2-6-20-21-27-22-9-2-18 10-25 12-4 1-20-13-30-23S45 65 47 61c1-5 12-10 14-20 2-9-15-32-23-35Z" fill="url(#silver)" stroke="#929da6" stroke-width=".8"/>
+  <path d="M28 11q6-7 11-4c8 5 25 28 21 37-2 6-7 12-13 15 8-9-5-28-19-48Z" fill="url(#cap)"/>
+  <path d="M105 115c11-14 18-13 23-10 9 6 24 18 25 22 2 5-3 12-8 18 1-7-24-26-40-30Z" fill="url(#cap)"/>
+  <path d="M28 12c10 14 27 36 19 46m59 57c13 2 38 24 39 29" fill="none" stroke="#edf1f4" stroke-opacity=".6" stroke-width="1"/>
+  <path d="M34 7C21 11 7 22 7 35c1 23 22 51 45 74s54 46 75 45" fill="none" stroke="url(#shine)" stroke-width="1.7" stroke-linecap="round"/>
+</svg>

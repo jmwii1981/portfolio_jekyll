@@ -18,6 +18,7 @@
 @import "components/cta";
 @import "components/consent-banner";
 @import "components/content-reveal";
+@import "components/responsive-artwork";
 @import "components/logo";
 @import "components/section-label";
 @import "components/section-heading";
@@ -45,6 +46,8 @@
 @import "global/focus";
 @import "global/mobile-type";
 @import "components/responsive-repair";
+@import "pages/vega-case";
+@import "pages/vega-playground";
 
 // One deliberate site-wide heading rhythm, including page-specific headings.
 :is(h1, h2, h3, h4, h5, h6) { line-height: .9 !important; }

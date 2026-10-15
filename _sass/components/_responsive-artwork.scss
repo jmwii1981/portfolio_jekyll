@@ -1,0 +1,14 @@
+// Script measures the resting transform and selects a state; CSS owns motion.
+.responsive-art-enter { animation: responsive-art-enter 280ms cubic-bezier(.22,.61,.36,1); }
+.responsive-art-exit { animation: responsive-art-exit 280ms cubic-bezier(.22,.61,.36,1); }
+@keyframes responsive-art-enter {
+    from { visibility: visible; opacity: 0; transform: var(--art-outside-transform); }
+    to { visibility: visible; opacity: 1; transform: var(--art-rest-transform); }
+}
+@keyframes responsive-art-exit {
+    from { visibility: visible; opacity: 1; transform: var(--art-rest-transform); }
+    to { visibility: visible; opacity: 0; transform: var(--art-outside-transform); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .responsive-art-enter, .responsive-art-exit { animation: none; }
+}

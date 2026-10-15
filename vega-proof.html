@@ -1,0 +1,55 @@
+---
+layout: null
+permalink: /review/vega-proof/
+sitemap: false
+---
+<!doctype html>
+<html lang="en" class="no-js"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Vega transaction workspace — local visual proof</title><link rel="stylesheet" href="{{ '/styles/vega-proof.css' | relative_url }}"></head>
+<body>
+<a class="skip-link" href="#main-content">Skip to design proof</a>
+<main class="proof" id="main-content" tabindex="-1">
+  <div class="browser-frame">
+    <div class="browser-chrome" aria-hidden="true"><span class="window-dots"><i></i><i></i><i></i></span><span class="browser-tab">PaymentsManager+ · Design preview</span><span class="browser-tools">— &nbsp; +</span></div>
+    <div class="product">
+      <aside class="product-sidebar" aria-label="Application navigation, static illustration">
+        <div class="product-brand">PaymentsManager<span>+</span><small>Sample workspace</small></div>
+        <div class="nav-category">Workspace</div>
+        <div class="nav-item"><img src="{{ '/images/ui/vega/review/dashboard.svg' | relative_url }}" alt="" width="18" height="16">Overview</div>
+        <div class="nav-item selected"><img src="{{ '/images/ui/vega/review/payments.svg' | relative_url }}" alt="" width="18" height="16">Payments</div>
+        <div class="nav-child selected-child">Transactions <span>12</span></div>
+        <div class="nav-child">Payment links</div>
+        <div class="nav-child">Invoices</div>
+        <div class="nav-child">Payouts</div>
+        <div class="nav-item"><img src="{{ '/images/ui/vega/review/customers.svg' | relative_url }}" alt="" width="16" height="16">Customers</div>
+        <div class="nav-divider"></div>
+        <div class="nav-category">Manage</div>
+        <div class="nav-item"><img src="{{ '/images/ui/vega/review/dashboard.svg' | relative_url }}" alt="" width="18" height="16">Reporting</div>
+        <div class="nav-item"><img src="{{ '/images/ui/vega/review/settings.svg' | relative_url }}" alt="" width="16" height="16">Settings</div>
+        <div class="workspace-profile"><span class="profile-mark">S</span><div>Sample business<small>Workspace administrator</small></div></div>
+      </aside>
+      <div class="product-main">
+        <header class="app-header"><span>Payments <span class="breadcrumb">/ Transactions</span></span><span class="workspace-indicator">Sample data only</span></header>
+        <div class="workspace">
+          <div class="page-heading"><div><h1>Transactions</h1><p>A clear view of every payment.</p></div><span class="primary-action">Collect payment</span></div>
+          <div class="period-row"><span>October 1–12, 2026</span><span>All locations · USD</span></div>
+          <dl class="summary-row"><div><dt>Collected</dt><dd>$18,420.00</dd><small>9 completed payments</small></div><div><dt>Pending</dt><dd>$2,750.00</dd><small>2 awaiting confirmation</small></div><div><dt>Refunded</dt><dd>$240.00</dd><small>1 completed refund</small></div></dl>
+          <div class="table-workspace">
+            <div class="table-title"><h2>Payment activity</h2><span>12 transactions</span></div>
+            <div class="filters"><span class="search-field">Search transactions</span><span class="filter">All statuses <span aria-hidden="true">⌄</span></span><span class="filter">All methods <span aria-hidden="true">⌄</span></span><span class="export-label">Export</span></div>
+            <div class="table-tabs"><span class="active">All transactions <b>12</b></span><span>Completed <b>9</b></span><span>Pending <b>2</b></span><span>Refunded <b>1</b></span></div>
+            <table><caption class="sr-only">Eight of twelve fictional payment transactions, displayed as a static design composition</caption><thead><tr><th scope="col">Transaction / customer</th><th scope="col">Date</th><th scope="col">Method</th><th scope="col">Status</th><th scope="col" class="amount">Amount</th><th scope="col"><span class="sr-only">Details</span></th></tr></thead><tbody>
+              {% assign amounts = '2400.00,1250.00,750.00,1750.00,3600.00,1000.00,1920.00,2800.00,240.00,2200.00,1500.00,2000.00' | split: ',' %}
+              {% for amount in amounts limit:8 %}
+              <tr><td><strong>TX–10{{ forloop.index | prepend: '0' | slice: -2, 2 }}</strong><span class="customer">Sample customer {{ forloop.index | prepend: '0' | slice: -2, 2 }}</span></td><td>Oct {{ 13 | minus: forloop.index }}, 2026</td><td>{% if forloop.index == 3 or forloop.index == 7 or forloop.index == 10 %}Bank transfer{% else %}Card{% endif %}</td><td>{% if forloop.index == 4 or forloop.index == 6 %}<span class="status pending">Pending</span>{% elsif forloop.index == 9 %}<span class="status refunded">Refunded</span>{% else %}<span class="status completed">Completed</span>{% endif %}</td><td class="amount">${{ amount }}</td><td><span class="row-link">View</span></td></tr>
+              {% endfor %}
+            </tbody></table>
+            <div class="table-footer"><span>Showing 8 of 12 transactions</span><span>Page 1 of 2</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="proof-caption">Current portfolio reinterpretation · Original Vega components · Sample data · Static design, not a shipped screen</p>
+</main>
+<footer class="footer proof-footer"><a class="footer-brand" href="{{ '/' | relative_url }}" aria-label="Jan Michael Wallace II, home">{% include site-logo.svg class="footer-brand-mark" %}</a><a href="{{ '/vitae/vega/#experience' | relative_url }}">Return to the Vega case study</a><p>Local review composition. Not a production application.</p></footer>
+</body></html>

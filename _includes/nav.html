@@ -22,7 +22,7 @@
     </div>
     {% endunless %}
     <div class="dock-top-slot" aria-hidden="true" inert>
-        <button class="dock-control dock-top dock-arrow" type="button" aria-label="To the top" tabindex="-1">
+        <button class="dock-control dock-top dock-arrow" type="button" aria-label="To the top" tabindex="-1" hidden disabled inert>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4m-7 7 7-7 7 7"/></svg>
             <span class="dock-dot-label" aria-hidden="true">To the top</span>
         </button>
@@ -38,7 +38,6 @@
     <div class="nav-panel">
     <span class="menu-glass" aria-hidden="true"></span>
     <ul class="nav" id="primary-navigation">
-        {% unless page.url == '/' %}
         <li 
             id="about-tab"
             class="tab-container">
@@ -46,21 +45,17 @@
                 id="about-link"
                 class="a tab {% if page.url == '/' %}active{% endif %}"
                 {% if page.url == '/' %}aria-current="page"{% endif %}
-                href="{{ '/' | relative_url }}" aria-label="About"><img class="menu-emoji" src="{{ '/images/ui/emoji-waving-hand.png' | relative_url }}" width="26" height="26" alt="" aria-hidden="true"><span>About</span></a>
+                href="{{ '/' | relative_url }}" aria-label="About"><span class="menu-icon-circle" aria-hidden="true">{% include menu-hand.svg %}</span><span>About</span></a>
         </li>
-        {% endunless %}
-        {% unless page.url == '/vitae/' %}
         <li 
             id="vitae-tab"
             class="tab-container">
                 <a 
                 id="vitae"
-                class="a tab {% if page.url == '/vitae/' or page.layout == 'project' %}active{% endif %}"
-                {% if page.url == '/vitae/' or page.layout == 'project' %}aria-current="page"{% endif %}
-                href="{{ '/vitae/' | relative_url }}" aria-label="View work"><img class="menu-emoji" src="{{ '/images/ui/emoji-briefcase.png' | relative_url }}" width="26" height="26" alt="" aria-hidden="true"><span>View work</span></a>
+                class="a tab {% if page.url contains '/vitae/' %}active{% endif %}"
+                {% if page.url contains '/vitae/' %}aria-current="page"{% endif %}
+                href="{{ '/vitae/' | relative_url }}" aria-label="View work"><span class="menu-icon-circle" aria-hidden="true"><img class="menu-emoji" src="{{ '/images/ui/briefcase.svg' | relative_url }}" width="26" height="26" alt="" aria-hidden="true"></span><span>View work</span></a>
         </li>
-        {% endunless %}
-        {% unless page.url == '/perspectives/' %}
         <li 
             id="perspectives-tab"
             class="tab-container">
@@ -68,22 +63,19 @@
                     id="perspectives"
                     class="a tab {% if page.url == '/perspectives/' %}active{% endif %}"
                     {% if page.url == '/perspectives/' %}aria-current="page"{% endif %}
-                    href="{{ '/perspectives/' | relative_url }}" aria-label="Perspectives"><img class="menu-emoji" src="{{ '/images/ui/emoji-chat-bubble.png' | relative_url }}" width="26" height="26" alt="" aria-hidden="true"><span>Perspectives</span></a>
+                    href="{{ '/perspectives/' | relative_url }}" aria-label="Perspectives"><span class="menu-icon-circle" aria-hidden="true">{% include menu-thought-bubble.svg %}</span><span>Perspectives</span></a>
         </li>
-        {% endunless %}
-        {% unless page.url == '/contact/' %}
         <li 
             id="contact-tab"
             class="tab-container">
                 <a id="contact"
                    class="a tab {% if page.url == '/contact/' %}active{% endif %}"
                    {% if page.url == '/contact/' %}aria-current="page"{% endif %}
-                   href="{{ '/contact/' | relative_url }}" aria-label="Contact me"><img class="menu-emoji" src="{{ '/images/ui/emoji-envelope.png' | relative_url }}" width="26" height="26" alt="" aria-hidden="true"><span>Contact me</span></a>
+                   href="{{ '/contact/' | relative_url }}" aria-label="Contact me"><span class="menu-icon-circle" aria-hidden="true"><img class="menu-emoji" src="{{ '/images/ui/emoji-envelope.svg' | relative_url }}" width="26" height="26" alt="" aria-hidden="true"></span><span>Contact me</span></a>
         </li>
-        {% endunless %}
         <li id="follow-tab" class="tab-container">
             <a id="follow-link" class="a tab" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="Follow me on LinkedIn (opens in a new tab)">
-                <span class="menu-emoji menu-linkedin-tile" aria-hidden="true"><img class="menu-linkedin-icon" src="{{ '/images/ui/linkedin-icon.png' | relative_url }}" width="22" height="22" alt=""></span><span>Follow me</span>
+                <span class="menu-icon-circle" aria-hidden="true"><span class="menu-emoji menu-linkedin-tile"><svg class="menu-linkedin-letters" viewBox="0 0 24 24" aria-hidden="true"><g class="menu-linkedin-letter menu-linkedin-letter--i"><circle cx="5" cy="5" r="2"/><path d="M3 9h4v12H3z"/></g><path class="menu-linkedin-letter menu-linkedin-letter--n" d="M10 9h3.8v1.64C14.34 9.6 15.64 8.8 17.35 8.8 21 8.8 21 11.2 21 14.32V21h-4v-5.92c0-1.41-.03-3.23-1.97-3.23-1.98 0-2.28 1.54-2.28 3.13V21H9V9z"/></svg></span></span><span>Follow me</span>
             </a>
         </li>
     </ul>

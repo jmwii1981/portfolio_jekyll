@@ -9,6 +9,11 @@ _site/
 
 # Ruby / Bundler files
 vendor/
+!scripts/vendor/
+scripts/vendor/*
+!scripts/vendor/vega/
+scripts/vendor/vega/*
+!scripts/vendor/vega/CHART-LICENSE.txt
 
 # Node modules (if using npm or yarn for assets)
 node_modules/

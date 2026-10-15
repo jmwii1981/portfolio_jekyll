@@ -1,0 +1,10 @@
+---
+layout: page
+---
+<main class="main vitae vega-case" id="main-content" tabindex="-1" data-chapter-index-scope data-dock-all-sections>
+  <a class="a vega-back" href="{{ '/vitae/' | relative_url }}"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="M16 10H4m5-5-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Go back</a>
+  <h1 id="vega-title">{{ page.hero_title }}</h1>
+  {% assign chapters = "Overview,Decisions,Experience,Results" | split: "," %}
+  {% include vitae-subnav.html label="Vega case study chapters" chapters=chapters %}
+  {{ content }}
+</main>

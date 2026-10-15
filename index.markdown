@@ -19,7 +19,7 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
             <div class="copy-wrapper">
                 <h1 class="h1 page-hero-title" id="about-title">Glad you're here!</h1>
-                <p class="p about-me-statement">Hi! <img class="hero-greeting-emoji" src="{{ '/images/ui/hand-waving-emoji.png' | relative_url }}" width="92" height="92" alt="" aria-hidden="true"> I'm <a class="hero-profile-link" data-preview-image="{{ '/images/ui/linkedin-profile-preview.png' | relative_url }}" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">Jan Michael</a>. I shape how people, processes, products, and strategies work together to create happier teams, rock-solid systems, and value that sticks.</p>
+                <p class="p about-me-statement">Hi! <img class="hero-greeting-emoji" src="{{ '/images/ui/waving-hand.svg' | relative_url }}" width="92" height="92" alt="" aria-hidden="true"> I'm <a class="hero-profile-link" data-preview-image="{{ '/images/ui/linkedin-profile-preview.png' | relative_url }}" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">Jan Michael</a>. I shape how people, processes, products, and strategies work together to create happier teams, rock-solid systems, and value that sticks.</p>
                 <div class="button-group">
                     <a
                     class="a button button-container secondary"
@@ -183,6 +183,7 @@ description: "Fractional product design leadership for growing companies navigat
                 <a class="a button button-container primary about-me-linkedin-button recommendation-more" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="See more on LinkedIn (opens in a new tab)">See more<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><span class="about-me-linkedin-icon">{% include icon.html name="linked-in-cutout" %}</span>See more <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
                 <div class="recommendation-controls" aria-label="Testimonial navigation">
                     <button class="recommendation-previous" type="button" aria-label="Previous testimonial" aria-controls="recommendation-list"><img src="{{ '/images/ui/vega/chevron-down.svg' | relative_url }}" alt="" width="18" height="18"></button>
+                    <button class="recommendation-playback" type="button" aria-label="Pause testimonials" aria-controls="recommendation-list"><svg class="playback-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5v10M13 5v10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg><svg class="playback-play" viewBox="0 0 20 20" aria-hidden="true" hidden><path d="m7 4 9 6-9 6Z" fill="currentColor"/></svg></button>
                     <button class="recommendation-next" type="button" aria-label="Next testimonial" aria-controls="recommendation-list"><img src="{{ '/images/ui/vega/chevron-down.svg' | relative_url }}" alt="" width="18" height="18"></button>
                 </div>
                 </div>
@@ -190,9 +191,9 @@ description: "Fractional product design leadership for growing companies navigat
         </div>
     </section>
     <section class="testimonials company-section" id="companies" data-dock-label="Trusted by" data-nav-section data-nav-title="Trusted by" aria-labelledby="company-heading">
-        <div class="content-wrapper">
+        <div class="content-wrapper" data-reveal="up">
             <h2 class="h2 home-section-title company-heading" id="company-heading">Trusted by...</h2>
-            <div class="logo-carousel" data-reveal="up">
+            <div class="logo-carousel">
                 <div class="logo-carousel-viewport">
                     <div class="logo-carousel-track" id="company-logo-track">
                         <ul class="testimony-list">

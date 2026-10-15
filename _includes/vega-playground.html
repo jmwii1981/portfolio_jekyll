@@ -1,0 +1,31 @@
+<div class="vega-play-intro">
+  <p class="vega-prose">Vega is a shared design language for connected products. Explore a few of its building blocks—small, familiar interactions that make an interface feel consistent.</p>
+  <a class="a vega-demo-skip" href="#vega-story">Skip the playground</a>
+</div>
+<div class="vega-playground" data-vega-playground role="group" aria-label="Vega component playground">
+  <div class="vega-play-cell">
+    <span class="vega-component-name">Button</span>
+    <div class="vega-control-stage">
+      <button class="vega-original-button" type="button" data-vega-try hidden>Try me</button>
+      <span class="vega-original-button" data-vega-button-fallback>Try me</span>
+    </div>
+    <span class="vega-component-note" data-vega-feedback role="status">A clear starting point.</span>
+  </div>
+  <div class="vega-play-cell">
+    <span class="vega-component-name">Toggle switch</span>
+    <label class="vega-toggle-label"><input type="checkbox" role="switch" class="vega-original-toggle" aria-label="Show selected state"><span class="vega-toggle-off">Off</span><span class="vega-toggle-on">On</span></label>
+    <span class="vega-component-note">One choice. Two states.</span>
+  </div>
+  <div class="vega-play-cell vega-play-cell--wide">
+    <label class="vega-component-name" for="vega-label-input">Input field</label>
+    <input class="vega-original-input" id="vega-label-input" type="text" placeholder="Try a button label" maxlength="18" autocomplete="off" spellcheck="false" aria-describedby="vega-input-note">
+    <span class="vega-component-note" id="vega-input-note">Try typing. Nothing is sent or saved.</span>
+  </div>
+  <div class="vega-play-cell vega-play-cell--wide">
+    <label class="vega-component-name" for="vega-range">Slider <output for="vega-range" data-vega-value hidden>25</output></label>
+    <input class="vega-original-range" id="vega-range" type="range" min="0" max="100" value="25" step="1" aria-describedby="vega-range-note">
+    <span class="vega-component-note" id="vega-range-note">Slide, or use your arrow keys.</span>
+  </div>
+  <div class="vega-play-footer"><span>Original Vega components · portfolio playground</span><button type="button" class="vega-play-reset" data-vega-reset hidden>Reset</button></div>
+</div>
+<script type="module" src="{{ '/scripts/vegaPlayground.mjs' | relative_url }}"></script>

@@ -1,0 +1,14 @@
+<nav class="vitae-project-index{% if include.chapters %} vega-chapters{% endif %}" aria-label="{{ include.label }}" data-liquid-ignore{% if include.chapters %} data-chapter-index{% endif %}>
+    <ul class="vitae-project-index-list" id="vitae-project-index-list">
+        {% if include.chapters %}
+        {% for chapter in include.chapters %}
+        <li><a class="a" href="#{{ chapter | downcase }}">{{ chapter }}</a></li>
+        {% endfor %}
+        {% else %}
+        {% for project_slug in page.selected_projects %}
+        {% assign project = site.data.vitae_projects[project_slug] %}
+        <li><a class="a" href="#project-{{ project_slug }}">{{ project.index_label | default: project.organization }}</a></li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+</nav>

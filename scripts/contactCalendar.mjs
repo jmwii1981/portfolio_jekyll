@@ -124,6 +124,7 @@ if (budget) {
     trigger.type = 'button';
     trigger.className = 'contact-input contact-select contact-budget-trigger';
     trigger.setAttribute('aria-label', 'Budget');
+    trigger.setAttribute('aria-label', 'Budget (required when you have a project)');
     trigger.setAttribute('aria-haspopup', 'listbox');
     trigger.setAttribute('aria-expanded', 'false');
     trigger.setAttribute('aria-describedby', 'contact-budget-error');

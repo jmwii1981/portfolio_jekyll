@@ -7,19 +7,18 @@ layout: page
 <main class="main vitae project-detail" id="main-content" tabindex="-1">
     <div class="content-wrapper project-detail-shell">
         <div class="project-detail-return">
-            <a class="a" href="{{ '/vitae/' | relative_url }}"><span aria-hidden="true">←</span> Return to vitae</a>
+            <a class="a" href="{{ '/vitae/' | relative_url }}"><svg aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 20 20" fill="none" style="vertical-align: -.1em"><path d="M16 10H4m6-6-6 6 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg> Return to vitae</a>
         </div>
 
         <article class="project-detail-article" aria-labelledby="project-detail-title">
             <section class="project-detail-overview" aria-labelledby="project-detail-title">
                 <header class="project-detail-section-header">
-                    <p class="p section-label page-intro-eyebrow project-detail-context">{{ project.discipline }}</p>
                     <h1 class="h1 page-section-title project-detail-document-title" id="project-detail-title">{{ project.name }}</h1>
                 </header>
 
                 <section class="project-detail-gallery" aria-labelledby="project-gallery-title" data-project-gallery>
                     <header class="project-detail-gallery-header">
-                        <h2 class="h2 section-label project-detail-gallery-title" id="project-gallery-title">Product walkthrough</h2>
+                        <h2 class="h2 project-detail-gallery-title" id="project-gallery-title">Product walkthrough</h2>
                         <div class="project-gallery-controls">
                             <button class="button-container secondary project-gallery-button" type="button" data-gallery-previous aria-label="View previous {{ project.organization }} screen"><span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><svg class="project-gallery-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M16 10H4M9 5l-5 5 5 5" /></svg></span></span></button>
                             <p class="p project-gallery-count" aria-live="polite"><span data-gallery-current>1</span> / {{ project.gallery.size }}</p>
@@ -56,7 +55,6 @@ layout: page
 
             <aside class="project-detail-closing" aria-labelledby="project-availability-title">
                 <div>
-                    <p class="p section-label page-intro-eyebrow project-detail-context">Project access</p>
                     <h2 class="h2" id="project-availability-title">A focused, representative view.</h2>
                     <p class="p">This page shares the public story and design decisions behind the work without publishing confidential source files or a complete client project.</p>
                     <div class="button-group project-detail-actions">

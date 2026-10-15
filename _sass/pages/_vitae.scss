@@ -574,32 +574,6 @@
     min-width: 0;
 }
 
-#project-ledgerflow {
-    grid-template-columns: minmax(0, 1fr);
-
-    .vitae-project-summary-copy {
-        grid-row: 1;
-        justify-self: center;
-        text-align: center;
-    }
-
-    .vitae-project-summary-visual {
-        grid-column: 1;
-        grid-row: 2;
-        width: min(100%, 32rem);
-        justify-self: center;
-    }
-
-    .vitae-project-summary-detail {
-        grid-column: 1;
-        grid-row: 3;
-        justify-self: center;
-        max-width: 32rem;
-        text-align: center;
-    }
-
-    .project-story-actions { justify-content: center; }
-}
 
 .vitae-project-tag {
     display: inline-block;
@@ -1503,95 +1477,6 @@ body:has(.vitae-intro) {
         grid-row: 2;
     }
 
-    // Each project gets its own composition within the shared editorial system.
-    #project-vega .vitae-project-summary-copy {
-        max-width: 76rem;
-    }
-
-    #project-vega .project-story-title {
-        font-size: calc((clamp(3rem, 5.4vw, 5.25rem)) * var(--mobile-text-scale, 1));
-        max-width: 20ch;
-    }
-
-    #project-vega .vitae-project-summary-detail {
-        align-self: center;
-        position: relative;
-        top: -50px;
-        padding-bottom: 0;
-    }
-
-    #project-avenapay {
-        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-        row-gap: 2.5rem;
-        grid-template-rows: auto 1fr;
-        align-items: start;
-    }
-
-    #project-avenapay .vitae-project-summary-copy {
-        grid-column: 2;
-        grid-row: 1;
-    }
-
-    #project-avenapay .project-story-title {
-        font-size: calc((clamp(2.75rem, 3.8vw, 3.75rem)) * var(--mobile-text-scale, 1));
-        max-width: 16ch;
-        text-wrap: balance;
-    }
-
-    #project-avenapay .vitae-project-summary-detail {
-        grid-column: 2;
-        grid-row: 2;
-        align-self: start;
-    }
-
-    #project-avenapay .vitae-project-summary-visual {
-        grid-column: 1;
-        grid-row: 1 / span 2;
-        align-self: center;
-        width: 85%;
-        justify-self: center;
-    }
-
-    #project-avenapay .vitae-project-summary-visual img {
-        aspect-ratio: 3 / 4;
-        max-height: 34rem;
-    }
-
-    #project-ledgerflow {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    #project-ledgerflow .vitae-project-summary-copy {
-        justify-self: center;
-        text-align: center;
-        max-width: 55rem;
-        padding-right: 0;
-    }
-
-    #project-ledgerflow .project-story-title {
-        font-size: calc((clamp(2.75rem, 4vw, 4rem)) * var(--mobile-text-scale, 1));
-    }
-
-    #project-ledgerflow .vitae-project-summary-detail {
-        grid-column: 1;
-        grid-row: 3;
-        justify-self: center;
-        padding-right: 0;
-        max-width: 32rem;
-    }
-
-    #project-ledgerflow .vitae-project-summary-visual {
-        grid-column: 1;
-        grid-row: 2;
-        width: min(100%, 32rem);
-        justify-self: center;
-    }
-
-    #project-ledgerflow .vitae-project-summary-visual img {
-        aspect-ratio: 3 / 4;
-        max-height: 32rem;
-    }
-
     .project-story-overview {
         align-items: start;
         gap: clamp(3rem, 6vw, 7rem);
@@ -1691,8 +1576,8 @@ body:has(.vitae-intro) {
 
 // A shared product stage, with the established editorial headings retained.
 .vega-live-screen { display: block; position: absolute; inset: 0; }
-.main.vitae #project-vega .vega-screen-inset.is-interactive { pointer-events: auto; }
-.main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+.main.vitae #project-vega .project-screen-inset.is-interactive { pointer-events: auto; }
+.main.vitae .vitae-project-stage {
     --project-heading-size: clamp(42px, calc(2.5vw + 32.25px), 64px);
     container-type: inline-size;
     grid-template-columns: minmax(0, 1fr);
@@ -1767,7 +1652,7 @@ body:has(.vitae-intro) {
 
 // Reference composition: a single story column beside a bottom-aligned stage.
 @media (min-width: 75rem) {
-    .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+    .main.vitae .vitae-project-stage {
         width: calc(100% - 4rem);
         margin-inline: auto;
         min-height: calc(100svh - 75px);
@@ -1796,7 +1681,7 @@ body:has(.vitae-intro) {
     }
 }
 
-.main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+.main.vitae .vitae-project-stage {
     .vitae-device-lineup {
         position: relative;
         display: block;
@@ -1820,7 +1705,7 @@ body:has(.vitae-intro) {
 }
 
 @media (min-width: 75rem) {
-    .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+    .main.vitae .vitae-project-stage {
         position: relative;
         .vitae-device-lineup {
             position: absolute;
@@ -1837,7 +1722,7 @@ body:has(.vitae-intro) {
 }
 
 @media (max-width: 74.999rem) {
-    .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+    .main.vitae .vitae-project-stage {
         padding-top: clamp(3rem, 22vw, 10rem);
         row-gap: 3rem;
         .vitae-project-summary-copy { grid-row: 1; max-width: 32rem; }
@@ -1849,7 +1734,7 @@ body:has(.vitae-intro) {
 }
 
 @media (max-width: 42.5rem) {
-    .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+    .main.vitae .vitae-project-stage {
         .vitae-project-summary-copy { padding-left: 0; }
         .vitae-device-lineup {
             aspect-ratio: .54;
@@ -1863,7 +1748,7 @@ body:has(.vitae-intro) {
 }
 
 @media (max-width: 44.25rem) {
-    .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+    .main.vitae .vitae-project-stage {
         .project-story-title { font-size: var(--project-heading-size); }
         .vitae-project-summary-detail { width: 100%; }
     }
@@ -1931,11 +1816,11 @@ body:has(.main.vitae) { overflow-x: clip; }
 
 // Screen concepts sit inside the original glass bezels; each wrapper still
 // participates in the existing independent scroll reveal.
-.main.vitae :is(#project-vega, #project-ledgerflow) .vega-screen-device {
+.main.vitae .vitae-project-stage .project-screen-device {
     display: block;
     img { max-height: none; aspect-ratio: auto; mix-blend-mode: normal; }
-    > .vega-device-frame { display: block; width: 100%; height: auto; }
-    .vega-screen-inset {
+    > .project-device-frame { display: block; width: 100%; height: auto; }
+    .project-screen-inset {
         position: absolute;
         overflow: hidden;
         display: block;
@@ -1959,8 +1844,8 @@ body:has(.main.vitae) { overflow-x: clip; }
     }
     &.vitae-device--laptop {
         aspect-ratio: 2858 / 1949;
-        .vega-screen-inset { left: 11.2%; right: 11.1%; top: 2.7%; bottom: 19%; border-radius: 1% / 1.5%; }
-        .vega-screen-inset::after {
+        .project-screen-inset { left: 11.2%; right: 11.1%; top: 2.7%; bottom: 19%; border-radius: 1% / 1.5%; }
+        .project-screen-inset::after {
             // Broad upper-right light, with a soft diagonal reflection across the glass.
             background:
                 radial-gradient(ellipse at 108% -12%, rgba(255,255,255,.42) 0%, rgba(255,255,255,.16) 32%, transparent 70%),
@@ -1970,16 +1855,16 @@ body:has(.main.vitae) { overflow-x: clip; }
     }
     &.vitae-device--tablet {
         aspect-ratio: 1365 / 2025;
-        .vega-screen-inset { inset: 1.8% 3.4% 2%; border-radius: 4.7% / 3.1%; }
+        .project-screen-inset { inset: 1.8% 3.4% 2%; border-radius: 4.7% / 3.1%; }
     }
     &.vitae-device--phone {
         aspect-ratio: 522 / 998;
-        .vega-screen-inset { inset: 1.6% 5.6% 2.4% 5.75%; border-radius: 12% / 5.8%; }
+        .project-screen-inset { inset: 1.6% 5.6% 2.4% 5.75%; border-radius: 12% / 5.8%; }
     }
     &.vitae-device--landscape {
         aspect-ratio: 998 / 522;
-        > .vega-device-frame { width: 52.305%; height: 191.188%; }
-        .vega-screen-inset { inset: 5.75% 2.4% 5.6% 1.6%; border-radius: 5.8% / 12%; }
+        > .project-device-frame { width: 52.305%; height: 191.188%; }
+        .project-screen-inset { inset: 5.75% 2.4% 5.6% 1.6%; border-radius: 5.8% / 12%; }
     }
 }
 

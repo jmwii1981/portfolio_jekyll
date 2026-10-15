@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require "json"
+require "digest"
 require "nokogiri"
 require "pathname"
 require "rexml/document"
@@ -13,13 +14,23 @@ site_root = source_root.join("_site")
 vitae_projects = YAML.safe_load_file(source_root.join("_data", "vitae_projects.yml"))
 selected_project_slugs = YAML.safe_load(source_root.join("vitae.markdown").read.split("---", 3)[1]).fetch("selected_projects")
 failures = []
+# Privacy denylist uses a fingerprint rather than retaining the removed identity.
+# Scan adjacent words so markup or punctuation cannot hide a reintroduced name.
+private_identity_fingerprints = %w[a935cdc7784a0a21e1786023a80eace5aec3a6b070d3e1239dd752ad1fd358d1].freeze
+site_root.glob("**/*").each do |file|
+  next unless file.file? && %w[.html .js .mjs .json .svg .xml .txt .css].include?(file.extname)
+  words = file.read.downcase.scan(/[a-z]+/)
+  if words.each_cons(2).any? { |pair| private_identity_fingerprints.include?(Digest::SHA256.hexdigest(pair.join)) }
+    failures << "#{file.relative_path_from(site_root)}: prohibited private sample identity detected"
+  end
+end
 legacy_redirects = {
   "about/index.html" => {
     target: "/#about",
     canonical: "https://janmichael.io/"
   },
   "endorsements/index.html" => {
-    target: "/#recommendations",
+    target: "/#testimonials",
     canonical: "https://janmichael.io/"
   },
   "experience/index.html" => {
@@ -79,6 +90,11 @@ site_root.glob("**/*.html").each do |file|
   h1_count = html.scan(/<h1\b/i).length
   main_html = html[/<main\b.*?<\/main>/mi]
   standalone_links_page = relative.to_s == "links/index.html"
+  if relative.to_s == "vitae/vega/index.html"
+    dock_chapters = html.scan(/<section\b[^>]*\bid="([^"]+)"[^>]*\bdata-dock-section\b/).flatten
+    failures << "#{relative}: Vega dock must map exactly four ordered chapters" unless dock_chapters == %w[overview decisions experience results]
+    failures << "#{relative}: Vega dock must retain its endpoints" unless main_html&.include?('data-dock-all-sections')
+  end
 
   failures << "#{relative}: root element must begin in the resilient no-js state" unless html.match?(/<html\b[^>]*\bclass=(['"])[^'"]*\bno-js\b[^'"]*\1/i)
   failures << "#{relative}: expected exactly one h1, found #{h1_count}" unless h1_count == 1
@@ -87,7 +103,7 @@ site_root.glob("**/*.html").each do |file|
   failures << "#{relative}: missing the keyboard-focusable main-content target" unless html.match?(/<main\b[^>]*\bid=(['"])main-content\1[^>]*\btabindex=(['"])-1\2/i)
   failures << "#{relative}: missing the skip link to main content" unless html.match?(/<a\b[^>]*\bclass=(['"])[^'"]*skip-link[^'"]*\1[^>]*\bhref=(['"])#main-content\2/i)
   if standalone_links_page
-    failures << "#{relative}: standalone links page must not render the site header" if html.match?(/<header\b[^>]*\bclass=(['"])[^'"]*\bheader\b[^'"]*\1/i)
+    failures << "#{relative}: mobile navigation wrapper is missing" unless html.include?('class="links-mobile-navigation"')
     footer_html = html[/<footer\b.*?<\/footer>/mi]
     failures << "#{relative}: standalone links page is missing the site footer" unless footer_html
     failures << "#{relative}: standalone links page footer must use the without-social treatment" unless footer_html&.match?(/\bclass=(['"])[^'"]*\bfooter--without-social\b[^'"]*\1/i)
@@ -149,12 +165,21 @@ site_root.glob("**/*.html").each do |file|
   end
 
   html.scan(/<a\b[^>]*href=(['"])(.*?)\1[^>]*>/i).each do |(_, href)|
-    next unless href.start_with?("/")
+    next unless href.start_with?("/", "#")
+    next if href.start_with?("//")
 
-    path = href.split(/[?#]/).first
-    destination = site_root.join(path.delete_prefix("/"))
+    path, fragment = href.split("#", 2)
+    path = path.split("?").first.to_s
+    destination = path.empty? ? file : site_root.join(path.delete_prefix("/"))
     destination = destination.join("index.html") if path.end_with?("/")
     failures << "#{relative}: broken internal link #{href}" unless destination.file?
+    if destination.file? && fragment && !fragment.empty? && !fragment.start_with?(":~:text=") && destination.extname == ".html"
+      target_document = Nokogiri::HTML5(destination.read)
+      decoded_fragment = URI::DEFAULT_PARSER.unescape(fragment)
+      unless target_document.css('[id], a[name]').any? { |node| node['id'] == decoded_fragment || node['name'] == decoded_fragment }
+        failures << "#{relative}: missing internal anchor #{href}"
+      end
+    end
   end
 
   html.scan(/<script\b[^>]*type=(['"])application\/ld\+json\1[^>]*>(.*?)<\/script>/mi).each do |(_, json)|
@@ -171,6 +196,7 @@ perspectives_fetch_script = source_root.join("scripts", "perspectives", "fetchPo
 quality_workflow = source_root.join(".github", "workflows", "quality.yml").read
 liquid_gl_license = source_root.join("scripts", "third-party", "liquidGL.LICENSE.txt")
 deployed_liquid_gl_license = site_root.join("scripts", "third-party", "liquidGL.LICENSE.txt")
+chart_license = site_root.join("scripts", "vendor", "vega", "CHART-LICENSE.txt")
 nav_styles = source_root.join("_sass", "includes", "_nav.scss").read
 logo_styles = source_root.join("_sass", "components", "_logo.scss").read
 
@@ -187,10 +213,26 @@ failures << "network: bounded request helper is missing" unless network_script.i
 failures << "contact form: submission does not use the bounded JSON request helper" unless main_script.include?("fetchJsonWithTimeout(form.action")
 failures << "Perspectives: feed requests do not use the bounded JSON request helper" unless perspectives_fetch_script.scan(/fetchJsonWithTimeout\(/).length >= 2
 failures << "quality workflow: network regression tests are missing" unless quality_workflow.include?("node scripts/network.test.mjs")
-failures << "quality workflow: Liquid Glass module syntax check is missing" unless quality_workflow.include?('for file in scripts/glass/*.mjs; do node --check "$file"; done')
+failures << "quality workflow: authored module syntax discovery is missing" unless quality_workflow.include?('find scripts -type f') && quality_workflow.include?('node --check "$file" || exit 1')
 failures << "quality workflow: vendored Liquid Glass syntax check is missing" unless quality_workflow.include?("node --input-type=module --check < scripts/third-party/liquidGL.js")
 failures << "vendored Liquid Glass license is missing" unless liquid_gl_license.file? && liquid_gl_license.read.start_with?("MIT License")
 failures << "generated site: vendored Liquid Glass license is missing" unless deployed_liquid_gl_license.file? && deployed_liquid_gl_license.read.start_with?("MIT License")
+failures << "generated site: Chart.js license is missing" unless chart_license.file? && chart_license.read.include?("Copyright (c) 2014-2024 Chart.js Contributors")
+
+# These are development/reference documents, not public portfolio pages.
+%w[images/ui/emoji-sources.html images/ui/vega/figma/README.html images/ui/vega/figma/index.html images/vitae/vega-screen-concepts.html scripts/vendor/vega/CHART-LICENSE.html].each do |path|
+  failures << "#{path}: internal reference document leaked into public pages" if site_root.join(path).file?
+end
+
+stage_page = Nokogiri::HTML(site_root.join("vitae/index.html").read)
+stages = stage_page.css(".vitae-project-stage")
+failures << "Vitae: selected projects must use the shared stage" unless stages.length == selected_project_slugs.length
+stages.each do |stage|
+  failures << "#{stage['id']}: shared story structure is incomplete" unless stage.css(".vitae-project-summary-copy, .vitae-project-summary-detail, .vitae-device-lineup").length == 3
+  devices = stage.css(".project-screen-device")
+  failures << "#{stage['id']}: expected four shared device wrappers" unless devices.length == 4
+  failures << "#{stage['id']}: device frames must share the same markup" unless devices.all? { |device| device.css("img.project-device-frame[width][height]").length == 1 }
+end
 failures << "logo: CSS path animation must be feature-gated behind @supports" unless logo_styles.match?(/@supports\s*\(d:\s*path\(/)
 failures << "navigation: removed underline markup has returned" if source_root.join("_includes", "nav.html").read.include?('class="nav-indicator"')
 failures << "navigation: removed underline initializer is enabled" if main_script.include?("safelyInitialize('desktop navigation indicator'")
@@ -200,6 +242,10 @@ failures << "navigation: static fallback is missing when enhancement initializat
 contact = site_root.join("contact", "index.html")
 if contact.file?
   html = contact.read
+  contact_document = Nokogiri::HTML5(html)
+  project_toggle = contact_document.at_css('#contact-has-project[type="checkbox"][role="switch"]')
+  failures << "contact/index.html: native project switch is missing" unless project_toggle
+  failures << "contact/index.html: project details must not depend on JS to remove hidden" if contact_document.at_css('#contact-project-details[hidden]')
   failures << "contact/index.html: Web3Forms action is missing" unless html.match?(/<form\b[^>]*action=(['"])https:\/\/api\.web3forms\.com\/submit\1/i)
   failures << "contact/index.html: Web3Forms access key is missing" unless html.match?(/<input\b[^>]*name=(['"])access_key\1[^>]*value=(['"])[^'"]+\2/i)
   failures << "contact/index.html: honeypot field is missing" unless html.match?(/<input\b[^>]*name=(['"])botcheck\1/i)
@@ -386,6 +432,12 @@ legacy_redirects.each do |relative, redirect|
 
   html = file.read
   target = redirect.fetch(:target)
+  target_path, target_fragment = target.split('#', 2)
+  if target_fragment
+    target_file = site_root.join(target_path.delete_prefix('/'), 'index.html')
+    target_document = Nokogiri::HTML5(target_file.read)
+    failures << "#{relative}: redirect anchor is missing #{target}" unless target_document.css('[id]').any? { |node| node['id'] == target_fragment }
+  end
   canonical = redirect.fetch(:canonical)
   failures << "#{relative}: redirect target is incorrect" unless html.include?("content=\"0; url=#{target}\"")
   failures << "#{relative}: JavaScript redirect fallback is incorrect" unless html.include?("window.location.replace(#{target.to_json})")
@@ -394,6 +446,11 @@ legacy_redirects.each do |relative, redirect|
 end
 
 # Preserve heading semantics independently of visual heading classes.
+testimonial_document = Nokogiri::HTML5(site_root.join('index.html').read)
+playback_controls = testimonial_document.css('.recommendation-controls > button').map { |button| button['class'] }
+unless playback_controls == %w[recommendation-previous recommendation-playback recommendation-next]
+  failures << 'testimonials: pause/play control must be between previous and next'
+end
 vitae_document = Nokogiri::HTML5(site_root.join("vitae/index.html").read)
 previous_heading_level = 0
 vitae_document.css("main h1, main h2, main h3, main h4, main h5, main h6").each do |heading|

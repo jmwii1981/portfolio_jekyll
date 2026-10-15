@@ -22,24 +22,54 @@
     > .content-wrapper { padding-block: 0; }
     .recommendations { margin-top: 0; }
 }
-.main.about > .company-section {
+.main.about > #my-approach {
+    --approach-background: #FEFCFA;
+    background-color: var(--approach-background);
+    isolation: isolate;
     clip-path: none;
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0 calc((100% - 100vw) / 2);
+        background: var(--approach-background);
+        z-index: -1;
+        pointer-events: none;
+    }
+}
+.main.about > .company-section {
+    --company-section-background: #F5F8FC;
+    background-color: var(--company-section-background);
+    isolation: isolate;
+    // Keep neighboring sections' overhanging curves above this full-width fill.
+    z-index: 0;
+    clip-path: none;
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0 calc((100% - 100vw) / 2);
+        background: var(--company-section-background);
+        z-index: -1;
+        pointer-events: none;
+    }
     > .content-wrapper { padding-top: 0; gap: 32px; }
     .logo-carousel { margin-top: 0; }
     .company-heading {
         width: 100%;
         max-width: none;
         box-sizing: border-box;
-        // Align to the widest visible mark in the first desktop logo column.
-        padding-left: max(0px, calc((100% - 1.5rem) / 8 - 2.613rem));
+        padding-inline: 0;
         margin: 0;
-        text-align: left;
+        text-align: center;
         font-size: var(--about-heading-size);
         line-height: 1.08;
         font-weight: 500;
         letter-spacing: -.03em;
         color: #292a2b;
     }
+}
+.main.about > .company-section + .about-me .about-me-accent {
+    background: radial-gradient(circle var(--about-me-accent-size) at left top, transparent calc(100% - .5px), var(--about-me-background) 100%);
+    &::before { display: none; }
 }
 .main.about > .testimonial-section {
     --testimonial-section-background: #f5f2ef;
@@ -101,7 +131,7 @@
             flex-shrink: 0;
             // Keep the artwork attached to the title, independently of the gap
             // below their group. Moving the quote box must not move the bubble.
-            transform: translateY(calc(var(--about-heading-size) * .9 + 9px - var(--testimonial-art-size) * .916));
+            transform: translateY(calc(var(--about-heading-size) * .9 + 12px + var(--testimonial-title-box-gap) - var(--testimonial-art-size) * .916));
         }
         .recommendation-title-row .recommendation-heading {
             width: auto;
@@ -157,7 +187,7 @@
                 visibility: hidden;
                 pointer-events: none;
                 align-items: stretch;
-                justify-content: flex-start;
+                justify-content: center;
                 gap: 14px;
                 min-height: 0;
             }
@@ -195,9 +225,12 @@
                 &::before { content: ''; position: absolute; inset: -4px; }
             }
             img { display: block; width: 18px; height: 18px; }
+            svg { width: 18px; height: 18px; color: #46515c; }
+            svg[hidden] { display: none; }
             .recommendation-previous img { transform: rotate(90deg); }
             .recommendation-next img { transform: rotate(-90deg); }
         }
+        .recommendations:not(:has(.recommendation-list.is-controlled)) .recommendation-controls { display: none; }
     }
 @media (min-width: 48rem) {
     .main.about .testimonials .recommendations {
@@ -214,21 +247,52 @@
 }
 @media (max-width: 47.999rem) {
     .main.about .testimonials .recommendations {
-        --testimonial-art-size: 108.8889px;
+        --testimonial-art-size: 145.1852px;
         --testimonial-title-box-gap: 22px;
         .recommendation-title-row { justify-content: flex-start; gap: 10px; }
         .recommendation-title-art {
             scale: none;
             transform-origin: left center;
-            transform: translateY(calc(var(--about-heading-size) * .9 + 5px - var(--testimonial-art-size) * .916));
+            transform: translateY(calc(var(--about-heading-size) * .9 + 8px + var(--testimonial-title-box-gap) - var(--testimonial-art-size) * .916));
         }
         .recommendation-controls { display: none; }
-        .recommendation-list {
-            touch-action: pan-y pinch-zoom;
-            user-select: none;
-            -webkit-user-select: none;
+        .recommendation-list,
+        .recommendation-list.is-controlled {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            overscroll-behavior-x: contain;
+            scrollbar-width: none;
+            padding: 0 0 18px;
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+            touch-action: pan-x pan-y pinch-zoom;
             cursor: grab;
             &:active { cursor: grabbing; }
+            &::-webkit-scrollbar { display: none; }
+            .recommendation-item,
+            .recommendation-item.is-active {
+                display: flex;
+                flex: 0 0 calc(100% - 32px);
+                box-sizing: border-box;
+                flex-direction: column;
+                justify-content: center;
+                gap: 14px;
+                visibility: visible;
+                pointer-events: auto;
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+                margin: 0;
+                padding: 26px 24px;
+                border: 1px solid #eceef3;
+                border-radius: 18px;
+                background: #f5f7fa;
+                box-shadow: 0 7px 16px rgba(54, 69, 91, .09), 0 1px 2px rgba(54, 69, 91, .04);
+                animation: none;
+            }
         }
         .recommendation-more {
             position: relative;
@@ -237,17 +301,9 @@
             display: block;
             // Match the visible content-to-button gap: 28px plus the optical
             // breathing room below the other sections' paragraph baselines.
-            margin: 36px auto 0;
+            // The scroll rail reserves 18px below the cards for their shadows.
+            margin: 18px auto 0;
         }
-    }
-}
-@media (max-width: 68.749rem) {
-    .main.about .company-section .company-heading { text-align: left; }
-}
-@media (max-width: 42.5rem) {
-    .main.about .company-section .company-heading {
-        padding-left: 0;
-        text-align: center;
     }
 }
 // Shared continuous measures: layout breakpoints do not change type scale.
@@ -265,7 +321,7 @@
         --editorial-body-size: 24.2px;
         margin-top: 0;
         min-height: max(692px, calc(100dvh - 107px));
-        padding-block: 75px;
+        padding-block: 45px 75px;
         > .content-wrapper {
             width: 100%;
             max-width: none;
@@ -422,7 +478,7 @@
     .screen-viewer p { font-size: 1rem; margin:12px 0; }
     .screen-viewer-pan { overflow: auto; flex: 1; min-height: 0; touch-action: pan-x pan-y; }
     .screen-viewer-pan > img { display:block; width: 1100px; max-width:none; height:auto; }
-    .screen-viewer-pan .vega-screen-inset {
+    .screen-viewer-pan .project-screen-inset {
         display:block; position:relative; inset:auto; max-width:none;
         border-radius:0; transform:none; filter:none; opacity:1;
     }
@@ -516,7 +572,7 @@
     .main.about > .hero {
         min-height: 0;
         height: auto;
-        padding-top: 138px;
+        padding-top: 108px;
         padding-bottom: 118px;
     }
     .main.about .hero .hero-brand-rail {
@@ -593,7 +649,7 @@
     .main.about, .main.vitae { width: 100%; }
     .links-mobile-navigation { display: block; }
     .header .nav-panel { max-height: calc(100dvh - 32px); overflow-y: auto; }
-    .main.vitae :is(#project-vega, #project-avenapay, #project-ledgerflow):has(.vitae-device-lineup) {
+    .main.vitae .vitae-project-stage {
         .vitae-device-lineup { width: 100%; }
         .project-story-title { font-size: var(--project-heading-size); }
         .project-story-intro { font-size: var(--editorial-body-size); }

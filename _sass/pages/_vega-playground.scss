@@ -1,0 +1,73 @@
+// Original light-mode library values, not the current public Vega token release.
+@font-face { font-family: VegaOriginal; src: url('/fonts/vega-inter-regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: VegaOriginal; src: url('/fonts/vega-inter-500.ttf') format('truetype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: VegaOriginal; src: url('/fonts/vega-inter-700.ttf') format('truetype'); font-weight: 700; font-display: swap; }
+.main.vitae.vega-case {
+    .vega-play-intro { margin-bottom: 20px; }
+    .vega-play-intro p { max-width: 780px; }
+    .vega-playground {
+        --vega-action: #1362e2;
+        --vega-surface: #fcfcfc;
+        color: #203645;
+        font: 400 16px/1.5 VegaOriginal, sans-serif;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border: 1px solid #dbe2e8;
+        border-radius: 20px;
+        background: #eef2f5;
+        padding: 12px;
+        gap: 1px;
+        margin-bottom: 72px;
+        isolation: isolate;
+        overflow: hidden;
+        [hidden] { display: none !important; }
+        button, input { font-family: inherit; letter-spacing: 0; box-sizing: border-box; }
+        button, input, label { touch-action: manipulation; }
+        :is(button,input):focus-visible { outline: 2px solid var(--vega-action); outline-offset: 3px; }
+    }
+    .vega-play-cell { background: var(--vega-surface); padding: 14px 12px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; min-width: 0; }
+    .vega-play-cell--wide { grid-column: 1 / -1; }
+    .vega-component-name { font-size: 14px; line-height: 22px; font-weight: 500; display: flex; justify-content: space-between; gap: 8px; }
+    .vega-component-name output { color: var(--vega-action); font-variant-numeric: tabular-nums; }
+    .vega-component-note { color: #596670; font-size: 12px; line-height: 18px; min-height: 18px; }
+    .vega-control-stage { min-height: 44px; display: flex; align-items: center; }
+    .vega-original-button { display: inline-flex; align-items: center; justify-content: center; border: 0; background: var(--vega-action); color: var(--vega-surface); border-radius: 9999px; padding: 8px 24px; font: 700 16px/24px VegaOriginal,sans-serif; max-width: 100%; overflow-wrap: anywhere; cursor: pointer; }
+    .vega-original-button:active { filter: brightness(.9); }
+    .vega-toggle-label { display: flex; align-items: center; gap: 12px; min-height: 44px; cursor: pointer; }
+    .vega-original-toggle { appearance: none; -webkit-appearance: none; width: 56px; height: 32px; flex: 0 0 56px; padding: 4px; margin: 0; background: rgba(107,116,125,.7); border: 0; border-radius: 9999px; cursor: pointer; }
+    .vega-original-toggle::before { content: ''; display: block; width: 24px; height: 24px; border-radius: 50%; background: var(--vega-surface); }
+    .vega-original-toggle:checked { background: var(--vega-action); }
+    .vega-original-toggle:checked::before { transform: translateX(24px); }
+    .vega-toggle-on, .vega-original-toggle:checked ~ .vega-toggle-off { display: none; }
+    .vega-original-toggle:checked ~ .vega-toggle-on { display: inline; }
+    .vega-original-input { width: 100%; min-width: 0; padding: 8px 12px; border: 1px solid #abc6d8; border-radius: 8px; background: var(--vega-surface); color: #203645; font-size: 16px; line-height: 24px; }
+    .vega-original-input::placeholder { color: #6b747d; opacity: 1; } // Legible placeholder in the interactive adaptation.
+    .vega-original-input:focus { border-color: var(--vega-action); }
+    .vega-original-range { --vega-range-value: 25%; appearance: none; -webkit-appearance: none; display: block; width: 100%; margin: 0; padding: 0; height: 44px; background: transparent; cursor: grab; }
+    .vega-original-range:active { cursor: grabbing; }
+    .vega-original-range::-webkit-slider-runnable-track { height: 6px; border-radius: 9999px; background: linear-gradient(to right, var(--vega-action) var(--vega-range-value), #dee1e3 var(--vega-range-value)); }
+    .vega-original-range::-moz-range-track { height: 6px; border-radius: 9999px; background: #dee1e3; }
+    .vega-original-range::-moz-range-progress { height: 6px; background: var(--vega-action); }
+    .vega-original-range::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 30px; height: 30px; border: 0; margin-top: -11px; background: url('/images/ui/vega/review/slider-handle.svg') no-repeat center; }
+    .vega-original-range::-moz-range-thumb { width: 30px; height: 30px; border: 0; background: url('/images/ui/vega/review/slider-handle.svg') no-repeat center; }
+    .vega-playground:not(.is-ready) .vega-original-range::-webkit-slider-runnable-track { background: #dee1e3; }
+    .vega-play-footer { grid-column: 1 / -1; padding: 14px 8px 2px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: 11px; color: #53616d; }
+    .vega-play-reset { background: transparent; color: #1362e2; border: 0; font-weight: 700; min-height: 44px; cursor: pointer; }
+    #vega-story { scroll-margin-top: 70px; }
+}
+@media (min-width: 48rem) {
+    .main.vitae.vega-case {
+        .vega-playground { padding: 24px; }
+        .vega-play-cell { padding: 24px 32px; }
+        .vega-play-cell--wide { grid-column: auto; }
+    }
+}
+@media (forced-colors: active) {
+    .vega-playground input { appearance: auto !important; }
+    .vega-playground input::before { display: none !important; }
+    .vega-playground button { border: 1px solid ButtonText !important; }
+}
+@media (min-width: 75rem) {
+    .main.vitae.vega-case .vega-playground { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .main.vitae.vega-case .vega-play-cell { padding: 24px 20px; }
+}

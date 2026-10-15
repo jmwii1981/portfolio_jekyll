@@ -3,7 +3,7 @@ email: hello@janmichael.io
 description: "Jan Michael Wallace II is a fractional product design leader helping growing companies turn product ambiguity into clear strategy, scalable systems, and durable shipped work."
 baseurl: ""
 url: "https://janmichael.io"
-asset_version: "2026.10.02.2"
+asset_version: "2026.10.13.1"
 github_username: jmwii1981
 sass:
   sass_dir: _sass
@@ -23,8 +23,14 @@ exclude:
   - README.md
   - PROJECT_REQUIREMENTS.md
   - design-qa.md
+  - code-review-2026-10-13.md
   - LICENSE
   - scripts/README.md
   - scripts/audit-site.rb
   - scripts/network.test.mjs
   - design-assets
+  - images/ui/emoji-sources.md
+  - images/ui/vega/figma/README.md
+  - images/ui/vega/figma/index.html
+  - images/vitae/vega-screen-concepts.md
+  - scripts/vendor/vega/CHART-LICENSE.md

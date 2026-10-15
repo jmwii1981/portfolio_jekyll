@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+  <defs>
+    <linearGradient id="paper" x2="0" y2="1"><stop stop-color="#f1f7fc"/><stop offset="1" stop-color="#b9cad8"/></linearGradient>
+    <linearGradient id="fold" x2="0" y2="1"><stop stop-color="#e7f0f8"/><stop offset="1" stop-color="#c5d5e3"/></linearGradient>
+    <linearGradient id="left"><stop stop-color="#d7e4ef"/><stop offset="1" stop-color="#aebfce"/></linearGradient>
+    <linearGradient id="edge" x2="0" y2="1"><stop stop-color="#8b9fae"/><stop offset="1" stop-color="#596f80"/></linearGradient>
+  </defs>
+  <rect x="2" y="29" width="156" height="103" rx="3" fill="url(#paper)" stroke="#8b9eae" stroke-width=".8"/>
+  <path d="M3 32 54 82 3 130Z" fill="url(#left)"/>
+  <path d="m157 32-51 50 51 48Z" fill="#c2d2df"/>
+  <path d="m4 130 65-65q11-10 22 0l65 65" fill="url(#paper)" stroke="#738b9e" stroke-width="1"/>
+  <path d="m3 31 64 69q13 15 26 0l64-69" fill="url(#edge)"/>
+  <path d="m3 29 64 68q13 14 26 0l64-68" fill="url(#fold)" stroke="#8ea4b6" stroke-width="1"/>
+  <path d="M3 31v99m154-99v99M4 131h152" fill="none" stroke="#fff" stroke-opacity=".65"/>
+</svg>

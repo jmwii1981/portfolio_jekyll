@@ -41,8 +41,14 @@
     })).observe(document.documentElement, {childList: true, subtree: true});
 
     // Vitae's device choreography has its own scroll controller below.
-    const { initializeContentScroll, scrollExit } = await import(`./contentScroll.mjs${moduleVersion}`);
-    initializeContentScroll();
+    let scrollExit = () => 0;
+    const initializeOptionalModule = (path, initialize) => import(`${path}${moduleVersion}`)
+        .then(initialize)
+        .catch(error => console.warn(`Optional enhancement unavailable: ${path}`, error));
+    initializeOptionalModule('./contentScroll.mjs', module => {
+        scrollExit = module.scrollExit;
+        module.initializeContentScroll();
+    });
     // A nonessential screen viewer must never prevent navigation/form setup.
     import(`./screenEnlargement.mjs${moduleVersion}`)
         .then(({ initializeScreenEnlargement }) => initializeScreenEnlargement())
@@ -74,16 +80,14 @@
         const previous = artworkStates.get(element);
         if (previous === hidden) return;
         artworkStates.set(element, hidden);
-        element.getAnimations().filter(animation => animation.id === 'responsive-art').forEach(animation => animation.cancel());
+        element.classList.remove('responsive-art-enter', 'responsive-art-exit');
         if (previous === undefined || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         const base = getComputedStyle(element).transform;
         const rest = base === 'none' ? '' : base;
         const outside = `${rest} translateX(${side === 'left' ? -100 : 100}px)`;
-        const frames = [{visibility: 'visible', opacity: 1, transform: rest || 'none'},
-            {visibility: 'visible', opacity: 0, transform: outside}];
-        element.animate(hidden ? frames : frames.slice().reverse(), {
-            id: 'responsive-art', duration: 280, easing: 'cubic-bezier(.22,.61,.36,1)'
-        });
+        element.style.setProperty('--art-rest-transform', rest || 'none');
+        element.style.setProperty('--art-outside-transform', outside);
+        element.classList.add(hidden ? 'responsive-art-exit' : 'responsive-art-enter');
     };
     const vitaeHero = document.querySelector('.main.vitae > .vitae-intro');
     if (vitaeHero) {
@@ -240,7 +244,7 @@
                 // copy, reparent controls, or rescale its media during resize.
                 art.style.visibility = '';
                 art.classList.remove('art-no-room');
-                art.getAnimations().filter(animation => animation.id === 'responsive-art').forEach(animation => animation.cancel());
+                art.classList.remove('responsive-art-enter', 'responsive-art-exit');
                 return;
             }
             const rect = frame.getBoundingClientRect();
@@ -261,7 +265,7 @@
                 frame.style.setProperty('--composition-min-height', stacked ? '0px' : `${artWidth}px`);
                 art.style.visibility = '';
                 art.classList.remove('art-no-room');
-                art.getAnimations().filter(animation => animation.id === 'responsive-art').forEach(animation => animation.cancel());
+                art.classList.remove('responsive-art-enter', 'responsive-art-exit');
                 return;
             }
             if (innerWidth < 1100 && art.matches('.help-artwork, .testimonials-artwork-shell')) {
@@ -270,7 +274,7 @@
                 frame.style.setProperty('--composition-min-height', '0px');
                 art.style.visibility = '';
                 art.classList.remove('art-no-room');
-                art.getAnimations().filter(animation => animation.id === 'responsive-art').forEach(animation => animation.cancel());
+                art.classList.remove('responsive-art-enter', 'responsive-art-exit');
                 return;
             }
             const available = Math.max(0, Math.min(rect.width, innerWidth - (innerWidth < 768 ? 0 : 60) - rect.left));
@@ -390,11 +394,13 @@
 
             const getFieldErrorMessage = (field) => {
                 if (field.disabled) return '';
+                const isProjectField = Boolean(field.closest('#contact-project-details'));
+                if (isProjectField && !form.querySelector('#contact-has-project').checked) return '';
                 const fieldName = getFieldName(field);
 
                 if (field.validity.customError) return field.validationMessage;
 
-                if (field.required && !field.value.trim()) {
+                if ((field.required || isProjectField) && !field.value.trim()) {
                     if (field.tagName === 'SELECT') return 'Choose a budget, or select “Let’s figure it out.”';
                     return `Enter your ${fieldName}.`;
                 }
@@ -433,22 +439,6 @@
                 requiredFields.forEach((field) => setFieldError(field));
             };
 
-            const projectDetails = form.querySelector('#contact-project-details');
-            const projectChoices = form.querySelectorAll('[name="Have a project?"]');
-            const syncProjectDetails = () => {
-                if (!projectDetails) return;
-                const hasProject = form.querySelector('[name="Have a project?"]:checked')?.value === 'Yes';
-                projectDetails.hidden = !hasProject;
-                projectDetails.querySelectorAll('input, select, textarea').forEach((field) => {
-                    field.disabled = !hasProject;
-                    field.required = hasProject;
-                    if (!hasProject) setFieldError(field);
-                });
-            };
-            projectChoices.forEach((choice) => choice.addEventListener('change', syncProjectDetails));
-            form.addEventListener('reset', () => requestAnimationFrame(syncProjectDetails));
-            syncProjectDetails();
-
             requiredFields.forEach((field) => {
                 field.addEventListener('invalid', () => {
                     setFieldError(field, getFieldErrorMessage(field));
@@ -477,7 +467,9 @@
                 if (invalidFields.length) {
                     setStatus();
                     invalidFields.forEach(({ field, message }) => setFieldError(field, message));
-                    invalidFields[0].field.focus();
+                    const firstInvalid = invalidFields[0].field;
+                    const visibleControl = firstInvalid.closest('.contact-select-wrap')?.querySelector('button');
+                    (visibleControl || firstInvalid).focus();
                     return;
                 }
 
@@ -490,6 +482,10 @@
 
                 try {
                     const submission = new FormData(form);
+                    // CSS owns the toggle; submission alone applies its data rules.
+                    if (!form.querySelector('#contact-has-project').checked) {
+                        form.querySelectorAll('#contact-project-details [name]').forEach(field => submission.delete(field.name));
+                    }
                     // Prefix only the outgoing subject, never the visible field.
                     submission.set('subject', `PROJECT INQUIRY– ${submission.get('subject') || ''}`);
                     const { data, response } = await fetchJsonWithTimeout(form.action, {
@@ -623,12 +619,13 @@
         const initializeVitaeProjectIndex = () => {
             const projectIndex = document.querySelector('.vitae-project-index');
             const projectList = projectIndex?.querySelector('.vitae-project-index-list');
-            const projectSummaries = projectIndex?.closest('.vitae-project-summaries');
-            const projectLinks = Array.from(projectIndex?.querySelectorAll('a[href^="#project-"]') || []);
+            const isChapterIndex = projectIndex?.hasAttribute('data-chapter-index');
+            const projectSummaries = projectIndex?.closest('.vitae-project-summaries, [data-chapter-index-scope]');
+            const projectLinks = Array.from(projectIndex?.querySelectorAll('a[href^="#"]') || []);
             const projectEntries = projectLinks.map((link) => {
                 const projectId = link.getAttribute('href')?.slice(1);
                 const project = projectId ? document.getElementById(projectId) : null;
-                const heading = project?.querySelector('.project-story-title');
+                const heading = project?.querySelector(isChapterIndex ? 'h1, h2' : '.project-story-title');
                 const item = link.closest('li');
 
                 return project && heading && item ? { heading, item, link, project, projectId } : null;
@@ -729,7 +726,12 @@
                     if (currentNavigationToken !== navigationToken) return;
 
                     navigationFrameId = null;
-                    window.scrollTo({ top: destinationTop, behavior: 'instant' });
+                    // An embedded demo above a chapter can finish loading during navigation.
+                    // Re-measure the destination so its heading stays below the shared index.
+                    const settledTop = isChapterIndex
+                        ? window.scrollY + entry.project.getBoundingClientRect().top - expectedTop
+                        : destinationTop;
+                    window.scrollTo({ top: settledTop, behavior: 'instant' });
                     entry.heading.focus({ preventScroll: true });
                     navigationEntry = null;
                     requestProjectIndexUpdate();
@@ -771,7 +773,7 @@
                 const summariesPaddingTop = Number.parseFloat(summariesStyle.paddingTop) || 0;
                 const anchorTop = summariesTop + summariesPaddingTop;
                 const bottomDockTop = window.innerHeight - projectIndex.offsetHeight;
-                const shouldBottomDock = desktopDockingQuery.matches && anchorTop > bottomDockTop + 0.5;
+                const shouldBottomDock = !isChapterIndex && desktopDockingQuery.matches && anchorTop > bottomDockTop + 0.5;
 
                 projectIndex.style.setProperty('--vitae-project-index-fixed-left', `${summariesRect.left}px`);
                 projectIndex.style.setProperty('--vitae-project-index-fixed-width', `${summariesRect.width}px`);
@@ -792,7 +794,7 @@
                 // Reveal 100px before reaching the sticky boundary.
                 // Keep layout measurable while excluding hidden navigation from input.
                 const beforeExit = projectSummaries.getBoundingClientRect().bottom > stickyTop + projectIndexRect.height + 100;
-                const isAvailable = desktopDockingQuery.matches && !isBottomDocked && currentTop <= stickyTop + 100 && beforeExit;
+                const isAvailable = isChapterIndex || (desktopDockingQuery.matches && !isBottomDocked && currentTop <= stickyTop + 100 && beforeExit);
                 projectIndex.classList.toggle('is-in-view', isAvailable);
                 projectIndex.inert = !isAvailable;
                 projectIndex.setAttribute('aria-hidden', String(!isAvailable));
@@ -912,6 +914,38 @@
                 event.preventDefault();
             }, { capture: true, passive: false });
             const panel = container.querySelector('.nav-panel');
+            const emojiMotion = window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)');
+            nav.querySelectorAll('.tab').forEach(link => {
+                let emojiRunning = false;
+                link.addEventListener('pointerenter', async event => {
+                    if (event.pointerType === 'touch' || !emojiMotion.matches ||
+                        emojiRunning) return;
+
+                    // Keep the one-shot animation alive after the pointer leaves.
+                    emojiRunning = true;
+                    let fadeOut;
+                    try {
+                        if (link.closest('#vitae-tab, #contact-tab')) {
+                            fadeOut = link.querySelector('.menu-emoji').animate(
+                                [{ opacity: 1 }, { opacity: 0 }],
+                                { duration: 60, easing: 'ease-out', fill: 'forwards' }
+                            );
+                            await fadeOut.finished;
+                        }
+                        if (!emojiMotion.matches) return;
+                        link.classList.add('emoji-animating');
+                        const animations = link.getAnimations({ subtree: true })
+                            .filter(animation => animation.animationName?.startsWith('menu-'));
+                        // The entrance starts transparent, so releasing the fade has no flash.
+                        fadeOut?.cancel();
+                        await Promise.allSettled(animations.map(animation => animation.finished));
+                    } finally {
+                        fadeOut?.cancel();
+                        link.classList.remove('emoji-animating');
+                        emojiRunning = false;
+                    }
+                });
+            });
             const menuHoverMotion = window.matchMedia('(min-width: 48rem) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
             nav.querySelectorAll('.tab-container').forEach((row) => {
                 const link = row.querySelector('.tab');
@@ -1066,6 +1100,8 @@
             };
             mobileDock.addEventListener('change', arrangeIsland);
             const main = document.querySelector('main');
+            const allDockSections = main?.hasAttribute('data-dock-all-sections');
+            container.classList.toggle('has-all-section-dots', Boolean(allDockSections));
             // Navigation landmarks describe full content sections (including Vitae
             // project articles), not nested cards, galleries, or form fields.
             // Pages can explicitly opt into a different set of dock landmarks.
@@ -1091,7 +1127,7 @@
                     || section.querySelector('h2, h1, h3')?.textContent.trim() || `Section ${index + 1}`;
                 const link = document.createElement('a');
                 link.className = 'dock-dot';
-                if (index === 0 || index === sections.length - 1) link.classList.add('dock-dot-endpoint');
+                if (!allDockSections && (index === 0 || index === sections.length - 1)) link.classList.add('dock-dot-endpoint');
                 link.href = `#${section.id}`;
                 link.setAttribute('aria-label', label);
                 const tooltip = document.createElement('span');
@@ -1102,10 +1138,119 @@
                 dotGroup.append(link);
             });
             const sectionLinks = Array.from(container.querySelectorAll('.dock-dot'));
+            const tooltipControls = controls.querySelectorAll('.dock-dot, .dock-arrow, .nav-toggle, .dock-home');
+            let dockTooltipsReady = false;
+            let tooltipTimer;
+            let tooltipExitTimer;
+            let shownTooltipControl = null;
+            let tooltipTravel;
+            let lastTooltipBounds = null;
+            const rememberTooltipBounds = () => {
+                const bounds = shownTooltipControl?.querySelector('.dock-dot-label')?.getBoundingClientRect();
+                // Hidden endpoint controls have an empty rectangle at the viewport
+                // origin. Retain their last rendered position during scroll handoffs.
+                if (bounds?.width > 0 && bounds.height > 0) lastTooltipBounds = bounds;
+                return lastTooltipBounds;
+            };
+            const dockReducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+            const cancelTooltipMotion = () => {
+                tooltipTravel?.cancel();
+                tooltipControls.forEach(control => control.querySelector('.dock-dot-label')?.getAnimations()
+                    .filter(animation => animation.id === 'active-dot-shake')
+                    .forEach(animation => animation.cancel()));
+            };
+            dockReducedMotion.addEventListener('change', () => {
+                if (dockReducedMotion.matches) cancelTooltipMotion();
+            });
+            const showDockTooltip = control => {
+                clearTimeout(tooltipExitTimer);
+                const label = control.querySelector('.dock-dot-label');
+                const previousLabel = shownTooltipControl?.querySelector('.dock-dot-label');
+                const previous = previousLabel ? rememberTooltipBounds() : null;
+                cancelTooltipMotion();
+                // Retire the outgoing label immediately; fading both labels
+                // while the next one travels from this position doubles the text.
+                if (previousLabel && previousLabel !== label) {
+                    const transition = previousLabel.style.transition;
+                    previousLabel.style.transition = 'none';
+                    shownTooltipControl.classList.remove('is-tooltip-ready');
+                    void previousLabel.offsetWidth;
+                    previousLabel.style.transition = transition;
+                }
+                tooltipControls.forEach(item => item.classList.toggle('is-tooltip-ready', item === control));
+                shownTooltipControl = control;
+                const next = label?.getBoundingClientRect();
+                if (next?.width > 0 && next.height > 0) lastTooltipBounds = next;
+                if (previous?.width > 0 && previous.height > 0 && next?.width > 0 && next.height > 0
+                    && previousLabel !== label && !dockReducedMotion.matches) {
+                    const x = previous.right - next.right;
+                    const y = previous.top + previous.height / 2 - next.top - next.height / 2;
+                    tooltipTravel = label.animate([
+                        { translate: `${x}px ${y}px`, opacity: 1 },
+                        { translate: '0px 0px', opacity: 1 }
+                    ], { duration: 200, easing: 'cubic-bezier(.22,.61,.36,1)' });
+                }
+            };
+            const resetDockTooltips = () => {
+                clearTimeout(tooltipTimer);
+                clearTimeout(tooltipExitTimer);
+                cancelTooltipMotion();
+                shownTooltipControl = null;
+                lastTooltipBounds = null;
+                dockTooltipsReady = false;
+                tooltipControls.forEach(control => control.classList.remove('is-tooltip-ready'));
+            };
+            // The glass tray has gaps and oversized arrow hit areas. A parent's
+            // pointerleave can fire while the cursor is still visually in the dock.
+            // Treat its full visual bounds as one continuous tooltip session.
+            document.addEventListener('pointermove', event => {
+                if (event.pointerType === 'touch' || !dockTooltipsReady) return;
+                const tray = (mobileDock.matches ? dotGroup : controls).getBoundingClientRect();
+                const inset = 12;
+                if (event.clientX < tray.left - inset || event.clientX > tray.right + inset ||
+                    event.clientY < tray.top - inset || event.clientY > tray.bottom + inset) {
+                    resetDockTooltips();
+                }
+            }, { passive: true });
+            document.documentElement.addEventListener('pointerleave', resetDockTooltips);
+            controls.addEventListener('pointercancel', resetDockTooltips);
+            window.addEventListener('blur', resetDockTooltips);
+            tooltipControls.forEach(control => {
+                const clearTooltip = () => {
+                    clearTimeout(tooltipTimer);
+                    clearTimeout(tooltipExitTimer);
+                    tooltipExitTimer = setTimeout(() => {
+                        if (shownTooltipControl === control) {
+                            // Release WAAPI's opacity before the CSS exit fade.
+                            cancelTooltipMotion();
+                            shownTooltipControl = null;
+                            lastTooltipBounds = null;
+                        }
+                        control.classList.remove('is-tooltip-ready');
+                    }, 140);
+                };
+                control.addEventListener('pointerenter', event => {
+                    clearTimeout(tooltipTimer);
+                    clearTimeout(tooltipExitTimer);
+                    if (event.pointerType === 'touch') return;
+                    if (dockTooltipsReady) {
+                        if (!control.hidden && !control.disabled) showDockTooltip(control);
+                        return;
+                    }
+                    tooltipTimer = setTimeout(() => {
+                        if (control.matches(':hover') && !control.hidden && !control.disabled) {
+                            dockTooltipsReady = true;
+                            showDockTooltip(control);
+                        }
+                    }, 1000);
+                });
+                control.addEventListener('pointerleave', clearTooltip);
+                control.addEventListener('pointercancel', clearTooltip);
+            });
             arrangeIsland();
             const syncSections = () => {
                 if (!pageSections.length) return;
-                let index = -1;
+                let index = allDockSections ? 0 : -1;
                 pageSections.forEach((section, i) => {
                     if (section.getBoundingClientRect().top <= window.innerHeight * .35) index = i;
                 });
@@ -1114,9 +1259,11 @@
                     const active = sections[i] === pageSections[index];
                     if (active) {
                         link.setAttribute('aria-current', 'location');
-                        link.setAttribute('aria-disabled', 'true');
-                        link.removeAttribute('href');
-                        link.tabIndex = -1;
+                        if (!allDockSections) {
+                            link.setAttribute('aria-disabled', 'true');
+                            link.removeAttribute('href');
+                            link.tabIndex = -1;
+                        }
                     } else {
                         link.removeAttribute('aria-current');
                         link.removeAttribute('aria-disabled');
@@ -1129,10 +1276,35 @@
             sectionLinks.forEach((link, index) => link.addEventListener('click', event => {
                 event.preventDefault();
                 if (event.isTrusted && performance.now() < suppressTouchClickUntil) return;
-                if (link.getAttribute('aria-current') === 'location') return;
+                if (link.getAttribute('aria-current') === 'location') {
+                    const tooltip = link.querySelector('.dock-dot-label');
+                    if (tooltip && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                        tooltip.getAnimations().filter(animation => animation.id === 'active-dot-shake')
+                            .forEach(animation => animation.cancel());
+                        const shake = tooltip.animate([
+                            { translate: '0 0' },
+                            { translate: '-3px 0' },
+                            { translate: '3px 0' },
+                            { translate: '-2px 0' },
+                            { translate: '2px 0' },
+                            { translate: '0 0' }
+                        ], { duration: 320, easing: 'ease-in-out' });
+                        shake.id = 'active-dot-shake';
+                    }
+                    return;
+                }
                 setOpen(false);
                 const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
-                sections[index].scrollIntoView({ block: 'start', behavior });
+                let destination = sections[index];
+                if (allDockSections) {
+                    const section = sections[index];
+                    const heading = document.getElementById(section.getAttribute('aria-labelledby')) || section;
+                    heading.setAttribute('tabindex', '-1');
+                    heading.focus({ preventScroll: true });
+                    if (!section.contains(heading)) destination = heading;
+                    history.replaceState(null, '', `#${section.id}`);
+                }
+                destination.scrollIntoView({ block: 'start', behavior });
             }));
             // Capture the gesture so lifting selects once, without scrolling
             // the page or navigating through every section under the thumb.
@@ -1210,21 +1382,32 @@
             let scrollFrame = 0;
             const syncTop = () => {
                 scrollFrame = 0;
+                rememberTooltipBounds();
                 syncSections();
-                const bottomSection = pageSections.length > 1 ? pageSections[pageSections.length - 1] : document.querySelector('footer');
-                const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4
-                    || (bottomSection && bottomSection.getBoundingClientRect().top < window.innerHeight - 24);
+                const bottomSection = pageSections[pageSections.length - 1] || document.querySelector('footer');
+                const bottomBounds = bottomSection?.getBoundingClientRect();
+                const pageBottomReached = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
+                const atBottom = !bottomBounds || bottomBounds.top <= 40
+                    || (pageBottomReached && window.innerHeight > bottomBounds.height);
                 controls.classList.toggle('at-bottom', Boolean(atBottom));
-                bottomButton.tabIndex = !mobileDock.matches && atBottom ? -1 : 0;
                 if (atBottom && document.activeElement === bottomButton) toggle.focus({ preventScroll: true });
+                bottomButton.hidden = atBottom;
+                bottomButton.disabled = atBottom;
+                bottomButton.inert = atBottom;
+                bottomButton.tabIndex = atBottom ? -1 : 0;
+                bottomButton.setAttribute('aria-hidden', String(atBottom));
                 bottomSlot.inert = Boolean(atBottom);
                 bottomSlot.setAttribute('aria-hidden', String(Boolean(atBottom)));
                 if (!topButton) return;
                 const visible = window.scrollY > Math.max(320, window.innerHeight * .65);
                 const focusedControl = document.activeElement;
                 controls.classList.toggle('has-top', visible);
-                topButton.tabIndex = mobileDock.matches || visible ? 0 : -1;
                 if (!visible && focusedControl === topButton) toggle.focus({ preventScroll: true });
+                topButton.hidden = !visible;
+                topButton.disabled = !visible;
+                topButton.inert = !visible;
+                topButton.tabIndex = visible ? 0 : -1;
+                topButton.setAttribute('aria-hidden', String(!visible));
                 topSlot.inert = !visible;
                 topSlot.setAttribute('aria-hidden', String(!visible));
             };
@@ -1241,7 +1424,7 @@
                 setOpen(false);
                 const lastSection = pageSections[pageSections.length - 1] || document.querySelector('footer');
                 if (!lastSection) return;
-                const destination = window.scrollY + lastSection.getBoundingClientRect().top - 75;
+                const destination = window.scrollY + lastSection.getBoundingClientRect().top - 40;
                 window.scrollTo({ top: Math.max(0, destination), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
             });
             const syncDotOverflow = () => {
@@ -1254,6 +1437,7 @@
             window.addEventListener('resize', syncDotOverflow, { passive: true });
             syncDotOverflow();
             syncTop();
+            initializeOptionalModule('./dockPosition.mjs', module => module.initializeDockPosition());
             document.documentElement.classList.add('navigation-ready');
             document.documentElement.classList.remove('navigation-pending');
         };
@@ -1423,6 +1607,15 @@
             let currentIndex = mobileRecommendations.matches
                 ? Math.max(0, items.findIndex(item => item.textContent.includes('Jessica Longley'))) : 0;
             let timerId = null;
+            let paused = reducedMotionQuery.matches;
+            let hovering = false;
+            const playback = carousel.closest('.recommendations').querySelector('.recommendation-playback');
+            const updatePlayback = () => {
+                playback.setAttribute('aria-label', paused ? 'Play testimonials' : 'Pause testimonials');
+                playback.querySelector('.playback-pause').toggleAttribute('hidden', paused);
+                playback.querySelector('.playback-play').toggleAttribute('hidden', !paused);
+                carousel.setAttribute('aria-live', !mobileRecommendations.matches && paused ? 'polite' : 'off');
+            };
 
             if (items.length < 2) return;
 
@@ -1431,12 +1624,17 @@
                     const isActive = itemIndex === index;
                     item.classList.remove('is-entering');
                     item.classList.toggle('is-active', isActive);
-                    item.hidden = !isActive;
+                    item.hidden = !mobileRecommendations.matches && !isActive;
                 });
 
                 currentIndex = index;
 
                 const activeItem = items[currentIndex];
+                if (mobileRecommendations.matches) {
+                    const left = activeItem.getBoundingClientRect().left - carousel.getBoundingClientRect().left + carousel.scrollLeft;
+                    carousel.scrollTo({left, behavior: shouldAnimate && !reducedMotionQuery.matches ? 'smooth' : 'instant'});
+                    return;
+                }
 
                 if (shouldAnimate && !reducedMotionQuery.matches && activeItem) {
                     void activeItem.offsetWidth;
@@ -1448,7 +1646,7 @@
                 window.clearTimeout(timerId);
                 timerId = null;
 
-                if (document.hidden || reducedMotionQuery.matches || mobileRecommendations.matches) return;
+                if (document.hidden || paused || hovering || mobileRecommendations.matches) return;
 
                 timerId = window.setTimeout(showNextItem, intervalMs);
             };
@@ -1459,7 +1657,9 @@
             };
 
             const syncAutomaticAdvance = () => {
-                if (document.hidden || reducedMotionQuery.matches) {
+                if (reducedMotionQuery.matches) paused = true;
+                updatePlayback();
+                if (document.hidden || paused) {
                     window.clearTimeout(timerId);
                     timerId = null;
                     return;
@@ -1479,7 +1679,9 @@
             // Pointer capture supports both real phone swipes and dragging a
             // narrow desktop preview, even when the gesture ends outside the card.
             carousel.addEventListener('pointerdown', event => {
-                if (!mobileRecommendations.matches || !event.isPrimary || event.button !== 0) return;
+                // Touch uses native horizontal scrolling and CSS snap; mouse drag
+                // remains available when previewing a narrow desktop window.
+                if (!mobileRecommendations.matches || event.pointerType !== 'mouse' || !event.isPrimary || event.button !== 0) return;
                 swipeStart = { x: event.clientX, y: event.clientY, id: event.pointerId };
                 carousel.setPointerCapture(event.pointerId);
             });
@@ -1504,7 +1706,30 @@
             const recommendations = carousel.closest('.recommendations');
             recommendations.querySelector('.recommendation-previous')?.addEventListener('click', showPreviousItem);
             recommendations.querySelector('.recommendation-next')?.addEventListener('click', showNextItem);
-            mobileRecommendations.addEventListener('change', syncAutomaticAdvance);
+            playback.addEventListener('click', () => {
+                paused = !paused;
+                updatePlayback();
+                queueNextItem();
+            });
+            carousel.addEventListener('mouseenter', () => { hovering = true; queueNextItem(); });
+            carousel.addEventListener('mouseleave', () => { hovering = false; queueNextItem(); });
+            carousel.addEventListener('focusin', () => { paused = true; updatePlayback(); queueNextItem(); });
+            let scrollFrame = 0;
+            carousel.addEventListener('scroll', () => {
+                if (!mobileRecommendations.matches || scrollFrame) return;
+                scrollFrame = requestAnimationFrame(() => {
+                    scrollFrame = 0;
+                    const left = carousel.getBoundingClientRect().left;
+                    currentIndex = items.reduce((nearest, item, index) =>
+                        Math.abs(item.getBoundingClientRect().left - left) < Math.abs(items[nearest].getBoundingClientRect().left - left) ? index : nearest, 0);
+                    items.forEach((item, index) => item.classList.toggle('is-active', index === currentIndex));
+                });
+            }, {passive: true});
+            mobileRecommendations.addEventListener('change', () => {
+                activateItem(currentIndex);
+                syncAutomaticAdvance();
+            });
+            updatePlayback();
             activateItem(currentIndex);
             queueNextItem();
 
@@ -1937,10 +2162,8 @@
         safelyInitialize('vitae project index', initializeVitaeProjectIndex);
         safelyInitialize('vitae section entrances', initializeVitaeEntrances);
         safelyInitialize('mobile navigation', initializeMobileNavigation);
-        const { initializeProfilePreview } = await import(`./profilePreview.mjs${moduleVersion}`);
-        safelyInitialize('profile preview', initializeProfilePreview);
-        const { initializeLiquidGlassNavigation } = await import(`./glass/initializeLiquidGlassNavigation.mjs${moduleVersion}`);
-        safelyInitialize('dock glass', initializeLiquidGlassNavigation);
+        initializeOptionalModule('./profilePreview.mjs', module => module.initializeProfilePreview());
+        initializeOptionalModule('./glass/initializeLiquidGlassNavigation.mjs', module => module.initializeLiquidGlassNavigation());
         safelyInitialize('dock reflections', initializeDockReflections);
         safelyInitialize('glass button reflections', initializeGlassButtonReflections);
         safelyInitialize('project galleries', initializeProjectGalleries);

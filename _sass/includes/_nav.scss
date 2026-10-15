@@ -1,4 +1,50 @@
 .nav-container { position: relative; }
+.dock-drag-handle {
+    position: relative;
+    top: 5px;
+    flex: none;
+    align-self: center;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: calc(100% + 2 * var(--dock-inset, 6px) - 22px);
+    height: 13px;
+    box-sizing: border-box;
+    margin: 2px 0 3px;
+    padding: 5px 0 3px;
+    border: 0;
+    border-top: 1px solid transparent;
+    border-radius: 0;
+    background: transparent;
+    color: #626d7b;
+    box-shadow: none;
+    cursor: grab;
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity .15s ease;
+    touch-action: none;
+    svg { position: relative; top: -1px; width: 27px; height: 4px; overflow: visible; fill: none; stroke: currentColor; stroke-width: 1; stroke-linecap: round; opacity: .15; }
+    &.is-dragging { cursor: grabbing; }
+    &:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+}
+.body--vitae .dock-drag-handle {
+    color: #c8d2e0;
+}
+@media (max-width: 47.999rem) {
+    .dock-dots > .dock-drag-handle { width: calc(100% - 20px); }
+}
+.nav-controls:hover .dock-drag-handle,
+.dock-drag-handle:focus-visible,
+.dock-drag-handle.is-dragging {
+    opacity: 1;
+    pointer-events: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+    .dock-drag-handle { transition: none; }
+}
+@media (hover: none), (pointer: coarse) {
+    .dock-drag-handle { display: none; }
+}
 // Navigation controls should not open system link previews or text callouts.
 .nav-controls,
 .nav-controls *,
@@ -209,6 +255,8 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
         transition: opacity .18s ease, background-color .18s ease, width .2s ease, height .2s ease;
     }
     &[aria-current="location"]::before {
+        width: 11px;
+        height: 11px;
         background: #313d5b;
         opacity: 1;
         transform: none;
@@ -218,12 +266,12 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
         opacity: 1;
         transform: none;
     }
-    &[aria-current="location"] { cursor: default; pointer-events: none; }
+    &[aria-current="location"] { cursor: default; pointer-events: auto; }
     &[aria-current="location"]:focus-visible::before { background: #313d5b; }
     &:focus-visible { outline: 2px solid currentColor; outline-offset: -3px; }
 }
 @media (min-width: 48rem) {
-    .dock-dot[aria-current="location"]::before { width: 5px; height: 5px; }
+    .dock-dot[aria-current="location"]::before { width: 11px; height: 11px; }
 }
 @media (hover: hover) and (pointer: fine) {
     .dock-dots {
@@ -250,8 +298,8 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
     }
     .nav-controls .dock-dots:hover .dock-dot::after,
     .nav-controls .dock-dots:has(.dock-dot:focus-visible) .dock-dot::after { left: -7.5px; right: -7.5px; }
-    .nav-controls .dock-dots:hover .dock-dot:not([aria-current="location"]),
-    .nav-controls .dock-dots:has(.dock-dot:focus-visible) .dock-dot:not([aria-current="location"]) { pointer-events: auto; }
+    .nav-controls .dock-dots:hover .dock-dot,
+    .nav-controls .dock-dots:has(.dock-dot:focus-visible) .dock-dot { pointer-events: auto; }
     .nav-controls .dock-dots:not(:hover):not(:has(.dock-dot:focus-visible)) .dock-dot::before { translate: 0 0; }
     .nav-controls .dock-dots:hover::before,
     .nav-controls .dock-dots:has(.dock-dot:focus-visible)::before { left: -1px; right: -1px; pointer-events: auto; }
@@ -293,17 +341,44 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
     white-space: nowrap;
     opacity: 0;
     visibility: hidden;
-    transition: opacity .15s ease, visibility .15s;
+    transform-origin: right center;
+    transition: opacity .15s ease, visibility .15s, transform .24s ease;
+}
+.dock-dot[aria-current="location"] .dock-dot-label {
+    background: rgba(207, 214, 227, .55);
+    font-weight: 600;
+    transform: translateY(-50%) scale(1.1);
+}
+// A soft light edge separates inactive tooltips from similarly tinted surfaces.
+.dock-dot:not([aria-current="location"]) .dock-dot-label,
+.dock-arrow .dock-dot-label,
+.nav-toggle .dock-dot-label,
+.dock-home .dock-dot-label {
+    box-shadow: 0 0 0 1px rgba(255,255,255,.22),
+        0 0 10px rgba(255,255,255,.28),
+        0 3px 12px rgba(26,36,50,.1);
+}
+@media (prefers-reduced-motion: reduce) {
+    .dock-dot-label { transition: none; }
+}
+body:not(.body--vitae) .dock-dot .dock-dot-label,
+body:not(.body--vitae) .dock-arrow .dock-dot-label,
+body:not(.body--vitae) .nav-toggle .dock-dot-label,
+body:not(.body--vitae) .dock-home .dock-dot-label {
+    background: rgba(205, 216, 227, .90);
+}
+body:not(.body--vitae) .dock-dot[aria-current="location"] .dock-dot-label {
+    background: rgba(250, 251, 253, .76);
 }
 @media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
     .dock-dot .dock-dot-label {
         font-size: calc((14px) * var(--mobile-text-scale, 1));
     }
 }
-.dock-dot:not([aria-current="location"]):hover .dock-dot-label, .dock-dot:focus-visible .dock-dot-label,
-.dock-arrow:hover .dock-dot-label, .dock-arrow:focus-visible .dock-dot-label,
-.nav-toggle:hover .dock-dot-label, .nav-toggle:focus-visible .dock-dot-label,
-.dock-home:hover .dock-dot-label, .dock-home:focus-visible .dock-dot-label {
+.dock-dot.is-tooltip-ready .dock-dot-label, .dock-dot:focus-visible .dock-dot-label,
+.dock-arrow.is-tooltip-ready .dock-dot-label, .dock-arrow:focus-visible .dock-dot-label,
+.nav-toggle.is-tooltip-ready .dock-dot-label, .nav-toggle:focus-visible .dock-dot-label,
+.dock-home.is-tooltip-ready .dock-dot-label, .dock-home:focus-visible .dock-dot-label {
     opacity: 1;
     visibility: visible;
 }
@@ -427,6 +502,100 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
 }
 .is-open .nav-toggle-line--top { transform: rotate(45deg); }
 .is-open .nav-toggle-line--bottom { left: 1px; width: 18px; transform: rotate(-45deg); }
+// Keep the supplied vector artwork intact; only the menu instance is animated.
+.header .tab svg.menu-hand {
+    width: 22px;
+    height: 22px;
+    stroke: none;
+    stroke-width: 0;
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    transform-origin: 70% 85%;
+}
+.menu-linkedin-tile { position: relative; }
+.header .tab svg.menu-thought-bubble {
+    stroke: none;
+    stroke-width: 0;
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+}
+.menu-thought-cloud {
+    transform-box: fill-box;
+    transform-origin: 50% 90%;
+}
+.header .tab svg.menu-linkedin-letters {
+    width: 18px;
+    height: 18px;
+    fill: #fff;
+    stroke: none;
+    overflow: visible;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    #about-tab .tab.emoji-animating .menu-hand { animation: menu-hand-wave 1.15s ease-in-out 1; }
+    #about-tab .tab.emoji-animating .menu-hand-lines { animation: menu-hand-lines 1.15s linear 1; }
+    #vitae-tab .tab.emoji-animating .menu-emoji {
+        transform-origin: 50% 95%;
+        animation: menu-case-drop .95s ease-out 1;
+    }
+    #perspectives-tab .tab.emoji-animating .menu-emoji {
+        animation: menu-bubble-pulse .85s ease-in-out 1, menu-bubble-drift .85s ease-in-out 1;
+    }
+    #perspectives-tab .tab.emoji-animating .menu-thought-cloud {
+        animation: menu-cloud-rock .85s ease-in-out 1;
+    }
+    #contact-tab .tab.emoji-animating .menu-emoji { animation: menu-envelope-flight .65s cubic-bezier(.2,.7,.25,1) 1; }
+    #follow-tab .tab.emoji-animating .menu-linkedin-letter--i { animation: menu-letter-bounce .75s ease-in-out 1; }
+    #follow-tab .tab.emoji-animating .menu-linkedin-letter--n { animation: menu-letter-bounce .75s ease-in-out .12s 1; }
+}
+@keyframes menu-hand-wave {
+    0%, 100% { transform: rotate(0deg); }
+    18%, 39% { transform: rotate(17deg); }
+    30%, 47% { transform: rotate(-12deg); }
+    67% { transform: rotate(7deg); }
+}
+@keyframes menu-hand-lines {
+    0%, 84% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@keyframes menu-case-drop {
+    0% { opacity: 0; transform: translateY(-38px) scale(.95, 1.08); }
+    // Halfway through the eased drop, roughly two-thirds of the icon is inside the circle.
+    18% { opacity: 0; }
+    24%, 100% { opacity: 1; }
+    36% { transform: translateY(0) scale(.97, .9); }
+    56% { transform: translateY(-6px) scale(.96, 1.05); }
+    74% { transform: translateY(0) scale(.99, .97); }
+    88% { transform: translateY(-1px) scale(.98, 1.02); }
+    100% { transform: none; }
+}
+@keyframes menu-bubble-pulse {
+    0%, 100% { scale: 1; }
+    50% { scale: 1.07; }
+}
+@keyframes menu-cloud-rock {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-2deg); }
+    65% { transform: rotate(2deg); }
+}
+@keyframes menu-bubble-drift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(1px, -.35px); }
+}
+@keyframes menu-envelope-flight {
+    0% { opacity: 0; transform: translateX(-38px) scale(.65) rotate(-12deg); }
+    20%, 100% { opacity: 1; }
+    58% { transform: translateX(3px) scale(1.18, .97) rotate(8deg); }
+    74% { transform: translateX(-3px) scale(.88, 1.03) rotate(-5deg); }
+    88% { transform: translateX(.75px) scale(1.06, .99) rotate(2deg); }
+    100% { transform: none; }
+}
+@keyframes menu-letter-bounce {
+    0%, 100% { transform: translateY(0); }
+    35% { transform: translateY(-4px); }
+    62% { transform: translateY(1px); }
+    80% { transform: translateY(-1px); }
+}
 .header .nav-panel {
     --dock-ink: #30343b;
     position: absolute;
@@ -481,6 +650,42 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     list-style: none;
 }
 .header .tab-container { flex-shrink: 0; list-style: none; margin: 0; padding: 0; }
+.menu-icon-circle {
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    margin: -5px;
+    border-radius: 50%;
+    overflow: hidden;
+    isolation: isolate;
+    scale: 1.05;
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: 50%;
+        background: var(--menu-icon-background, #9bafd0);
+        background-image: linear-gradient(180deg,
+            rgba(var(--menu-icon-highlight, 255, 255, 255), var(--menu-icon-highlight-opacity, .24)) 0%,
+            rgba(var(--menu-icon-highlight, 255, 255, 255), 0) 48%,
+            rgba(var(--menu-icon-shade, 35, 44, 65), .16) 100%);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, .25);
+    }
+}
+#about-tab { --menu-icon-background: #606367; }
+#vitae-tab {
+    --menu-icon-background: #809e46;
+    --menu-icon-highlight: 239, 255, 125;
+    --menu-icon-highlight-opacity: .46;
+    --menu-icon-shade: 30, 70, 43;
+}
+#perspectives-tab { --menu-icon-background: #8552a6; }
+#contact-tab { --menu-icon-background: #b45460; }
+#follow-tab { --menu-icon-background: #b6cfe0; }
 .menu-emoji {
     flex: 0 0 26px;
     display: block;
@@ -488,11 +693,31 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     height: 26px;
     object-fit: contain;
 }
+.menu-icon-circle > .menu-emoji {
+    width: 22px;
+    height: 22px;
+}
+// Optical sizing: the thought bubble has more empty space inside its SVG,
+// while the solid LinkedIn tile reads heavier than the illustrated icons.
+#perspectives-tab .menu-icon-circle > .menu-emoji {
+    width: 24px;
+    height: 24px;
+}
+.menu-icon-circle > .menu-linkedin-tile {
+    width: 21px;
+    height: 21px;
+    .menu-linkedin-icon { width: 18px; height: 18px; }
+}
+.header #contact-tab .menu-emoji {
+    width: 19px;
+    height: 19px;
+    filter: brightness(var(--menu-envelope-brightness, 1));
+}
 .menu-linkedin-tile {
     display: grid;
     place-items: center;
     background: #2867b2;
-    border-radius: 2px;
+    border-radius: 5px;
 }
 .menu-linkedin-icon {
     display: block;
@@ -504,6 +729,11 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     object-fit: cover;
     object-position: left center;
 }
+.header .nav-panel {
+    --dock-selected: rgba(128, 134, 145, .12);
+    --menu-hover-background: rgba(207, 214, 227, .65);
+}
+.body--vitae .header .nav-panel { --menu-hover-background: rgba(160, 176, 205, .18); }
 .header .tab {
     display: flex; align-items: center; justify-content: flex-start; gap: 14px;
     position: relative;
@@ -513,12 +743,81 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     transition: background-color .15s ease, color .15s ease;
     svg { flex-shrink: 0; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
     &::after { display: none; }
-    &[aria-current="page"] { background: var(--dock-selected); color: var(--dock-selected-ink); }
-    &:hover, &:focus-visible { background: rgba(128,134,145,.12); }
+    &[aria-current="page"] { background: var(--dock-selected); color: var(--dock-selected-ink); --menu-envelope-brightness: 1.16; }
+    &[aria-current="page"]:hover { --menu-envelope-brightness: 1; }
+    &[aria-current="page"]::after {
+        all: unset;
+        content: '';
+        display: block;
+        position: absolute;
+        right: 27px;
+        top: 50%;
+        transform: translate(50%, -50%);
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+        pointer-events: none;
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+        transition: width .2s ease, height .2s ease, background-color .2s ease, box-shadow .2s ease;
+    }
+    &[aria-current="page"] { padding-right: 56px; }
+    &[aria-current="page"]:hover::after,
+    &[aria-current="page"]:focus-visible::after {
+        width: 28px;
+        height: 28px;
+        background-color: rgba(250, 251, 253, .76);
+        box-shadow: inset 0 1px 1px rgba(255,255,255,.7), 0 2px 5px rgba(26,36,50,.15);
+    }
+    &[aria-current="page"]::before {
+        content: '';
+        position: absolute;
+        right: 27px;
+        top: 50%;
+        transform: translate(50%, -50%);
+        width: 17px;
+        height: 17px;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity .16s ease;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2330343b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 10a7.5 7.5 0 1 0-.8 6.1M19.5 4.5V10H14'/%3E%3C/svg%3E");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 17px 17px;
+    }
+    &[aria-current="page"]:hover::before,
+    &[aria-current="page"]:focus-visible::before {
+        opacity: 1;
+    }
+    &:hover, &:focus-visible { background: var(--menu-hover-background); }
+    &:not([aria-current="page"]):focus-visible { --menu-envelope-brightness: 1.16; }
     &:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .header .tab[aria-current="page"]::before,
+    .header .tab[aria-current="page"]::after { transition: none; }
+}
+// Let the hovered destination carry the highlight without competing with the current page.
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .header .tab[aria-current="page"]:hover::before {
+        animation: menu-refresh-turn .65s ease-in-out 1;
+    }
+}
+@keyframes menu-refresh-turn {
+    from { transform: translate(50%, -50%) rotate(0deg); }
+    to { transform: translate(50%, -50%) rotate(360deg); }
+}
+@media (hover: hover) and (pointer: fine) {
+    .header .nav:has(.tab-container:hover) .tab-container:not(:hover) .tab[aria-current="page"] {
+        background: transparent;
+        --menu-envelope-brightness: 1;
+    }
 }
 // Reference-style lift and pointer drift, with stable row hit areas.
 @media (min-width: 48rem) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .header .nav-panel { --dock-selected: rgba(128, 134, 145, .18); }
     .header .nav { padding: 12px; }
     .header .tab-container { position: relative; }
     .header .tab {
@@ -531,7 +830,7 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     .header .tab-container:hover { z-index: 1; }
     .header .tab-container:hover .tab {
         scale: 1.07;
-        background-color: rgba(128,134,145,.18);
+        background-color: var(--menu-hover-background);
         transition-duration: .15s;
     }
     .header .tab-container:hover .tab > .menu-emoji,
@@ -613,7 +912,7 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     .dock-dots:has(.dock-dot:focus-visible) .dock-dot:not([aria-current="location"])::before { width: 9px; height: 9px; }
     .dock-dots.is-touch-active .dock-dot[aria-current="location"]::before,
     .dock-dots:hover .dock-dot[aria-current="location"]::before,
-    .dock-dots:has(.dock-dot:focus-visible) .dock-dot[aria-current="location"]::before { width: 5px; height: 5px; }
+    .dock-dots:has(.dock-dot:focus-visible) .dock-dot[aria-current="location"]::before { width: 11px; height: 11px; }
     .dock-dots .dock-dot-label {
         left: auto;
         right: calc(50% + var(--island-half-width) + 3px);
@@ -668,7 +967,7 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
             opacity var(--island-motion), background-color var(--island-motion);
     }
     .nav-controls .dock-dots .dock-dot-label {
-        transition: opacity var(--island-motion), visibility var(--island-motion);
+        transition: opacity var(--island-motion), visibility var(--island-motion), transform .24s ease;
     }
 }
 // Touch browsers can retain :hover after a finger lifts. The gesture state,
@@ -792,6 +1091,9 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     transition: transform .24s cubic-bezier(.2,.7,.2,1), opacity .18s ease, visibility 0s .24s;
 }
 .nav-controls.has-top .dock-top { transform: scale(1); transition-delay: 0s; }
+// Availability wins over mobile styles that expose every dock control.
+.header .nav-controls .dock-top[hidden],
+.header .nav-controls .dock-bottom[hidden] { display: none !important; }
 @media (max-width: 47.999rem) {
     .header .nav-controls > .nav-toggle { width: 56px; height: 56px; border-radius: 18px; }
     .dock-home-slot { width: 48px; height: 60px; margin: 0 0 0 8px; }
@@ -939,7 +1241,11 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
             background: #E0F2FF;
             box-shadow: 0 0 3px rgba(224,242,255,.45), 0 0 7px rgba(184,216,240,.22);
         }
-        .dock-dot-label { color: #eef1f6; background: #141518; border-color: rgba(224,233,246,.2); }
+        .dock-dot-label { color: #eef1f6; background: rgba(66,76,86,.90); border-color: rgba(224,233,246,.2); }
+        .dock-dot[aria-current="location"] .dock-dot-label {
+            background: rgba(194, 210, 234, .38);
+            color: #ffffff;
+        }
     }
     @media (max-width: 47.999rem) {
         .body--vitae .header .nav-controls .dock-dots::before {
@@ -1075,6 +1381,14 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     }
 }
 // Pointer type, rather than sticky :hover, decides touch tooltip visibility.
+// Chapter docks expose every section. Keep utility icons recognizable so their
+// collapsed controls cannot be mistaken for additional chapter dots.
+@media (max-width: 708px) {
+    .header .has-all-section-dots .nav-controls .dock-dots:not(.is-touch-active):not(.is-hover-active):not(:has(:focus-visible)):not(:has(.nav-toggle[aria-expanded="true"])) .dock-control {
+        > :not(.dock-dot-label) { visibility: visible; }
+        &::before { content: none; }
+    }
+}
 html[data-nav-input="touch"] .nav-container .dock-dot-label {
     display: none !important;
 }

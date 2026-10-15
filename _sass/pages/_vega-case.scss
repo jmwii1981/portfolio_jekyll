@@ -1,0 +1,144 @@
+// Explore Vega owns its editorial layout; shared Vitae tokens and controls stay shared.
+.main.vitae.vega-case {
+    --vega-heading-size: clamp(42px, calc(2.5vw + 32.25px), 64px);
+    --vega-rule: rgba(255,255,255,.15);
+    // Reserve only the right-side island's footprint on narrow screens.
+    width: calc(100% - 80px);
+    margin-left: 20px;
+    margin-right: 60px;
+    color: var(--color-paper);
+    margin-top: 0;
+    padding-block: var(--vitae-project-index-sticky-top) 80px;
+    display: block;
+    p, dd { color: #bfc2c8; font-size: var(--editorial-body-size); line-height: 1.6; }
+    p { margin: 0 0 1.25em; }
+    h1, h2, h3, h4 { font-family: inherit; font-weight: 600; letter-spacing: -.04em; color: var(--color-paper); }
+    h1 { font-size: var(--editorial-display-size); max-width: 1050px; margin: 24px 0 48px; scroll-margin-top: 70px; }
+    h2 { font-size: var(--vega-heading-size); max-width: 900px; margin: 0 0 36px; }
+    h3 { font-size: clamp(28px, 3vw, 38px); margin: 0 0 24px; }
+    h4 { font-size: 26px; margin: 0 0 24px; }
+    .a { color: var(--color-paper); }
+    figure { margin: 0; min-width: 0; }
+    figcaption, .vega-demo-disclosure, .vega-review-note { color: #afb4bd; font-size: 14px; line-height: 1.6; margin-top: 18px; }
+    img { max-width: 100%; height: auto; display: block; }
+    .vega-chapter { padding: 64px 0; scroll-margin-top: 100px; }
+    .vega-chapter + .vega-chapter { border-top: 1px solid var(--vega-rule); }
+    .vega-back { display: inline-flex; gap: 10px; min-height: 44px; align-items: center; margin-bottom: 36px; font-size: 15px; }
+    .vega-prose { max-width: 650px; }
+    .vega-cover { margin-bottom: 72px; }
+    .vega-cover img { border-radius: 18px; border: 1px solid var(--vega-rule); width: 100%; }
+    .vega-product-proof { margin-block: 32px 56px; }
+    .vega-product-proof img { width: 100%; border-radius: 16px; }
+    .vega-editorial, .vega-contributions, .vega-principles { display: grid; gap: 32px; }
+    .vega-facts { padding: 32px 0; margin-block: 40px; border-block: 1px solid var(--vega-rule); }
+    dl { margin: 0; }
+    .vega-facts dl { display: grid; gap: 24px; }
+    dt { color: #f1f2f4; font-size: 14px; margin-bottom: 8px; font-weight: 600; }
+    dd { margin: 0; font-size: 17px; }
+    mark { background: #322e25; color: #ead9b5; padding: 2px 4px; box-decoration-break: clone; }
+    .vega-decision { display: grid; gap: 32px; padding-block: 48px; }
+    .vega-number { display: block; margin-bottom: 20px; color: #b0b5bd; font-size: 14px; }
+    .vega-artifact { align-self: center; }
+    .vega-button-study, .vega-foundation-study, .vega-adoption-study {
+        padding: 28px; border: 1px solid var(--vitae-glass-border); border-radius: 20px;
+        background: var(--vitae-project-index-glass-background); box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .vega-button-study { display: grid; gap: 30px; text-align: center; }
+    .vega-button-study small { display: block; color: #bac0c9; margin-top: 12px; font-size: 13px; }
+    .vega-sample-button { display: inline-block; background: #1362e2; color: white; border-radius: 24px; padding: 12px 24px; font: 600 16px/1.5 VegaInter, sans-serif; }
+    .vega-sample-focus { outline: 2px solid #a9ccff; outline-offset: 4px; }
+    .vega-sample-disabled { background: #424853; color: #c3c7cd; }
+    .vega-foundation-study { display: grid; gap: 32px; text-align: center; }
+    .vega-foundation-study span { font-size: 16px; color: #bfc2c8; }
+    .vega-foundation-study strong { display: block; font-size: 32px; line-height: 1.1; padding-block: 28px; border-block: 1px solid var(--vega-rule); }
+    .vega-adoption-study { display: grid; gap: 28px; }
+    .vega-adoption-study dt { font-size: 22px; }
+    .vega-adoption-study dd { font-size: 16px; }
+    .vega-collaboration { padding-top: 40px; }
+    .vega-principles { margin-block: 56px 80px; }
+    .vega-principles h3 { font-size: 28px; }
+    .vega-principles p { font-size: 18px; }
+    .vega-full-demo { position: relative; border: 1px solid rgba(255,255,255,.3); border-radius: 18px; background: #f7f7f7; overflow: hidden; color: #203645; }
+    .vega-demo-fallback { padding: 24px; }
+    .vega-demo-fallback h4, .vega-demo-fallback p { color: #203645; }
+    .vega-demo-fallback p { font-size: 17px; }
+    .vega-full-demo.is-ready { height: min(820px, 85svh); min-height: 540px; }
+    .vega-full-demo:not(.is-ready) .vega-live-screen { visibility: hidden; }
+    .vega-demo-skip { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; margin-bottom: 16px; text-decoration: underline; }
+    .button-group { margin-top: 40px; flex-wrap: wrap; }
+}
+@media (min-width: 48rem) {
+    .main.vitae.vega-case {
+        width: min(100% - 160px, 1184px);
+        margin-inline: auto;
+        .vega-chapter { padding-block: 96px; }
+        .vega-facts dl { grid-template-columns: repeat(2,minmax(0,1fr)); }
+        .vega-contributions { grid-template-columns: 1fr 1fr; gap: 64px; }
+        .vega-principles { grid-template-columns: repeat(3,minmax(0,1fr)); }
+        .vega-decision { grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: 64px; padding-block: 64px; }
+        .vega-decision--statement .vega-artifact { order: -1; }
+    }
+}
+@media (min-width: 75rem) {
+    .main.vitae.vega-case .vega-editorial { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 80px; }
+}
+@media (forced-colors: active) {
+    .vega-case .vega-artifact > *, .vega-case .vega-full-demo { border: 1px solid CanvasText; }
+}
+// Supporting story compositions are scoped away from the unchanged playground.
+.main.vitae.vega-case {
+    .vega-story-block + .vega-story-block { margin-top: 96px; }
+    .vega-story-visual { margin-top: 48px; }
+    .vega-story-visual figcaption { max-width: 780px; }
+    .vega-window-pair { display: grid; gap: 24px; }
+    .vega-story-window { min-width: 0; overflow: hidden; border: 1px solid #d4dce5; border-radius: 16px; background: #fcfcfc; color: #203645; font-family: VegaOriginal, sans-serif; letter-spacing: 0; }
+    .vega-window-bar { padding: 15px 20px; background: #eef2f5; border-bottom: 1px solid #d4dce5; font-size: 13px; line-height: 1.5; color: #485864; }
+    .vega-wireframe, .vega-landing-concept { padding: clamp(20px, 4vw, 44px); min-height: 300px; }
+    .vega-wireframe strong { display: block; font-size: 24px; line-height: 1.3; font-weight: 500; }
+    .vega-wire-nav { margin-block: 18px 28px; color: #485864; font-size: 13px; line-height: 1.6; }
+    .vega-wire-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .vega-wire-cards span { border: 1px dashed #748492; border-radius: 8px; padding: 24px 12px; color: #485864; font-size: 14px; }
+    .vega-wire-row { padding: 12px 0; border-top: 1px solid #ccd3da; font-size: 13px; }
+    .vega-landing-concept { background: #203645; color: #fcfcfc; }
+    .vega-landing-concept > span:first-child { display: block; font-weight: 500; font-size: 16px; margin-bottom: 34px; }
+    .vega-landing-concept strong { display: block; font-size: clamp(28px, 3vw, 42px); line-height: 1.1; letter-spacing: -.04em; }
+    .vega-landing-concept p { color: #e0e7ec; font-size: 15px; margin-block: 20px; }
+    .vega-concept-cta { display: inline-block; padding: 12px 18px; border: 1px solid #b7c7d2; border-radius: 8px; font-size: 13px; }
+    .vega-foundation-map, .vega-process-board, .vega-release-path { display: grid; gap: 1px; background: var(--vega-rule); border: 1px solid var(--vega-rule); border-radius: 18px; overflow: hidden; }
+    .vega-foundation-map > div, .vega-process-board > div, .vega-release-path > li { background: #111316; padding: clamp(24px, 3vw, 40px); min-width: 0; }
+    .vega-foundation-map strong, .vega-process-board strong, .vega-release-path strong { display: block; color: #f1f2f4; font-size: clamp(24px, 2.5vw, 32px); line-height: 1.2; letter-spacing: -.04em; margin-bottom: 18px; }
+    .vega-foundation-map span, .vega-process-board span, .vega-release-path span { display: block; color: #bfc2c8; font-size: 16px; line-height: 1.6; }
+    .vega-release-path { list-style: none; padding: 0; margin: 0; counter-reset: release; }
+    .vega-release-path li { counter-increment: release; }
+    .vega-release-path li::before { content: '0' counter(release); display: block; color: #bfc2c8; font-size: 14px; margin-bottom: 28px; }
+    .vega-system-workflow { display: grid; gap: 32px; padding: 28px; }
+    .vega-system-workflow > div { min-width: 0; }
+    .vega-system-workflow strong { display: block; font-size: 18px; margin-bottom: 24px; }
+    .vega-system-workflow small { display: block; color: #485864; font-size: 12px; margin-top: 18px; line-height: 1.6; }
+    .vega-component-example { display: inline-block; color: #fcfcfc; background: #1362e2; font: 700 16px/24px VegaOriginal, sans-serif; border-radius: 9999px; padding: 8px 24px; }
+    .vega-system-workflow code { display: block; color: #203645; font-size: 14px; line-height: 2; background: #f0f3f7; padding: 16px; border-radius: 8px; white-space: normal; }
+    .vega-system-workflow ul { padding-left: 18px; margin: 0; font-size: 14px; line-height: 2; }
+    .vega-table-specimen { padding: 0 28px 28px; }
+    .vega-table-specimen table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.5; }
+    .vega-table-specimen caption { text-align: left; color: #485864; font-size: 12px; padding-bottom: 14px; }
+    .vega-table-specimen th, .vega-table-specimen td { padding: 14px 12px; text-align: left; color: #203645; font-weight: 400; overflow-wrap: anywhere; }
+    .vega-table-specimen thead { background: #f0f3f7; }
+    .vega-table-specimen tbody tr:nth-child(even) { background: #f5f7f7; }
+}
+@media (min-width: 48rem) {
+    .main.vitae.vega-case {
+        .vega-window-pair { grid-template-columns: repeat(2,minmax(0,1fr)); }
+        .vega-foundation-map, .vega-process-board, .vega-release-path, .vega-system-workflow { grid-template-columns: repeat(3,minmax(0,1fr)); }
+    }
+}
+@media (forced-colors: active) {
+    .main.vitae.vega-case {
+        .vega-story-window, .vega-foundation-map, .vega-process-board, .vega-release-path { border: 1px solid CanvasText; }
+        .vega-foundation-map > div, .vega-process-board > div, .vega-release-path > li { border: 1px solid CanvasText; }
+    }
+}
+.main.vitae.vega-case {
+    .vega-story-block h2, .vega-story-visual { scroll-margin-top: 100px; }
+    .vega-window-pair .vega-story-window { display: flex; flex-direction: column; }
+    .vega-window-pair .vega-wireframe, .vega-window-pair .vega-landing-concept { flex: 1; }
+}

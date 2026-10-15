@@ -430,7 +430,9 @@ body:has(.main.contact) {
     }
 }
 
-.contact-project-details[hidden] { display: none; }
+// Native checkbox owns disclosure, including when JavaScript is unavailable.
+.contact-project-question:not(:has(input:checked)) + .contact-project-details { display: none; }
+.contact-project-question:has(input:checked) + .contact-project-details .contact-label::after { content: ' *'; }
 
 .contact-project-details {
     order: 1;

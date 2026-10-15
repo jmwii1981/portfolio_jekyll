@@ -16,6 +16,7 @@
 }
 
 .main.about > .hero {
+    --color-paper: #FEFEFE;
     --hero-peek: clamp(24px, calc(5.73vw + 1.65px), 75px);
     --hero-top-offset: var(--site-top-gutter);
     min-height: calc(100vh - var(--hero-peek) - var(--hero-top-offset));
@@ -850,6 +851,7 @@
     }
     .testimonials-artwork-image {
         display: block;
+        translate: 10px 0;
         height: auto;
         max-width: 100%;
         margin: 0 auto;

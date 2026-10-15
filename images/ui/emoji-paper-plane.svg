@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1254" height="1254" viewBox="0 0 160 160">
+  <defs>
+    <linearGradient id="wing" x1="0" y1="0" x2=".65" y2="1"><stop stop-color="#fff"/><stop offset=".5" stop-color="#e3e6e9"/><stop offset="1" stop-color="#b8bdc3"/></linearGradient>
+    <linearGradient id="fold"><stop stop-color="#858d96"/><stop offset=".48" stop-color="#c5cbd1"/><stop offset="1" stop-color="#636c77"/></linearGradient>
+    <linearGradient id="front" x1="0" y1="0" x2="1" y2=".8"><stop stop-color="#bec5cd"/><stop offset=".3" stop-color="#e7eaed"/><stop offset=".75" stop-color="#d8dde2"/><stop offset="1" stop-color="#f6f7f8"/></linearGradient>
+    <linearGradient id="tip"><stop stop-color="#68717b"/><stop offset=".4" stop-color="#d4d9de"/><stop offset="1" stop-color="#949da6"/></linearGradient>
+  </defs>
+  <path d="m39 90 13 44q1 4 5 1l28-23-20-14 88-77Z" fill="url(#tip)" stroke="#a7aeb6" stroke-width=".5"/>
+  <path d="M8 69 151 20q6-2 3 5L65 101 40 90 9 78q-7-3-1-9Z" fill="url(#wing)" stroke="#d1d6db" stroke-width=".5"/>
+  <path d="m40 90 113-69-89 80-10 34Z" fill="url(#fold)"/>
+  <path d="m65 99 88-78q3-3 2 2l-37 100q-3 9-10 5L65 103q-2-2 0-4Z" fill="url(#front)" stroke="#c5cbd1" stroke-width=".5"/>
+  <path d="m9 70 142-49M66 99l86-77M55 134l10-33" stroke="#fff" stroke-opacity=".65" stroke-width=".7" fill="none"/>
+</svg>

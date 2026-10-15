@@ -1,4 +1,15 @@
 /* Isolated in each device's shadow root. Source: Figma 40000010:290. */
+/* The case-study embed uses native modal containment and unscaled responsive UI. */
+.embedded .greeting .embedded-page-title{font-size:32px;line-height:40px;margin-bottom:4px;font-weight:700}
+.embedded.phone .greeting .embedded-page-title{font-size:28px;line-height:34px}
+.embedded .list-page .embedded-page-title{font-size:30px;line-height:38px}
+.embedded dialog.modal{position:fixed;inset:0;margin:auto;border:1px solid #cdd1d3;color:#203645;max-height:calc(100dvh - 48px);width:min(480px,calc(100vw - 32px));font:400 16px/1.5 VegaInter,sans-serif}
+.embedded dialog.modal::backdrop{background:#10182188;backdrop-filter:blur(3px)}
+.embedded .periods{flex-wrap:wrap}
+.embedded.phone .bar-value{font-size:9px}
+.embedded.phone .app-header{padding-inline:16px}
+.embedded.phone .trending li button{gap:6px;padding-inline:8px}
+.embedded.phone .trending li b{min-width:0;overflow-wrap:anywhere}
 @font-face{font-family:VegaInter;src:url('../fonts/vega-inter-regular.ttf') format('truetype');font-weight:400;font-display:swap}
 @font-face{font-family:VegaInter;src:url('../fonts/vega-inter-500.ttf') format('truetype');font-weight:500;font-display:swap}
 @font-face{font-family:VegaInter;src:url('../fonts/vega-inter-600.ttf') format('truetype');font-weight:600;font-display:swap}
