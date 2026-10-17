@@ -321,3 +321,13 @@
     .vega-editorial { grid-template-columns: minmax(0, 1fr); }
     .vega-prose { max-width: 850px; }
 }
+
+// Keep the approved multi-paragraph opening together beside the existing artwork.
+.main.vitae.vega-case:not(.ledgerflow-case):not(.avena-story) {
+    .vega-opening-prose { min-width: 0; }
+    .vega-opening-prose .vega-skim-lead { font-size: clamp(20px, 1.7vw, 24px); }
+    .vega-opening-prose .vega-skim-lead + .vega-skim-lead { margin-top: 24px; }
+}
+@media (min-width: 56rem) {
+    .main.vitae.vega-case:not(.ledgerflow-case):not(.avena-story) .vega-opening-prose { grid-column: 1; grid-row: 2; }
+}
