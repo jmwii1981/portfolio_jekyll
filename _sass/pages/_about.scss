@@ -1656,7 +1656,7 @@
     .hero {
         // Paint the curve behind the hero content, rather than allowing the
         // following section's accent to cover controls in this section.
-        background: #F5F5F7;
+        background: var(--hero-surround, #F5F5F7);
         padding-bottom: 3rem;
     }
 
@@ -1841,5 +1841,22 @@ body:has(.main.about) { overflow-x: clip; }
     .hero .hero-intro,
     .hero .image-wrapper {
         animation: none;
+    }
+}
+
+// A soft studio floor in light mode, anchored to the existing rock artwork.
+@media (min-width: 57.5rem) {
+    .main.about > .hero:not(.hero-rocks-no-room) .image-wrapper::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        pointer-events: none;
+        left: -25%;
+        top: 57%;
+        width: 150%;
+        height: 60%;
+        background: linear-gradient(180deg, transparent 0%, rgba(125, 116, 105, .025) 29%, rgba(125, 116, 105, .10) 32%, rgba(125, 116, 105, .075) 35%, rgba(125, 116, 105, .05) 70%, rgba(125, 116, 105, .015));
+        -webkit-mask-image: radial-gradient(ellipse at center, #000 18%, transparent 70%);
+        mask-image: radial-gradient(ellipse at center, #000 18%, transparent 70%);
     }
 }

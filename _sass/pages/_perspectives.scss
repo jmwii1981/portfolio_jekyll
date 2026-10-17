@@ -30,11 +30,13 @@
   display: none;
 }
 
+.perspectives-pending .post-content-wrapper:not(.is-feed-error) > .most-recent-post,
 .js .post-content-wrapper.is-feed-loading > .most-recent-post,
 .js .post-content-wrapper.is-feed-ready > .most-recent-post {
   display: block;
 }
 
+.perspectives-pending .post-content-wrapper:not(.is-feed-error):not(.has-active-fallback) .perspectives-feed-fallback,
 .js .post-content-wrapper.is-feed-loading:not(.has-active-fallback) .perspectives-feed-fallback,
 .js .post-content-wrapper.is-feed-ready:not(.has-active-fallback) .perspectives-feed-fallback {
   display: none;
@@ -363,4 +365,58 @@
   .post-title {
     animation: none;
   }
+}
+
+// Match loading geometry to the dynamic article without clipping remote content.
+.perspectives-pending .post-content-wrapper:not(.is-feed-error),
+.js .post-content-wrapper:is(.is-feed-loading, .is-feed-ready) {
+  min-block-size: max(90rem, 180vh);
+}
+
+.perspectives-pending .post-content-wrapper .medium-article-header .post-title,
+.js .post-content-wrapper .medium-article-header .post-title {
+  min-block-size: 5.25em;
+}
+
+.post-content-wrapper .skeleton-title { display: none; }
+
+.post-content-wrapper .skeleton-image {
+  aspect-ratio: auto;
+  border: 0.0625rem solid var(--color-border-subtle);
+  box-sizing: border-box;
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+  min-height: 0;
+  padding: clamp(0.875rem, 1.8vw, 1.25rem);
+}
+
+.post-content-wrapper .skeleton-image::after {
+  aspect-ratio: 16 / 9;
+  content: "";
+  display: block;
+  width: 100%;
+}
+
+.post-content-wrapper .skeleton-meta-container {
+  border-block: 0.0625rem solid var(--color-border-subtle);
+  box-sizing: border-box;
+  min-height: 4.125rem;
+  padding-block: 1rem;
+  margin-bottom: clamp(2rem, 3vw, 2.5rem);
+}
+
+.post-content-wrapper .skeleton-meta-avatar { height: 2rem; width: 2rem; }
+
+.js .medium-article-list:not([hidden]) {
+  min-block-size: 28rem;
+}
+.perspectives-pending .post-content-wrapper:not(.is-feed-ready):not(.is-feed-error) + .perspectives-sidebar .medium-article-list[hidden],
+.js .post-content-wrapper.is-feed-loading + .perspectives-sidebar .medium-article-list[hidden] {
+  display: block;
+  visibility: hidden;
+  min-block-size: 28rem;
+}
+
+@media (min-width: 64rem) {
+  .perspectives-pending .post-content-wrapper .medium-article-header .post-title,
+.js .post-content-wrapper .medium-article-header .post-title { min-block-size: 4.2em; }
 }

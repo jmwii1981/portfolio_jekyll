@@ -21,13 +21,15 @@ export const initializeLiquidGlassNavigation = () => {
         const width = parseFloat(surface.width);
         const height = parseFloat(surface.height);
         if (!(width > 0 && height > 0)) return;
-        const bounds = `${width.toFixed(2)}:${height.toFixed(2)}`;
+        const selectedTheme = document.documentElement.dataset.theme;
+        const editorialDark = (selectedTheme === 'dark' || selectedTheme === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches) && !!document.querySelector('.main:is(.about,.contact,.perspectives,.terms,.not-found)');
+        const bounds = `${width.toFixed(2)}:${height.toFixed(2)}:${editorialDark}`;
         if (bounds === lastBounds) return;
         lastBounds = bounds;
         const nextFilter = filter.cloneNode(true);
         nextFilter.id = `nav-local-refraction-${surfaceIndex}-${++revision}`;
         // Lighten only the dock's interior tint by 20%; preserve the menu and bevel.
-        if (document.body.classList.contains('body--vitae')) {
+        if (document.body.classList.contains('body--vitae') || editorialDark) {
             // Reuse the light lens geometry without its white frosting.
             const tint = nextFilter.querySelector('[result="interior-tint"]');
             tint.setAttribute('flood-color', '#050506');
@@ -114,7 +116,10 @@ export const initializeLiquidGlassNavigation = () => {
     resizeObserver.observe(controls);
     const stateObserver = new MutationObserver(queueLensBounds);
     stateObserver.observe(controls, { attributes: true, attributeFilter: ['class'] });
+    const themeObserver = new MutationObserver(queueLensBounds);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     controls.addEventListener('transitionend', queueLensBounds);
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', queueLensBounds);
     reducedMotion.addEventListener('change', sync);
     reducedTransparency.addEventListener('change', sync);
     forcedColors.addEventListener('change', sync);

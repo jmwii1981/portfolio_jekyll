@@ -23,7 +23,7 @@ html[data-focus-input="pointer"] :focus {
     }
 }
 
-// Only the menu links and its close toggle are interactive while expanded.
-.nav-container.is-open .nav-controls > :not(.nav-toggle):not(.dock-dots) {
+// Keep the close toggle and positioning handle available while expanded.
+.nav-container.is-open .nav-controls > :not(.nav-toggle):not(.dock-dots):not(.dock-drag-handle) {
     pointer-events: none !important;
 }

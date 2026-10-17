@@ -1,0 +1,65 @@
+---
+layout: page
+---
+{% assign project = site.data.vitae_projects[page.project] %}
+<link rel="stylesheet" href="{{ '/styles/ledgerflow-story.css' | relative_url }}?v={{ site.asset_version }}">
+<main class="main vitae vega-case ledgerflow-case" id="main-content" tabindex="-1" data-chapter-index-scope data-dock-all-sections>
+  <h1 id="ledgerflow-title">{{ project.name }}</h1>
+  <p class="vega-skim-lead">{{ project.introduction }}</p>
+  <div class="vega-skim" aria-label="LedgerFlow at a glance">
+    <dl>
+      <div><dt>My contribution</dt><dd>Desktop and mobile flows: dashboard, reporting, invoice creation, payment links, customer billing, reminders and payment collection.</dd></div>
+      <div><dt>Design focus</dt><dd>Hierarchy, clarity, status visibility and reusable patterns across everyday financial work.</dd></div>
+      <div><dt>Connected workflows</dt><dd>Invoices, payments, customer billing, reminders, reporting and mobile collection. <a href="#ledgerflow-footnote-1" id="ledgerflow-note-marker-1" aria-label="Read portfolio context note 1"><sup>[1]</sup></a></dd></div>
+    </dl>
+  </div>
+  {% assign chapters = "Overview,Approach,Experience,Notes" | split: "," %}
+  {% include vitae-subnav.html label="LedgerFlow case study chapters" chapters=chapters %}
+  <section class="vega-chapter vega-story-block" id="overview" aria-labelledby="ledgerflow-goal">
+    <div class="vega-editorial">
+      <h2 id="ledgerflow-goal">{{ project.challenge_heading }}</h2>
+      <div class="vega-prose"><p>{{ project.challenge }}</p></div>
+      <figure class="vega-visual-placeholder" data-vega-visual data-vega-theme="dark" aria-label="Visual placeholder for LedgerFlow goal">
+        <div class="vega-visual-theme-bar"><button type="button" class="vega-visual-theme-toggle" role="switch" aria-checked="true" aria-label="Dark mode for LedgerFlow goal visual" data-vega-theme-switch hidden>Dark mode: On</button></div>
+        <div><span aria-hidden="true">＋</span><strong>Visual placeholder</strong><p>Invoice to payment</p></div>
+        <figcaption>Reserved for a supporting visual.</figcaption>
+      </figure>
+    </div>
+  </section>
+  <section class="vega-chapter vega-story-block" id="approach" aria-labelledby="ledgerflow-approach">
+    <div class="vega-editorial">
+      <h2 id="ledgerflow-approach">{{ project.response_heading }}</h2>
+      <div class="vega-prose"><p>{{ project.response }}</p></div>
+      <figure class="vega-visual-placeholder" data-vega-visual data-vega-theme="dark" aria-label="Visual placeholder for LedgerFlow design approach">
+        <div class="vega-visual-theme-bar"><button type="button" class="vega-visual-theme-toggle" role="switch" aria-checked="true" aria-label="Dark mode for LedgerFlow design approach visual" data-vega-theme-switch hidden>Dark mode: On</button></div>
+        <div><span aria-hidden="true">＋</span><strong>Visual placeholder</strong><p>Connected desktop and mobile flows</p></div>
+        <figcaption>Reserved for a supporting visual.</figcaption>
+      </figure>
+    </div>
+  </section>
+  {% for highlight in project.highlights %}
+  <section class="vega-chapter vega-story-block" id="{% if forloop.first %}experience{% else %}ledgerflow-experience-{{ forloop.index }}{% endif %}" aria-labelledby="ledgerflow-highlight-{{ forloop.index }}">
+    <div class="vega-editorial">
+      <h2 id="ledgerflow-highlight-{{ forloop.index }}">{{ highlight.title }}</h2>
+      <div class="vega-prose"><p>{{ highlight.description }}</p></div>
+      <figure class="vega-visual-placeholder" data-vega-visual data-vega-theme="dark" aria-label="Visual placeholder for LedgerFlow: {{ highlight.title | escape }}">
+        <div class="vega-visual-theme-bar"><button type="button" class="vega-visual-theme-toggle" role="switch" aria-checked="true" aria-label="Dark mode for LedgerFlow visual: {{ highlight.title | escape }}" data-vega-theme-switch hidden>Dark mode: On</button></div>
+        <div><span aria-hidden="true">＋</span><strong>Visual placeholder</strong><p>{{ highlight.title }}</p></div>
+        <figcaption>Supporting visual pending. <a href="#notes">View the existing product presentation in notes</a>.</figcaption>
+      </figure>
+    </div>
+  </section>
+  {% endfor %}
+  <aside class="vega-chapter ledgerflow-notes" id="notes" aria-labelledby="ledgerflow-notes-title">
+    <h2 id="ledgerflow-notes-title">Portfolio notes</h2>
+    <ol class="ledgerflow-footnotes"><li id="ledgerflow-footnote-1">This page presents a representative payments and invoicing experience. The descriptions retain the existing public portfolio copy. It does not establish a team roster, project dates, launch status or measured results. <a href="#ledgerflow-note-marker-1" aria-label="Return to portfolio context note 1 reference">Return to reference [1]</a>.</li></ol>
+    <details><summary>Existing product presentations and visual scope</summary>
+      <p>The existing images are preserved as supplied. Theme controls change only the authored placeholder panels; they do not recolor original images or imply an implemented product theme. Placeholder panels depict no completed interface or evidence.</p>
+      <ul>{% for image in project.gallery %}{% assign highlight = project.highlights[forloop.index0] %}
+        <li id="ledgerflow-source-{{ forloop.index }}"><a href="{{ image | relative_url }}">{{ highlight.title }} — existing product presentation</a></li>
+      {% endfor %}</ul>
+    </details>
+  </aside>
+  {{ content }}
+</main>
+<script type="module" src="{{ '/scripts/vegaPlayground.mjs' | relative_url }}?v={{ site.asset_version }}"></script>

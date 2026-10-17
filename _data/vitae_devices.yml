@@ -1,23 +1,23 @@
 laptop:
-  frame: glass-laptop.png
+  frame: glass-laptop-lossless.webp
   width: 2858
   height: 1949
   screen_width: 1513
   screen_height: 1040
 tablet:
-  frame: glass-tablet.png
+  frame: glass-tablet-lossless.webp
   width: 1365
   height: 2025
   screen_width: 1013
   screen_height: 1552
 phone:
-  frame: glass-smartphone.png
+  frame: glass-smartphone-lossless.webp
   width: 522
   height: 998
   screen_width: 872
   screen_height: 1804
 landscape:
-  frame: glass-smartphone.png
+  frame: glass-smartphone-lossless.webp
   width: 522
   height: 998
   screen_width: 1804

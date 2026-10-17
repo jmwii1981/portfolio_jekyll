@@ -1,7 +1,7 @@
 // Original light-mode library values, not the current public Vega token release.
-@font-face { font-family: VegaOriginal; src: url('/fonts/vega-inter-regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
-@font-face { font-family: VegaOriginal; src: url('/fonts/vega-inter-500.ttf') format('truetype'); font-weight: 500; font-display: swap; }
-@font-face { font-family: VegaOriginal; src: url('/fonts/vega-inter-700.ttf') format('truetype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: VegaOriginal; src: url('/fonts/vega-inter-regular.woff2') format('woff2'), url('/fonts/vega-inter-regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: VegaOriginal; src: url('/fonts/vega-inter-500.woff2') format('woff2'), url('/fonts/vega-inter-500.ttf') format('truetype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: VegaOriginal; src: url('/fonts/vega-inter-700.woff2') format('woff2'), url('/fonts/vega-inter-700.ttf') format('truetype'); font-weight: 700; font-display: swap; }
 .main.vitae.vega-case {
     .vega-play-intro { margin-bottom: 20px; }
     .vega-play-intro p { max-width: 780px; }
@@ -53,7 +53,7 @@
     .vega-playground:not(.is-ready) .vega-original-range::-webkit-slider-runnable-track { background: #dee1e3; }
     .vega-play-footer { grid-column: 1 / -1; padding: 14px 8px 2px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: 11px; color: #53616d; }
     .vega-play-reset { background: transparent; color: #1362e2; border: 0; font-weight: 700; min-height: 44px; cursor: pointer; }
-    #vega-story { scroll-margin-top: 70px; }
+    #vega-story, #vega-wall-title { scroll-margin-top: 70px; }
 }
 @media (min-width: 48rem) {
     .main.vitae.vega-case {
@@ -70,4 +70,202 @@
 @media (min-width: 75rem) {
     .main.vitae.vega-case .vega-playground { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .main.vitae.vega-case .vega-play-cell { padding: 24px 20px; }
+}
+// Extended specimens share the original-library foundations above.
+.main.vitae.vega-case {
+    .vega-playground { grid-template-columns: 1fr; padding: 12px; gap: 12px; border-radius: 24px; }
+    .vega-play-cell { padding: 24px; border-radius: 14px; gap: 20px; justify-content: flex-start; }
+    .vega-play-cell > label:not(.vega-component-name), .vega-choice-set legend { font-size: 14px; line-height: 1.6; }
+    .vega-component-name { font-weight: 700; color: #485864; }
+    .vega-play-cell .vega-component-note { margin-top: auto; }
+    .vega-play-cell--half, .vega-play-cell--full { grid-column: 1 / -1; }
+    .vega-play-footer { flex-wrap: wrap; font-size: 12px; line-height: 1.6; padding-inline: 12px; }
+    .vega-receipt-preview { font-size: 18px; padding: 20px; background: #f0f3f7; border-radius: 12px; }
+    .vega-density-sample { display: grid; gap: var(--sample-gap,9px); background: #f0f3f7; border-radius: 12px; padding: 16px; }
+    .vega-density-sample span { padding: 8px 0; border-bottom: 1px solid #c7d9e5; font-size: 13px; }
+    .vega-choice-set { margin: 0; padding: 0; border: 0; min-width: 0; }
+    .vega-choice-set legend { margin-bottom: 8px; }
+    .vega-choice-set label { display: flex; align-items: center; gap: 12px; min-height: 44px; cursor: pointer; font-size: 16px; }
+    .vega-choice-set input { width: 20px; height: 20px; accent-color: #1362e2; margin: 0; flex-shrink: 0; }
+    .vega-secondary-button { display: inline-flex; justify-content: center; align-items: center; padding: 8px 20px; background: #fcfcfc; border: 1px solid #1362e2; border-radius: 9999px; color: #1362e2; min-height: 44px; font: 700 14px/24px VegaOriginal,sans-serif; cursor: pointer; }
+    .vega-wall-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .vega-wall-actions button { min-height: 44px; }
+    .vega-wall-actions button:disabled { border-color: #c7d9e5; background: #dee1e3; color: #485864; cursor: default; }
+    .vega-step-preview { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; list-style: none; margin: 0; padding: 0; }
+    .vega-step-preview li { text-align: center; color: #596670; font-size: 12px; line-height: 1.6; }
+    .vega-step-preview li > span { display: grid; place-items: center; width: 32px; height: 32px; background: #dee1e3; color: #203645; border-radius: 50%; margin: 4px auto 12px; font-size: 16px; }
+    .vega-step-preview [aria-current] { color: #203645; font-weight: 700; }
+    .vega-step-preview [aria-current] > span { color: #fcfcfc; background: #1362e2; outline: 4px solid #1362e240; }
+    .vega-step-preview .is-complete > span { background: #fcfcfc; color: #1362e2; box-shadow: inset 0 0 0 1px #1362e2; }
+    .vega-wall-disclosure { border-block-end: 1px solid #c7d9e5; }
+    .vega-wall-disclosure summary { padding-block: 12px; min-height: 44px; cursor: pointer; font-size: 16px; line-height: 1.5; }
+    .vega-wall-disclosure p { color: #485864; font: 400 15px/1.6 VegaOriginal,sans-serif; margin-block: 12px 20px; }
+    .vega-table-heading { display: flex; flex-wrap: wrap; gap: 24px; align-items: end; justify-content: space-between; }
+    .vega-table-heading strong { display: block; font-size: 24px; line-height: 1.3; margin-top: 12px; }
+    .vega-table-heading > label { font-size: 14px; display: grid; gap: 8px; }
+    .vega-wall-table-wrap { overflow-x: auto; border-radius: 12px; }
+    .vega-wall-table { width: 100%; border-collapse: separate; border-spacing: 0 4px; font-size: 14px; line-height: 1.5; }
+    .vega-wall-table caption { color: #596670; text-align: left; font-size: 12px; padding-bottom: 16px; }
+    .vega-wall-table th, .vega-wall-table td { text-align: left; padding: 12px; color: #203645; font-weight: 400; vertical-align: middle; }
+    .vega-wall-table th:first-child, .vega-wall-table td:first-child { border-radius: 12px 0 0 12px; }
+    .vega-wall-table th:last-child, .vega-wall-table td:last-child { border-radius: 0 12px 12px 0; }
+    .vega-wall-table thead th { background: #f0f3f7; font-weight: 700; }
+    .vega-wall-table tbody tr:nth-child(even) { background: #f5f7f7; }
+    .vega-wall-table small { display: block; font-size: 12px; color: #596670; }
+    .vega-status { display: inline-block; border-radius: 9999px; padding: 4px 10px; outline: 1px solid #8a6e25; outline-offset: -1px; background: #fff3cf; color: #674b00; font-size: 12px; }
+    .vega-status--paid { background: #dff2e9; color: #18523e; outline-color: #49715e; }
+    .vega-playground :is(summary,select,[tabindex]):focus-visible { outline: 2px solid #1362e2; outline-offset: 4px; }
+}
+@media(min-width: 48rem) {
+    .main.vitae.vega-case {
+        .vega-playground { grid-template-columns: repeat(2,minmax(0,1fr)); padding: 20px; }
+        .vega-play-cell--half { grid-column: auto; }
+    }
+}
+@media(min-width: 75rem) {
+    .main.vitae.vega-case {
+        .vega-playground { grid-template-columns: repeat(3,minmax(0,1fr)); }
+        .vega-play-cell--half { grid-column: span 3; }
+        .vega-play-cell--half .vega-step-preview { max-width: 600px; }
+    }
+}
+@media(forced-colors:active) {
+    .main.vitae.vega-case {
+        .vega-play-cell, .vega-step-preview li > span, .vega-status { border: 1px solid CanvasText; }
+        .vega-step-preview [aria-current] > span { outline: 3px solid Highlight; }
+    }
+}
+@media(min-width:75rem) {
+    .main.vitae.vega-case {
+        .vega-playground { grid-template-columns: repeat(6,minmax(0,1fr)); }
+        .vega-play-cell { grid-column: span 2; }
+        .vega-play-cell--half { grid-column: span 3; }
+        .vega-play-cell--full { grid-column: 1 / -1; }
+    }
+}
+
+// Current public Vega dark surfaces/text, with explicit AAA portfolio adaptations.
+// Source: vega.globalpayments.com/_next/static/css/143aa9d2318134f9.css
+.main.vitae.vega-case {
+    .vega-playground, .vega-source-specimen, .vega-visual-placeholder {
+        --vega-surface: var(--vv-surface);
+        --vega-action: var(--vv-action); // Darkened action blue supports white AAA text.
+        --vega-focus: var(--vv-focus);
+        --vega-content: var(--vv-text);
+        --color-focus-ring: var(--vv-focus);
+        --focus-ring-width: 2px;
+        --vega-muted: var(--vv-muted);
+        --vega-edge: var(--vv-edge); // Public chip border, stronger than the input border.
+        color-scheme: inherit;
+        color: var(--vega-content);
+    }
+    .vega-playground { background: var(--vv-raised); border-color: var(--vv-edge); }
+    .vega-play-cell { background: var(--vv-surface); color: var(--vv-text); }
+    .vega-playground :is(.vega-component-name,.vega-component-note,.vega-play-footer,.vega-wall-nojs,.vega-wall-disclosure p,.vega-wall-table caption,.vega-wall-table small),
+    .vega-source-specimen :is(p,dt,dd), .vega-visual-placeholder :is(p,span,figcaption) { color: var(--vv-muted); }
+    .vega-playground :is(label,legend,.vega-table-heading strong), .vega-source-specimen :is(strong,label) { color: var(--vv-text); }
+    .vega-playground .vega-component-name output, .vega-play-reset { color: var(--vv-focus); }
+    .vega-playground .vega-original-button { background: var(--vv-action); color: #fcfcfc; outline: 1px solid var(--vv-focus); outline-offset: -1px; }
+    .vega-playground .vega-original-button:hover { background: var(--vv-hover); }
+    .vega-playground .vega-original-button:active { background: var(--vv-active); filter: none; }
+    .vega-playground .vega-original-input, .vega-source-specimen .vega-original-input { background: var(--vv-surface); color: var(--vv-text); border-color: var(--vv-edge); }
+    .vega-playground .vega-original-input::placeholder, .vega-source-specimen .vega-original-input::placeholder { color: var(--vv-muted); }
+    .vega-playground .vega-original-input:hover, .vega-source-specimen .vega-original-input:hover { border-color: var(--vv-muted); }
+    .vega-playground :is(button,input,summary,select,[tabindex]):focus-visible, .vega-source-specimen input:focus-visible { outline: 2px solid var(--vv-focus); outline-offset: 4px; }
+    .vega-playground .vega-original-input:focus, .vega-source-specimen .vega-original-input:focus { border-color: var(--vv-focus); }
+    .vega-original-toggle { background: var(--vv-toggle); border: 1px solid var(--vv-muted); padding: 3px; }
+    .vega-original-toggle::before { background: var(--vv-text); }
+    .vega-original-toggle:checked { background: var(--vv-action); border-color: var(--vv-focus); }
+    .vega-receipt-preview, .vega-density-sample { background: var(--vv-raised); color: var(--vv-text); }
+    .vega-density-sample span { border-color: var(--vv-edge); }
+    .vega-original-range::-webkit-slider-runnable-track { background: linear-gradient(to right,var(--vv-focus) var(--vega-range-value),var(--vv-edge) var(--vega-range-value)); }
+    .vega-original-range::-moz-range-track { background: var(--vv-edge); }
+    .vega-original-range::-moz-range-progress { background: var(--vv-focus); }
+    .vega-original-range::-webkit-slider-thumb { background: var(--vv-text); border: 2px solid var(--vv-edge); border-radius: 50%; width: 28px; height: 28px; }
+    .vega-original-range::-moz-range-thumb { background: var(--vv-text); border: 2px solid var(--vv-edge); border-radius: 50%; width: 24px; height: 24px; }
+    .vega-playground:not(.is-ready) .vega-original-range::-webkit-slider-runnable-track { background: var(--vv-edge); }
+    .vega-choice-set input { accent-color: var(--vv-action); outline: 1px solid var(--vv-muted); outline-offset: 0; }
+    .vega-secondary-button { background: var(--vv-surface); color: var(--vv-focus); border-color: var(--vv-focus); }
+    .vega-secondary-button:hover { background: var(--vv-raised); }
+    .vega-wall-actions button:disabled { background: var(--vv-raised); border-color: var(--vv-edge); color: var(--vv-muted); outline: none; }
+    .vega-step-preview li, .vega-step-preview [aria-current] { color: var(--vv-text); }
+    .vega-step-preview li > span { background: var(--vv-raised); color: var(--vv-text); box-shadow: inset 0 0 0 1px var(--vv-edge); }
+    .vega-step-preview [aria-current] > span { background: var(--vv-action); color: #fcfcfc; outline: 2px solid var(--vv-focus); }
+    .vega-step-preview .is-complete > span { background: var(--vv-surface); color: var(--vv-focus); box-shadow: inset 0 0 0 1px var(--vv-focus); }
+    .vega-wall-disclosure { border-color: var(--vv-edge); }
+    .vega-wall-table :is(th,td) { color: var(--vv-text); }
+    .vega-wall-table thead th { background: var(--vv-raised); }
+    .vega-wall-table tbody tr:nth-child(even) { background: var(--vv-alt); }
+    .vega-status { background: var(--vv-warning-bg); color: var(--vv-warning-text); outline-color: var(--vv-warning-edge); }
+    .vega-status--paid { background: var(--vv-alt); color: var(--vv-success-text); outline-color: var(--vv-success-edge); }
+    .vega-source-specimen { background: var(--vv-surface); border-color: var(--vv-edge); }
+    .vega-visual-placeholder { background: var(--vv-alt); border-color: var(--vv-edge); }
+}
+@media(forced-colors:active) {
+    .main.vitae.vega-case .vega-playground :is(button,input,select,.vega-status) { outline-color: CanvasText; border-color: CanvasText; }
+}
+
+.main.vitae.vega-case .vega-playground .vega-choice-set input { appearance: none; box-sizing: border-box; border: 1px solid var(--vv-muted); border-radius: 4px; background: var(--vv-surface); outline: none; }
+.main.vitae.vega-case .vega-playground .vega-choice-set input:checked { background: var(--vv-action); border-color: var(--vv-focus); }
+.main.vitae.vega-case .vega-playground .vega-choice-set input[type=checkbox]:checked::before { content: ''; display: block; width: 5px; height: 10px; border: solid #fcfcfc; border-width: 0 2px 2px 0; transform: rotate(45deg); margin: 1px auto; }
+.main.vitae.vega-case .vega-playground .vega-choice-set input[type=radio] { border-radius: 50%; }
+.main.vitae.vega-case .vega-playground .vega-choice-set input[type=radio]:checked { background: var(--vv-text); box-shadow: inset 0 0 0 4px var(--vv-surface); }
+
+// Independent visual palettes. Public Vega dark bases; AAA portfolio overrides.
+.main.vitae.vega-case [data-vega-visual] {
+    --vv-surface: #04041c; --vv-alt: #121227; --vv-raised: #181830;
+    --vv-text: #fcfcfc; --vv-muted: #bcbad5; --vv-edge: #6b747d;
+    --vv-focus: #00bbff; --vv-action: #124fba; --vv-hover: #1047a8; --vv-active: #0d3d91; --vv-toggle: #464765;
+    --vv-warning-bg: #fff8d9; --vv-warning-text: #655000; --vv-warning-edge: #8a6e25;
+    --vv-success-text: #7bf297; --vv-success-edge: #a0f4b3;
+    --color-focus-ring: var(--vv-focus); --focus-ring-width: 2px;
+    color-scheme: dark; color: var(--vv-text);
+    [hidden] { display: none !important; }
+}
+.main.vitae.vega-case [data-vega-visual][data-vega-theme=light] {
+    --vv-surface: #fcfcfc; --vv-alt: #f0f3f7; --vv-raised: #e8edf4;
+    --vv-text: #17212b; --vv-muted: #414d5a; --vv-edge: #6b747d;
+    --vv-focus: #124fba; --vv-toggle: #6b747d;
+    --vv-success-text: #18523e; --vv-success-edge: #49715e;
+    color-scheme: light;
+    .vega-status--paid { background: #dff2e9; }
+}
+.main.vitae.vega-case {
+    .vega-visual-theme-bar { grid-column: 1 / -1; display: flex; justify-content: flex-end; margin-bottom: 16px; }
+    .vega-playground .vega-visual-theme-bar { margin-bottom: 0; }
+    .vega-visual-theme-toggle { min-height: 44px; padding: 8px 14px; border: 1px solid var(--vv-edge); border-radius: 999px; background: var(--vv-surface); color: var(--vv-text); font: 500 14px/1.5 VegaOriginal,sans-serif; cursor: pointer; }
+    .vega-story-visual[data-vega-visual] { background: var(--vv-surface); border-color: var(--vv-edge); color: var(--vv-text); }
+    [data-vega-visual] :is(.vega-evidence-heading h3,.vega-evidence-observations strong) { color: var(--vv-text); }
+    [data-vega-visual] :is(.vega-evidence-heading p,.vega-evidence-observations li,figcaption) { color: var(--vv-muted); }
+    [data-vega-visual] figcaption a { color: var(--vv-focus); }
+    [data-vega-visual] .vega-charter-excerpts blockquote { background: var(--vv-raised); border-color: var(--vv-edge); color: var(--vv-text); }
+    .vega-visual-placeholder .vega-visual-theme-bar { width: 100%; margin: 0 0 16px; padding: 0; }
+    .vega-recreated-field { margin-block: 28px; font: 400 16px/24px VegaOriginal,sans-serif; }
+    .vega-recreated-field strong { display: block; margin-bottom: 8px; }
+    .vega-recreated-field span { display: block; border: 1px solid var(--vv-focus); outline: 2px solid var(--vv-focus); outline-offset: 3px; border-radius: 8px; padding: 8px 12px; color: var(--vv-muted); }
+    .vega-invoice-recreation { min-width: 720px; padding: 24px; background: var(--vv-surface); color: var(--vv-text); border: 1px solid var(--vv-edge); border-radius: 12px; font: 400 14px/1.5 VegaOriginal,sans-serif; }
+    .vega-invoice-recreation p { font: inherit; color: var(--vv-muted); margin: 12px 0; }
+    .vega-invoice-top,.vega-invoice-bottom { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    .vega-invoice-top > strong { font-size: 22px; }
+    .vega-invoice-top > span,.vega-invoice-bottom span { border: 1px solid var(--vv-focus); border-radius: 24px; padding: 8px 16px; color: var(--vv-focus); }
+    .vega-invoice-stages { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 12px; padding: 0; margin: 32px 0; list-style: none; text-align: center; color: var(--vv-muted); font-size: 12px; }
+    .vega-invoice-stages li > span { display: grid; place-items: center; margin: 0 auto 12px; width: 32px; height: 32px; border: 1px solid var(--vv-edge); border-radius: 50%; color: var(--vv-text); background: var(--vv-raised); }
+    .vega-invoice-stages [aria-current] > span { color: #fcfcfc; background: var(--vv-action); border-color: var(--vv-focus); }
+    .vega-invoice-body { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px; }
+    .vega-invoice-body > :is(div,aside) { border: 1px solid var(--vv-edge); border-radius: 12px; padding: 20px; min-width: 0; }
+    .vega-invoice-empty { padding: 24px; border: 1px dashed var(--vv-edge); border-radius: 12px; background: var(--vv-raised); text-align: center; }
+    .vega-invoice-empty strong,.vega-invoice-body aside > span { color: var(--vv-focus); }
+}
+// Keep visible markers high contrast in both independent palettes.
+.main.vitae.vega-case .vega-original-toggle::before { background: #fcfcfc; }
+.main.vitae.vega-case .vega-original-range::-webkit-slider-thumb { background: #fcfcfc; }
+.main.vitae.vega-case .vega-original-range::-moz-range-thumb { background: #fcfcfc; }
+.main.vitae.vega-case [data-vega-visual][data-vega-theme=light] .vega-invoice-empty strong { color: #0d3d91; }
+// The reconstruction reflows to its panel instead of cropping source-width UI.
+.main.vitae.vega-case {
+    .vega-invoice-recreation { min-width: 0; width: 100%; box-sizing: border-box; }
+    .vega-invoice-top { flex-wrap: wrap; }
+    .vega-invoice-stages { grid-template-columns: repeat(3,minmax(0,1fr)); row-gap: 24px; }
+    .vega-invoice-body { grid-template-columns: minmax(0,1fr); }
+    .vega-invoice-body aside > span { overflow-wrap: anywhere; }
 }

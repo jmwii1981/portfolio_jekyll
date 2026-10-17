@@ -2,6 +2,7 @@
 export function initializeDockPosition() {
     const header = document.querySelector('.header');
     const controls = header?.querySelector('.nav-controls');
+    const container = header?.querySelector('.nav-container');
     const island = controls?.querySelector('.dock-dots');
     if (!controls || !island) return;
     const mobile = matchMedia('(max-width: 47.999rem)');
@@ -19,9 +20,13 @@ export function initializeDockPosition() {
     handle.innerHTML = '<svg viewBox="0 0 27 4" aria-hidden="true"><path d="M1 0h25M1 3h25"/></svg>';
     const surface = () => mobile.matches ? island : controls;
     const bounds = () => {
+        const viewport = window.visualViewport;
+        const top = viewport?.offsetTop || 0;
+        const height = viewport?.height || innerHeight;
         const half = surface().getBoundingClientRect().height / 2;
-        const min = Math.min(innerHeight / 2, half + 18);
-        return { min, max: Math.max(min, innerHeight - half - 18) };
+        const clearance = document.querySelector('.links-page') ? 18 : 50;
+        const min = top + Math.min(height / 2, half + clearance);
+        return { min, max: Math.max(min, top + height - half - 18) };
     };
     const render = () => {
         handle.style.marginTop = `${2 - (parseFloat(getComputedStyle(surface()).rowGap) || 0)}px`;
@@ -34,6 +39,7 @@ export function initializeDockPosition() {
             island.style.removeProperty('top');
             header.style.top = `${y}px`;
         }
+        container.dispatchEvent(new Event('dockpositionchange'));
     };
     const save = () => { try { localStorage.setItem(key, String(position)); } catch {} };
     const move = y => {
@@ -42,30 +48,45 @@ export function initializeDockPosition() {
         render();
     };
     let drag = null;
+    let suppressDragClickUntil = 0;
     handle.addEventListener('pointerdown', event => {
-        if (event.pointerType !== 'mouse' || event.button !== 0) return;
+        if (!event.isPrimary || event.button !== 0 || drag) return;
+        // Preserve the closed touch island's section-selection gesture.
+        if (event.pointerType !== 'mouse' && !container.classList.contains('is-open')) return;
         event.preventDefault();
         event.stopPropagation();
         const rect = surface().getBoundingClientRect();
-        drag = { id: event.pointerId, offset: event.clientY - (rect.top + rect.height / 2) };
+        drag = { id: event.pointerId, startY: event.clientY, moved: false, offset: event.clientY - (rect.top + rect.height / 2) };
         handle.setPointerCapture(event.pointerId);
         handle.classList.add('is-dragging');
     });
-    handle.addEventListener('pointermove', event => {
+    window.addEventListener('pointermove', event => {
         if (!drag || event.pointerId !== drag.id) return;
+        event.preventDefault();
+        event.stopPropagation();
+        drag.moved = drag.moved || Math.abs(event.clientY - drag.startY) > 3;
         move(event.clientY - drag.offset);
-    });
+    }, true);
     const finish = event => {
         if (!drag || event.pointerId !== drag.id) return;
+        if (drag.moved) suppressDragClickUntil = performance.now() + 500;
         drag = null;
         handle.classList.remove('is-dragging');
         if (handle.hasPointerCapture(event.pointerId)) handle.releasePointerCapture(event.pointerId);
         save();
     };
-    handle.addEventListener('pointerup', finish);
-    handle.addEventListener('pointercancel', finish);
+    window.addEventListener('pointerup', finish, true);
+    window.addEventListener('pointercancel', finish, true);
     handle.addEventListener('lostpointercapture', finish);
-    handle.addEventListener('click', event => event.preventDefault());
+    // At a clamped edge the release can land outside the handle. That is
+    // still a drag completion, not an outside click that dismisses the menu.
+    window.addEventListener('click', event => {
+        if (performance.now() >= suppressDragClickUntil) return;
+        suppressDragClickUntil = 0;
+        event.preventDefault();
+        event.stopPropagation();
+    }, true);
+    handle.addEventListener('click', event => { event.preventDefault(); event.stopPropagation(); });
     handle.addEventListener('keydown', event => {
         if (!['ArrowUp', 'ArrowDown', 'Home'].includes(event.key)) return;
         event.preventDefault();
@@ -82,9 +103,13 @@ export function initializeDockPosition() {
     };
     mobile.addEventListener('change', arrange);
     window.addEventListener('resize', render, { passive: true });
+    window.visualViewport?.addEventListener('resize', render, { passive: true });
+    window.visualViewport?.addEventListener('scroll', render, { passive: true });
     window.addEventListener('pageshow', render);
     const observer = new ResizeObserver(render);
     observer.observe(controls);
     observer.observe(island);
+    // Opening exposes the touch handle and can change the island's bounds.
+    new MutationObserver(render).observe(container, { attributes: true, attributeFilter: ['class'] });
     arrange();
 }

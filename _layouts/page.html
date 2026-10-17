@@ -1,8 +1,19 @@
 <!doctype html>
-<html class="html no-js" xmlns="http://www.w3.org/1999/xhtml" lang="en" data-theme="light">
+<html class="html no-js" xmlns="http://www.w3.org/1999/xhtml" lang="en" data-theme="{% if page.url contains '/vitae/' %}dark{% else %}auto{% endif %}">
 <head>
+    {% unless page.url == '/links/' or page.url contains '/vitae/' %}<script src="{{ '/scripts/siteTheme.js' | relative_url }}?v={{ site.asset_version }}"></script>{% endunless %}
     <script>
         document.documentElement.classList.add('navigation-pending');
+        {% if page.url == '/perspectives/' %}
+        document.documentElement.classList.add('perspectives-pending');
+        // Restore the authored fallback if the deferred feed module never starts.
+        setTimeout(function () {
+            var feed = document.getElementById('latest-medium-article');
+            if (!feed || !feed.matches('.is-feed-loading, .is-feed-ready, .is-feed-error')) {
+                document.documentElement.classList.remove('perspectives-pending');
+            }
+        }, 8000);
+        {% endif %}
         // Decide before first paint so internal navigation never flashes an entrance.
         var arrival = performance.getEntriesByType('navigation')[0];
         var fromThisSite = false;
@@ -372,7 +383,7 @@
     <script type="module" src="{{ '/scripts/initializeScripts.js' | relative_url }}?v={{ site.asset_version }}" data-site-entry></script>
 
 </head>
-<body class="body{% if page.url == '/vitae/' or page.layout == 'project' or page.layout == 'avenapay' or page.layout == 'vega' %} body--vitae{% endif %}">
+<body class="body{% if page.url == '/vitae/' or page.layout == 'project' or page.layout == 'avenapay' or page.layout == 'vega' or page.layout == 'ledgerflow' %} body--vitae{% endif %}">
 <a class="a skip-link" href="#main-content">Skip to main content</a>
 {% if page.url == '/links/' %}
 <div class="links-mobile-navigation">{% include header.html %}</div>

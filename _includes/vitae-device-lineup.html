@@ -5,7 +5,7 @@
     <span class="vitae-device vitae-device--{{ device }} project-screen-device" role="group" aria-label="{{ include.project.name }} {{ device }} preview">
         <img class="project-device-frame" src="{{ '/images/vitae/' | append: geometry.frame | relative_url }}" width="{{ geometry.width }}" height="{{ geometry.height }}" alt="" loading="lazy" decoding="async">
         {% if include.slug == 'vega' %}
-        <span class="project-screen-inset" data-vega-device="{{ device }}"><img class="vega-demo-fallback" src="{{ '/images/vitae/vega-screen-' | append: device | append: '-v3.png' | relative_url }}" width="{{ geometry.screen_width }}" height="{{ geometry.screen_height }}" alt="Vega {{ device }} dashboard concept with illustrative demo data" loading="lazy" decoding="async"></span>
+        <span class="project-screen-inset" data-vega-device="{{ device }}"><img class="vega-demo-fallback" src="{{ '/images/vitae/vega-screen-' | append: device | append: '-v3-lossless.webp' | relative_url }}" width="{{ geometry.screen_width }}" height="{{ geometry.screen_height }}" alt="Vega {{ device }} dashboard concept with illustrative demo data" loading="lazy" decoding="async"></span>
         {% elsif include.slug == 'ledgerflow' %}
         <span class="project-screen-inset" data-ledger-device="{{ device }}"></span>
         {% endif %}

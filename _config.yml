@@ -21,9 +21,6 @@ exclude:
   - CHANGELOG.md
   - VERSION
   - README.md
-  - PROJECT_REQUIREMENTS.md
-  - design-qa.md
-  - code-review-2026-10-13.md
   - LICENSE
   - scripts/README.md
   - scripts/audit-site.rb
@@ -32,5 +29,7 @@ exclude:
   - images/ui/emoji-sources.md
   - images/ui/vega/figma/README.md
   - images/ui/vega/figma/index.html
-  - images/vitae/vega-screen-concepts.md
   - scripts/vendor/vega/CHART-LICENSE.md
+
+  - vega-proof.html
+  - images/projects/vega/vega-transaction-proof.png

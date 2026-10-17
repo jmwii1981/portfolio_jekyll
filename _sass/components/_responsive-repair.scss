@@ -53,8 +53,24 @@
     }
     > .content-wrapper { padding-top: 0; gap: 32px; }
     .logo-carousel { margin-top: 0; }
-    .company-heading {
+    .company-title-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
         width: 100%;
+        min-width: 0;
+    }
+    .company-title-art {
+        display: block;
+        flex: 0 0 104px;
+        width: 104px;
+        height: auto;
+        pointer-events: none;
+    }
+    .company-heading {
+        width: auto;
+        min-width: 0;
         max-width: none;
         box-sizing: border-box;
         padding-inline: 0;
@@ -65,6 +81,12 @@
         font-weight: 500;
         letter-spacing: -.03em;
         color: #292a2b;
+    }
+}
+@media (min-width: 48rem) {
+    .main.about > .company-section {
+        .company-title-row { gap: 0; }
+        .company-title-art { flex-basis: 180px; width: 180px; }
     }
 }
 .main.about > .company-section + .about-me .about-me-accent {
@@ -198,6 +220,8 @@
         .recommendation-mark { color: #52647c; margin-right: 5px; }
         .recommendation-role { color: #52647c; font-style: italic; font-weight: 400; }
         .recommendation-controls {
+            --tertiary-hover-background: rgba(255,255,255,.6625);
+            --tertiary-hover-ink: #352e28;
             position: absolute;
             left: 40px;
             bottom: 32px;
@@ -220,15 +244,22 @@
                 backdrop-filter: blur(12px) saturate(115%);
                 box-shadow: 0 2px 4px rgba(40,45,50,.16), 0 4px 8px rgba(40,45,50,.08);
                 cursor: pointer;
-                &:hover { background: rgba(207, 189, 165, .1); }
                 &:focus-visible { outline: 2px solid #52647c; outline-offset: 4px; }
                 &::before { content: ''; position: absolute; inset: -4px; }
             }
             img { display: block; width: 18px; height: 18px; }
             svg { width: 18px; height: 18px; color: #46515c; }
             svg[hidden] { display: none; }
-            .recommendation-previous img { transform: rotate(90deg); }
-            .recommendation-next img { transform: rotate(-90deg); }
+            .recommendation-arrow { color: var(--recommendation-arrow-ink, #000); }
+            .recommendation-previous :is(img, .recommendation-arrow) { transform: rotate(90deg); }
+            .recommendation-next :is(img, .recommendation-arrow) { transform: rotate(-90deg); }
+            @media (hover: hover) and (pointer: fine) {
+                button:not(:disabled):not([aria-disabled="true"]):hover {
+                    background: var(--tertiary-hover-background);
+                    color: var(--tertiary-hover-ink);
+                    svg { color: inherit; }
+                }
+            }
         }
         .recommendations:not(:has(.recommendation-list.is-controlled)) .recommendation-controls { display: none; }
     }
@@ -648,7 +679,7 @@
     }
     .main.about, .main.vitae { width: 100%; }
     .links-mobile-navigation { display: block; }
-    .header .nav-panel { max-height: calc(100dvh - 32px); overflow-y: auto; }
+    .header .nav-panel { max-height: none; overflow: visible; }
     .main.vitae .vitae-project-stage {
         .vitae-device-lineup { width: 100%; }
         .project-story-title { font-size: var(--project-heading-size); }

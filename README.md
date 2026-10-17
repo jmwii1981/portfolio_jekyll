@@ -86,8 +86,7 @@ bundle exec jekyll build
 ├── contact.markdown         # Contact form and direct contact options
 ├── terms.markdown           # Terms of use and privacy policy
 ├── master.scss              # Sass entry point
-├── sitemap.xml              # Authored canonical sitemap
-└── llms.txt                 # Public machine-readable site summary
+└── sitemap.xml              # Authored canonical sitemap
 ```
 
 More detail about the Sass and script architecture is available in [_sass/README.md](_sass/README.md) and [scripts/README.md](scripts/README.md).

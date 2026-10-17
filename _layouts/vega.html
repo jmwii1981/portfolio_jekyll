@@ -2,8 +2,13 @@
 layout: page
 ---
 <main class="main vitae vega-case" id="main-content" tabindex="-1" data-chapter-index-scope data-dock-all-sections>
-  <a class="a vega-back" href="{{ '/vitae/' | relative_url }}"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="M16 10H4m5-5-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Go back</a>
+  <div class="vega-hero-intro"><div class="vega-hero-copy">
   <h1 id="vega-title">{{ page.hero_title }}</h1>
+  <p class="vega-skim-lead">Heartland One was an initiative to bring our teams together and encourage collaboration across products. We were working in different ways, rebuilding components over and over again, and had opportunities to improve accessibility and create more consistent and higher quality experiences. I saw an opportunity to create something that could close those gaps. That became Vega, a shared design system that helped teams work together to create consistent, accessible and higher quality experiences for our customers.</p>
+</div><figure class="vega-hero-art" aria-hidden="true"><img src="{{ '/images/projects/vega/crystal-ui-hero.webp' | relative_url }}" width="1448" height="1086" alt="" fetchpriority="high" decoding="async"></figure></div>
+<div class="vega-skim" aria-label="Vega at a glance">
+<dl><div><dd>I built the initial wireframing kit, explored the visual direction and built support for Vega with leadership and peers. As the team grew, my role expanded into facilitation, roadmaps and product ownership. Vega shipped in all eight products I led.</dd></div><div><dt>Built together</dt><dd>Vega brought designers, researchers, engineers and a UX writer together to build a shared system and help teams put it into practice.</dd></div><div><dt>What I observed</dt><dd>Beyond the products I led, I saw other engineering teams begin adopting Vega.</dd></div></dl>
+</div>
   {% assign chapters = "Overview,Decisions,Experience,Results" | split: "," %}
   {% include vitae-subnav.html label="Vega case study chapters" chapters=chapters %}
   {{ content }}

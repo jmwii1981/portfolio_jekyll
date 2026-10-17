@@ -22,7 +22,7 @@ Notable changes to janmichael.io are recorded here. The project uses
   features.
 - Automated builds, regression tests, and generated-site audits in GitHub
   Actions.
-- AI and semantic engine optimizations implemented.
+- Semantic search metadata improvements implemented.
 
 [Unreleased]: https://github.com/jmwii1981/portfolio_jekyll/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/jmwii1981/portfolio_jekyll/compare/v0.0.1...v1.0.0

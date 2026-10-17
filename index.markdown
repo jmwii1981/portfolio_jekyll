@@ -12,6 +12,7 @@ description: "Fractional product design leadership for growing companies navigat
         <div class="content-wrapper page-intro-frame">
             <div class="image-wrapper" aria-hidden="true">
                 <picture class="image-picture">
+                    <source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/hero/prayer-rocks-dark-lossless.webp' | relative_url }}?v={{ site.asset_version }}">
                     <source type="image/avif" srcset="{{ '/images/hero/prayer-rocks.avif' | relative_url }}?v=20260930-transparent">
                     <source type="image/webp" srcset="{{ '/images/hero/prayer-rocks.webp' | relative_url }}?v=20260930-transparent">
                     <img width="1254" height="1254" class="image" src="{{ '/images/hero/prayer-rocks.png' | relative_url }}?v=20260930-transparent" alt="" decoding="async" fetchpriority="high">
@@ -19,7 +20,7 @@ description: "Fractional product design leadership for growing companies navigat
             </div>
             <div class="copy-wrapper">
                 <h1 class="h1 page-hero-title" id="about-title">Glad you're here!</h1>
-                <p class="p about-me-statement">Hi! <img class="hero-greeting-emoji" src="{{ '/images/ui/waving-hand.svg' | relative_url }}" width="92" height="92" alt="" aria-hidden="true"> I'm <a class="hero-profile-link" data-preview-image="{{ '/images/ui/linkedin-profile-preview.png' | relative_url }}" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">Jan Michael</a>. I shape how people, processes, products, and strategies work together to create happier teams, rock-solid systems, and value that sticks.</p>
+                <p class="p about-me-statement">Hi! <img class="hero-greeting-emoji" src="{{ '/images/ui/waving-hand.svg' | relative_url }}" width="92" height="92" alt="" aria-hidden="true"> I'm <a class="hero-profile-link" data-preview-image="{{ '/images/ui/linkedin-profile-preview.png' | relative_url }}" data-preview-image-dark="{{ '/images/ui/linkedin-profile-preview-dark-matched.png' | relative_url }}" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">Jan Michael</a>. I shape how people, processes, products, and strategies work together to create happier teams, rock-solid systems, and value that sticks.</p>
                 <div class="button-group">
                     <a
                     class="a button button-container secondary"
@@ -44,6 +45,7 @@ description: "Fractional product design leadership for growing companies navigat
                 </header>
                 <div class="help-artwork" aria-hidden="true" data-reveal="right">
                 <picture class="help-artwork-poster">
+                    <source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/help/post-its-dark-lossless.webp' | relative_url }}?v={{ site.asset_version }}">
                     <source type="image/avif" srcset="{{ '/images/help/post-its.avif' | relative_url }}?v={{ site.asset_version }}">
                     <source type="image/webp" srcset="{{ '/images/help/post-its.webp' | relative_url }}?v={{ site.asset_version }}">
                     <img class="help-artwork-image" src="{{ '/images/help/post-its.png' | relative_url }}?v={{ site.asset_version }}" width="1254" height="1254" alt="" loading="lazy" decoding="async">
@@ -64,6 +66,7 @@ description: "Fractional product design leadership for growing companies navigat
                 </header>
                 <div class="testimonials-artwork-shell" aria-hidden="true" data-reveal="right">
                     <picture class="testimonials-artwork">
+                    <source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/testimonials/puzzle-pieces-dark-lossless.webp' | relative_url }}?v={{ site.asset_version }}">
                         <source type="image/avif" srcset="{{ '/images/testimonials/puzzle-pieces.avif' | relative_url }}?v=20260930-transparent-2">
                         <source type="image/webp" srcset="{{ '/images/testimonials/puzzle-pieces.webp' | relative_url }}?v=20260930-transparent-2">
                         <img class="testimonials-artwork-image" src="{{ '/images/testimonials/puzzle-pieces.png' | relative_url }}?v=20260930-transparent-2" width="929" height="803" alt="" loading="lazy" decoding="async">
@@ -79,7 +82,7 @@ description: "Fractional product design leadership for growing companies navigat
             <div class="recommendations" id="recommendations" data-reveal="up">
                 <div class="recommendation-title-row">
                     <h2 class="h2 home-section-title recommendation-heading" id="testimonial-heading">Testimonials</h2>
-                    <img class="recommendation-title-art" src="{{ '/images/contact/clay-speech-bubble.png' | relative_url }}" width="1280" height="1280" alt="" aria-hidden="true">
+                    <picture class="theme-artwork-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/contact/clay-speech-bubble-dark-lossless.webp' | relative_url }}?v={{ site.asset_version }}"><img class="recommendation-title-art" loading="lazy" decoding="async" src="{{ '/images/contact/clay-speech-bubble-lossless.webp' | relative_url }}" width="1280" height="1280" alt="" aria-hidden="true"></picture>
                 </div>
                 <div class="recommendation-quote-shell">
                 <ul class="recommendation-list" id="recommendation-list" aria-live="polite" aria-atomic="true">
@@ -182,9 +185,9 @@ description: "Fractional product design leadership for growing companies navigat
                 </ul>
                 <a class="a button button-container primary about-me-linkedin-button recommendation-more" href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer" aria-label="See more on LinkedIn (opens in a new tab)">See more<span class="button-shadow" aria-hidden="true"></span><span class="button-face-container" aria-hidden="true"><span class="button-face"><span class="about-me-linkedin-icon">{% include icon.html name="linked-in-cutout" %}</span>See more <svg class="button-external-icon" viewBox="0 0 20 20" fill="none"><path d="M5 15 15 5M8 5h7v7" /></svg></span></span></a>
                 <div class="recommendation-controls" aria-label="Testimonial navigation">
-                    <button class="recommendation-previous" type="button" aria-label="Previous testimonial" aria-controls="recommendation-list"><img src="{{ '/images/ui/vega/chevron-down.svg' | relative_url }}" alt="" width="18" height="18"></button>
+                    <button class="recommendation-previous" type="button" aria-label="Previous testimonial" aria-controls="recommendation-list"><svg class="recommendation-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6l6 -6"/></svg></button>
                     <button class="recommendation-playback" type="button" aria-label="Pause testimonials" aria-controls="recommendation-list"><svg class="playback-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5v10M13 5v10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg><svg class="playback-play" viewBox="0 0 20 20" aria-hidden="true" hidden><path d="m7 4 9 6-9 6Z" fill="currentColor"/></svg></button>
-                    <button class="recommendation-next" type="button" aria-label="Next testimonial" aria-controls="recommendation-list"><img src="{{ '/images/ui/vega/chevron-down.svg' | relative_url }}" alt="" width="18" height="18"></button>
+                    <button class="recommendation-next" type="button" aria-label="Next testimonial" aria-controls="recommendation-list"><svg class="recommendation-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6l6 -6"/></svg></button>
                 </div>
                 </div>
             </div>
@@ -192,70 +195,73 @@ description: "Fractional product design leadership for growing companies navigat
     </section>
     <section class="testimonials company-section" id="companies" data-dock-label="Trusted by" data-nav-section data-nav-title="Trusted by" aria-labelledby="company-heading">
         <div class="content-wrapper" data-reveal="up">
-            <h2 class="h2 home-section-title company-heading" id="company-heading">Trusted by...</h2>
+            <div class="company-title-row">
+                <picture class="theme-artwork-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/clay-thumbs-up-dark-lossless.webp' | relative_url }}?v={{ site.asset_version }}"><img class="company-title-art" src="{{ '/images/company-logos/clay-thumbs-up-lossless.webp' | relative_url }}" width="1312" height="1199" alt="" aria-hidden="true" loading="lazy" decoding="async"></picture>
+                <h2 class="h2 home-section-title company-heading" id="company-heading">Trusted by...</h2>
+            </div>
             <div class="logo-carousel">
                 <div class="logo-carousel-viewport">
                     <div class="logo-carousel-track" id="company-logo-track">
                         <ul class="testimony-list">
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Focal Signum (opens in a new tab)" href="https://focalsignum.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/focal-signum.svg" width="817" height="637" alt="Focal Signum"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Focal Signum (opens in a new tab)" href="https://focalsignum.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/focal-signum.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/focal-signum.svg" width="817" height="637" alt="Focal Signum"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Global Payments (opens in a new tab)" href="https://www.globalpayments.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/globalpayments.svg" alt="Global Payments"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Global Payments (opens in a new tab)" href="https://www.globalpayments.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/globalpayments.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/globalpayments.svg" alt="Global Payments"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="APH (opens in a new tab)" href="https://www.aph.org/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/aph.svg" alt="APH"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="APH (opens in a new tab)" href="https://www.aph.org/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/aph.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/aph.svg" alt="APH"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Worldpay (opens in a new tab)" href="https://www.worldpay.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/worldpay.svg" alt="Worldpay"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Worldpay (opens in a new tab)" href="https://www.worldpay.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/worldpay.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/worldpay.svg" alt="Worldpay"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Old Forester (opens in a new tab)" href="https://www.oldforester.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/old-forester.svg" alt="Old Forester"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Old Forester (opens in a new tab)" href="https://www.oldforester.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/old-forester.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/old-forester.svg" alt="Old Forester"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Big Ass Fans (opens in a new tab)" href="https://bigassfans.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/big-ass-fans.svg" alt="Big Ass Fans"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Big Ass Fans (opens in a new tab)" href="https://bigassfans.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/big-ass-fans.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/big-ass-fans.svg" alt="Big Ass Fans"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="MCM CPAs & Advisors (opens in a new tab)" href="https://www.cbh.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mcm-cpas.svg" alt="MCM CPAs & Advisors"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="MCM CPAs & Advisors (opens in a new tab)" href="https://www.cbh.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/mcm-cpas.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mcm-cpas.svg" alt="MCM CPAs & Advisors"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="AdvancedMD (opens in a new tab)" href="https://www.advancedmd.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/advancedmd.svg" alt="AdvancedMD"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="AdvancedMD (opens in a new tab)" href="https://www.advancedmd.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/advancedmd.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/advancedmd.svg" alt="AdvancedMD"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Xenial (opens in a new tab)" href="https://www.xenial.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/xenial.svg" alt="Xenial"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Xenial (opens in a new tab)" href="https://www.xenial.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/xenial.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/xenial.svg" alt="Xenial"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="AdaptHealth (opens in a new tab)" href="https://adapthealth.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/adapt-health.svg" alt="AdaptHealth"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="AdaptHealth (opens in a new tab)" href="https://adapthealth.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/adapt-health.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/adapt-health.svg" alt="AdaptHealth"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Integrated Sign (opens in a new tab)" href="https://www.integratedsign.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/integrated-sign.svg" alt="Integrated Sign"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Integrated Sign (opens in a new tab)" href="https://www.integratedsign.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/integrated-sign.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/integrated-sign.svg" alt="Integrated Sign"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Cleanse Clinic (opens in a new tab)" href="https://thecleanseclinic.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/cleanse-clinic.svg" alt="Cleanse Clinic"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Cleanse Clinic (opens in a new tab)" href="https://thecleanseclinic.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/cleanse-clinic.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/cleanse-clinic.svg" alt="Cleanse Clinic"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="TSYS (opens in a new tab)" href="https://www.tsys.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/tsys.svg" alt="TSYS"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="TSYS (opens in a new tab)" href="https://www.tsys.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/tsys.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/tsys.svg" alt="TSYS"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="DBS Interactive (opens in a new tab)" href="https://www.dbswebsite.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/dbs-interactive.svg" alt="DBS Interactive"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="DBS Interactive (opens in a new tab)" href="https://www.dbswebsite.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/dbs-interactive.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/dbs-interactive.svg" alt="DBS Interactive"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="EVO Payments (opens in a new tab)" href="https://evopayments.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/evo-payments.svg" alt="EVO Payments"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="EVO Payments (opens in a new tab)" href="https://evopayments.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/evo-payments.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/evo-payments.svg" alt="EVO Payments"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Humana (opens in a new tab)" href="https://www.humana.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/humana.svg" alt="Humana"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Humana (opens in a new tab)" href="https://www.humana.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/humana.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/humana.svg" alt="Humana"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Zeon Chemicals (opens in a new tab)" href="https://www.zeonchemicals.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/zeon-chemicals.svg" alt="Zeon Chemicals"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Zeon Chemicals (opens in a new tab)" href="https://www.zeonchemicals.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/zeon-chemicals.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/zeon-chemicals.svg" alt="Zeon Chemicals"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Mightily (opens in a new tab)" href="https://mightily.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mightily.svg" alt="Mightily"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Mightily (opens in a new tab)" href="https://mightily.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/mightily.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mightily.svg" alt="Mightily"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Mighty Small Homes (opens in a new tab)" href="https://www.mightysmallhomes.com/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mighty-small-homes.svg" alt="Mighty Small Homes"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Mighty Small Homes (opens in a new tab)" href="https://www.mightysmallhomes.com/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/mighty-small-homes.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/mighty-small-homes.svg" alt="Mighty Small Homes"></picture></a>
                             </li>
                             <li class="testimony-item">
-                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Heartland (opens in a new tab)" href="https://www.heartland.us/"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/heartland.svg" width="576" height="104" alt="Heartland"></a>
+                                <a class="company-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Heartland (opens in a new tab)" href="https://www.heartland.us/"><picture class="company-logo-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/company-logos/dark/heartland.svg' | relative_url }}"><img loading="lazy" decoding="async" class="company-logo" src="/images/company-logos/heartland.svg" width="576" height="104" alt="Heartland"></picture></a>
                             </li>
                         </ul>
                     </div>
@@ -276,8 +282,8 @@ description: "Fractional product design leadership for growing companies navigat
                 </div>
             </div>
             <div class="about-me-artwork" aria-hidden="true" data-reveal="up">
-                <img class="about-me-artwork-image" src="{{ '/images/contact/shaken-rocks.png' | relative_url }}?v={{ site.asset_version }}" width="1536" height="1024" alt="" loading="lazy" decoding="async">
-                <video class="about-me-artwork-image about-me-artwork-video" data-decorative-video muted playsinline preload="none" tabindex="-1" poster="{{ '/images/contact/shaken-rocks.png' | relative_url }}?v={{ site.asset_version }}">
+                <picture class="theme-artwork-picture"><source data-theme-source media="(prefers-color-scheme: dark)" srcset="{{ '/images/contact/shaken-rocks-dark-lossless.webp' | relative_url }}?v={{ site.asset_version }}"><img class="about-me-artwork-image" src="{{ '/images/contact/shaken-rocks-lossless.webp' | relative_url }}?v={{ site.asset_version }}" width="1536" height="1024" alt="" loading="lazy" decoding="async"></picture>
+                <video class="about-me-artwork-image about-me-artwork-video" data-decorative-video muted playsinline preload="none" tabindex="-1" poster="{{ '/images/contact/shaken-rocks-lossless.webp' | relative_url }}?v={{ site.asset_version }}">
                     <source src="{{ '/images/contact/shaking-rocks-scrub.mp4' | relative_url }}?v={{ site.asset_version }}" type="video/mp4">
                 </video>
             </div>

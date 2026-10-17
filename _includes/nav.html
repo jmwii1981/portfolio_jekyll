@@ -1,3 +1,5 @@
+{% assign vitae_parent_current = false %}
+{% if page.url == '/vitae/' %}{% assign vitae_parent_current = true %}{% elsif page.url contains '/vitae/' %}{% unless page.project == 'vega' or page.project == 'avenapay' or page.project == 'ledgerflow' %}{% assign vitae_parent_current = true %}{% endunless %}{% endif %}
 <!-- main navigation container -->
 <nav 
     class="nav-container"
@@ -52,9 +54,21 @@
             class="tab-container">
                 <a 
                 id="vitae"
-                class="a tab {% if page.url contains '/vitae/' %}active{% endif %}"
-                {% if page.url contains '/vitae/' %}aria-current="page"{% endif %}
+                class="a tab {% if vitae_parent_current %}active{% endif %}"
+                {% if vitae_parent_current %}aria-current="page"{% endif %}
                 href="{{ '/vitae/' | relative_url }}" aria-label="View work"><span class="menu-icon-circle" aria-hidden="true"><img class="menu-emoji" src="{{ '/images/ui/briefcase.svg' | relative_url }}" width="26" height="26" alt="" aria-hidden="true"></span><span>View work</span></a>
+                {% if page.url contains '/vitae/' %}
+                <ul class="menu-projects" aria-label="Portfolio projects">
+                    {% assign menu_project_slugs = 'vega,avenapay,ledgerflow' | split: ',' %}
+                    {% for menu_slug in menu_project_slugs %}
+                    {% assign menu_route = '/vitae/' | append: menu_slug | append: '/' %}
+                    {% assign menu_page = site.pages | where: 'url', menu_route | first %}
+                    {% if menu_page %}
+                    <li><a class="tab menu-project-link" href="{{ menu_route | relative_url }}" {% if page.url == menu_route %}aria-current="page"{% endif %} aria-label="{{ menu_page.title | escape }}"><span>{{ site.data.vitae_projects[menu_slug].name | split: ' ' | first }}</span></a></li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                {% endif %}
         </li>
         <li 
             id="perspectives-tab"
@@ -78,6 +92,20 @@
                 <span class="menu-icon-circle" aria-hidden="true"><span class="menu-emoji menu-linkedin-tile"><svg class="menu-linkedin-letters" viewBox="0 0 24 24" aria-hidden="true"><g class="menu-linkedin-letter menu-linkedin-letter--i"><circle cx="5" cy="5" r="2"/><path d="M3 9h4v12H3z"/></g><path class="menu-linkedin-letter menu-linkedin-letter--n" d="M10 9h3.8v1.64C14.34 9.6 15.64 8.8 17.35 8.8 21 8.8 21 11.2 21 14.32V21h-4v-5.92c0-1.41-.03-3.23-1.97-3.23-1.98 0-2.28 1.54-2.28 3.13V21H9V9z"/></svg></span></span><span>Follow me</span>
             </a>
         </li>
+        {% unless page.url == '/links/' or page.url contains '/vitae/' %}
+        <li class="theme-menu-item">
+            <fieldset class="theme-choice" hidden>
+                <legend>Appearance</legend>
+                <div class="theme-choice-options">
+                    <div class="theme-choice-rocker">
+                    <label><input type="radio" name="site-appearance" value="light"><span><svg class="theme-choice-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /></svg><span class="theme-choice-text">Light</span></span></label>
+                    <label><input type="radio" name="site-appearance" value="dark"><span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></svg><span class="theme-choice-text">Dark</span></span></label>
+                    </div>
+                    <label class="theme-choice-system"><input type="radio" name="site-appearance" value="system" checked><span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" /></svg><span class="theme-choice-text">System</span></span></label>
+                </div>
+            </fieldset>
+        </li>
+        {% endunless %}
     </ul>
     </div>
 </nav>

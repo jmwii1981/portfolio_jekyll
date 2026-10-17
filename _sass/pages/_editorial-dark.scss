@@ -1,0 +1,186 @@
+.company-logo-picture, .theme-artwork-picture { display: contents; }
+
+// Warm copper selection, independent of component semantic colors.
+@mixin copper-text-selection {
+    &::selection, & *::selection { background-color: #ba8c69; color: #000; }
+}
+
+@mixin editorial-dark {
+    @include copper-text-selection;
+    color-scheme: dark;
+    .main.terms :is(h1,h2,h3), .main.not-found :is(h1,h2,h3) { color: #f7f3ee; }
+    .main.terms a, .main.not-found a:not(.button) { color: #c6d2fa; }
+    --color-paper: #17191c;
+    --color-background: #17191c;
+    --color-ink: #f7f3ee;
+    --color-text: #f7f3ee;
+    --color-link: #c6d2fa;
+    --color-text-soft: #d0cbc5;
+    --color-text-muted: #d0cbc5;
+    --color-text-muted-light: #d0cbc5;
+    --color-section-label: #d0cbc5;
+    --color-surface: #23262b;
+    --color-surface-muted: #30343b;
+    --color-surface-subtle: #23262b;
+    --color-border-subtle: #8995a6;
+    --color-border-muted: #8995a6;
+    --color-border-control: #8995a6;
+    --color-skeleton: #30343b;
+    --color-error: #ffb8b0;
+    --color-focus-ring: #c6d2fa;
+    --focus-ring-width: 2px;
+    --clay-focus: #c6d2fa;
+    --clay-primary-ink: #f7f3ee;
+    --clay-secondary-ink: #f7f3ee;
+    --clay-primary-base: #30343b;
+    --clay-secondary-base: #23262b;
+    --clay-primary-edge: #8995a6;
+    --clay-secondary-edge: #8995a6;
+    --clay-primary-surface: radial-gradient(ellipse at 76% 0%, rgba(208,203,197,.09), transparent 72%), linear-gradient(215deg,#48505d,#424c5d);
+    --clay-secondary-surface: radial-gradient(ellipse at 76% 0%, rgba(208,203,197,.08), transparent 72%), linear-gradient(215deg,#363a42,#30343b);
+    --clay-primary-bevel: inset -1px 2px 3px rgba(247,243,238,.14), inset 1px -3px 5px rgba(0,0,0,.32);
+    --clay-secondary-bevel: inset -1px 2px 3px rgba(247,243,238,.13), inset 1px -3px 5px rgba(0,0,0,.3);
+    --clay-primary-bevel-pressed: inset -1px 2px 5px rgba(0,0,0,.4), inset 1px -1px 2px rgba(247,243,238,.15);
+    --clay-secondary-bevel-pressed: inset -1px 2px 5px rgba(0,0,0,.4), inset 1px -1px 2px rgba(247,243,238,.15);
+    --clay-primary-shadow-rgb: 0,0,0;
+    --clay-secondary-shadow: 0 3px 5px rgba(0,0,0,.3), 0 7px 14px rgba(0,0,0,.2);
+    --clay-secondary-shadow-hover: 0 6px 9px rgba(0,0,0,.35), 0 14px 24px rgba(0,0,0,.25);
+    --clay-secondary-shadow-pressed: 0 1px 2px rgba(0,0,0,.3);
+    --clay-primary-shadow: var(--clay-secondary-shadow);
+    --clay-primary-shadow-hover: var(--clay-secondary-shadow-hover);
+    --clay-primary-shadow-pressed: var(--clay-secondary-shadow-pressed);
+    --color-consent-background: #23262b;
+    --overlay-glass-fill: #23262b;
+    --overlay-glass-bevel: inset 0 0 0 1px #8995a6;
+    background: var(--color-background);
+    color: var(--color-text);
+
+    .main :is(h1,h2,h3,h4,h5,h6),
+    .main.about .hero #about-title,
+    .main.about #beyond-the-work .home-section-title,
+    .main.about :is(.home-section-title,.company-heading,.recommendation-heading),
+    .main.contact #contact-heading,
+    .main #perspectives-page-title { color: var(--color-text); }
+    .main.about :is(.about-me-statement,.home-section-description,.about-me-invitation,.recommendation-quote,.recommendation-attribution,.recommendation-role,.recommendation-mark,.section-label),
+    .main.contact :is(.contact-label,.contact-required-note,.contact-project-question),
+    .main.contact .contact-field:focus-within .contact-label { color: var(--color-text-soft); }
+    .main a:not(.button):not(.button-container):not(.company-logo-link) { color: var(--color-link); }
+    :is(a,button,input,textarea,select):focus-visible { outline: 2px solid #c6d2fa; outline-offset: 4px; }
+    .button-container { --clay-primary-ink: #f7f3ee; --clay-secondary-ink: #f7f3ee; }
+
+    .main.about {
+        > .hero { --color-paper: #17191c; --hero-surround: #23262b; }
+        // A feathered studio floor behind the unchanged clay artwork.
+        @media (min-width: 57.5rem) {
+            > .hero:not(.hero-rocks-no-room) .image-wrapper::before {
+                content: '';
+                position: absolute;
+                z-index: -1;
+                pointer-events: none;
+                left: -25%;
+                top: 57%;
+                width: 150%;
+                height: 60%;
+                background: linear-gradient(180deg, transparent 0%, rgba(165, 160, 150, .04) 29%, rgba(165, 160, 150, .18) 32%, rgba(165, 160, 150, .14) 35%, rgba(165, 160, 150, .09) 70%, rgba(165, 160, 150, .025));
+                -webkit-mask-image: radial-gradient(ellipse at center, #000 18%, transparent 70%);
+                mask-image: radial-gradient(ellipse at center, #000 18%, transparent 70%);
+            }
+        }
+        > .help { --help-background: #23262b; }
+        > #my-approach { --approach-background: #17191c; }
+        > .testimonial-section { --testimonial-section-background: #23262b; }
+        > .company-section { --company-section-background: #17191c; }
+        > .about-me { --about-me-background: #30343b; }
+        .help .help-artwork-video, .about-me-artwork-video { display: none; }
+        .help .help-artwork:has(.is-video-ready) .help-artwork-poster { visibility: visible; }
+        .hero-brand-mark { --color-ink: #d0cbc5; }
+        .recommendation-list { background: #30343b; border-color: #8995a6; box-shadow: 0 7px 16px rgba(0,0,0,.2),0 1px 2px rgba(0,0,0,.15); }
+        .recommendation-controls button { background: #424c5d; color: #f7f3ee; }
+        .recommendation-controls { --recommendation-arrow-ink: #f7f3ee; --tertiary-hover-background: #a1a7b1; --tertiary-hover-ink: #17191c; }
+        .recommendation-controls svg { color: #f7f3ee; }
+        .recommendation-controls img { filter: brightness(0) invert(1); }
+        .testimonial-company-divider { border-color: #8995a6; }
+        .company-logo-link { background: transparent; box-shadow: none; }
+        .company-logo { filter: none; }
+        .help-item { background: #30343b; }
+        ~ .footer, ~ .footer-divider { --footer-ink: #d0cbc5; --color-link: #d0cbc5; }
+        ~ .footer { background: #30343b; box-shadow: 0 0 0 100vmax #30343b; }
+        ~ .footer-divider { border-color: #8995a6; box-shadow: 0 0 0 100vmax #30343b; }
+    }
+    .footer, .footer-divider { --footer-ink: #d0cbc5; --color-link: #c6d2fa; }
+    .footer .p { color: var(--footer-ink); }
+
+    &:has(.main.contact) {
+        --contact-background: #17191c;
+        --contact-paper: #23262b;
+        --contact-field-surface: #17191c;
+        --contact-field-border: #8995a6;
+        --picker-selected: #424c5d;
+        --picker-selected-ink: #f7f3ee;
+        background: var(--contact-background);
+    }
+    .main.contact .contact-direct-links a.contact-direct-pill { background: #9da3ad; color: #17191c; }
+    .main.contact .contact-direct-links a.contact-direct-pill:hover { background: #a1a7b1; color: #17191c; }
+    .contact-input, .contact-input.contact-select, .contact-input option {
+        background: #17191c; color: #f7f3ee; border-color: #8995a6; color-scheme: dark;
+    }
+    .contact-input::placeholder, .contact-input[type=date][data-empty=true],
+    .contact-input.contact-select:invalid, .contact-budget-trigger[data-empty=true] { color: #d0cbc5; }
+    .contact-input:hover { border-color: #c6d2fa; }
+    .contact-input:focus { border-color: #c6d2fa; outline: 2px solid #c6d2fa; outline-offset: 3px; }
+    .contact-input[aria-invalid=true] { border-color: #ffb8b0; }
+    .contact-field-error, .contact-form-status.is-error { color: #ffb8b0; }
+    .contact-form-status.is-success { color: #a5e3b5; }
+    .contact-project-question .contact-project-switch { background: #30343b; box-shadow: inset 0 0 0 1px #8995a6; }
+    .contact-project-question input:checked + .contact-project-switch { background: #424c5d; }
+    .contact-project-question input:focus-visible + .contact-project-switch { outline-color: #c6d2fa; }
+    .contact-project-question .contact-project-switch::after { background: #f7f3ee; }
+    .contact-calendar, .contact-budget-menu { background: #23262b; border-color: #8995a6; color: #f7f3ee; }
+    .contact-calendar::before, .contact-budget-menu::before { background: #23262b; border-color: #8995a6; }
+    .contact-calendar :is(.contact-calendar-top,.contact-calendar-week,.contact-calendar-bottom button),
+    .contact-calendar-nav h3, .contact-calendar-jump select { color: #d0cbc5; }
+    .contact-calendar-jump select option { background: #23262b; color: #f7f3ee; }
+    .contact-calendar button:focus-visible, .contact-calendar select:focus-visible { outline-color: #c6d2fa; }
+    .contact-calendar-top button, .contact-calendar-bottom button { background: #30343b; border-color: #8995a6; box-shadow: inset 0 1px 0 rgba(247,243,238,.12); }
+    .contact-calendar-top button:hover:not(:disabled), .contact-calendar-bottom button:hover:not(:disabled) { background: #424c5d; color: #f7f3ee; border-color: #c6d2fa; }
+    .contact-calendar-bottom { border-color: #8995a6; }
+    .contact-calendar-grid button[aria-current=date] { box-shadow: inset 0 0 0 1px #8995a6; }
+    .contact-calendar-grid button[aria-pressed=true] { box-shadow: none; }
+    .contact-label.contact-label--underline::after { opacity: 1; }
+
+    .header { --dock-ink: #f7f3ee; --dock-surface: #23262b; --menu-surface: #23262b; --dock-frost: rgba(208,203,197,.08); --dock-selected: #424c5d; --dock-selected-ink: #f7f3ee; --dock-rim: rgba(208,203,197,.3); }
+    .header {
+        --dock-tertiary-background: #9da3ad;
+        --dock-tertiary-hover-background: #a1a7b1;
+        --dock-tertiary-ink: #17191c;
+        --dock-tertiary-hover-ink: #17191c;
+    }
+    .main.contact .contact-form-status[data-state=error] { color: #ffb8b0; }
+    .main.contact .contact-form-status[data-state=success] { color: #a5e3b5; }
+    .main.contact .contact-hero::before { background: #17191c; }
+    .header .theme-choice {
+        --appearance-system-fill: color-mix(in srgb, #fff 16%, var(--color-surface));
+        --appearance-system-hover: color-mix(in srgb, #fff 20%, var(--color-surface));
+        --appearance-system-active: color-mix(in srgb, #fff 24%, var(--color-surface));
+    }
+    .header .nav-panel { --dock-ink: #f7f3ee; --dock-selected-ink: #f7f3ee; --menu-hover-background: rgba(160,176,205,.18); }
+    .header .menu-glass { background: #23262b; border-color: #8995a6; }
+    .dock-drag-handle { color: #d0cbc5; }
+    .consent-banner { color: #d0cbc5; }
+    @include vitae-glass-dock;
+
+}
+
+html[data-theme=dark]:has(.main:is(.about,.contact,.perspectives,.terms,.not-found)) {
+    background: #17191c;
+    body { @include editorial-dark; }
+}
+@media (prefers-color-scheme: dark) {
+    html[data-theme=auto]:has(.main:is(.about,.contact,.perspectives,.terms,.not-found)) {
+        background: #17191c;
+        body { @include editorial-dark; }
+    }
+}
+
+// Vitae and its case studies retain their dark presentation in both preferences.
+body.body--vitae:not(:has(.links-page)) { @include copper-text-selection; }

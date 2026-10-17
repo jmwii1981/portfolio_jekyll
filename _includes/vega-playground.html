@@ -1,31 +1,63 @@
+<section aria-labelledby="vega-wall-title">
 <div class="vega-play-intro">
-  <p class="vega-prose">Vega is a shared design language for connected products. Explore a few of its building blocks—small, familiar interactions that make an interface feel consistent.</p>
-  <a class="a vega-demo-skip" href="#vega-story">Skip the playground</a>
+  <h2 id="vega-wall-title">Plenty to explore.</h2>
+  <p class="vega-prose">Try the building blocks, then see how their states work together. Nothing is sent or saved.</p>
 </div>
-<div class="vega-playground" data-vega-playground role="group" aria-label="Vega component playground">
+<div class="vega-playground" data-vega-playground data-vega-visual data-vega-theme="dark" role="group" aria-labelledby="vega-wall-title">
+  <div class="vega-visual-theme-bar"><button type="button" class="vega-visual-theme-toggle" role="switch" aria-checked="true" aria-label="Dark mode for Vega component playground" data-vega-theme-switch hidden>Dark mode: On</button></div>
   <div class="vega-play-cell">
-    <span class="vega-component-name">Button</span>
-    <div class="vega-control-stage">
-      <button class="vega-original-button" type="button" data-vega-try hidden>Try me</button>
-      <span class="vega-original-button" data-vega-button-fallback>Try me</span>
-    </div>
-    <span class="vega-component-note" data-vega-feedback role="status">A clear starting point.</span>
+    <span class="vega-component-name">Button &amp; input</span>
+    <label for="vega-label-input">Give the button a label</label>
+    <input class="vega-original-input" id="vega-label-input" type="text" placeholder="Try a button label" maxlength="24" autocomplete="off" aria-describedby="vega-input-note">
+    <div class="vega-control-stage"><button class="vega-original-button" type="button" data-vega-try hidden>Try me</button><span class="vega-original-button" data-vega-button-fallback>Try me</span></div>
+    <span class="vega-component-note" id="vega-input-note" data-vega-feedback role="status">A label that carries through.</span>
   </div>
   <div class="vega-play-cell">
-    <span class="vega-component-name">Toggle switch</span>
-    <label class="vega-toggle-label"><input type="checkbox" role="switch" class="vega-original-toggle" aria-label="Show selected state"><span class="vega-toggle-off">Off</span><span class="vega-toggle-on">On</span></label>
-    <span class="vega-component-note">One choice. Two states.</span>
+    <span class="vega-component-name">Switch</span>
+    <label class="vega-toggle-label"><input type="checkbox" role="switch" class="vega-original-toggle" data-vega-receipts aria-describedby="vega-receipt-note"><span>Email receipts</span></label>
+    <span class="vega-receipt-preview" data-vega-receipt-preview hidden>Receipts are off</span>
+    <span class="vega-component-note" id="vega-receipt-note">One clear preference. A visible result.</span>
   </div>
-  <div class="vega-play-cell vega-play-cell--wide">
-    <label class="vega-component-name" for="vega-label-input">Input field</label>
-    <input class="vega-original-input" id="vega-label-input" type="text" placeholder="Try a button label" maxlength="18" autocomplete="off" spellcheck="false" aria-describedby="vega-input-note">
-    <span class="vega-component-note" id="vega-input-note">Try typing. Nothing is sent or saved.</span>
-  </div>
-  <div class="vega-play-cell vega-play-cell--wide">
+  <div class="vega-play-cell">
     <label class="vega-component-name" for="vega-range">Slider <output for="vega-range" data-vega-value hidden>25</output></label>
     <input class="vega-original-range" id="vega-range" type="range" min="0" max="100" value="25" step="1" aria-describedby="vega-range-note">
-    <span class="vega-component-note" id="vega-range-note">Slide, or use your arrow keys.</span>
+    <div class="vega-density-sample" data-vega-density><span>Invoice description</span><span>Amount &amp; status</span></div>
+    <span class="vega-component-note" id="vega-range-note">Adjust the space between these rows. Arrow keys work, too.</span>
   </div>
-  <div class="vega-play-footer"><span>Original Vega components · portfolio playground</span><button type="button" class="vega-play-reset" data-vega-reset hidden>Reset</button></div>
+  <div class="vega-play-cell">
+    <span class="vega-component-name">Checkboxes</span>
+    <fieldset class="vega-choice-set" data-vega-enhanced hidden><legend>Include in the preview</legend><label><input type="checkbox" data-vega-column="amount" checked> Amount</label><label><input type="checkbox" data-vega-column="status" checked> Status</label></fieldset>
+    <span class="vega-component-note">Choose which columns appear in the table below.</span>
+  </div>
+  <div class="vega-play-cell">
+    <span class="vega-component-name">Radio group</span>
+    <fieldset class="vega-choice-set" data-vega-enhanced hidden><legend>Invoice cadence</legend><label><input type="radio" name="vega-cadence" value="Once" checked> Once</label><label><input type="radio" name="vega-cadence" value="Monthly"> Monthly</label></fieldset>
+    <span class="vega-component-note" data-vega-cadence-note>One invoice, one due date.</span>
+  </div>
+  <div class="vega-play-cell">
+    <label class="vega-component-name" for="vega-currency">Select</label>
+    <label for="vega-currency">Preview currency</label>
+    <select class="vega-original-input" id="vega-currency" data-vega-enhanced hidden><option value="USD">USD · US dollar</option><option value="GBP">GBP · British pound</option><option value="EUR">EUR · Euro</option></select>
+    <span class="vega-component-note">Changes the table’s format, not an exchange rate.</span>
+  </div>
+  <div class="vega-play-cell vega-play-cell--half">
+    <span class="vega-component-name">Progress tracker</span>
+    <ol class="vega-step-preview" aria-label="Sample invoice progress"><li data-vega-step="1" aria-current="step"><span>1</span> Customer</li><li data-vega-step="2"><span>2</span> Items</li><li data-vega-step="3"><span>3</span> Review</li></ol>
+    <div class="vega-wall-actions" data-vega-step-controls hidden><button type="button" class="vega-secondary-button" data-vega-step-back disabled>Previous</button><button type="button" class="vega-original-button" data-vega-step-next>Next step</button></div>
+    <span class="vega-component-note" data-vega-step-note role="status">Step 1 of 3 · Customer</span>
+  </div>
+  <div class="vega-play-cell vega-play-cell--half">
+    <span class="vega-component-name">Disclosure</span>
+    <details class="vega-wall-disclosure"><summary>What makes a component useful?</summary><p>A clear label, predictable behavior, and states that people can recognize with a pointer, keyboard, or touch.</p></details>
+    <details class="vega-wall-disclosure"><summary>How do these examples relate to Vega?</summary><p>Explore button, field, switch, slider, table and progress states.</p></details>
+    <span class="vega-component-note">Open either section. Both work without JavaScript.</span>
+  </div>
+  <div class="vega-play-cell vega-play-cell--full">
+    <div class="vega-table-heading"><div><span class="vega-component-name">Table &amp; status</span><strong>Invoices, in context</strong></div><label data-vega-filter-control hidden>Show <select class="vega-original-input" data-vega-filter><option value="all">All invoices</option><option value="Paid">Paid</option><option value="Pending">Pending</option></select></label></div>
+    <div class="vega-wall-table-wrap" role="region" aria-label="Sample invoices" tabindex="0"><table class="vega-wall-table"><caption>Illustrative sample data · No real invoices</caption><thead><tr><th scope="col">Invoice</th><th scope="col" data-vega-col="amount">Amount</th><th scope="col" data-vega-col="status">Status</th></tr></thead><tbody><tr data-vega-row data-status="Paid"><th scope="row">Design consultation <small>INV-001</small></th><td data-vega-col="amount" data-vega-amount="185">$185.00</td><td data-vega-col="status"><span class="vega-status vega-status--paid">Paid</span></td></tr><tr data-vega-row data-status="Pending"><th scope="row">Workshop <small>INV-002</small></th><td data-vega-col="amount" data-vega-amount="320">$320.00</td><td data-vega-col="status"><span class="vega-status">Pending</span></td></tr><tr data-vega-row data-status="Paid"><th scope="row">Follow-up session <small>INV-003</small></th><td data-vega-col="amount" data-vega-amount="90">$90.00</td><td data-vega-col="status"><span class="vega-status vega-status--paid">Paid</span></td></tr></tbody></table></div>
+    <span class="vega-component-note" data-vega-table-note role="status">3 sample invoices.</span>
+  </div>
+  <noscript><p class="vega-wall-nojs">The button, table and progress examples are static. Fields, switch, slider and disclosures remain available; connected previews require JavaScript.</p></noscript>
 </div>
 <script type="module" src="{{ '/scripts/vegaPlayground.mjs' | relative_url }}"></script>
+</section>

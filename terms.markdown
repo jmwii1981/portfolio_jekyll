@@ -24,6 +24,7 @@ date_modified: "2026-08-07T12:30:00-04:00"
         <p class="p">When you submit the contact form, your first name, last name, email address, subject, message, and related request information are transmitted to Web3Forms. Web3Forms processes the submission and forwards it to my email inbox. The email address you provide is used as the reply-to address for that message.</p>
         <p class="p">If you respond to the consent banner, your analytics choice is stored locally in your browser as <span class="span">janmichaelConsentPreference</span>. This prevents the site from asking for the same choice on every visit.</p>
         <p class="p">Some links shared outside this site use the branded <span class="span">go.janmichael.io</span> domain. Those links are redirects provided by Short.io and are handled by Short.io before you arrive at janmichael.io or another destination.</p>
+        <p class="p">The appearance control stores your Light, Dark, or System choice locally in your browser.</p>
         <p class="p">This site also uses JavaScript to adjust the header while scrolling and to load recent article content for the Perspectives page. Those features are used to display the site and its content properly.</p>
     </section>
 

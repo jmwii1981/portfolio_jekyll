@@ -63,8 +63,21 @@
             const frame = contactPortrait.getBoundingClientRect();
             const image = portrait.getBoundingClientRect();
             const art = artwork.getBoundingClientRect();
-            contactPortrait.style.setProperty('--contact-links-offset', `${image.left + image.width / 2 - frame.left - frame.width / 2}px`);
+            contactPortrait.style.setProperty('--contact-links-offset', `${image.left - frame.left}px`);
             contactPortrait.style.setProperty('--contact-links-gap', `${36 - (art.bottom - image.bottom)}px`);
+            // The avatar is a square with a circular 50% top-left corner.
+            // Expanding that circle by the same gap keeps both arc centers equal.
+            const gap = 30;
+            const outerLeft = image.left - frame.left - gap;
+            const outerTop = image.top - frame.top - gap;
+            const outerRadius = image.width / 2 + gap;
+            contactPortrait.style.setProperty('--contact-curve-left', `${outerLeft}px`);
+            contactPortrait.style.setProperty('--contact-curve-top', `${outerTop}px`);
+            contactPortrait.style.setProperty('--contact-curve-radius', `${outerRadius}px`);
+            const main = contactPortrait.closest('main');
+            main?.style.setProperty('--contact-curve-shift', `${outerLeft}px`);
+            main?.style.setProperty('--contact-curve-cover-width', `${Math.max(280, outerLeft + outerRadius)}px`);
+            main?.style.setProperty('--contact-curve-cover-height', `${Math.max(280, outerTop + frame.top - main.getBoundingClientRect().top + outerRadius)}px`);
         };
         const observer = new ResizeObserver(alignContactLinks);
         observer.observe(contactPortrait);
@@ -171,8 +184,9 @@
             const frameRect = frame.getBoundingClientRect();
             const frameStyle = getComputedStyle(frame);
             const contentLeft = frameRect.left + parseFloat(frameStyle.paddingLeft);
-            // Mobile copy uses equal gutters; the floating dock may overlap it.
-            const dockClearance = window.matchMedia('(max-width: 47.999rem)').matches ? 0 : 88;
+            // Reserve the right-hand dock lane so copy and actions remain clear
+            // at any draggable vertical position, expanded or minimized.
+            const dockClearance = window.matchMedia('(max-width: 47.999rem)').matches ? 64 : 88;
             const right = Math.min(frameRect.right - parseFloat(frameStyle.paddingRight), window.innerWidth - dockClearance);
             const columnWidth = Math.min(736, Math.max(0, right - contentLeft));
             // Center the visible rocks and copy as one composition, not as
@@ -915,7 +929,7 @@
             }, { capture: true, passive: false });
             const panel = container.querySelector('.nav-panel');
             const emojiMotion = window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)');
-            nav.querySelectorAll('.tab').forEach(link => {
+            nav.querySelectorAll('.tab:not(.menu-project-link)').forEach(link => {
                 let emojiRunning = false;
                 link.addEventListener('pointerenter', async event => {
                     if (event.pointerType === 'touch' || !emojiMotion.matches ||
@@ -926,29 +940,28 @@
                     let fadeOut;
                     try {
                         if (link.closest('#vitae-tab, #contact-tab')) {
-                            fadeOut = link.querySelector('.menu-emoji').animate(
-                                [{ opacity: 1 }, { opacity: 0 }],
-                                { duration: 60, easing: 'ease-out', fill: 'forwards' }
-                            );
-                            await fadeOut.finished;
+                            link.classList.add('emoji-fading');
+                            fadeOut = link.querySelector('.menu-emoji').getAnimations()
+                                .find(animation => animation.animationName === 'menu-emoji-fade');
+                            if (fadeOut) await fadeOut.finished;
                         }
                         if (!emojiMotion.matches) return;
                         link.classList.add('emoji-animating');
                         const animations = link.getAnimations({ subtree: true })
                             .filter(animation => animation.animationName?.startsWith('menu-'));
                         // The entrance starts transparent, so releasing the fade has no flash.
-                        fadeOut?.cancel();
+                        link.classList.remove('emoji-fading');
                         await Promise.allSettled(animations.map(animation => animation.finished));
                     } finally {
-                        fadeOut?.cancel();
+                        link.classList.remove('emoji-fading');
                         link.classList.remove('emoji-animating');
                         emojiRunning = false;
                     }
                 });
             });
             const menuHoverMotion = window.matchMedia('(min-width: 48rem) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
-            nav.querySelectorAll('.tab-container').forEach((row) => {
-                const link = row.querySelector('.tab');
+            nav.querySelectorAll('.tab-container, .menu-projects > li').forEach((row) => {
+                const link = row.querySelector(':scope > .tab');
                 if (!link) return;
                 const reset = () => {
                     link.style.removeProperty('--menu-hover-x');
@@ -956,8 +969,10 @@
                 };
                 row.addEventListener('pointermove', (event) => {
                     if (!menuHoverMotion.matches || event.pointerType === 'touch') return;
+                    if (event.target.closest('.menu-projects') && !link.classList.contains('menu-project-link')) { reset(); return; }
                     // Measure the stationary row, not the moving link.
-                    const rect = row.getBoundingClientRect();
+                    const rowRect = row.getBoundingClientRect();
+                    const rect = { left: rowRect.left, top: rowRect.top, width: rowRect.width, height: link.offsetHeight };
                     const offset = (position, start, size) => Math.max(-1, Math.min(1, (position - start) / size * 2 - 1)) * 4;
                     link.style.setProperty('--menu-hover-x', `${offset(event.clientX, rect.left, rect.width).toFixed(2)}px`);
                     link.style.setProperty('--menu-hover-y', `${offset(event.clientY, rect.top, rect.height).toFixed(2)}px`);
@@ -970,7 +985,7 @@
             const lockedElements = new Map();
             const lockBackground = () => {
                 for (const control of toggle.parentElement.children) {
-                    if (control !== toggle && !lockedElements.has(control)) {
+                    if (control !== toggle && !control.matches('.dock-drag-handle') && !lockedElements.has(control)) {
                         lockedElements.set(control, control.inert);
                         control.inert = true;
                     }
@@ -992,7 +1007,7 @@
                 lockedElements.forEach((wasInert, element) => { element.inert = wasInert; });
                 lockedElements.clear();
             };
-            const menuTargets = () => [...nav.querySelectorAll('a[href], button:not([disabled]), [tabindex="0"]')]
+            const menuTargets = () => [...nav.querySelectorAll('a[href], button:not([disabled]), input[type="radio"]:checked, [tabindex="0"]')]
                 .filter(element => !element.closest('[inert], [hidden]') && element.getClientRects().length);
             const mobileDock = window.matchMedia('(max-width: 47.999rem)');
             const syncIslandAvailability = () => {
@@ -1000,18 +1015,51 @@
                 if (island) island.inert = !mobileDock.matches && container.classList.contains('is-open');
             };
             mobileDock.addEventListener('change', syncIslandAvailability);
+            let menuDocumentTop = null;
+            const menuScrollExtent = document.createElement('div');
+            menuScrollExtent.setAttribute('aria-hidden', 'true');
+            menuScrollExtent.style.cssText = 'position:absolute;left:0;width:1px;height:1px;pointer-events:none;visibility:hidden;';
             const fitPanel = () => {
+                const viewport = window.visualViewport;
+                const top = viewport?.offsetTop || 0;
+                const height = viewport?.height || innerHeight;
+                const half = panel.offsetHeight / 2;
+                const tall = panel.offsetHeight > height - 32;
+                if (!tall) {
+                    menuDocumentTop = null;
+                    menuScrollExtent.remove();
+                }
+                const clampCenter = center => {
+                    if (tall) {
+                        // Freeze the opening position in document coordinates, not viewport coordinates.
+                        if (menuDocumentTop === null) menuDocumentTop = scrollY + Math.max(top + 16, center - half);
+                        if (container.classList.contains('is-open')) {
+                            menuScrollExtent.style.top = `${menuDocumentTop + panel.offsetHeight + 16}px`;
+                            if (!menuScrollExtent.isConnected) document.body.append(menuScrollExtent);
+                        }
+                        return menuDocumentTop - scrollY + half;
+                    }
+                    return Math.max(top + 16 + half, Math.min(center, top + height - 16 - half));
+                };
                 if (window.matchMedia('(max-width: 47.999rem)').matches) {
                     panel.style.removeProperty('--menu-top');
+                    const island = container.querySelector('.dock-dots').getBoundingClientRect();
+                    const center = clampCenter(island.top + island.height / 2);
+                    panel.style.setProperty('--menu-center', `${center}px`);
                     return;
                 }
+                panel.style.removeProperty('--menu-center');
                 // A tall section list must not push the menu above the viewport.
                 const origin = container.getBoundingClientRect().top;
-                const halfHeight = panel.offsetHeight / 2;
-                const center = Math.max(16 + halfHeight, Math.min(origin + 25, window.innerHeight - 16 - halfHeight));
+                const center = clampCenter(origin + 25);
                 panel.style.setProperty('--menu-top', `${center - origin}px`);
             };
             window.addEventListener('resize', fitPanel);
+            window.visualViewport?.addEventListener('resize', fitPanel, { passive: true });
+            window.addEventListener('scroll', () => {
+                if (menuDocumentTop !== null && container.classList.contains('is-open')) fitPanel();
+            }, { passive: true });
+            container.addEventListener('dockpositionchange', fitPanel);
             if (typeof ResizeObserver === 'function') {
                 const panelObserver = new ResizeObserver(fitPanel);
                 panelObserver.observe(container);
@@ -1019,8 +1067,10 @@
             }
             const setOpen = (open, restoreFocus = false) => {
                 const wasOpen = toggle.getAttribute('aria-expanded') === 'true';
-                if (open) fitPanel();
+                if (open && !wasOpen) menuDocumentTop = null;
                 container.classList.toggle('is-open', open);
+                if (open) fitPanel();
+                else { menuDocumentTop = null; menuScrollExtent.remove(); }
                 syncIslandAvailability();
                 toggle.setAttribute('aria-expanded', String(open));
                 toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
@@ -1053,7 +1103,7 @@
             document.addEventListener('click', (event) => {
                 if (event.isTrusted && performance.now() < suppressTouchClickUntil) return;
                 if (toggle.getAttribute('aria-expanded') !== 'true' ||
-                    panel.contains(event.target) || toggle.contains(event.target)) return;
+                    panel.contains(event.target) || toggle.contains(event.target) || event.target.closest('.dock-drag-handle')) return;
                 event.preventDefault();
                 event.stopPropagation();
                 setOpen(false, true);
@@ -1064,16 +1114,24 @@
                     event.preventDefault();
                     setOpen(false, true);
                 } else if (event.key === 'Tab') {
-                    const targets = [...menuTargets(), toggle];
+                    const handle = container.querySelector('.dock-drag-handle');
+                    const targets = [...menuTargets(), toggle, ...(handle && !handle.closest('[inert]') && handle.getClientRects().length ? [handle] : [])];
                     const index = targets.indexOf(document.activeElement);
                     const next = (index + (event.shiftKey ? -1 : 1) + targets.length) % targets.length;
                     event.preventDefault();
                     targets[next].focus({ preventScroll: true });
+                    if (menuDocumentTop !== null && panel.contains(targets[next])) {
+                        const bounds = targets[next].getBoundingClientRect();
+                        const visibleTop = window.visualViewport?.offsetTop || 0;
+                        const visibleBottom = visibleTop + (window.visualViewport?.height || innerHeight);
+                        if (bounds.top < visibleTop + 16) window.scrollBy(0, bounds.top - visibleTop - 16);
+                        else if (bounds.bottom > visibleBottom - 16) window.scrollBy(0, bounds.bottom - visibleBottom + 16);
+                    }
                 }
             });
             document.addEventListener('focusin', (event) => {
                 if (toggle.getAttribute('aria-expanded') === 'true' &&
-                    !nav.contains(event.target) && event.target !== toggle) {
+                    !nav.contains(event.target) && event.target !== toggle && !event.target.closest('.dock-drag-handle')) {
                     (menuTargets()[0] || toggle).focus({ preventScroll: true });
                 }
             });
@@ -1139,11 +1197,11 @@
             });
             const sectionLinks = Array.from(container.querySelectorAll('.dock-dot'));
             const tooltipControls = controls.querySelectorAll('.dock-dot, .dock-arrow, .nav-toggle, .dock-home');
+            const dockHoverDelay = 1000;
             let dockTooltipsReady = false;
             let tooltipTimer;
             let tooltipExitTimer;
             let shownTooltipControl = null;
-            let tooltipTravel;
             let lastTooltipBounds = null;
             const rememberTooltipBounds = () => {
                 const bounds = shownTooltipControl?.querySelector('.dock-dot-label')?.getBoundingClientRect();
@@ -1154,10 +1212,10 @@
             };
             const dockReducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
             const cancelTooltipMotion = () => {
-                tooltipTravel?.cancel();
-                tooltipControls.forEach(control => control.querySelector('.dock-dot-label')?.getAnimations()
-                    .filter(animation => animation.id === 'active-dot-shake')
-                    .forEach(animation => animation.cancel()));
+                tooltipControls.forEach(control => {
+                    const label = control.querySelector('.dock-dot-label');
+                    label?.classList.remove('is-tooltip-travelling', 'is-tooltip-shaking');
+                });
             };
             dockReducedMotion.addEventListener('change', () => {
                 if (dockReducedMotion.matches) cancelTooltipMotion();
@@ -1185,10 +1243,10 @@
                     && previousLabel !== label && !dockReducedMotion.matches) {
                     const x = previous.right - next.right;
                     const y = previous.top + previous.height / 2 - next.top - next.height / 2;
-                    tooltipTravel = label.animate([
-                        { translate: `${x}px ${y}px`, opacity: 1 },
-                        { translate: '0px 0px', opacity: 1 }
-                    ], { duration: 200, easing: 'cubic-bezier(.22,.61,.36,1)' });
+                    label.style.setProperty('--tooltip-travel-x', `${x}px`);
+                    label.style.setProperty('--tooltip-travel-y', `${y}px`);
+                    void label.offsetWidth;
+                    label.classList.add('is-tooltip-travelling');
                 }
             };
             const resetDockTooltips = () => {
@@ -1242,12 +1300,198 @@
                             dockTooltipsReady = true;
                             showDockTooltip(control);
                         }
-                    }, 1000);
+                    }, dockHoverDelay);
                 });
                 control.addEventListener('pointerleave', clearTooltip);
                 control.addEventListener('pointercancel', clearTooltip);
             });
             arrangeIsland();
+            if (!main?.classList.contains('links-page')) {
+                // Minimized state lasts only for this page visit. The restore
+                // button stays outside the inert tray and preserves its position.
+                const minimize = document.createElement('button');
+                minimize.type = 'button';
+                minimize.className = 'dock-minimize';
+                minimize.setAttribute('aria-label', 'Minimize navigation');
+                minimize.innerHTML = '<span class="dock-affordance-face" aria-hidden="true"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> </svg></span>';
+                const restore = document.createElement('button');
+                restore.type = 'button';
+                restore.className = 'dock-restore';
+                restore.setAttribute('aria-label', 'Restore navigation');
+                const miniature = document.createElement('span');
+                miniature.className = 'dock-miniature';
+                miniature.setAttribute('aria-hidden', 'true');
+                const miniatureToggle = document.createElement('span');
+                miniatureToggle.className = 'dock-miniature-toggle';
+                miniatureToggle.append(toggle.querySelector('.dock-menu-icon').cloneNode(true));
+                miniature.append(miniatureToggle);
+                const middleCount = sectionLinks.filter(link => !link.classList.contains('dock-dot-endpoint')).length;
+                for (let index = 0; index < middleCount + 2; index++) {
+                    const dot = document.createElement('span');
+                    dot.className = 'dock-miniature-dot';
+                    miniature.append(dot);
+                }
+                restore.append(miniature);
+                restore.hidden = true;
+                container.append(minimize, restore);
+                let minimizeTimer;
+                let minimizeExitTimer;
+                let dockPointerInside = false;
+                const dockSurface = () => mobileDock.matches ? dotGroup : controls;
+                const hasKeyboardFocus = () => (controls.contains(document.activeElement) || document.activeElement === minimize)
+                    && document.activeElement.matches(':focus-visible');
+                const canMinimize = () => !container.classList.contains('is-open')
+                    && !container.classList.contains('is-minimized')
+                    && !container.classList.contains('is-minimizing')
+                    && !container.querySelector('.is-dragging');
+                const revealMinimize = () => {
+                    if (canMinimize()) { positionRestore(); container.classList.add('can-minimize'); }
+                };
+                const hideMinimize = () => {
+                    clearTimeout(minimizeTimer);
+                    clearTimeout(minimizeExitTimer);
+                    if (container.classList.contains('can-minimize')) container.classList.remove('can-minimize');
+                };
+                const positionRestore = () => {
+                    const rect = dockSurface().getBoundingClientRect();
+                    const origin = container.getBoundingClientRect();
+                    restore.style.top = `${Math.max(24, Math.min(innerHeight - 24, rect.top + rect.height / 2)) - origin.top}px`;
+                    restore.style.left = `${Math.max(24, Math.min(innerWidth - 24, rect.left + rect.width / 2)) - origin.left}px`;
+                    const glass = controls.querySelector('.dock-glass');
+                    const bevel = getComputedStyle(mobileDock.matches ? dotGroup : glass, mobileDock.matches ? '::before' : null);
+                    const glassRect = mobileDock.matches ? {
+                        left: rect.left + parseFloat(bevel.left),
+                        top: rect.top + parseFloat(bevel.top),
+                        width: parseFloat(bevel.width) + (bevel.boxSizing === 'border-box' ? 0 : 2 * parseFloat(bevel.borderLeftWidth)),
+                        height: parseFloat(bevel.height) + (bevel.boxSizing === 'border-box' ? 0 : 2 * parseFloat(bevel.borderTopWidth))
+                    } : glass.getBoundingClientRect();
+                    const radius = Math.min(parseFloat(bevel.borderTopRightRadius), glassRect.width / 2, glassRect.height / 2);
+                    const cornerX = glassRect.left + glassRect.width - radius;
+                    const cornerY = glassRect.top + radius;
+                    // Place the 12px face 4px above its previous bevel position. Its
+                    // separate 44px target sits above the tray, clear of controls.
+                    const faceRadius = 6;
+                    const distance = radius + faceRadius - 2;
+                    const dx = Math.max(0, Math.min(distance / Math.SQRT2, innerWidth - faceRadius - cornerX));
+                    const dy = Math.sqrt(distance ** 2 - dx ** 2);
+                    const faceX = cornerX + dx;
+                    const faceY = cornerY - dy - 4;
+                    const hitLeft = Math.max(0, Math.min(innerWidth - 44, faceX - 22));
+                    const hitTop = Math.max(0, glassRect.top - 44);
+                    minimize.style.top = `${hitTop - origin.top}px`;
+                    minimize.style.left = `${hitLeft - origin.left}px`;
+                    minimize.style.setProperty('--dock-face-x', `${faceX - hitLeft}px`);
+                    minimize.style.setProperty('--dock-face-y', `${faceY - hitTop}px`);
+                };
+                const arrangeMinimize = () => {
+                    positionRestore();
+                };
+                const syncMiniature = () => {
+                    const glass = controls.querySelector('.dock-glass');
+                    const source = getComputedStyle(mobileDock.matches ? dotGroup : glass, mobileDock.matches ? '::before' : null);
+                    const dark = document.documentElement.dataset.theme === 'dark' || document.body.classList.contains('body--vitae');
+                    for (const property of ['backgroundColor', 'backgroundImage', 'borderColor', 'borderWidth', 'borderStyle', 'borderRadius', 'boxShadow']) {
+                        miniature.style[property] = dark ? source[property] : '';
+                    }
+                    miniature.style.backdropFilter = dark ? 'blur(8px)' : '';
+                    restore.style.height = `${Math.max(44, miniature.getBoundingClientRect().height)}px`;
+                };
+                let dockMotionTimer;
+                let motionRevision = 0;
+                const transitionDock = collapse => {
+                    const revision = ++motionRevision;
+                    clearTimeout(dockMotionTimer);
+                    container.classList.remove('is-collapsing', 'is-restoring');
+                    const surface = dockSurface();
+                    const baseTransform = getComputedStyle(surface).transform;
+                    const base = baseTransform === 'none' ? '' : baseTransform;
+                    const full = (mobileDock.matches ? surface : controls.querySelector('.dock-glass')).getBoundingClientRect();
+                    const small = miniature.getBoundingClientRect();
+                    const compressed = `${base} scale(${small.width / full.width}, ${small.height / full.height})`;
+                    const finish = () => {
+                        if (revision !== motionRevision) return;
+                        container.classList.remove('is-minimizing');
+                        container.classList.toggle('is-minimized', collapse);
+                        container.classList.remove('is-collapsing', 'is-restoring');
+                        surface.classList.remove('dock-motion-surface');
+                        if (!collapse) restore.hidden = true;
+                    };
+                    if (dockReducedMotion.matches) { finish(); return; }
+                    surface.style.setProperty('--dock-motion-base', base || 'none');
+                    surface.style.setProperty('--dock-motion-compressed', compressed);
+                    surface.classList.add('dock-motion-surface');
+                    container.classList.add(collapse ? 'is-collapsing' : 'is-restoring');
+                    dockMotionTimer = setTimeout(finish, 260);
+
+                };
+                minimize.addEventListener('click', () => {
+                    if (!canMinimize()) return;
+                    positionRestore();
+                    restore.hidden = false;
+                    syncMiniature();
+                    hideMinimize();
+                    resetDockTooltips();
+                    restore.hidden = false;
+                    container.classList.add('is-minimizing');
+                    controls.inert = true;
+                    restore.focus({ preventScroll: true });
+                    transitionDock(true);
+                });
+                restore.addEventListener('click', () => {
+                    container.classList.remove('is-minimized', 'is-minimizing');
+                    controls.inert = false;
+                    toggle.focus({ preventScroll: true });
+                    transitionDock(false);
+                });
+                const miniatureThemeObserver = new MutationObserver(() => {
+                    if (!restore.hidden) syncMiniature();
+                });
+                miniatureThemeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+                const enterMinimizeRegion = event => {
+                    if (event.pointerType === 'touch') return;
+                    dockPointerInside = true;
+                    clearTimeout(minimizeExitTimer);
+                    clearTimeout(minimizeTimer);
+                    if (!container.classList.contains('can-minimize')) minimizeTimer = setTimeout(() => { positionRestore(); revealMinimize(); }, dockHoverDelay);
+                };
+                controls.addEventListener('pointerenter', enterMinimizeRegion);
+                minimize.addEventListener('pointerenter', enterMinimizeRegion);
+                const leaveMinimizeRegion = () => {
+                    dockPointerInside = false;
+                    clearTimeout(minimizeTimer);
+                    minimizeExitTimer = setTimeout(() => {
+                        if (!dockPointerInside && !hasKeyboardFocus()) hideMinimize();
+                    }, 140);
+                };
+                controls.addEventListener('pointerleave', leaveMinimizeRegion);
+                minimize.addEventListener('pointerleave', leaveMinimizeRegion);
+                minimize.addEventListener('focusin', revealMinimize);
+                controls.addEventListener('focusin', event => {
+                    if (event.target.matches(':focus-visible')) revealMinimize();
+                });
+                container.addEventListener('focusout', () => {
+                    minimizeExitTimer = setTimeout(() => {
+                        if (!dockPointerInside && !hasKeyboardFocus()) hideMinimize();
+                    }, 140);
+                });
+                controls.addEventListener('pointerdown', event => {
+                    if (event.target.closest('.dock-drag-handle')) hideMinimize();
+                });
+                controls.addEventListener('pointercancel', hideMinimize);
+                window.addEventListener('blur', hideMinimize);
+                const minimizeObserver = new MutationObserver(() => {
+                    if (container.classList.contains('is-open') || container.querySelector('.is-dragging')) hideMinimize();
+                });
+                minimizeObserver.observe(container, { attributes: true, attributeFilter: ['class'], subtree: true });
+                mobileDock.addEventListener('change', arrangeMinimize);
+                container.addEventListener('dockpositionchange', positionRestore);
+                container.closest('.header')?.addEventListener('animationend', positionRestore);
+                window.addEventListener('resize', positionRestore, { passive: true });
+                const affordanceObserver = new ResizeObserver(positionRestore);
+                affordanceObserver.observe(controls);
+                affordanceObserver.observe(dotGroup);
+                arrangeMinimize();
+            }
             const syncSections = () => {
                 if (!pageSections.length) return;
                 let index = allDockSections ? 0 : -1;
@@ -1279,17 +1523,9 @@
                 if (link.getAttribute('aria-current') === 'location') {
                     const tooltip = link.querySelector('.dock-dot-label');
                     if (tooltip && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                        tooltip.getAnimations().filter(animation => animation.id === 'active-dot-shake')
-                            .forEach(animation => animation.cancel());
-                        const shake = tooltip.animate([
-                            { translate: '0 0' },
-                            { translate: '-3px 0' },
-                            { translate: '3px 0' },
-                            { translate: '-2px 0' },
-                            { translate: '2px 0' },
-                            { translate: '0 0' }
-                        ], { duration: 320, easing: 'ease-in-out' });
-                        shake.id = 'active-dot-shake';
+                        tooltip.classList.remove('is-tooltip-shaking');
+                        void tooltip.offsetWidth;
+                        tooltip.classList.add('is-tooltip-shaking');
                     }
                     return;
                 }
@@ -1380,15 +1616,28 @@
             dotGroup.addEventListener('pointercancel', event => endIslandTouch(event));
             dotGroup.addEventListener('lostpointercapture', event => endIslandTouch(event));
             let scrollFrame = 0;
+            let bottomIntent = null;
+            const finalSectionState = () => {
+                const section = pageSections[pageSections.length - 1] || document.querySelector('footer');
+                if (!section) return null;
+                const rect = section.getBoundingClientRect();
+                const viewport = window.visualViewport;
+                const visibleTop = viewport?.offsetTop || 0;
+                const visibleBottom = visibleTop + (viewport?.height || innerHeight);
+                const maxScroll = Math.max(0, document.documentElement.scrollHeight - innerHeight);
+                const clamp = value => Math.max(0, Math.min(maxScroll, value));
+                const start = clamp(scrollY + rect.top - visibleTop - 40);
+                const end = clamp(scrollY + rect.bottom - visibleBottom);
+                return { start, end, atStart: scrollY >= start - 2,
+                    atEnd: rect.bottom <= visibleBottom + 2 || scrollY >= maxScroll - 2 };
+            };
             const syncTop = () => {
                 scrollFrame = 0;
                 rememberTooltipBounds();
                 syncSections();
-                const bottomSection = pageSections[pageSections.length - 1] || document.querySelector('footer');
-                const bottomBounds = bottomSection?.getBoundingClientRect();
-                const pageBottomReached = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
-                const atBottom = !bottomBounds || bottomBounds.top <= 40
-                    || (pageBottomReached && window.innerHeight > bottomBounds.height);
+                const finalState = finalSectionState();
+                const atBottom = !finalState || finalState.atEnd;
+                if (bottomIntent && finalState && Math.abs(scrollY - finalState[bottomIntent]) <= 2) bottomIntent = null;
                 controls.classList.toggle('at-bottom', Boolean(atBottom));
                 if (atBottom && document.activeElement === bottomButton) toggle.focus({ preventScroll: true });
                 bottomButton.hidden = atBottom;
@@ -1415,17 +1664,29 @@
                 if (!scrollFrame) scrollFrame = requestAnimationFrame(syncTop);
             }, { passive: true });
             window.addEventListener('resize', syncTop, { passive: true });
+            window.visualViewport?.addEventListener('resize', syncTop, { passive: true });
+            window.visualViewport?.addEventListener('scroll', syncTop, { passive: true });
+            // A second click during the smooth journey advances to the end;
+            // deliberate manual scrolling starts a fresh navigation decision.
+            const cancelBottomIntent = () => { bottomIntent = null; };
+            window.addEventListener('wheel', cancelBottomIntent, { passive: true });
+            window.addEventListener('touchmove', cancelBottomIntent, { passive: true });
+            document.addEventListener('keydown', event => {
+                if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)
+                    && event.target !== bottomButton) cancelBottomIntent();
+            });
             topButton?.addEventListener('click', () => {
+                cancelBottomIntent();
                 setOpen(false);
                 toggle.focus({ preventScroll: true });
                 window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
             });
             bottomButton?.addEventListener('click', () => {
                 setOpen(false);
-                const lastSection = pageSections[pageSections.length - 1] || document.querySelector('footer');
-                if (!lastSection) return;
-                const destination = window.scrollY + lastSection.getBoundingClientRect().top - 40;
-                window.scrollTo({ top: Math.max(0, destination), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+                const state = finalSectionState();
+                if (!state || state.atEnd) return;
+                bottomIntent = (bottomIntent || state.atStart) ? 'end' : 'start';
+                window.scrollTo({ top: state[bottomIntent], behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
             });
             const syncDotOverflow = () => {
                 const horizontal = getComputedStyle(dotGroup).flexDirection === 'row';

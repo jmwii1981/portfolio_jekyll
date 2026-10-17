@@ -1,7 +1,7 @@
-@font-face { font-family: VegaInter; src: url('/fonts/vega-inter-regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
-@font-face { font-family: VegaInter; src: url('/fonts/vega-inter-500.ttf') format('truetype'); font-weight: 500; font-display: swap; }
-@font-face { font-family: VegaInter; src: url('/fonts/vega-inter-600.ttf') format('truetype'); font-weight: 600; font-display: swap; }
-@font-face { font-family: VegaInter; src: url('/fonts/vega-inter-700.ttf') format('truetype'); font-weight: 700 900; font-display: swap; }
+@font-face { font-family: VegaInter; src: url('/fonts/vega-inter-regular.woff2') format('woff2'), url('/fonts/vega-inter-regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: VegaInter; src: url('/fonts/vega-inter-500.woff2') format('woff2'), url('/fonts/vega-inter-500.ttf') format('truetype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: VegaInter; src: url('/fonts/vega-inter-600.woff2') format('woff2'), url('/fonts/vega-inter-600.ttf') format('truetype'); font-weight: 600; font-display: swap; }
+@font-face { font-family: VegaInter; src: url('/fonts/vega-inter-700.woff2') format('woff2'), url('/fonts/vega-inter-700.ttf') format('truetype'); font-weight: 700 900; font-display: swap; }
 
 .html:has(.body--vitae) {
     background-color: var(--color-ink);
@@ -1807,7 +1807,7 @@ body:has(.vitae-intro) {
         transition: height .25s ease-out, top .25s ease-out, left .25s ease-out;
     }
     .vitae-intro-artwork-image { max-width: none; }
-    &.glasses-no-room .vitae-intro-artwork { visibility: hidden; }
+    &.glasses-no-room .vitae-intro-artwork { visibility: visible; }
 }
 body:has(.main.vitae) { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) {
@@ -1875,4 +1875,14 @@ body:has(.main.vitae) { overflow-x: clip; }
 
 @media (max-width: 44.25rem) {
     .main.vitae { --vitae-dock-clearance: 60px; }
+}
+
+@media (max-width: 74.999rem) {
+    .main.vitae .vitae-fluid-hero {
+        .vitae-intro-artwork, &.glasses-no-room .vitae-intro-artwork {
+            position: relative; visibility: visible; display: block; top: auto; left: auto;
+            width: min(1050px, 125vw); height: auto; max-width: none;
+            margin: 0 -10vw -1rem; aspect-ratio: 1218 / 882;
+        }
+    }
 }

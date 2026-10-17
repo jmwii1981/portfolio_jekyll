@@ -1,5 +1,5 @@
 ---
-layout: project
+layout: ledgerflow
 project: ledgerflow
 title: "LedgerFlow Payments and Invoicing"
 permalink: /vitae/ledgerflow/

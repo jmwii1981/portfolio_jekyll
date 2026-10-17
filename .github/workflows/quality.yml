@@ -22,7 +22,6 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           find scripts -type f \( -name '*.mjs' -o -name '*.js' \) ! -path 'scripts/vendor/*' ! -path 'scripts/third-party/*' -print0 | while IFS= read -r -d '' file; do node --check "$file" || exit 1; done
-          node --input-type=module --check < scripts/third-party/liquidGL.js
           node scripts/network.test.mjs
       - name: Audit generated HTML
         run: bundle exec ruby scripts/audit-site.rb

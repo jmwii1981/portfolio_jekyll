@@ -1,0 +1,16 @@
+/* LedgerFlow owns its shell; existing Vitae materials and visual theme tokens remain shared. */
+.main.vitae.ledgerflow-case [data-vega-visual] { background: var(--vv-alt); border-color: var(--vv-edge); }
+.main.vitae.ledgerflow-case [data-vega-visual] :is(strong,p,span) { color: var(--vv-text); }
+.main.vitae.ledgerflow-case [data-vega-visual] :is(figcaption,figcaption a) { color: var(--vv-muted); }
+.main.vitae.ledgerflow-case [data-vega-visual] a { text-decoration: underline; text-underline-offset: .2em; }
+.main.vitae.ledgerflow-case [data-vega-visual] :is(button,a):focus-visible { outline: 2px solid var(--vv-focus); outline-offset: 4px; }
+.main.vitae.ledgerflow-case [hidden] { display: none !important; }
+.main.vitae.ledgerflow-case .vega-visual-placeholder { min-height: 340px; }
+.main.vitae.ledgerflow-case .ledgerflow-notes p { max-width: 900px; }
+.main.vitae.ledgerflow-case .ledgerflow-notes details { padding: 24px; border: 1px solid var(--vega-rule); border-radius: 20px; }
+.main.vitae.ledgerflow-case .ledgerflow-notes summary { min-height: 44px; cursor: pointer; font-size: 20px; line-height: 1.5; }
+.main.vitae.ledgerflow-case .ledgerflow-notes details p { margin-top: 24px; font-size: 17px; }
+.main.vitae.ledgerflow-case .ledgerflow-notes li { padding-block: 10px; font-size: 17px; line-height: 1.6; scroll-margin-top: 120px; }
+@media (forced-colors:active) { .main.vitae.ledgerflow-case [data-vega-visual] { border: 1px dashed CanvasText; } }
+.main.vitae.ledgerflow-case a { color: var(--color-paper); text-underline-offset: .2em; }
+.main.vitae.ledgerflow-case a:focus-visible,.main.vitae.ledgerflow-case summary:focus-visible { outline: 2px solid #a9ccff; outline-offset: 4px; }

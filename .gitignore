@@ -14,15 +14,13 @@ scripts/vendor/*
 !scripts/vendor/vega/
 scripts/vendor/vega/*
 !scripts/vendor/vega/CHART-LICENSE.txt
+!scripts/vendor/vega/chart.umd.js
 
 # Node modules (if using npm or yarn for assets)
 node_modules/
 
 # Local environment variables (optional, if you’re storing sensitive info locally)
 local_env.yml
-
-# Private local project governance
-PROJECT_REQUIREMENTS.md
 
 # Non-production visual explorations
 design-assets/

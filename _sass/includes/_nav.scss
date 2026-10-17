@@ -1,4 +1,16 @@
+@mixin compact-dock-glass {
+    border: 1px solid rgba(255,255,255,.82);
+    background: rgba(250,252,255,.64);
+    -webkit-backdrop-filter: blur(12px) saturate(115%);
+    backdrop-filter: blur(12px) saturate(115%);
+    box-shadow: inset 1px 1px 1px rgba(255,255,255,.9),
+        inset -1px -1px 2px rgba(76,100,126,.24),
+        inset 0 0 0 3px rgba(245,250,255,.28),
+        0 2px 3px rgba(255,255,255,.65),
+        0 6px 18px rgba(26,36,50,.12);
+}
 .nav-container { position: relative; }
+.header { --dock-inactive-tooltip-background: rgba(205,216,227,.90); --dock-inactive-tooltip-ink: #30343b; }
 .dock-drag-handle {
     position: relative;
     top: 5px;
@@ -44,6 +56,12 @@
 }
 @media (hover: none), (pointer: coarse) {
     .dock-drag-handle { display: none; }
+    .is-open .dock-drag-handle {
+        display: grid;
+        width: 44px;
+        height: 32px;
+        padding: 8px 0;
+    }
 }
 // Navigation controls should not open system link previews or text callouts.
 .nav-controls,
@@ -193,25 +211,6 @@ body:not(.body--vitae) .nav-toggle[aria-expanded="true"] {
     content: ""; position: absolute; inset: 0; border-radius: inherit;
     background: url('/images/ui/clay-grain.svg') repeat;
     opacity: var(--clay-grain-opacity); mix-blend-mode: multiply; pointer-events: none;
-}
-.body--vitae .dock-control {
-    background: var(--material-surface);
-    border: .75px solid var(--material-edge);
-    color: var(--material-ink);
-    box-shadow: var(--material-bevel), var(--material-shadow);
-    &::before {
-        background: conic-gradient(from 105deg, transparent, rgba(240,247,255,.28) 65deg, transparent 105deg, transparent 160deg, rgba(240,247,255,.12) 200deg, transparent 240deg, rgba(255,255,255,.36) 300deg, transparent 350deg);
-        padding: .75px; opacity: 1; mix-blend-mode: normal;
-        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        mask-composite: exclude;
-    }
-    &:hover, &:focus-visible, &[aria-expanded="true"] {
-        background-color: rgba(255,255,255,.02);
-        box-shadow: var(--material-bevel), var(--material-shadow-hover);
-    }
-    &:active { box-shadow: var(--material-bevel-pressed), var(--material-shadow-pressed); }
 }
 .dock-home { grid-row: 1; }
 .dock-dots {
@@ -365,7 +364,7 @@ body:not(.body--vitae) .dock-dot .dock-dot-label,
 body:not(.body--vitae) .dock-arrow .dock-dot-label,
 body:not(.body--vitae) .nav-toggle .dock-dot-label,
 body:not(.body--vitae) .dock-home .dock-dot-label {
-    background: rgba(205, 216, 227, .90);
+    background: var(--dock-inactive-tooltip-background);
 }
 body:not(.body--vitae) .dock-dot[aria-current="location"] .dock-dot-label {
     background: rgba(250, 251, 253, .76);
@@ -642,8 +641,8 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     position: relative;
     color: var(--dock-ink);
     border-radius: 22px;
-    max-height: calc(100dvh - 40px);
-    overflow-y: auto;
+    max-height: none;
+    overflow: visible;
     box-sizing: border-box;
     padding: 5px;
     margin: 0;
@@ -686,6 +685,29 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
 #perspectives-tab { --menu-icon-background: #8552a6; }
 #contact-tab { --menu-icon-background: #b45460; }
 #follow-tab { --menu-icon-background: #b6cfe0; }
+// Dark-menu variants retain the shared gradient and original vector artwork.
+// LinkedIn keeps its approved circle and tile colors.
+.body--vitae {
+    #about-tab { --menu-icon-background: #454950; }
+    #vitae-tab { --menu-icon-background: #405a2c; --menu-icon-highlight-opacity: .3; }
+    #perspectives-tab { --menu-icon-background: #59386e; }
+    #contact-tab { --menu-icon-background: #793e4c; }
+}
+.header .menu-projects {
+    list-style: none; margin: 4px 0 8px 32px; padding: 0 0 0 10px;
+    border-left: 1px solid rgba(224,233,246,.25);
+    li { list-style: none; margin: 0; padding: 0; }
+}
+.header .tab.menu-project-link {
+    display: flex; align-items: center; gap: 10px;
+    min-height: 44px; padding: 8px 12px; box-sizing: border-box;
+    border-radius: 9px; color: #eef1f6; font-size: 15px; line-height: 1.4;
+    text-decoration: none;
+    &:focus-visible { background: var(--menu-hover-background); }
+    &:focus-visible { outline: 2px solid #eef1f6; outline-offset: -2px; }
+    &[aria-current="page"] { background: rgba(160,176,205,.18); font-weight: 600; }
+
+}
 .menu-emoji {
     flex: 0 0 26px;
     display: block;
@@ -733,7 +755,11 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     --dock-selected: rgba(128, 134, 145, .12);
     --menu-hover-background: rgba(207, 214, 227, .65);
 }
-.body--vitae .header .nav-panel { --menu-hover-background: rgba(160, 176, 205, .18); }
+.body--vitae .header .nav-panel {
+    --menu-hover-background: rgba(160, 176, 205, .18);
+    --color-focus-ring: #d8e5f6;
+    --focus-ring-width: 2px;
+}
 .header .tab {
     display: flex; align-items: center; justify-content: flex-start; gap: 14px;
     position: relative;
@@ -828,13 +854,13 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     .header .tab > .menu-emoji,
     .header .tab > span { transition: translate .5s ease; }
     .header .tab-container:hover { z-index: 1; }
-    .header .tab-container:hover .tab {
+    .header .tab-container:has(> .tab:hover) > .tab {
         scale: 1.07;
         background-color: var(--menu-hover-background);
         transition-duration: .15s;
     }
-    .header .tab-container:hover .tab > .menu-emoji,
-    .header .tab-container:hover .tab > span {
+    .header .tab-container:has(> .tab:hover) > .tab > .menu-emoji,
+    .header .tab-container:has(> .tab:hover) > .tab > span {
         translate: 6px 0;
         transition-duration: .15s;
     }
@@ -884,16 +910,8 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
         position: absolute;
         inset: -1px;
         pointer-events: none;
-        border: 1px solid rgba(255,255,255,.82);
+        @include compact-dock-glass;
         border-radius: inherit;
-        background: rgba(250,252,255,.64);
-        -webkit-backdrop-filter: blur(12px) saturate(115%);
-        backdrop-filter: blur(12px) saturate(115%);
-        box-shadow: inset 1px 1px 1px rgba(255,255,255,.9),
-            inset -1px -1px 2px rgba(76,100,126,.24),
-            inset 0 0 0 3px rgba(245,250,255,.28),
-            0 2px 3px rgba(255,255,255,.65),
-            0 6px 18px rgba(26,36,50,.12);
         }
         overflow: visible;
         &.is-overflowing { overflow-y: auto; overflow-x: hidden; }
@@ -916,7 +934,7 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     .dock-dots .dock-dot-label {
         left: auto;
         right: calc(50% + var(--island-half-width) + 3px);
-        top: 50%; bottom: auto;
+        top: var(--menu-center, 50%); bottom: auto;
         transform: translateY(-50%);
     }
     .dock-dot-label {
@@ -932,7 +950,7 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
         width: min(250px, calc(100vw - 32px)); padding: 6px;
         transform: translateY(6px);
     }
-    .header .nav { max-height: calc(100dvh - 120px); }
+    .header .nav { max-height: none; }
     .header .is-open .nav-panel { transform: none; }
     .header .is-open .dock-dots {
         transform: translate(calc(100% + 40px + env(safe-area-inset-right, 0px)), -50%);
@@ -1139,10 +1157,60 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     .header:not(.has-orb-lenses) .nav-controls > .dock-glass { background: #eef0f3; }
     .header:not(.has-orb-lenses) .nav-controls > .dock-glass::before { display: none; }
 }
-// Vitae's dock shares the page buttons' dark glass, without the light lens tint.
+// One source for the established Vitae glass dock and editorial dark mode.
+@mixin vitae-glass-dock {
+    .header {
+        --vitae-project-index-glass-background: linear-gradient(110deg, rgba(24,26,31,.66) 0%, rgba(10,11,14,.52) 48%, rgba(19,21,25,.62) 100%);
+        --vitae-project-index-glass-filter: blur(1.5rem) saturate(125%) brightness(1.02);
+        --dock-home-hover-ink: #e0e0e0;
+        --dock-inactive-tooltip-background: rgba(66,76,86,.90);
+        --dock-inactive-tooltip-ink: #eef1f6;
+        --dock-idle-dot-color: #737b85;
+        --dock-idle-dot-opacity: 1;
+    }
+.header .dock-control {
+    --glass-inner-highlight-height: 10%;
+    --material-base: transparent;
+    --material-edge: rgba(224, 233, 246, 0.12);
+    --material-ink: #eef1f6;
+    --material-focus: #d9e3f4;
+    --material-surface:
+        radial-gradient(ellipse 65% var(--glass-inner-highlight-height) at 50% 100%, rgba(235, 245, 255, 0.28), transparent),
+        linear-gradient(225deg, rgba(255, 255, 255, 0.09), transparent 18%, transparent 85%, rgba(226, 238, 255, 0.06));
+    --material-shadow: 0 2px 3px rgba(0, 0, 0, 0.85), 0 9px 16px rgba(0, 0, 0, 0.65), 0 3px 1px rgba(201, 222, 248, 0.12);
+    --material-shadow-hover: 0 0 9px rgba(255, 255, 255, 0.035), 0 0 18px rgba(255, 255, 255, 0.015), 0 4px 8px rgba(0, 0, 0, 0.45), 0 10px 24px rgba(0, 0, 0, 0.28), 0 3px 1px rgba(201, 222, 248, 0.2);
+    --material-shadow-pressed: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --material-bevel:
+        inset 0 1px 1px rgba(255, 255, 255, 0.22),
+        inset 0 -1px 1px rgba(223, 236, 255, 0.14),
+        inset 1px 0 1px rgba(235, 244, 255, 0.04),
+        inset -1px 0 1px rgba(235, 244, 255, 0.1);
+    --material-bevel-pressed:
+        inset 0 2px 5px rgba(0, 0, 0, 0.5),
+        inset 0 -1px 1px rgba(215, 229, 247, 0.22);
+
+    background: var(--material-surface);
+    border: .75px solid var(--material-edge);
+    color: var(--material-ink);
+    box-shadow: var(--material-bevel), var(--material-shadow);
+    &::before {
+        background: conic-gradient(from 105deg, transparent, rgba(240,247,255,.28) 65deg, transparent 105deg, transparent 160deg, rgba(240,247,255,.12) 200deg, transparent 240deg, rgba(255,255,255,.36) 300deg, transparent 350deg);
+        padding: .75px; opacity: 1; mix-blend-mode: normal;
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+    }
+    &:hover, &:focus-visible, &[aria-expanded="true"] {
+        background-color: rgba(255,255,255,.02);
+        box-shadow: var(--material-bevel), var(--material-shadow-hover);
+    }
+    &:active { box-shadow: var(--material-bevel-pressed), var(--material-shadow-pressed); }
+}
+
 @media (forced-colors: none) {
-    .body--vitae .header .nav-panel { --dock-ink: #eef1f6; }
-    .body--vitae .header .menu-glass {
+    .header .nav-panel { --dock-ink: #eef1f6; }
+    .header .menu-glass {
         background: var(--vitae-project-index-glass-background);
         -webkit-backdrop-filter: var(--vitae-project-index-glass-filter);
         backdrop-filter: var(--vitae-project-index-glass-filter);
@@ -1153,17 +1221,17 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
             inset 0 0 0 2px rgba(160,180,200,.10),
             0 .625rem 1.75rem rgba(0,0,0,.12);
     }
-    .body--vitae .header.has-orb-lenses .menu-glass {
-        background: transparent;
+    .header.has-orb-lenses .menu-glass {
+        background: rgba(8,11,16,.8);
         -webkit-backdrop-filter: var(--dock-refraction-filter) saturate(115%);
         backdrop-filter: var(--dock-refraction-filter) saturate(115%);
     }
-    .body--vitae .header.has-orb-lenses .nav-controls > .dock-glass {
+    .header.has-orb-lenses .nav-controls > .dock-glass {
         background: rgba(8, 11, 16, .56);
         -webkit-backdrop-filter: var(--dock-refraction-filter) saturate(85%);
         backdrop-filter: var(--dock-refraction-filter) saturate(85%);
     }
-    .body--vitae .header .nav-controls {
+    .header .nav-controls {
         --dock-ink: #fff;
         > .dock-glass {
             background: rgba(8,11,16,.56);
@@ -1241,14 +1309,14 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
             background: #E0F2FF;
             box-shadow: 0 0 3px rgba(224,242,255,.45), 0 0 7px rgba(184,216,240,.22);
         }
-        .dock-dot-label { color: #eef1f6; background: rgba(66,76,86,.90); border-color: rgba(224,233,246,.2); }
+        .dock-dot-label { color: var(--dock-inactive-tooltip-ink); background: var(--dock-inactive-tooltip-background); border-color: rgba(224,233,246,.2); }
         .dock-dot[aria-current="location"] .dock-dot-label {
             background: rgba(194, 210, 234, .38);
             color: #ffffff;
         }
     }
     @media (max-width: 47.999rem) {
-        .body--vitae .header .nav-controls .dock-dots::before {
+        .header .nav-controls .dock-dots::before {
             background: #050506;
             border-color: rgba(224,233,246,.2);
             box-shadow: inset 0 1px 1px rgba(255,255,255,.22), inset 0 -1px 2px rgba(223,236,255,.14), 0 3px 6px rgba(0,0,0,.65);
@@ -1257,16 +1325,22 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
         }
     }
 }
-// Keep the dark treatment legible when transparency is explicitly reduced.
+
 @media (prefers-reduced-transparency: reduce) {
-    .body--vitae .header .nav-controls > .dock-glass,
-    .body--vitae .header .menu-glass,
-    .body--vitae .header .dock-control {
+    .header .nav-controls > .dock-glass,
+    .header .menu-glass,
+    .header .dock-control {
         background: #101114;
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
     }
 }
+
+    @media (forced-colors: none) and (prefers-reduced-motion: no-preference) {
+        .header .dock-dot[aria-current="location"]::before { animation: dock-active-glow 4.8s ease-in-out infinite; }
+    }
+}
+.body--vitae { @include vitae-glass-dock; }
 @keyframes dock-active-glow {
     0%, 100% { box-shadow: 0 0 2px rgba(224,242,255,.3), 0 0 5px rgba(184,216,240,.12); }
     50% { box-shadow: 0 0 4px rgba(224,242,255,.65), 0 0 10px rgba(184,216,240,.32); }
@@ -1324,7 +1398,7 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
         }
         .dock-menu-icon { scale: .7; }
     }
-    .header .nav-controls .dock-dots:not(.is-touch-active):not(.is-hover-active):not(:has(:focus-visible)):not(:has(.nav-toggle[aria-expanded="true"])) {
+    .header .nav-controls .dock-dots:not(.is-touch-active):not(.is-hover-active):not(.can-minimize .dock-dots):not(:has(:focus-visible)):not(:has(.nav-toggle[aria-expanded="true"])) {
         .dock-control {
             background: transparent; border-color: transparent; box-shadow: none;
             // A transparent button still paints a circular patch when its
@@ -1343,6 +1417,8 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
             &.nav-toggle::before { background: #adb6bf; }
         }
     }
+    // Keep the tray geometry stable while moving to its minimize affordance.
+    .header .can-minimize .nav-controls .dock-dots,
     .header .nav-controls .dock-dots.is-touch-active,
     .header .nav-controls .dock-dots.is-hover-active,
     .header .nav-controls .dock-dots:has(:focus-visible),
@@ -1359,13 +1435,13 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
     }
     .header .nav-panel {
         position: fixed;
-        top: 50%; bottom: auto;
+        top: var(--menu-center, 50%); bottom: auto;
         right: calc(66px + env(safe-area-inset-right, 0px));
         width: min(280px, calc(100vw - 84px));
         transform: translateY(-50%);
     }
     .header .is-open .nav-panel { transform: translateY(-50%); }
-    .body--vitae .header .nav-controls .dock-dots:not(.is-touch-active):not(.is-hover-active):not(:has(:focus-visible)):not(:has(.nav-toggle[aria-expanded="true"])) .dock-control::before {
+    .body--vitae .header .nav-controls .dock-dots:not(.is-touch-active):not(.is-hover-active):not(.can-minimize .dock-dots):not(:has(:focus-visible)):not(:has(.nav-toggle[aria-expanded="true"])) .dock-control::before {
         background: rgba(240,247,255,.8);
     }
     .header .nav-controls .dock-dots .dock-dot:not([aria-current="location"])::before {
@@ -1384,7 +1460,7 @@ body:not(.body--vitae) .dock-top svg { stroke-width: 2.5; }
 // Chapter docks expose every section. Keep utility icons recognizable so their
 // collapsed controls cannot be mistaken for additional chapter dots.
 @media (max-width: 708px) {
-    .header .has-all-section-dots .nav-controls .dock-dots:not(.is-touch-active):not(.is-hover-active):not(:has(:focus-visible)):not(:has(.nav-toggle[aria-expanded="true"])) .dock-control {
+    .header .has-all-section-dots .nav-controls .dock-dots:not(.is-touch-active):not(.is-hover-active):not(.can-minimize .dock-dots):not(:has(:focus-visible)):not(:has(.nav-toggle[aria-expanded="true"])) .dock-control {
         > :not(.dock-dot-label) { visibility: visible; }
         &::before { content: none; }
     }
@@ -1395,3 +1471,247 @@ html[data-nav-input="touch"] .nav-container .dock-dot-label {
 @media (hover: none) {
     .nav-container .dock-dot-label { display: none !important; }
 }
+
+// Native radio behavior supplies arrow-key selection and one tab stop.
+.header .theme-choice {
+    --appearance-selected-fill: color-mix(in srgb, #a27c46 18%, var(--color-surface, #f5f5f7));
+    --appearance-hover-fill: color-mix(in srgb, #a27c46 24%, var(--color-surface, #f5f5f7));
+    --appearance-active-fill: color-mix(in srgb, #a27c46 28%, var(--color-surface, #f5f5f7));
+    margin: 8px 0 0; padding: 10px 0 0; border: 0;
+    border-top: 1px solid color-mix(in srgb, var(--dock-ink, #30343b) 16%, transparent);
+    color: var(--dock-ink, #30343b);
+    legend { float: left; width: 100%; padding: 0 8px 4px; font-size: .8rem; font-weight: 600; color: var(--dock-ink, #30343b); }
+    .theme-choice-options { display: flex; clear: both; gap: 6px; padding-inline: 4px; }
+    .theme-choice-rocker { position: relative; display: flex; flex: 2; gap: 4px; min-width: 0; isolation: isolate; }
+    .theme-choice-rocker::after { content: ''; position: absolute; top: 12px; bottom: 12px; left: 50%; width: 1px; transform: translateX(-50%); background: color-mix(in srgb, currentColor 18%, transparent); pointer-events: none; }
+    label { position: relative; flex: 1; min-width: 0; cursor: pointer; }
+    .theme-choice-system {
+        flex: 1.25; isolation: isolate;
+        --appearance-selected-fill: var(--appearance-system-fill, color-mix(in srgb, #fff 75%, var(--color-surface, #f5f5f7)));
+        --appearance-hover-fill: var(--appearance-system-hover, color-mix(in srgb, #fff 85%, var(--color-surface, #f5f5f7)));
+        --appearance-active-fill: var(--appearance-system-active, #fff);
+    }
+    label:has(input[value="dark"]) {
+        --appearance-selected-fill: color-mix(in srgb, #71839b 24%, var(--color-surface, #f5f5f7));
+        --appearance-hover-fill: color-mix(in srgb, #71839b 30%, var(--color-surface, #f5f5f7));
+        --appearance-active-fill: color-mix(in srgb, #71839b 34%, var(--color-surface, #f5f5f7));
+    }
+    .theme-choice-system input:checked + span::before { border: 1px solid currentColor; }
+    .theme-choice-rocker::before, .theme-choice-system::before {
+        content: ''; position: absolute; inset: 4px 0; z-index: -1; border-radius: 10px;
+        background: var(--color-surface, #f5f5f7);
+        box-shadow: 0 2px 4px rgba(40,45,50,.12), 0 4px 8px rgba(40,45,50,.06);
+    }
+    @supports ((backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px))) {
+        .theme-choice-rocker::before, .theme-choice-system::before {
+            background: color-mix(in srgb, currentColor 3%, transparent);
+            -webkit-backdrop-filter: blur(12px) saturate(115%);
+            backdrop-filter: blur(12px) saturate(115%);
+        }
+    }
+    input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    label > span { position: relative; display: flex; align-items: center; justify-content: center; gap: 4px; min-height: 44px; padding: 4px; border-radius: 8px; font-size: .8rem; font-weight: 500; isolation: isolate; }
+    .theme-choice-rocker label > span { padding-right: 6px; }
+    .theme-choice-system > span { padding-inline: 5px; }
+    .theme-choice-text { white-space: nowrap; }
+    label > span::before { content: ''; position: absolute; inset: 7px 3px; z-index: -1; border-radius: 7px; }
+    input:checked + span { font-weight: 700; }
+    input:checked + span::before { background: var(--appearance-selected-fill); }
+    @media (hover: hover) {
+        label:hover > span::before { background: color-mix(in srgb, currentColor 8%, transparent); }
+        label:has(input:checked):hover > span::before { background: var(--appearance-hover-fill); }
+    }
+    input:active + span::before { background: var(--appearance-active-fill); }
+    input:focus-visible + span { outline: 2px solid currentColor; outline-offset: 1px; }
+    svg { flex: none; width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .theme-choice-sun { stroke-width: 2.3; }
+    @media (forced-colors: active) {
+        .theme-choice-rocker::before, .theme-choice-system::before { background: Canvas; box-shadow: none; }
+        input:checked + span { color: HighlightText; }
+        input:checked + span::before { background: Highlight; }
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .header .nav:has(.tab:hover) .tab[aria-current="page"]:not(:hover) { background: transparent; }
+}
+@media (min-width: 48rem) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .header .menu-projects > li { position: relative; }
+    .header .menu-projects > li:has(> .tab:hover) { z-index: 1; }
+    .header .menu-projects > li:has(> .tab:hover) > .tab { scale: 1.07; background-color: var(--menu-hover-background); transition-duration: .15s; }
+    .header .menu-projects > li:has(> .tab:hover) > .tab > span { translate: 6px 0; transition-duration: .15s; }
+}
+
+// Decorative motion is owned by CSS; JavaScript supplies interaction state and geometry.
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .header .tab.emoji-fading .menu-emoji { animation: menu-emoji-fade 60ms ease-out forwards; }
+}
+@keyframes menu-emoji-fade { from { opacity: 1; } to { opacity: 0; } }
+@media (prefers-reduced-motion: no-preference) {
+    .dock-dot-label.is-tooltip-travelling { animation: dock-tooltip-travel 200ms cubic-bezier(.22,.61,.36,1); }
+    .dock-dot-label.is-tooltip-shaking { animation: dock-tooltip-shake 320ms ease-in-out; }
+}
+@keyframes dock-tooltip-travel {
+    from { translate: var(--tooltip-travel-x, 0px) var(--tooltip-travel-y, 0px); opacity: 1; }
+    to { translate: 0px 0px; opacity: 1; }
+}
+@keyframes dock-tooltip-shake {
+    0%, 100% { translate: 0 0; }
+    20% { translate: -3px 0; }
+    40% { translate: 3px 0; }
+    60% { translate: -2px 0; }
+    80% { translate: 2px 0; }
+}
+
+// Out-of-flow affordances leave the dock and page geometry unchanged.
+body:not(:has(.links-page)) .header .nav-controls { pointer-events: auto; }
+body:not(:has(.links-page)) .header .nav-controls > .dock-glass { pointer-events: auto; }
+.header .dock-minimize, .header .dock-restore {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--dock-inactive-tooltip-ink);
+    pointer-events: auto;
+    cursor: pointer;
+    z-index: 5;
+    > span {
+        box-sizing: border-box;
+        display: grid;
+        place-items: center;
+        width: 24px;
+        height: 24px;
+        border: 1px solid transparent;
+        border-radius: 50%;
+        background: var(--dock-inactive-tooltip-background);
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+        svg { display: block; width: 15px; height: 15px; flex: none; }
+        box-shadow: 0 1px 2px rgba(40,45,50,.12), 0 2px 4px rgba(40,45,50,.06);
+    }
+    &:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+}
+.header .dock-minimize {
+    position: absolute;
+    transform: none;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+.header .can-minimize .dock-minimize {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+.header .is-open .dock-minimize { visibility: hidden; pointer-events: none; }
+.header .dock-restore { position: absolute; transform: translate(-50%, -50%); }
+.header .dock-restore[hidden] { display: none; }
+.header .is-minimized .nav-controls { opacity: 0; }
+.header .is-minimized .nav-controls,
+.header .is-minimized .nav-controls * { visibility: hidden !important; pointer-events: none !important; }
+@media (hover: none), (pointer: coarse) {
+    .header .nav-container:not(.is-open):not(.is-minimized) .dock-minimize {
+        visibility: visible; opacity: 1; pointer-events: auto;
+    }
+}
+@media (hover: hover) and (pointer: fine) {
+    html:not([data-nav-input="touch"]) body:not(:has(.links-page)) .header .dock-home:hover .dock-house-icon {
+        background: var(--dock-home-hover-ink, color-mix(in srgb, currentColor 88%, black));
+    }
+}
+
+.header .nav-container:has(.dock-drag-handle.is-dragging) .dock-minimize { visibility: hidden; pointer-events: none; }
+
+@media (hover: hover) and (pointer: fine) {
+    html:not([data-nav-input="touch"]) .header .dock-minimize:hover {
+        color: var(--dock-inactive-tooltip-ink);
+        > span { box-shadow: 0 1px 3px rgba(40,45,50,.16), 0 2px 5px rgba(40,45,50,.08); }
+    }
+}
+@media (forced-colors: active) {
+    .header :is(.dock-minimize, .dock-restore) > span { background: ButtonFace; color: ButtonText; border-color: ButtonText; box-shadow: none; }
+}
+
+
+.header .dock-minimize > .dock-affordance-face {
+    position: absolute;
+    left: var(--dock-face-x, 22px);
+    top: var(--dock-face-y, 44px);
+    width: 12px;
+    height: 12px;
+    transform: translate(-50%, -50%);
+    svg { width: 7.5px; height: 7.5px; }
+}
+.header .dock-minimize:focus-visible {
+    outline: none;
+    > .dock-affordance-face { outline: 2px solid currentColor; outline-offset: 3px; }
+}
+
+.header .dock-restore {
+    border-radius: 12px;
+    min-height: 44px;
+    overflow: visible;
+    > .dock-miniature {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transform-origin: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 26px;
+        width: 30px;
+        height: auto;
+        padding: 20px 0 8px;
+        @include compact-dock-glass;
+        border-radius: 21px;
+        pointer-events: none;
+        overflow: visible;
+    }
+    .dock-miniature-toggle {
+        position: relative;
+        display: block;
+        order: 1;
+        width: 14px;
+        height: 4px;
+        flex: none;
+        color: var(--dock-idle-dot-color, var(--dock-ink));
+        opacity: calc(var(--dock-idle-dot-opacity, .28) * .55);
+        .dock-menu-icon { display: block; width: 14px; height: 4px; position: relative; }
+        .nav-toggle-line { left: 0; top: 0; width: 14px; height: .75px; border-radius: 1px; box-shadow: none; transform: none; }
+        .nav-toggle-line--bottom { transform: translateY(3px); }
+    }
+    .dock-miniature-dot {
+        display: block;
+        width: 6px;
+        height: 6px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--dock-idle-dot-color, var(--dock-ink));
+        opacity: var(--dock-idle-dot-opacity, .28);
+    }
+}
+.header .is-minimizing .dock-minimize { visibility: hidden; pointer-events: none; }
+@media (hover: none), (pointer: coarse) {
+    .header .nav-container.is-minimizing .dock-minimize { visibility: hidden; pointer-events: none; }
+}
+
+// Geometry is measured in JavaScript; visual interpolation stays in CSS.
+@media (prefers-reduced-motion: no-preference) {
+    .header .is-collapsing .dock-motion-surface { animation: dock-collapse 260ms cubic-bezier(.22,.61,.36,1) both; }
+    .header .is-restoring .dock-motion-surface { animation: dock-collapse 260ms cubic-bezier(.22,.61,.36,1) reverse both; }
+    .header .is-collapsing .dock-miniature { animation: dock-capsule-fade 260ms ease both; }
+    .header .is-restoring .dock-miniature { animation: dock-capsule-fade 260ms ease reverse both; }
+}
+@keyframes dock-collapse {
+    from { transform: var(--dock-motion-base); opacity: 1; }
+    to { transform: var(--dock-motion-compressed); opacity: 0; }
+}
+@keyframes dock-capsule-fade { from { opacity: 0; } to { opacity: 1; } }

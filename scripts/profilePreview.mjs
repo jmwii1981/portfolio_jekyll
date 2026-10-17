@@ -25,7 +25,21 @@ export function initializeProfilePreview() {
     caption.append(arrow);
     const surface = document.createElement('div');
     surface.className = 'profile-preview-surface';
-    surface.append(image, caption);
+    const picture = document.createElement('picture');
+    if (link.dataset.previewImageDark) {
+        const darkSource = document.createElement('source');
+        darkSource.srcset = link.dataset.previewImageDark;
+        darkSource.dataset.themeSource = 'dark';
+        const syncPreviewTheme = () => {
+            darkSource.media = document.documentElement.dataset.theme === 'dark' ? 'all' : 'not all';
+        };
+        syncPreviewTheme();
+        picture.append(darkSource);
+        const themeObserver = new MutationObserver(syncPreviewTheme);
+        themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    }
+    picture.append(image);
+    surface.append(picture, caption);
     preview.append(surface);
     // Keep the preview immediately after its trigger in keyboard tab order.
     link.after(preview);

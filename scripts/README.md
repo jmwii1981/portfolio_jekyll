@@ -36,7 +36,7 @@ Keep `isolation: isolate` on `.dock-control`. The buttons' multiply-blended clay
 grain must stay inside their own stacking contexts: an unisolated grain layer
 can suppress the sibling tray's SVG backdrop rendering in Chromium. In
 particular, `visibility: hidden` on the arrow does not remove that layer from
-the compositing arrangement. See the dock regression checks in `design-qa.md`.
+the compositing arrangement. Check dock positioning, keyboard navigation, and reduced-motion behavior after changes.
 
 `network.mjs` provides bounded fetch requests and retryable request caching for network-dependent enhancements. `network.test.mjs` verifies timeout, response-body, retry, and in-flight request behavior without adding an npm dependency.
 
@@ -49,7 +49,6 @@ bundle exec jekyll build
 node --check scripts/initializeScripts.js
 for file in scripts/glass/*.mjs; do node --check "$file"; done
 for file in scripts/perspectives/*.mjs; do node --check "$file"; done
-node --input-type=module --check < scripts/third-party/liquidGL.js
 node scripts/network.test.mjs
 ruby scripts/audit-site.rb
 ```

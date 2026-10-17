@@ -17,16 +17,18 @@ description: "Contact Jan Michael Wallace II about fractional product design lea
             <img src="{{ '/images/headshots/bio-pic-512.png' | relative_url }}?v={{ site.asset_version }}" width="512" height="512" alt="Portrait of Jan Michael Wallace II" decoding="async">
         </picture>
           </div>
-          <div class="contact-direct-links" aria-label="Reach out directly">
+          <div class="contact-direct-links" aria-labelledby="contact-direct-heading">
+            <h2 class="section-label contact-direct-heading" id="contact-direct-heading">Other Ways To Reach Me</h2>
             <a href="https://www.linkedin.com/in/jmwii1981/" class="contact-direct-pill" target="_blank" rel="noopener noreferrer" aria-label="Message me on LinkedIn (opens in a new tab)"><img src="{{ '/images/ui/speech-bubble.svg' | relative_url }}" width="26" height="26" alt="">Message me on LinkedIn</a>
             <a href="mailto:hello@janmichael.io" class="contact-direct-pill"><img src="{{ '/images/ui/emoji-envelope.svg' | relative_url }}" width="26" height="26" alt="">hello@janmichael.io</a>
-            <a href="tel:+14155069867" class="contact-direct-pill"><img src="{{ '/images/ui/emoji-telephone-receiver.svg' | relative_url }}" width="26" height="26" alt="">+1.415.506.9867</a>
+            <a href="tel:+14155069867" class="contact-direct-pill"><img src="{{ '/images/ui/emoji-telephone-receiver.svg' | relative_url }}" width="26" height="26" alt=""><span class="contact-phone-label">+1.415.506.9867</span></a>
           </div>
         </div>
     </section>
 
     <section class="contact-section" id="send-a-message" aria-label="Send a message" data-nav-section data-nav-title="Send Jan Michael Wallace II a message">
         <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" data-contact-form aria-label="Email contact form" aria-describedby="contact-required-note contact-form-status">
+            <h2 class="section-label contact-inquiries-heading">Inquiries Form</h2>
             <input type="hidden" name="access_key" value="8b2e7fb6-b67b-4e97-8bd9-b4786d165afc">
             <input type="hidden" name="from_name" value="janmichael.io Contact Form">
             <input class="contact-botcheck" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">

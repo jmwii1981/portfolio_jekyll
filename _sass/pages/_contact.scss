@@ -1,8 +1,9 @@
 body:has(.main.contact) {
+    --contact-background: #f5f2ef;
     --contact-paper: #fdfbf8;
     --contact-field-surface: #f6f3ef;
     --contact-field-border: #d6cfc6;
-    background: #f5f2ef;
+    background: var(--contact-background);
 }
 
 .main.contact {
@@ -19,16 +20,26 @@ body:has(.main.contact) {
     margin-top: 36px;
 }
 
+.contact-direct-heading,
+.contact-inquiries-heading {
+    font-family: inherit;
+    margin: 0;
+    grid-column: 1 / -1;
+}
+
 .contact-direct-pill {
     display: inline-flex;
     align-items: center;
-    gap: 17px;
-    padding: 15px 31px;
-    padding-left: 26px;
-    min-height: 55px;
-    border: 1px solid #d8d2cc;
+    gap: 8px;
+    padding: 8px 18px;
+    padding-left: 16px;
+    min-height: 44px;
+    border: 1px solid transparent;
     border-radius: 999px;
-    background: #fff;
+    background: rgba(255, 255, 255, .595);
+    -webkit-backdrop-filter: blur(12px) saturate(115%);
+    backdrop-filter: blur(12px) saturate(115%);
+    box-shadow: 0 2px 4px rgba(40,45,50,.16), 0 4px 8px rgba(40,45,50,.08);
     color: #685e54;
     font-size: calc(var(--type-control-size) * var(--mobile-text-scale, 1));
     font-weight: 700;
@@ -42,20 +53,24 @@ body:has(.main.contact) {
         width: 28px;
         height: 28px;
         object-fit: contain;
-        transform: translateY(-1px);
+        transform: translateY(-1px) scale(.888889);
     }
     // Keep the label's shared inset while optically positioning the receiver.
-    img[src*="telephone-receiver"] { transform: translate(-1px, -1px) scale(.86); }
-    img[src*="paper-plane"] { transform: translateY(-1px) scale(1.15); }
-    &:hover { color: #352e28; background: #fff; }
+    img[src*="telephone-receiver"] {
+        transform: translate(3px, -1px) scale(.764444);
+    }
+    .contact-phone-label { transform: translateX(-1px); }
+    img[src*="paper-plane"] { transform: translateY(-1px) scale(1.022222); }
+    &:hover { color: #352e28; background: rgba(255, 255, 255, .6625); }
+    &:focus-visible { outline: 2px solid #52647c; outline-offset: 4px; }
 }
 
 @media (max-width: 40rem) {
     .contact-direct-pill {
         max-width: 100%;
-        gap: 14px;
-        padding-inline: 21px;
-        padding-left: 16px;
+        gap: 7px;
+        padding-inline: 14px;
+        padding-left: 12px;
     }
 }
 
@@ -89,7 +104,7 @@ body:has(.main.contact) {
 
 .contact-avatar {
     align-self: center;
-    border-radius: 50% 0 50% 50%;
+    border-radius: 50% 0 50% 0;
     display: block;
     flex: none;
     overflow: hidden;
@@ -907,7 +922,7 @@ body:has(.main.contact) {
         z-index: -2;
         top: 0;
         bottom: 0;
-        right: calc(100% - (100% - 100px) * 494 / 1012 - 100px);
+        right: calc(100% - (100% - 100px) * 494 / 1012 - 100px - var(--contact-curve-shift, 0px));
         width: 100vw;
         background: var(--contact-paper);
         border-bottom-right-radius: 140px;
@@ -918,9 +933,9 @@ body:has(.main.contact) {
         position: absolute;
         z-index: -2;
         top: 0;
-        left: calc((100% - 100px) * 494 / 1012 + 100px);
-        width: 280px;
-        height: 280px;
+        left: calc((100% - 100px) * 494 / 1012 + 100px + var(--contact-curve-shift, 0px));
+        width: var(--contact-curve-cover-width, 280px);
+        height: var(--contact-curve-cover-height, 280px);
         background: var(--contact-paper);
     }
 
@@ -934,12 +949,12 @@ body:has(.main.contact) {
     .contact-portrait-composition::before {
         content: '';
         position: absolute;
-        top: -30px;
-        left: 0;
+        top: var(--contact-curve-top, -30px);
+        left: var(--contact-curve-left, 0px);
         height: 100%;
-        width: calc(100% + max(var(--site-outer-gutter), (100vw - 1112px) / 2) - 32px);
-        background: #f5f2ef;
-        border-top-left-radius: 280px;
+        width: calc(100% + max(var(--site-outer-gutter), (100vw - 1112px) / 2) - 32px - var(--contact-curve-left, 0px));
+        background: var(--contact-background);
+        border-top-left-radius: var(--contact-curve-radius, 280px);
         z-index: -1;
     }
 
@@ -947,6 +962,7 @@ body:has(.main.contact) {
         aspect-ratio: 550 / 545;
         .contact-avatar { width: 92.364%; }
     }
+
 
     .contact-clay-study img {
         width: 47.273%;
@@ -987,11 +1003,12 @@ body:has(.main.contact) {
     .contact-actions { gap: 20px; }
 }
 .main.contact .contact-direct-links {
-    align-items: center;
+    align-items: flex-start;
     margin-left: 0;
     margin-top: var(--contact-links-gap, 36px);
     position: relative;
     left: var(--contact-links-offset, 0px);
+    width: calc(100% - var(--contact-links-offset, 0px));
 }
 
 // Intermediate layout: portrait beside the title, contact methods across below.
@@ -1019,8 +1036,8 @@ body:has(.main.contact) {
             width: 100%;
             height: 100%;
             justify-content: center;
-            padding: 14px 12px;
-            gap: 10px;
+            padding: 10px 10px;
+            gap: 6px;
             font-size: clamp(14px, 1.6vw, 16px);
             overflow-wrap: anywhere;
             img { width: 22px; height: 22px; flex-basis: 22px; }
@@ -1031,6 +1048,7 @@ body:has(.main.contact) {
 @media (max-width: 63.999rem) {
     .main.contact .contact-direct-links {
         left: 0;
+        width: 100%;
         max-width: 100%;
     }
     .contact-direct-pill {

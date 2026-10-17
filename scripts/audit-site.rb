@@ -10,7 +10,7 @@ require "uri"
 require "yaml"
 
 source_root = Pathname.new(__dir__).join("..").expand_path
-site_root = source_root.join("_site")
+site_root = ARGV[0] ? Pathname.new(ARGV[0]).expand_path : source_root.join("_site")
 vitae_projects = YAML.safe_load_file(source_root.join("_data", "vitae_projects.yml"))
 selected_project_slugs = YAML.safe_load(source_root.join("vitae.markdown").read.split("---", 3)[1]).fetch("selected_projects")
 failures = []
@@ -169,7 +169,7 @@ site_root.glob("**/*.html").each do |file|
     next if href.start_with?("//")
 
     path, fragment = href.split("#", 2)
-    path = path.split("?").first.to_s
+    path = URI::DEFAULT_PARSER.unescape(path.split("?").first.to_s)
     destination = path.empty? ? file : site_root.join(path.delete_prefix("/"))
     destination = destination.join("index.html") if path.end_with?("/")
     failures << "#{relative}: broken internal link #{href}" unless destination.file?
@@ -194,8 +194,6 @@ main_script = source_root.join("scripts", "initializeScripts.js").read
 network_script = source_root.join("scripts", "network.mjs").read
 perspectives_fetch_script = source_root.join("scripts", "perspectives", "fetchPost.mjs").read
 quality_workflow = source_root.join(".github", "workflows", "quality.yml").read
-liquid_gl_license = source_root.join("scripts", "third-party", "liquidGL.LICENSE.txt")
-deployed_liquid_gl_license = site_root.join("scripts", "third-party", "liquidGL.LICENSE.txt")
 chart_license = site_root.join("scripts", "vendor", "vega", "CHART-LICENSE.txt")
 nav_styles = source_root.join("_sass", "includes", "_nav.scss").read
 logo_styles = source_root.join("_sass", "components", "_logo.scss").read
@@ -214,10 +212,12 @@ failures << "contact form: submission does not use the bounded JSON request help
 failures << "Perspectives: feed requests do not use the bounded JSON request helper" unless perspectives_fetch_script.scan(/fetchJsonWithTimeout\(/).length >= 2
 failures << "quality workflow: network regression tests are missing" unless quality_workflow.include?("node scripts/network.test.mjs")
 failures << "quality workflow: authored module syntax discovery is missing" unless quality_workflow.include?('find scripts -type f') && quality_workflow.include?('node --check "$file" || exit 1')
-failures << "quality workflow: vendored Liquid Glass syntax check is missing" unless quality_workflow.include?("node --input-type=module --check < scripts/third-party/liquidGL.js")
-failures << "vendored Liquid Glass license is missing" unless liquid_gl_license.file? && liquid_gl_license.read.start_with?("MIT License")
-failures << "generated site: vendored Liquid Glass license is missing" unless deployed_liquid_gl_license.file? && deployed_liquid_gl_license.read.start_with?("MIT License")
 failures << "generated site: Chart.js license is missing" unless chart_license.file? && chart_license.read.include?("Copyright (c) 2014-2024 Chart.js Contributors")
+
+# Retired runtime and private local proofs must never enter the generated site.
+%w[scripts/third-party/liquidGL.js scripts/third-party/liquidGL.LICENSE.txt review/vega-proof/index.html images/projects/vega/vega-transaction-proof.png].each do |path|
+  failures << "#{path}: retired asset or private proof leaked into generated output" if site_root.join(path).file?
+end
 
 # These are development/reference documents, not public portfolio pages.
 %w[images/ui/emoji-sources.html images/ui/vega/figma/README.html images/ui/vega/figma/index.html images/vitae/vega-screen-concepts.html scripts/vendor/vega/CHART-LICENSE.html].each do |path|
@@ -402,7 +402,11 @@ project_pages.each do |slug, image_folder|
   failures << "#{relative}: canonical URL is missing or incorrect" unless html.match?(/<link\b[^>]*rel=(['"])canonical\1[^>]*href=(['"])#{Regexp.escape(canonical)}\2/i)
   failures << "#{relative}: Open Graph type must be article" unless html.match?(/<meta\b[^>]*property=(['"])og:type\1[^>]*content=(['"])article\2/i)
   failures << "#{relative}: project social image is missing" unless html.match?(/<meta\b[^>]*property=(['"])og:image\1[^>]*content=(['"])[^'"]*\/images\/projects\/#{Regexp.escape(image_folder)}\//i)
-  failures << "#{relative}: Vitae navigation is not current" unless html.match?(/<a\b[^>]*id=(['"])vitae\1[^>]*class=(['"])[^'"]*\bactive\b[^'"]*\2[^>]*aria-current=(['"])page\3/i)
+  project_document = Nokogiri::HTML5(html)
+  project_navigation_current = project_document.css('nav a[aria-current="page"]').any? do |link|
+    link["href"] == "/vitae/#{slug}/" || (link["id"] == "vitae" && link["href"] == "/vitae/" && link["class"].to_s.split.include?("active"))
+  end
+  failures << "#{relative}: Vitae navigation is not current" unless project_navigation_current
   if selected_project_slugs.include?(slug)
     failures << "vitae/index.html: missing visible link to #{canonical}" unless vitae_page_html.include?("href=\"/vitae/#{slug}/\"")
   else
