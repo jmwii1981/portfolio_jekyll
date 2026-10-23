@@ -1,0 +1,34 @@
+<header class="mobile-site-header">
+    <a class="mobile-site-name" href="{{ '/' | relative_url }}" aria-label="Jan Michael Wallace II, home">Jan Michael</a>
+    <details class="mobile-menu">
+        <summary><span class="mobile-menu-open-label">Menu</span><span class="mobile-menu-close-label">Close</span></summary>
+        <div class="mobile-menu-panel">
+            <h2 class="mobile-menu-heading">Explore</h2>
+            <nav aria-label="Mobile primary">
+                <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}>About</a>
+                <a href="{{ '/vitae/' | relative_url }}" {% if page.url contains '/vitae/' %}aria-current="page"{% endif %}>View work</a>
+                <a href="{{ '/perspectives/' | relative_url }}" {% if page.url == '/perspectives/' %}aria-current="page"{% endif %}>Perspectives</a>
+                <a href="{{ '/contact/' | relative_url }}" {% if page.url == '/contact/' %}aria-current="page"{% endif %}>Contact me</a>
+                <a href="https://www.linkedin.com/in/jmwii1981/" target="_blank" rel="noopener noreferrer">Follow me on LinkedIn</a>
+            </nav>
+            {% unless page.url == '/links/' or page.url contains '/vitae/' %}
+            <fieldset class="mobile-theme-choice" hidden>
+                <legend>Appearance</legend>
+                {% assign appearances = 'light,dark,system' | split: ',' %}
+                {% for appearance in appearances %}
+                <label><input type="radio" name="mobile-site-appearance" value="{{ appearance }}"><span>{{ appearance | capitalize }}</span></label>
+                {% endfor %}
+            </fieldset>
+            {% endunless %}
+            {% if page.url == '/' %}
+            <nav class="mobile-page-sections" aria-label="Home page sections">
+                <h3>On this page</h3>
+                <a href="#how-i-help">How I help</a>
+                <a href="#my-approach">My approach</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#companies">Trusted by</a>
+            </nav>
+            {% endif %}
+        </div>
+    </details>
+</header>

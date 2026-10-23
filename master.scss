@@ -49,6 +49,7 @@
 @import "pages/vega-case";
 @import "pages/vega-playground";
 @import "pages/editorial-dark";
+@import "components/mobile-layout";
 
 // One deliberate site-wide heading rhythm, including page-specific headings.
 :is(h1, h2, h3, h4, h5, h6) { line-height: .9 !important; }
