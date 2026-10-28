@@ -2,7 +2,7 @@
 layout: page
 title: Vitae
 permalink: /vitae/
-selected_projects: [vega, avenapay, ledgerflow]
+selected_projects: [sundial, vega, avenapay, ledgerflow]
 description: "Selected product design leadership work spanning merchant operations, enterprise design systems, fintech workflows, and scalable product foundations."
 ---
 <main class="main vitae" id="main-content" tabindex="-1">

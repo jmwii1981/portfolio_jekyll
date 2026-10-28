@@ -1,5 +1,5 @@
 {% assign project_button_label = 'Explore project' %}
-{% if project_slug == 'vega' %}{% assign project_button_label = 'Explore Vega' %}{% elsif project_slug == 'avenapay' %}{% assign project_button_label = 'Introducing AvenaPay' %}{% elsif project_slug == 'ledgerflow' %}{% assign project_button_label = 'Discover LedgerFlow' %}{% endif %}
+{% if project_slug == 'sundial' %}{% assign project_button_label = 'Explore Sundial' %}{% elsif project_slug == 'vega' %}{% assign project_button_label = 'Explore Vega' %}{% elsif project_slug == 'avenapay' %}{% assign project_button_label = 'Introducing AvenaPay' %}{% elsif project_slug == 'ledgerflow' %}{% assign project_button_label = 'Discover LedgerFlow' %}{% endif %}
 <article class="vitae-project-summary vitae-project-stage" id="project-{{ project_slug }}" aria-labelledby="{{ project_slug }}-title" data-nav-section data-nav-title="{{ project.name }}">
     <header class="vitae-project-summary-copy" data-reveal="up">
         <h2 class="h3 project-story-title" id="{{ project_slug }}-title"><a class="a project-story-title-link" href="{{ '/vitae/' | append: project_slug | append: '/' | relative_url }}">{{ project.headline }}</a></h2>
@@ -13,5 +13,5 @@
             {% endif %}
         </div>
     </div>
-    {% include vitae-device-lineup.html slug=project_slug project=project %}
+    {% if project_slug == 'sundial' %}{% include sundial-study.html index=true %}{% else %}{% include vitae-device-lineup.html slug=project_slug project=project %}{% endif %}
 </article>

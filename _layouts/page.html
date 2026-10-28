@@ -384,7 +384,7 @@
     <script type="module" src="{{ '/scripts/mobileLayout.mjs' | relative_url }}?v={{ site.asset_version }}"></script>
 
 </head>
-<body class="body{% if page.url == '/vitae/' or page.layout == 'project' or page.layout == 'avenapay' or page.layout == 'vega' or page.layout == 'ledgerflow' %} body--vitae{% endif %}">
+<body class="body{% if page.url == '/vitae/' or page.layout == 'project' or page.layout == 'avenapay' or page.layout == 'vega' or page.layout == 'ledgerflow' or page.project == 'sundial' %} body--vitae{% endif %}">
 <a class="a skip-link" href="#main-content">Skip to main content</a>
 {% include mobile-header.html %}
 {% if page.url == '/links/' %}

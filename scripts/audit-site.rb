@@ -229,6 +229,11 @@ stages = stage_page.css(".vitae-project-stage")
 failures << "Vitae: selected projects must use the shared stage" unless stages.length == selected_project_slugs.length
 stages.each do |stage|
   failures << "#{stage['id']}: shared story structure is incomplete" unless stage.css(".vitae-project-summary-copy, .vitae-project-summary-detail, .vitae-device-lineup").length == 3
+  if stage.at_css('[data-project-presentation="sundial-detail"]')
+    failures << "Sundial: missing source artwork" unless stage.at_css('img[src="/images/projects/sundial/planner.png"][width][height]')
+    failures << "Sundial: prototype capture must identify synthetic content" unless stage.text.include?("synthetic sample tasks")
+    next
+  end
   devices = stage.css(".project-screen-device")
   failures << "#{stage['id']}: expected four shared device wrappers" unless devices.length == 4
   failures << "#{stage['id']}: device frames must share the same markup" unless devices.all? { |device| device.css("img.project-device-frame[width][height]").length == 1 }

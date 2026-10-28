@@ -59,7 +59,7 @@
                 href="{{ '/vitae/' | relative_url }}" aria-label="View work"><span class="menu-icon-circle" aria-hidden="true"><img class="menu-emoji" src="{{ '/images/ui/briefcase.svg' | relative_url }}" width="26" height="26" alt="" aria-hidden="true"></span><span>View work</span></a>
                 {% if page.url contains '/vitae/' %}
                 <ul class="menu-projects" aria-label="Portfolio projects">
-                    {% assign menu_project_slugs = 'vega,avenapay,ledgerflow' | split: ',' %}
+                    {% assign menu_project_slugs = 'sundial,vega,avenapay,ledgerflow' | split: ',' %}
                     {% for menu_slug in menu_project_slugs %}
                     {% assign menu_route = '/vitae/' | append: menu_slug | append: '/' %}
                     {% assign menu_page = site.pages | where: 'url', menu_route | first %}
