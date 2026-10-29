@@ -301,9 +301,9 @@ sundial:
   organization: "Sundial"
   index_label: "Sundial"
   discipline: "Product direction and interaction design"
-  headline: "Structure for the day. Space for the person."
+  headline: "A clearer shape for the day."
   introduction: >-
     Sundial is an evolving planning experience shaped around clearer time, flexible views and visible progress, with accessibility guiding the product direction and an iterative design system connecting the details.
-  cover: "/images/projects/sundial/history.png"
-  cover_alt: "Sundial local prototype showing an empty completed-task history"
+  cover: "/images/projects/sundial/planner.png"
+  cover_alt: "Sundial desktop prototype showing a coherent illustrative day and completed tasks"
   keywords: "planning product direction accessibility ADHD interaction design design system time management Sundial"

@@ -1,43 +1,48 @@
-.sundial-study { box-sizing: border-box; margin: 0; padding: 0; color: #b9bfc8; }
-.sundial-study > a { display: block; }
-.sundial-study img { display: block; width: 100%; height: auto; border-radius: 16px; }
-.sundial-study figcaption { margin-top: 16px; font-size: 14px; line-height: 1.6; max-width: 52rem; }
+.sundial-study {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: #b9bfc8;
+    > a { display: block; }
+    img { display: block; width: 100%; height: auto; border-radius: 12px; }
+    figcaption { margin-top: 18px; font-size: 14px; line-height: 1.6; max-width: 52rem; }
+}
 .main.sundial-case {
-    width: min(calc(100% - 160px),1120px); margin: 80px auto; padding: 0; display: block; color: #f4f3ef;
+    width: min(calc(100% - 160px),1120px);
+    margin: 64px auto 96px;
+    padding: 0;
+    display: block;
+    color: #f4f3ef;
     a { color: inherit; text-underline-offset: .25em; }
     a:focus-visible { outline: 2px solid #c6d2fa; outline-offset: 5px; }
-    h1 { margin: 24px 0; font-size: clamp(40px,5.5vw,74px); line-height: 1.04 !important; letter-spacing: -.045em; max-width: 16ch; }
-    h2 { margin: 0; font-size: clamp(30px,3.5vw,46px); line-height: 1.12 !important; letter-spacing: -.035em; }
-    h3 { font-size: 25px; line-height: 1.15 !important; }
+    h1 { margin: 24px 0; font-size: clamp(40px,6.5vw,88px); line-height: 1.02 !important; letter-spacing: -.045em; max-width: 17ch; }
+    h2 { margin: 12px 0 0; font-size: clamp(30px,3.1vw,44px); line-height: 1.12 !important; letter-spacing: -.035em; }
     .sundial-return { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; }
-    .sundial-case-intro { padding: 52px 0 44px; }
-    .sundial-eyebrow { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: .12em; line-height: 1.6; color: #b9bfc8; }
-    .sundial-deck { max-width: 44rem; font-size: clamp(20px,2vw,26px); line-height: 1.5; color: #d1d3d7; }
-    .sundial-case-status { margin-top: 24px; font-size: 14px; line-height: 1.6; color: #b9bfc8; }
-    .sundial-case-chapters { display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 28px 0 0; }
-    .sundial-case-chapters a { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; }
-    .sundial-case-section { padding: 88px 0 0; scroll-margin-top: 84px; }
-    .sundial-prose { max-width: 46rem; margin-top: 32px; }
+    .sundial-case-intro { padding: 48px 0 40px; }
+    .sundial-eyebrow { margin: 0; font-size: 11px; font-weight: 600; letter-spacing: .12em; line-height: 1.6; color: #b9bfc8; }
+    .sundial-deck { max-width: 42rem; margin: 24px 0; font-size: clamp(20px,2vw,26px); line-height: 1.5; color: #d1d3d7; }
+    .sundial-case-status { margin: 24px 0 0; font-size: 13px; line-height: 1.7; color: #b9bfc8; }
+    .sundial-case-chapters { display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 24px 0; margin-top: 24px; border-block: 1px solid #353b45; }
+    .sundial-case-chapters a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; text-decoration: none; }
+    .sundial-case-chapters a:hover { text-decoration: underline; }
+    .sundial-case-section { padding: 88px 0 0; scroll-margin-top: 84px; display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.5fr); gap: 32px 64px; }
+    .sundial-section-title h2 { max-width: 15ch; }
+    .sundial-prose { max-width: 46rem; }
     .sundial-prose p, .sundial-case-close p { margin: 0 0 24px; font-size: 18px; line-height: 1.75; color: #c1c5cc; }
-    .sundial-decision-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; margin-top: 40px; }
-    .sundial-decision-pair article { padding: 28px; background: #171b20; border: 1px solid #353b45; border-radius: 16px; }
-    .sundial-decision-pair p:not(.sundial-eyebrow) { font-size: 16px; line-height: 1.7; color: #c1c5cc; }
-    .sundial-source-capture { margin: 40px 0 0; }
-    .sundial-source-capture img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 7; object-fit: cover; object-position: top; border-radius: 16px; }
-    .sundial-source-capture figcaption { max-width: 48rem; margin-top: 16px; font-size: 14px; line-height: 1.6; color: #b9bfc8; }
-    .sundial-case-close { padding: 80px 0 0; margin-top: 64px; border-top: 1px solid #353b45; }
+    .sundial-prose p:last-child { margin-bottom: 0; }
+    .sundial-detail-pair { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 48px; margin-top: 16px; }
+    .sundial-detail { margin: 0; min-width: 0; }
+    .sundial-detail a { display: block; }
+    .sundial-detail img { display: block; width: 100%; height: auto; max-width: 100%; border-radius: 10px; }
+    .sundial-detail figcaption { margin-top: 20px; max-width: 33rem; color: #b9bfc8; font-size: 14px; line-height: 1.7; }
+    .sundial-detail figcaption span { display: block; margin-bottom: 6px; font-weight: 600; color: #eceef1; }
+    .sundial-completion-detail { grid-column: 1; grid-row: 2; max-width: 344px; }
+    .sundial-completion-section .sundial-prose { grid-column: 2; grid-row: 1 / span 2; }
+    .sundial-case-close { padding: 56px 0 0; margin-top: 80px; border-top: 1px solid #353b45; }
+    .sundial-case-close h2 { max-width: 24ch; }
     .sundial-case-close p { margin-top: 24px; max-width: 40rem; }
-    .sundial-case-close a { display: inline-flex; align-items: center; min-height: 44px; margin-right: 24px; }
+    .sundial-case-close a { display: inline-flex; align-items: center; min-height: 44px; margin-right: 24px; font-size: 16px; }
 }
-@media (max-width: 47.999rem) {
-    .main.sundial-case { width: calc(100% - 48px); margin: 28px auto 64px; .sundial-case-intro { padding-top: 24px; } .sundial-decision-pair { grid-template-columns: minmax(0,1fr); } .sundial-case-section { padding-top: 60px; } }
-
-}
-@media (forced-colors: active) {
-    .sundial-study { background: Canvas; color: CanvasText; }
-    .main.sundial-case .sundial-decision-pair article { background: Canvas; color: CanvasText; border: 1px solid CanvasText; }
-}
-
 .main.vitae #project-sundial {
     grid-template-columns: minmax(0,1fr);
     grid-template-rows: auto auto auto;
@@ -47,21 +52,34 @@
     .vitae-project-summary-copy { grid-column: 1; grid-row: 1; max-width: 48rem; }
     .vitae-project-summary-detail { grid-column: 1; grid-row: 2; max-width: 48rem; }
     .sundial-study {
-        position: relative;
-        inset: auto;
-        translate: none;
-        transform: none;
-        grid-column: 1;
-        grid-row: 3;
-        display: block;
-        align-self: start;
-        width: 100%;
-        max-width: 100%;
-        aspect-ratio: auto;
-        margin: 0;
-        mix-blend-mode: normal;
-        overflow: visible;
-        picture { display: block; width: 100%; }
+        position: relative; inset: auto; translate: none; transform: none;
+        grid-column: 1; grid-row: 3; display: block; align-self: start;
+        width: 100%; max-width: 100%; aspect-ratio: auto; margin: 0;
+        mix-blend-mode: normal; overflow: visible;
         img { position: static; width: 100%; height: auto; max-height: none; max-width: none; aspect-ratio: auto; mix-blend-mode: normal; mask-image: none; -webkit-mask-image: none; }
     }
+}
+@media (max-width: 63.999rem) {
+    .main.sundial-case {
+        .sundial-case-section { grid-template-columns: minmax(0,1fr); gap: 28px; }
+        .sundial-section-title h2 { max-width: 24ch; }
+        .sundial-completion-section .sundial-prose { grid-column: auto; grid-row: auto; }
+        .sundial-completion-detail { grid-column: auto; grid-row: auto; }
+        .sundial-detail-pair { gap: 24px; }
+    }
+}
+@media (max-width: 47.999rem) {
+    .main.sundial-case {
+        width: calc(100% - 48px); margin: 28px auto 64px;
+        .sundial-case-intro { padding-top: 24px; }
+        h1 { font-size: clamp(40px,9.8vw,64px); }
+        .sundial-case-section { padding-top: 56px; }
+        .sundial-detail-pair { grid-template-columns: minmax(0,1fr); gap: 36px; margin-top: 0; }
+        .sundial-case-chapters { gap: 4px 24px; padding-block: 16px; }
+        .sundial-prose p, .sundial-case-close p { font-size: 17px; line-height: 1.75; }
+        .sundial-case-close { margin-top: 56px; padding-top: 40px; }
+    }
+}
+@media (forced-colors: active) {
+    .main.sundial-case .sundial-case-chapters, .main.sundial-case .sundial-case-close { border-color: CanvasText; }
 }
